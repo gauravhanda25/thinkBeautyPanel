@@ -1,0 +1,24 @@
+<div class="container">
+    <div class="row" style="margin:15% 0">
+        <div class="col-sm-4 col-sm-offset-4" style="margin:auto;">
+                 
+            <div class="card"> 
+            <div class="text-center img-responsive" style="margin: 15px 0 15px 15px">
+                    <img src="/assets/img/logo.png" style="width:150px" >
+                  </div>        
+              <form class="form-horizontal ng-untouched ng-pristine ng-valid" novalidate="" (ngSubmit)="onSubmit()">   
+                <div class=" text-center alert alert-danger" [hidden]="!error">{{errorMessage}}</div>
+                 <div class=" text-center alert alert-success" [hidden]="!success">{{error}}</div>
+                 
+                  <div class="card-body">    
+                    <div class="form-group row">
+                      <div class="text-center col-md-12">                        
+                         <button class="btn btn-large btn-primary" type="submit"><!-- <i class="fa fa-save"></i> -->Click Here To Verify Your Email</button>
+                      </div>
+                    </div> 
+                </div>                                  
+              </form>
+            </div>
+        </div>
+    </div>
+</div>

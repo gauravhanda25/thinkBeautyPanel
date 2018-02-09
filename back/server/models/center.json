@@ -1,0 +1,31 @@
+{
+  "name": "Center",
+  "base": "PersistedModel",
+  "idInjection": true,
+  "options": {
+    "validateUpsert": true
+  },
+  "properties": {},
+  "validations": [],
+  "relations": {
+    "brands": {
+      "type": "belongsTo",
+      "model": "Brand",
+      "foreignKey": "brandId",
+      "through": ""
+    },
+    "mrs": {
+      "type": "hasMany",
+      "model": "MR",
+      "foreignKey": "centerId"
+    },
+    "oems": {
+      "type": "belongsTo",
+      "model": "Oem",
+      "foreignKey": "oemId",
+      "through": ""
+    }
+  },
+  "acls": [],
+  "methods": {}
+}

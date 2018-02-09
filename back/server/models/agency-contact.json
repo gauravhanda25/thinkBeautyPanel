@@ -1,0 +1,21 @@
+{
+  "name": "AgencyContact",
+  "base": "PersistedModel",
+  "idInjection": true,
+  "options": {
+    "validateUpsert": true
+  },
+  "agencies": {
+    "members": {
+      "type": "belongsTo",
+      "model": "AdvertisingAgency",
+      "foreignKey": "",
+      "through": ""
+    }
+  },
+  "properties": {},
+  "validations": [],
+  "relations": {},
+  "acls": [],
+  "methods": {}
+}

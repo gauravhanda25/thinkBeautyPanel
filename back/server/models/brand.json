@@ -1,0 +1,30 @@
+{
+  "name": "Brand",
+  "base": "PersistedModel",
+  "idInjection": true,
+  "options": {
+    "validateUpsert": true
+  },
+  "properties": {},
+  "validations": [],
+  "relations": {
+    "oems": {
+      "type": "belongsTo",
+      "model": "Oem",
+      "foreignKey": "oemId",
+      "through": ""
+    },
+    "centers": {
+      "type": "hasMany",
+      "model": "Center",
+      "foreignKey": "brandId"
+    },
+    "mrs": {
+      "type": "hasMany",
+      "model": "MR",
+      "foreignKey": ""
+    }
+  },
+  "acls": [],
+  "methods": {}
+}

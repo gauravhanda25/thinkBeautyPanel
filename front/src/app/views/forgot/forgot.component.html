@@ -1,0 +1,38 @@
+<div class="container">
+    <div class="row" style="margin:15% 0">
+        <div class="col-sm-4 col-sm-offset-4" style="margin:auto;">
+            <div class="card">         
+              <form class="form-horizontal ng-untouched ng-pristine ng-valid" novalidate="" (ngSubmit)="onSubmit()" #forgotForm="ngForm">       
+                <div class="alert alert-danger" [hidden]="!error">Incorrect Email!</div>
+                 <div class="alert alert-success" [hidden]="!success">Mail Sent successfully!</div>
+                 <div class="text-center img-responsive" style="margin: 15px 0 0 15px">
+                    <img src="/assets/img/logo.png" style="width:150px" >
+                  </div>
+                  <div class="card-body">
+                    <p class="text-muted">Recover your account password</p>
+                    <div class="form-group row">
+                      <div class="col-md-12">
+                        <div class="input-group">
+                          <div class="input-group-prepend">
+                            <span class="input-group-text"><i class="fa fa-envelope"></i></span>
+                          </div>
+                          <input class="form-control" name="email" placeholder="Email" type="text" [(ngModel)]="data.email" required>
+                        </div>
+                      </div>
+                    </div>  
+                    <div class="form-group row">
+                      <div class="col-md-6">                        
+                        <button class="btn btn-large btn-primary" type="submit" [disabled] = "!forgotForm.form.valid"><!-- <i class="fa fa-send"></i> --> Send Mail</button>
+                      </div>
+                      <div class="col-md-6">                        
+                        <a class="pull-right" href="#" routerLink = "/login">&lt;&lt; Login</a>
+                      </div>
+                    </div> 
+                </div>             
+              </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<toaster-container [toasterconfig]="toasterconfig"></toaster-container>

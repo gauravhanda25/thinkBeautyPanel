@@ -1,0 +1,4 @@
+module.exports = function(url)
+{
+  return `<div style="font-family: 'Roboto'; margin: auto; width:600px;"> <div> <img src="http://portaltest.bullseyesalesevents.com/assets/img/logo.png" style="display: block; width: 300px;" align="middle"> </div> <div> <h1 style="font-family: 'Helvetica'">It's time to get started with Bullseye.</h1> </div> <div> <p>Hi there,</p> <br> </div> <div> <p>Thank you for registering with Bullseye.</p> </div> <div> <p>Simply click the link below to verify your email address.</p> <br> </div> <div> <div style="display: block; margin: auto; width: 200px; height: 60px; background-color: #25aae1; border-radius: 10px"> <p style="text-align: center; position: relative; top: 35%; " align="middle"><a style="color: white;"  href="${url}">VERIFY YOUR EMAIL</a></p> </div> </div> <div> <br> <br> <p>Thank you,</p> <p>Team Bullseye</p> </div> </div>`; // eslint-disable-line
+};

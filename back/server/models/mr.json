@@ -1,0 +1,32 @@
+{
+  "name": "MR",
+  "base": "PersistedModel",
+  "idInjection": true,
+  "options": {
+    "validateUpsert": true
+  },
+  "properties": {},
+  "validations": [],
+  "relations": {
+    "centers": {
+      "type": "belongsTo",
+      "model": "Center",
+      "foreignKey": "centerId",
+      "through": ""
+    },
+    "oems": {
+      "type": "belongsTo",
+      "model": "Oem",
+      "foreignKey": "oemId",
+      "through": ""
+    },
+    "brands": {
+      "type": "belongsTo",
+      "model": "Brand",
+      "foreignKey": "brandId",
+      "through": ""
+    }
+  },
+  "acls": [],
+  "methods": {}
+}

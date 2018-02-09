@@ -1,0 +1,36 @@
+<div class="animated fadeIn">
+  <div class="row">
+    <div class="col-lg-12">
+      	<div class="card">         
+            <form class="form-horizontal ng-untouched ng-pristine ng-valid" novalidate="" (ngSubmit)="onSubmit()" #oemForm="ngForm">
+				<div class="card-header">
+					<span *ngIf="editparam.action == 'add'"><i class="fa fa-align-justify"></i>Add Contact Role</span>
+                    <span *ngIf="editparam.action == 'edit'"><i class="fa fa-align-justify"></i>Edit Contact Role</span>
+				</div>
+                <div class="card-body">                    
+                    <div class="form-group row col-sm-8 col-md-6">
+                      	<div class="col-md-12">
+							<label for="name">Name<span class="text-danger">*</span></label>
+                        	<input class="form-control" name="name" placeholder="Name" type="text"  [(ngModel)]="data.name" required>
+                        </div>
+                      
+                    </div> 
+                    
+                   
+                 
+                   
+                        	<input class="form-control" name="created_on" placeholder="Created On" type="hidden"  [(ngModel)]="data.created_on">
+							
+                    <div class="form-group row">
+                      <div class="col-md-6">                     
+                         <button class="btn btn-large btn-primary" type="submit" *ngIf="editparam.action == 'add'" [disabled] = "!oemForm.form.valid" >Add Role</button>               
+                         <button class="btn btn-large btn-primary" type="submit" *ngIf="editparam.action == 'edit'">Update Role</button>
+                      </div>
+                    </div> 
+                </div>                 
+              </form>
+            </div>
+    </div>    
+  </div>
+  <!--/.row-->
+</div>

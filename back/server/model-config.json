@@ -1,0 +1,105 @@
+{
+  "_meta": {
+    "sources": [
+      "loopback/common/models",
+      "loopback/server/models",
+      "../common/models",
+      "./models"
+    ],
+    "mixins": [
+      "loopback/common/mixins",
+      "loopback/server/mixins",
+      "../common/mixins",
+      "./mixins"
+    ]
+  },
+  "Member": {
+    "dataSource": "mongo",
+    "public": true,
+    "options": {
+      "emailVerificationRequired": true
+    },
+    "Email": {
+      "dataSource": "Email"
+    }
+  },
+  "AccessToken": {
+    "dataSource": "mongo",
+    "public": false
+  },
+  "ACL": {
+    "dataSource": "mongo",
+    "public": false
+  },
+  "RoleMapping": {
+    "dataSource": "mongo",
+    "public": false
+  },
+  "Role": {
+    "dataSource": "mongo",
+    "public": false
+  },
+  "Email": {
+    "dataSource": "Email"
+  },
+  "Oem": {
+    "dataSource": "mongo",
+    "public": true
+  },
+  "Brand": {
+    "dataSource": "mongo",
+    "public": true
+  },
+  "Center": {
+    "dataSource": "mongo",
+    "public": true
+  },
+  "MR": {
+    "dataSource": "mongo",
+    "public": true
+  },
+  "Container": {
+    "dataSource": "bullseyeDatasource",
+    "public": true
+  },
+  "DealerContact": {
+    "dataSource": "mongo",
+    "public": true
+  },
+  "Country": {
+    "dataSource": "mongo",
+    "public": true
+  },
+  "Province": {
+    "dataSource": "mongo",
+    "public": true
+  },
+  "DealerAddress": {
+    "dataSource": "mongo",
+    "public": true
+  },
+  "AutoGroup": {
+    "dataSource": "mongo",
+    "public": true
+  },
+  "AdvertisingAgency": {
+    "dataSource": "mongo",
+    "public": true
+  },
+  "ContactPersonRole": {
+    "dataSource": "mongo",
+    "public": true
+  },
+  "AgencyContact": {
+    "dataSource": "mongo",
+    "public": true
+  },
+  "AutoGroupContact": {
+    "dataSource": "mongo",
+    "public": true
+  },
+  "Event": {
+    "dataSource": "mongo",
+    "public": true
+  }
+}

@@ -1,0 +1,534 @@
+/*
+Title: Main CSS File
+Theme Name: Wedding
+Author Name: FairyTheme
+Author URI: http://themeforest.net/user/fairytheme
+Website:
+-------------------------------------------------------------*/
+/*
+Table of Contents:
+------------------
+1. Fonts
+2. Basic Styling
+3. Sections
+	3.1. Navigation
+	3.2. Main section
+	3.3. About us
+	3.4. Countdown
+	3.5. Events
+	3.6. Our Contacts
+	3.7. Gallery
+	3.8. Form
+	3.9. Location
+	3.10. Footer
+	3.11. Slide to top
+----------------------------------*/
+/* 1.Fonts
+-------------------------------------------------------------- */
+
+/* 2.Basic Styling
+-------------------------------------------------------------- */
+html {
+	height: 100%;
+	overflow-x: hidden;
+}
+body {
+	height: 100%;
+	font-size: 16px;
+	font-family: 'Lato', sans-serif;
+	line-height: 1;
+	display: block;
+	background: #fff;
+	color: #000;
+}
+a:hover,a:active,a:focus{
+	text-decoration:none;
+	outline: none;
+}
+h1, h2, h3, h4, h5, h6 {
+	line-height: 1;
+	margin: 0;
+	text-rendering: optimizeLegibility;
+}
+h1 {
+	font-size: 4.375em;
+}
+h2 {
+	font-size: 30px;
+	font-family: 'Roboto Slab', serif;
+	margin: 0 0 20px;
+	text-transform: capitalize;
+}
+h3 {
+	font-size: 1.5em;
+}
+h4 {
+	font-size: 1.125em;
+}
+h5 {
+	font-size: 0.875em;
+}
+h6 {
+	font-size: 0.75em;
+}
+p {
+	margin: 0;
+	font-size: 1em;
+	line-height: 1.5;
+}
+input {
+	font-size: 1em;
+}
+small {
+	font-size: 0.75em;
+}
+ol, ul {
+	list-style: none;
+}
+section {
+	padding: 96px 0;
+}
+.nopad {
+	padding: 0;
+}
+.btn-pink {
+	border-radius: 2px !important;
+	background: #e06175;
+	border-radius: 40px;
+	padding: 8px 24px;
+	border: 1px solid #e06175;
+	color: #fff !important;
+}
+.mt10 {
+	margin-top: 10px;
+}
+.p-10 {
+	padding: 10px;
+}
+.color-golden{
+	color: #ceb26f;
+}
+
+/* 3. Sections
+-------------------------------------------------------------- */
+/* -3.1. Navigation
+-------------------------------------------------------------- */
+nav.navbar.navbar-default {
+	background: none;
+	border: none;
+	border-radius: 0;
+	padding: 8px 0;
+	position: fixed;
+	top: 0;
+	width: 100%;
+	z-index: 999;
+}
+@media screen and (max-width: 767px) {
+	nav.navbar.navbar-default {
+		background: #30302f;
+	}
+}
+nav.navbar.navbar-default.navbar-dark {
+	background: #30302f;
+}
+nav.navbar.navbar-default.navbar-fixed {
+	position: fixed;
+}
+@media screen and (max-width: 764px) {
+	nav.navbar.navbar-default .navbar-collapse {
+		border: none;
+		margin: 17px auto 0;
+		width: 100%;
+	}
+}
+nav.navbar.navbar-default .navbar-toggle {
+	border: none;
+	padding: 17px;
+	margin: 0;
+}
+nav.navbar.navbar-default .navbar-toggle:focus, nav.navbar.navbar-default .navbar-toggle:hover {
+	background: none;
+}
+nav.navbar.navbar-default .navbar-toggle .icon-bar {
+	background-color: #fff;
+	width: 30px;
+	height: 4px;
+	transition: all 0.2s;
+}
+nav.navbar.navbar-default .navbar-toggle .top-bar {
+	-webkit-transform: rotate(45deg);
+	-ms-transform: rotate(45deg);
+	transform: rotate(45deg);
+	-webkit-transform-origin: 10% 10%;
+	-ms-transform-origin: 10% 10%;
+	transform-origin: 10% 10%;
+}
+nav.navbar.navbar-default .navbar-toggle .middle-bar {
+	opacity: 0;
+}
+nav.navbar.navbar-default .navbar-toggle .bottom-bar {
+	-webkit-transform: rotate(-45deg);
+	-ms-transform: rotate(-45deg);
+	transform: rotate(-45deg);
+	-webkit-transform-origin: 10% 90%;
+	-ms-transform-origin: 10% 90%;
+	transform-origin: 10% 90%;
+}
+nav.navbar.navbar-default .navbar-toggle.collapsed .top-bar {
+	-webkit-transform: rotate(0);
+	-ms-transform: rotate(0);
+	transform: rotate(0);
+}
+nav.navbar.navbar-default .navbar-toggle.collapsed .middle-bar {
+	opacity: 1;
+}
+nav.navbar.navbar-default .navbar-toggle.collapsed .bottom-bar {
+	-webkit-transform: rotate(0);
+	-ms-transform: rotate(0);
+	transform: rotate(0);
+}
+nav.navbar.navbar-default.clone {
+	position: fixed;
+	background: #30302f;
+	z-index: 999;
+	transition: -webkit-transform 0.5s ease 0s;
+	transition: transform 0.5s ease 0s;
+	transition: transform 0.5s ease 0s, -webkit-transform 0.5s ease 0s;
+}
+nav.navbar.navbar-default.stick {
+	-webkit-transform: translateY(0px);
+	-ms-transform: translateY(0px);
+	transform: translateY(0px);
+}
+nav.navbar.navbar-default.unstick {
+	-webkit-transform: translateY(-100%);
+	-ms-transform: translateY(-100%);
+	transform: translateY(-100%);
+}
+.navbar-default .navbar-nav .open > a, .navbar-default .navbar-nav .open > a:focus, .navbar-default .navbar-nav .open > a:hover {
+	background: none;
+	color: #e06175;
+}
+.navbar-default .navbar-nav .open .dropdown-menu {
+	background: #e06175;
+	font-size: 1.125em;
+}
+.navbar-default .navbar-nav .open .dropdown-menu li {
+	padding: 10px 0;
+}
+.navbar-default .navbar-nav .open .dropdown-menu li a {
+	color: #fff;
+	text-decoration: none;
+	padding: 3px 20px;
+	display: block;
+}
+.navbar-default .navbar-nav .open .dropdown-menu li a:hover, .navbar-default .navbar-nav .open .dropdown-menu li a:focus {
+	color: #383838;
+	background-color: transparent;
+}
+.navbar-default .navbar-nav{
+	margin-top: 20px;
+}
+.navbar-default .navbar-nav > li:first-child > a {
+	border-right: 1px solid #ccc;
+	padding-right: 10px;
+}
+.navbar-default .navbar-nav > li:last-child > a {
+	margin-right: 0;
+	margin-left: 10px;
+}
+.navbar-default .navbar-nav > li:hover > a:after {
+	content: "";
+	display: block;
+	position: absolute;
+	background: url(../img/heart-sm.png) no-repeat;
+	width: 10px;
+	height: 9px;
+	top: 7px;
+	left: 50%;
+	margin-left: -5px;
+}
+.navbar-default .navbar-nav > li > a {
+    color: #fff;
+    font-size: 1.125em;
+    font-weight: 400;
+    line-height: 1.25em;
+    padding: 0px 0;
+    margin-right: 10px;
+    position: relative;
+}
+@media screen and (max-width: 992px) {
+	.navbar-default .navbar-nav > li > a {
+		margin-right: 25px;
+	}
+}
+@media screen and (max-width: 767px) {
+	.navbar-default .navbar-nav > li > a {
+		margin: 0 auto;
+		text-align: center;
+		width: 100%;
+		border: none;
+	}
+}
+.navbar-default .navbar-nav > li > a:hover, .navbar-default .navbar-nav > li > a:focus {
+	color: #fff;
+	transition:all 0.3s linear;
+}
+nav.navbar.navbar-default.pink-color .navbar-nav {
+	width: 100%;
+	text-align: center;
+}
+nav.navbar.navbar-default.pink-color .navbar-nav li {
+	float: none;
+}
+nav.navbar.navbar-default.pink-color .navbar-nav li:after {
+	content: "";
+	display: block;
+	position: absolute;
+	background-color: #fb8b8e;
+	width: 1px;
+	height: 30px;
+	top: 14px;
+	right: 0;
+}
+@media screen and (max-width: 767px) {
+	nav.navbar.navbar-default.pink-color .navbar-nav li:after {
+		background: none;
+	}
+}
+nav.navbar.navbar-default.pink-color .navbar-nav li:last-child:after {
+	background: none;
+}
+@media screen and (min-width: 767px) {
+	nav.navbar.navbar-default.pink-color .navbar-nav li {
+		display: inline-block;
+	}
+}
+nav.navbar.navbar-default.pink-color .navbar-nav li a {
+	border: none;
+	padding-left: 12px;
+	padding-right: 12px;
+	box-sizing: content-box;
+	margin: 0;
+}
+nav.navbar.navbar-default.pink-color .navbar-nav li a:hover:after {
+	left: 50%;
+	margin-left: -5px;
+}
+.logo img {
+	padding-top: 6px;
+	width: 200px;
+}
+
+@media screen and (max-width: 767px) {
+	.navbar-default .navbar-nav > li > a:hover::before{
+		left: 48%;
+		display:none;
+	}
+	.navbar-default .navbar-nav > li > a:hover{
+		color:#aaa;
+	}
+	.logo h1 {
+		margin: 7px;
+	}
+}
+
+/* -3.2. Main section
+-------------------------------------------------------------- */
+.main {
+	background: url(../images/main-bg.jpg) no-repeat;
+	background-size: cover;
+	width: 100%;
+	height: 100%;
+	display: block;
+	background-position: center bottom;
+	padding: 0;
+}
+/* -3.3. About us
+-------------------------------------------------------------- */
+.about-us{
+	background-color: #000;
+	color: #fff;
+	padding: 0;
+}
+.about-us p{
+	margin-bottom: 20px;
+}
+.video-play {
+    background-image: url(../images/video-play.png);
+    background-size: cover;
+    background-position: center center;
+    height: 750px;
+}
+
+
+/* -3.4. Services
+-------------------------------------------------------------- */
+.services {
+    background-image: url(../images/services-bg.jpg);
+    background-size: contain;
+    background-position: left center;
+    background-repeat: no-repeat;
+}
+.services-slider .owl-nav{
+	text-align: left;
+}
+.services-slider .custom-btn{
+	text-transform: uppercase;
+	color: #000;
+	border: 1px solid #ccc;
+	padding: 10px;
+	width: auto;
+	display: inline-block;
+	margin: 30px 0;
+}
+.services-slider .item p{
+	font-size: 18px;
+	color: #000;
+	font-weight: 500;
+}
+.services-slider .owl-nav{
+	margin-top: 100px;
+}
+.services-slider .owl-nav [class*="owl-"] {
+    font-size: 30px;
+    border: 1px solid #666666;
+    color: #ceb26f;
+    border-radius: 0;
+    background-color: transparent;
+    width: 45px;
+    height: 40px;
+    line-height: 35px;
+    padding: 0;
+    text-align: center;
+    transition: all 0.3s linear;
+}
+.services-slider .owl-nav [class*="owl-"]:hover {
+    background-color: #ceb26f;
+    border: 1px solid #ceb26f;
+    color: #fff;
+}
+
+/* -3.7. Why Think Beauty
+-------------------------------------------------------------- */
+.why-think-beauty{
+	padding: 50px 0;
+}
+.why-beauty-section {
+	text-align: center;
+	margin-bottom: 50px;
+}
+.btn-group {
+    width: auto;
+    margin: 0 auto;
+    margin-bottom: 50px;
+    border-bottom: none;
+}
+.btn-group>li>a {
+	width: 170px;
+	border: 2px solid #ccc;
+	text-transform: uppercase;
+	color: #ceb26f;
+	float: left;
+	border-radius: 0;
+	margin-right: 0;
+}
+.btn-group>li.active>a, .btn-group>li.active>a:focus, .btn-group>li.active>a:hover {
+	border: 2px solid #ceb26f;
+	background-color: #ceb26f;
+	color: #000;
+}
+.first-btn{
+	width: 170px;
+	height: 40px;
+	line-height: 40px;
+	border: 2px solid #ccc;
+	text-transform: uppercase;
+	color: #ceb26f;
+	float: left;
+}
+.second-btn{
+	width: 170px;
+	height: 40px;
+	line-height: 40px;
+	text-transform: uppercase;
+	background-color: #ceb26f;
+	color: #000;
+	float: left;
+}
+.why-beauty-section img {
+	width: 50px;
+}
+.why-beauty-section h3 {
+	font-size: 20px;
+	text-transform: uppercase;
+	color: #ceb26f;
+	font-family: 'Lato', sans-serif;
+	font-weight: 600;
+	margin: 20px 0;
+}
+.why-beauty-section p {
+	color: #000;
+	font-family: 'Lato', sans-serif;
+	font-weight: 300;
+}
+/* -3.8. Download App
+-------------------------------------------------------------- */
+.download-app {
+    background-image: url(../images/download-bg.jpg);
+    background-size: cover;
+    background-position: center bottom;
+}
+.app-download-btn{
+	margin-top: 200px;
+}
+.app-download-btn img{
+	width: 150px;
+	margin-bottom: 20px;
+	display: block;
+}
+/* -3.10. Footer
+-------------------------------------------------------------- */
+footer {
+	background-color: #000;
+	padding: 10px 0;
+}
+footer .col-sm-6 {
+	margin: 20px 0;
+	color: #ceb26f;
+}
+footer .col-sm-6 a {
+	margin-left: 20px;
+	color: #fff;
+}
+footer .col-sm-6 img {
+	width: 50px;
+	margin-right: 10px;
+}
+footer .col-sm-12 {
+	color: #fff;
+	margin: 10px 0;
+}
+/* -3.11. Slide to top
+-------------------------------------------------------------- */
+#slidebox {
+    position: fixed;
+    bottom: 3em;
+    right: -430px;
+	z-index:999;
+}
+.scrolltop li {
+    list-style: none;
+}
+.scrolltop li i {
+    color: #fff;
+    transition: 500ms ease 0s;
+    background-color: #EB8791;
+    font-size: 25px;
+	width:50px;
+	height:50px;
+	line-height:50px;
+	text-align:center;
+    border-radius: 5px 0 0 5px;
+    font-weight: initial;
+}

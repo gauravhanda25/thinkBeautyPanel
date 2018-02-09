@@ -1,0 +1,19 @@
+{
+  "name": "ContactPersonRole",
+  "base": "PersistedModel",
+  "idInjection": true,
+  "options": {
+    "validateUpsert": true
+  },
+  "contacts": {
+    "type": "belongsTo",
+    "model": "DealerContact",
+    "foreignKey": "",
+    "through": ""
+  },
+  "properties": {},
+  "validations": [],
+  "relations": {},
+  "acls": [],
+  "methods": {}
+}

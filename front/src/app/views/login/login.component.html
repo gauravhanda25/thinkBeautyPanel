@@ -1,0 +1,60 @@
+<div class="container">
+    <div class="row" style="margin:15% 0">
+        <div class="col-sm-4 col-sm-offset-4" style="margin:auto;">
+            <div class="card">         
+              <form class="form-horizontal ng-untouched ng-pristine ng-valid" novalidate="" (ngSubmit)="onSubmit()" #loginForm="ngForm"> 
+                <div class="text-center img-responsive" style="margin: 15px 0 0 15px">
+                  <img src="/assets/img/logo.png" style="width:150px" >
+                </div>
+                <div class="card-body">                    
+                    <p class="text-muted">Sign In to your account</p>   
+                    <div class="alert alert-danger" [hidden]="!error">Username or password doesn't match!</div>
+                    <div class="form-group row">
+                      <div class="col-md-12">
+                        <div class="input-group">
+                          <div class="input-group-prepend">
+                            <span class="input-group-text"><i class="fa fa-user"></i></span>
+                          </div>
+                          <input class="form-control" name="username" placeholder="Username/Email" type="text" [(ngModel)]="data.username" required>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="form-group row">
+                      <div class="col-md-12">
+                        <div class="input-group">
+                          <div class="input-group-prepend">
+                            <span class="input-group-text"><i class="fa fa-lock"></i></span>
+                          </div>
+                          <input class="form-control" name="password" placeholder="Password" type="password" [(ngModel)]="data.password"  required>
+                        </div>
+                      </div>
+                    </div> 
+                    <!-- <div class="form-group row">
+                      <div class="col-md-12">
+                        <div class="input-group">
+                          <div class="input-group-prepend">
+                            <span class="input-group-text"><i class="fa fa-user-secret"></i></span>
+                          </div>
+                          <select class="form-control" name="role" [(ngModel)]="data.role" >
+                            <option value="">Please select</option>
+                            <option value="admin">Admin</option>
+                            <option value="staff">Staff Member</option>
+                          </select>
+                        </div>
+                      </div>
+                    </div>  -->
+                    <div class="form-group row">
+                      <div class="col-md-6">                     
+                         <button class="btn btn-large btn-primary" type="submit" [disabled] = "!loginForm.form.valid" >Sign In</button>
+                      </div>
+                      <div class="col-md-6">
+                        <a class="pull-right" href="#" routerLink='/forgot' >Forgot Password?</a>
+                      </div>
+                    </div> 
+                </div>                 
+              </form>
+            </div>
+        </div>
+    </div>
+</div>
+<toaster-container [toasterconfig]="toasterconfig"></toaster-container>
