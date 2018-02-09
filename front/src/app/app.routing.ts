@@ -16,7 +16,7 @@ import {
 
 export const routes: Routes = [
   {
-    path: '',
+    path: '', 
     redirectTo: 'login',
     pathMatch: 'full',
   },
