@@ -7,7 +7,7 @@ import { LocationStrategy, HashLocationStrategy, CommonModule } from '@angular/c
 import { AppComponent } from './app.component';
 
 
-// Import containers
+// Import 
 import {
   FullLayoutComponent,
   FullStaffLayoutComponent,
