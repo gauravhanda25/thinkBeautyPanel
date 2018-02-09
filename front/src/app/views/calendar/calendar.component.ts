@@ -105,7 +105,6 @@ export class CalendarComponent {
         .subscribe(response => {
           console.log(response.json()); 
           this.dealers = response.json();
-          this.events = [];
           for(let key in this.dealers){
             console.log(key);
 

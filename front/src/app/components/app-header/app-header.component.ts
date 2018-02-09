@@ -12,6 +12,7 @@ import { API_URL } from '../../globals';
 
 
 export class AppHeaderComponent {
+	public data:any;
 	constructor(private NgxRolesService: NgxRolesService, private NgxPermissionsService: NgxPermissionsService, private router:Router, private http: Http) {
 		this.data = {};
 	}
