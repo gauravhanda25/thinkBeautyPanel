@@ -166,7 +166,7 @@ export const routes: Routes = [
         loadChildren: './views/addartist/addartist.module#AddartistModule'
       },
       {
-        path: 'delstaff/:id',
+        path: 'delartist/:id',
         component: FullLayoutComponent,
         canActivate: [NgxPermissionsGuard],
         data: {
@@ -174,7 +174,7 @@ export const routes: Routes = [
             only: 'ADMIN'
           }
         },
-        loadChildren: './views/staff/staff.module#StaffModule'
+        loadChildren: './views/artist/artist.module#ArtistModule'
       },
 	   {
         path: 'brand',
