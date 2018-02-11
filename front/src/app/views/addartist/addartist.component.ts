@@ -80,6 +80,7 @@ export class AddartistComponent {
     		villa:'',
     		road:'',
     		city:'',
+    		cpr:'',
     		password:'',
     		emailVerified: false,
     		status: 'active'

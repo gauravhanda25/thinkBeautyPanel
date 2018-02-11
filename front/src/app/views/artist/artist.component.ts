@@ -25,6 +25,8 @@ export class ArtistComponent {
     private delparam: any;
     private nousers: any;
     private data: any;
+    private use_url: any;
+    private check_account: any;
 
     private toasterService: ToasterService;
 
@@ -56,8 +58,23 @@ export class ArtistComponent {
         options.headers = new Headers();
         options.headers.append('Content-Type', 'application/json');
         options.headers.append('Accept', 'application/json');
+        // alert(this.router.url);
+        if(this.router.url == '/artist/newrequests'){
+         this.use_url = API_URL+'/Members?filter={"where":{"role_id":2, "status" : "inactive"}}&access_token='+localStorage.getItem('currentUserToken');
+                 this.check_account = {
+            id: '',
+            action: 'inactive'
+        }
+         
+        }else{
+          this.check_account = {
+            id: '',
+            action: 'active'
+        }
+         this.use_url = API_URL+'/Members?filter={"where":{"role_id":2, "status" : "active"}}&access_token='+localStorage.getItem('currentUserToken');
+        }
 
-        this.http.get(API_URL+'/Members?filter={"where":{"role_id":2, "status" : "active"}}&access_token='+localStorage.getItem('currentUserToken'), options)
+        this.http.get(this.use_url, options)
         .subscribe(response => {
             console.log(response.json());       
             this.users = response.json();    
