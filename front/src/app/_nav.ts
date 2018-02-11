@@ -8,6 +8,23 @@ export const navigation = [
     name: 'Artist',
     url: '/artist',
     icon: 'icon-people ',
+      children: [
+      {
+    name: 'Artist Requests',
+    url: '/artist/newrequests',
+    icon: 'icon-list',
+  },
+    {
+    name: 'Artist Approved',
+    url: '/artist',
+    icon: 'icon-list',
+  },
+      {
+    name: 'Add Artist',
+    url: '/artist/addartist',
+    icon: 'icon-list',
+  },
+      ]
   }, 
     {
     name: 'Salon',

@@ -71,14 +71,21 @@
 
                     </div> 
             <div class="form-group row">
-                                      <div class="col-md-6">
+                         <div class="col-md-6">
                           <label>Country<span class="text-danger">*</span></label> 
                           <select class="form-control" name="country"  [(ngModel)]="data.country" (change) = "onChangeCountry()" required>
                             <option value="" >Select Country</option>
                             <option *ngFor="let country of countries" value="{{country.id}}">{{country.name}}</option>
                           </select>
                         </div>
-                         <div class="col-md-6">
+                          <div class="col-md-6">
+                          <label>CPR<span class="text-danger">*</span></label> 
+                          <input class="form-control" name="cpr" placeholder="CPR" type="text"  [(ngModel)]="data.cpr" >  
+                        </div>
+
+            </div>
+             <div class="form-group row">
+                                     <div class="col-md-6">
               <label class="col-md-3 col-form-label" for="inline-radios">Profession<span class="text-danger">*</span></label>
               <div class="col-md-9 col-form-label">
                 <div class="form-check form-check-inline mr-1" id="artist_profession1">
@@ -95,7 +102,7 @@
                 </div>
               </div>
                </div>
-            </div>
+                 </div>
 <!--                     <div class="form-group row">                        
                       	<div class="col-md-6">
                           <label>Languages<span class="text-danger">*</span></label> 

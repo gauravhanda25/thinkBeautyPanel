@@ -65,50 +65,7 @@ export const routes: Routes = [
         loadChildren: './views/dashboard/dashboard.module#DashboardModule'
       },
           
-      {
-        path: 'artist',
-        component: FullLayoutComponent,
-        canActivate: [NgxPermissionsGuard],
-        data: {
-          permissions: {
-            only: 'ADMIN'
-          }
-        },
-        loadChildren: './views/artist/artist.module#ArtistModule'
-      },
-      {
-        path: 'addartist',
-        component: FullLayoutComponent,
-        canActivate: [NgxPermissionsGuard],
-        data: {
-          permissions: {
-            only: 'ADMIN'
-          }
-        },
-        loadChildren: './views/addartist/addartist.module#AddartistModule'
-      },
-      {
-        path: 'editartist/:id',
-        component: FullLayoutComponent,
-        canActivate: [NgxPermissionsGuard],
-        data: {
-          permissions: {
-            only: 'ADMIN'
-          }
-        },
-        loadChildren: './views/addartist/addartist.module#AddartistModule'
-      },
-      {
-        path: 'delartist/:id',
-        component: FullLayoutComponent,
-        canActivate: [NgxPermissionsGuard],
-        data: {
-          permissions: {
-            only: 'ADMIN'
-          }
-        },
-        loadChildren: './views/artist/artist.module#ArtistModule'
-      },
+      
             {
         path: 'salon',
         component: FullLayoutComponent,
@@ -246,16 +203,66 @@ export const routes: Routes = [
     ]
   },
   {
-    path: 'pages',
-    component: SimpleLayoutComponent,
+    path: 'artist',
+    component: FullLayoutComponent,
     data: {
-      title: 'Pages'
+      title: 'Artists'
     },
     children: [
       {
         path: '',
-        loadChildren: './views/pages/pages.module#PagesModule',
-      }
+        component: SimpleLayoutComponent,
+        canActivate: [NgxPermissionsGuard],
+        data: {
+          permissions: {
+            only: 'ADMIN'
+          }
+        },
+        loadChildren: './views/artist/artist.module#ArtistModule'
+      },{
+        path: 'newrequests',
+        component: SimpleLayoutComponent,
+        canActivate: [NgxPermissionsGuard],
+        data: {
+          permissions: {
+            only: 'ADMIN'
+          }
+        },
+        loadChildren: './views/artist/artist.module#ArtistModule'
+      },
+      {
+        path: 'addartist',
+        component: SimpleLayoutComponent,
+        canActivate: [NgxPermissionsGuard],
+        data: {
+          permissions: {
+            only: 'ADMIN'
+          }
+        },
+        loadChildren: './views/addartist/addartist.module#AddartistModule'
+      },
+      {
+        path: 'editartist/:id',
+        component: SimpleLayoutComponent,
+        canActivate: [NgxPermissionsGuard],
+        data: {
+          permissions: {
+            only: 'ADMIN'
+          }
+        },
+        loadChildren: './views/addartist/addartist.module#AddartistModule'
+      },
+      {
+        path: 'delartist/:id',
+        component: FullLayoutComponent,
+        canActivate: [NgxPermissionsGuard],
+        data: {
+          permissions: {
+            only: 'ADMIN'
+          }
+        },
+        loadChildren: './views/artist/artist.module#ArtistModule'
+      },
     ]
   }
 ];
