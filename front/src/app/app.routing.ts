@@ -176,6 +176,50 @@ export const routes: Routes = [
         },
         loadChildren: './views/artist/artist.module#ArtistModule'
       },
+            {
+        path: 'salon',
+        component: FullLayoutComponent,
+        canActivate: [NgxPermissionsGuard],
+        data: {
+          permissions: {
+            only: 'ADMIN'
+          }
+        },
+        loadChildren: './views/salon/salon.module#SalonModule'
+      },
+      {
+        path: 'addsalon',
+        component: FullLayoutComponent,
+        canActivate: [NgxPermissionsGuard],
+        data: {
+          permissions: {
+            only: 'ADMIN'
+          }
+        },
+        loadChildren: './views/addsalon/addsalon.module#AddsalonModule'
+      },
+      {
+        path: 'editsalon/:id',
+        component: FullLayoutComponent,
+        canActivate: [NgxPermissionsGuard],
+        data: {
+          permissions: {
+            only: 'ADMIN'
+          }
+        },
+        loadChildren: './views/addsalon/addsalon.module#AddsalonModule'
+      },
+      {
+        path: 'delsalon/:id',
+        component: FullLayoutComponent,
+        canActivate: [NgxPermissionsGuard],
+        data: {
+          permissions: {
+            only: 'ADMIN'
+          }
+        },
+        loadChildren: './views/salon/salon.module#SalonModule'
+      },
       
 	  
       {

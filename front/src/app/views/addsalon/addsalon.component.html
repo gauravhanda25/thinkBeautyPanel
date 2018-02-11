@@ -2,10 +2,10 @@
   <div class="row">
     <div class="col-lg-12">
       	<div class="card">         
-            <form class="form-horizontal ng-untouched ng-pristine ng-valid" novalidate="" (ngSubmit)="onSubmit()" #artistForm="ngForm">
+            <form class="form-horizontal ng-untouched ng-pristine ng-valid" novalidate="" (ngSubmit)="onSubmit()" #salonForm="ngForm">
                 <div class="card-header">                                    
-                    <span *ngIf="editparam.action == 'add'">Add New Artist</span>
-                    <span *ngIf="editparam.action == 'edit'">Edit Artist</span>
+                    <span *ngIf="editparam.action == 'add'">Add New Salon</span>
+                    <span *ngIf="editparam.action == 'edit'">Edit Salon</span>
                 </div>
                 <div class="card-body">  
                     <div class="form-group row">
@@ -81,17 +81,17 @@
                          <div class="col-md-6">
               <label class="col-md-3 col-form-label" for="inline-radios">Profession<span class="text-danger">*</span></label>
               <div class="col-md-9 col-form-label">
-                <div class="form-check form-check-inline mr-1" id="artist_profession1">
-                  <input class="form-check-input" type="radio" name="artist_profession" id="artist_profession1" value="1"  [(ngModel)]="data.artist_profession" required>
+                <div class="form-check form-check-inline mr-1" id="salon_profession1">
+                  <input class="form-check-input" type="radio" name="salon_profession" id="salon_profession1" value="1"  [(ngModel)]="data.salon_profession" required>
                   <label class="form-check-label" for="inlineRadio1">Makeup</label>
                 </div>
                 <div class="form-check form-check-inline mr-1">
-                  <input class="form-check-input" type="radio" name="artist_profession" id="iartist_profession2" value="2"  [(ngModel)]="data.artist_profession">
-                  <label class="form-check-label" for="iartist_profession2">Hair</label>
+                  <input class="form-check-input" type="radio" name="salon_profession" id="isalon_profession2" value="2"  [(ngModel)]="data.salon_profession">
+                  <label class="form-check-label" for="isalon_profession2">Hair</label>
                 </div>
                 <div class="form-check form-check-inline mr-1">
-                  <input class="form-check-input" type="radio" name="artist_profession" id="artist_profession3" value="3"  [(ngModel)]="data.artist_profession">
-                  <label class="form-check-label" for="artist_profession3">Both</label>
+                  <input class="form-check-input" type="radio" name="salon_profession" id="salon_profession3" value="3"  [(ngModel)]="data.salon_profession">
+                  <label class="form-check-label" for="salon_profession3">Both</label>
                 </div>
               </div>
                </div>
@@ -108,8 +108,8 @@
                     </div>  -->
                     <div class="form-group row">
                       <div class="col-md-6">                     
-                         <button class="btn btn-large btn-primary" type="submit" *ngIf="editparam.action == 'add'" [disabled] = "!artistForm.form.valid">Add Artist</button>               
-                         <button class="btn btn-large btn-primary" type="submit" *ngIf="editparam.action == 'edit'" [disabled] = "!artistForm.form.valid">Update Artist</button>
+                         <button class="btn btn-large btn-primary" type="submit" *ngIf="editparam.action == 'add'" [disabled] = "!salonForm.form.valid">Add Salon</button>               
+                         <button class="btn btn-large btn-primary" type="submit" *ngIf="editparam.action == 'edit'" [disabled] = "!salonForm.form.valid">Update Salon</button>
                       </div>
                     </div> 
                 </div>                 
