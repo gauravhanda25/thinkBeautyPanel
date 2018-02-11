@@ -59,17 +59,20 @@ export class ArtistComponent {
         options.headers.append('Content-Type', 'application/json');
         options.headers.append('Accept', 'application/json');
         // alert(this.router.url);
-        if(this.router.url == '/artist/newrequests'){
+        if(this.router.url === '/artist/newrequests'){
          this.use_url = API_URL+'/Members?filter={"where":{"role_id":2, "status" : "inactive"}}&access_token='+localStorage.getItem('currentUserToken');
-                 this.check_account = {
+         
+         this.check_account = {
             id: '',
-            action: 'inactive'
+            action: 'inactive',
+            actionName : 'Verify'
         }
          
         }else{
           this.check_account = {
             id: '',
-            action: 'active'
+            action: 'active',
+            actionName : 'Block'
         }
          this.use_url = API_URL+'/Members?filter={"where":{"role_id":2, "status" : "active"}}&access_token='+localStorage.getItem('currentUserToken');
         }
@@ -128,24 +131,22 @@ export class ArtistComponent {
         options.headers.append('Content-Type', 'application/json');
         options.headers.append('Accept', 'application/json');
 
-        this.data = {
-            status : ''
-        }
+        
         if(artist.status == 'active') {
-             this.data.status = 'inactive';
+             artist.status = 'inactive';
         } else {
-            this.data.status = 'active';
+            artist.status = 'active';
         }
         let where = '{"id": artist.id}';
         console.log(where);
 
-        this.http.post(API_URL+'/Members/update?where={"id":"'+  artist.id +'}&access_token='+ localStorage.getItem('currentUserToken'), this.data,  options)
+        this.http.post(API_URL+'/Members/update?where={"id":"'+  artist.id +'"}&access_token='+ localStorage.getItem('currentUserToken'), artist,  options)
         .subscribe(response => {
-            console.log(response.json());    
-            localStorage.setItem('noticemessage', 'artistupdate');
-            this.router.navigate(['artist']);  
+
+            this.toasterService.pop('success', 'Success ', "Artist Record updated successfully.");
+            //this.router.navigate(['artist']);  
             const index: number = this.users.indexOf(artist);
-            console.log(index);
+
             if (index !== -1) {
              this.users.splice(index, 1);
             }

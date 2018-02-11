@@ -18,36 +18,23 @@ module.exports = async function(app)
     }
 
     // create custom role Staff
-    const orgStaffRole = await Role.findOne({where: {name: 'Staff'}});
+    const orgStaffRole = await Role.findOne({where: {name: 'Artist'}});
     if (!orgStaffRole)
     {
-      await Role.create({name: 'Staff', role_id : 2});
+      await Role.create({name: 'Artist', role_id : 2});
       debug('Created Staff role');
     }
 
     // create custom role Regional Manager
-    const orgRegionalManager = await Role.findOne({where: {name: 'Regional Manager'}});
+    const orgRegionalManager = await Role.findOne({where: {name: 'Salon'}});
     if (!orgRegionalManager)
     {
-      await Role.create({name: 'Regional Manager', role_id : 3});
+      await Role.create({name: 'Salon', role_id : 3});
       debug('Created Regional Manager role');
     }
 
 // create custom role Account Manager
-    const accountManager = await Role.findOne({where: {name: 'Account Manager'}});
-    if (!accountManager)
-    {
-      await Role.create({name: 'Account Manager', role_id : 4});
-      debug('Created Account Manager role');
-    }
-
-
-    const dealer = await Role.findOne({where: {name: 'Dealer'}});
-    if (!dealer)
-    {
-      await Role.create({name: 'Dealer', role_id : 5});
-      debug('Dealer added');
-    }
+    
 
 
     // fix the mongo db object assignment
