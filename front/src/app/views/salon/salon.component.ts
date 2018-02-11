@@ -24,6 +24,9 @@ export class SalonComponent {
   	private users: any;
     private delparam: any;
     private nousers: any;
+    private data: any;
+    private use_url: any;
+    private check_account: any;
 
     private toasterService: ToasterService;
 
@@ -55,8 +58,25 @@ export class SalonComponent {
         options.headers = new Headers();
         options.headers.append('Content-Type', 'application/json');
         options.headers.append('Accept', 'application/json');
+                if(this.router.url === '/salon/newrequests'){
+         this.use_url = API_URL+'/Members?filter={"where":{"role_id":3, "status" : "inactive"}}&access_token='+localStorage.getItem('currentUserToken');
+         
+         this.check_account = {
+            id: '',
+            action: 'inactive',
+            actionName : 'Verify'
+        }
+         
+        }else{
+          this.check_account = {
+            id: '',
+            action: 'active',
+            actionName : 'Block'
+        }
+         this.use_url = API_URL+'/Members?filter={"where":{"role_id":3, "status" : "active"}}&access_token='+localStorage.getItem('currentUserToken');
+        }
 
-        this.http.get(API_URL+'/Members?filter={"where":{"role_id":3}}&access_token='+localStorage.getItem('currentUserToken'), options)
+        this.http.get(this.use_url, options)
         .subscribe(response => {
             console.log(response.json());       
             this.users = response.json();    
@@ -103,7 +123,37 @@ export class SalonComponent {
         });    	        
 
  	}
+    changeStatus(salon) {
+        let options = new RequestOptions();
+        options.headers = new Headers();
+        options.headers.append('Content-Type', 'application/json');
+        options.headers.append('Accept', 'application/json');
 
+        
+        if(salon.status == 'active') {
+             salon.status = 'inactive';
+        } else {
+            salon.status = 'active';
+        }
+        let where = '{"id": salon.id}';
+        console.log(where);
+
+        this.http.post(API_URL+'/Members/update?where={"id":"'+  salon.id +'"}&access_token='+ localStorage.getItem('currentUserToken'), salon,  options)
+        .subscribe(response => {
+
+            this.toasterService.pop('success', 'Success ', "Salon Record updated successfully.");
+            //this.router.navigate(['artist']);  
+            const index: number = this.users.indexOf(salon);
+
+            if (index !== -1) {
+             this.users.splice(index, 1);
+            }
+               
+        }, error => {
+            this.toasterService.pop('error', 'Error ',  error.json().error.message);
+            console.log(JSON.stringify(error.json()));
+        });
+    } 
     delsalon(salon) {
         if(confirm("Are you sure?")){
             let options = new RequestOptions();

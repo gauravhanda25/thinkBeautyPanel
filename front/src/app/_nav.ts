@@ -38,7 +38,7 @@ export const navigation = [
   },
     {
     name: 'Salon Approved',
-    url: '/artsalonist',
+    url: '/salon',
     icon: 'icon-list',
   },
       {

@@ -33,7 +33,7 @@
               <tr *ngIf = "nousers == 0">
                 <td colspan="7">No Salon Records</td>
               </tr>
-              <tr *ngFor="let user of mf.data" >
+              <tr *ngFor="let user of mf.data">
                 <td>{{user.name}}</td>
                 <td>{{user.role}}</td>
                 <td>{{user.city}}</td>
@@ -41,8 +41,9 @@
                 <td>{{user.phone}}</td>
                 <td>{{user.email}}</td>
                 <td>
-                  <a class="btn btn-sm btn-outline-primary " href="#" routerLink='/editsalon/{{user.id}}'><i class="fa fa-edit"></i> </a>                 
-                  <button class="btn btn-sm btn-outline-primary " (click) ="delsalon(user)"><i class="fa fa-trash"></i></button>
+                  <a class="btn btn-sm btn-outline-primary " href="#" routerLink='/salon/editsalon/{{user.id}}' *ngIf="check_account.action == 'active'"><i class="fa fa-edit"></i> </a>                 
+                  <button class="btn btn-sm btn-outline-primary " (click) ="delsalon(user)" *ngIf="check_account.action == 'active'"><i class="fa fa-trash"></i></button>
+              <button class="btn btn-sm btn-outline-primary " (click) ="changeStatus(user)">{{check_account.actionName}}</button>
                 </td>
               </tr>
             </tbody>            
