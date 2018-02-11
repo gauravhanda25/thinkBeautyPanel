@@ -75,12 +75,14 @@ export class AddartistComponent {
     		country:'',
     		block:'',
     		phone:'',
-    		role_id:'2',
+    		role_id:3,
     		artist_profession:'',
     		villa:'',
     		road:'',
     		city:'',
-    		password:''
+    		password:'',
+    		emailVerified: false,
+    		status: 'inactive'
     	}
 
     	let options = new RequestOptions();

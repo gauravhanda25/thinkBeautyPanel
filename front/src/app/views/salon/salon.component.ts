@@ -56,7 +56,7 @@ export class SalonComponent {
         options.headers.append('Content-Type', 'application/json');
         options.headers.append('Accept', 'application/json');
 
-        this.http.get(API_URL+'/Members?filter=%7B%22where%22%3A%7B%22or%22%3A%5B%7B%22role_id%22%3A1%7D%2C%7B%22role_id%22%3A2%7D%2C%7B%22role_id%22%3A3%7D%2C%7B%22role_id%22%3A4%7D%5D%7D%7D&access_token='+localStorage.getItem('currentUserToken'), options)
+        this.http.get(API_URL+'/Members?filter={"where":{"role_id":3}}&access_token='+localStorage.getItem('currentUserToken'), options)
         .subscribe(response => {
             console.log(response.json());       
             this.users = response.json();    
@@ -79,13 +79,6 @@ export class SalonComponent {
                         console.log(JSON.stringify(error.json()));
                     });  
 
-                    this.http.get(API_URL+'/Provinces/'+this.users[i].province+'?access_token='+ localStorage.getItem('currentUserToken'), options)
-                    .subscribe(response => {
-                        console.log(response.json());       
-                        this.users[i].provincename = response.json().name;  
-                    }, error => {
-                        console.log(JSON.stringify(error.json()));
-                    });  
                 }
             } else {
                 this.nousers = 0;
