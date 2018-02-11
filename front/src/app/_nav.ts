@@ -24,6 +24,11 @@ export const navigation = [
     url: '/artist',
     icon: 'icon-people ',
   }, 
+    {
+    name: 'Salon',
+    url: '/salon',
+    icon: 'icon-people ',
+  }, 
   
   {
     name: 'Emails',

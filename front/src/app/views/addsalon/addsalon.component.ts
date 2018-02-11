@@ -18,13 +18,13 @@ import emailMask from 'text-mask-addons/dist/emailMask';
 import { ToasterModule, ToasterService, ToasterConfig }  from 'angular2-toaster/angular2-toaster';
 
 @Component({
-  templateUrl: 'addartist.component.html',
+  templateUrl: 'addsalon.component.html',
   styleUrls: ['../../../scss/vendors/toastr/toastr.scss'],
   encapsulation: ViewEncapsulation.None
 })
 
 @Injectable()
-export class AddartistComponent {
+export class AddsalonComponent {
 
 	private data: any;
   	private error: number;
@@ -171,8 +171,8 @@ export class AddartistComponent {
 			this.http.post(API_URL+'/Members?access_token='+localStorage.getItem('currentUserToken'), this.data,  options)
 	        .subscribe(response => {
 	        	console.log(response.json());   
-    			localStorage.setItem('noticemessage', 'artistadd');
-		   		this.router.navigate(['artist']);  			
+    			localStorage.setItem('noticemessage', 'salonadd');
+		   		this.router.navigate(['salon']);  			
 			       
 		    }, error => {
                 this.toasterService.pop('error', 'Error ',  error.json().error.message);
@@ -191,8 +191,8 @@ export class AddartistComponent {
 			this.http.post(API_URL+'/Members/update?where=%7B%22id%22%3A%22'+  this.editparam.id +'%22%7D&access_token='+ localStorage.getItem('currentUserToken'), this.data,  options)
 	        .subscribe(response => {
 	        	console.log(response.json());	
-    			localStorage.setItem('noticemessage', 'artistupdate');
-    			this.router.navigate(['artist']);  
+    			localStorage.setItem('noticemessage', 'salonupdate');
+    			this.router.navigate(['salon']);  
                	
 		    }, error => {
                 this.toasterService.pop('error', 'Error ',  error.json().error.message);
