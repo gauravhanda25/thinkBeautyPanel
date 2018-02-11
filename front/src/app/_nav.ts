@@ -30,6 +30,23 @@ export const navigation = [
     name: 'Salon',
     url: '/salon',
     icon: 'icon-people ',
+          children: [
+      {
+    name: 'Salon Requests',
+    url: '/salon/newrequests',
+    icon: 'icon-list',
+  },
+    {
+    name: 'Salon Approved',
+    url: '/artsalonist',
+    icon: 'icon-list',
+  },
+      {
+    name: 'Add Salon',
+    url: '/salon/addsalon',
+    icon: 'icon-list',
+  },
+      ]
   }, 
   
   {

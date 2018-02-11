@@ -135,15 +135,6 @@ export const routes: Routes = [
         loadChildren: './views/invoices/invoices.module#InvoicesModule'
       },
 
-
-
-
-      
-
-
-
-
-
       {
         path: 'base',
         component: FullStaffLayoutComponent,
@@ -251,17 +242,6 @@ export const routes: Routes = [
           }
         },
         loadChildren: './views/addartist/addartist.module#AddartistModule'
-      },
-      {
-        path: 'delartist/:id',
-        component: FullLayoutComponent,
-        canActivate: [NgxPermissionsGuard],
-        data: {
-          permissions: {
-            only: 'ADMIN'
-          }
-        },
-        loadChildren: './views/artist/artist.module#ArtistModule'
       },
     ]
   }
