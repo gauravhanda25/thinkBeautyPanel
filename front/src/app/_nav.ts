@@ -5,21 +5,6 @@ export const navigation = [
     icon: 'icon-speedometer',
   },
   {
-    name: 'Calendar',
-    url: '/calendar',
-    icon: 'icon-calendar',
-  },
-  {
-    name: 'Events',
-    url: '/events',
-    icon: 'icon-notebook',
-  },
-  {
-    name: 'Dealers',
-    url: '/dealers',
-    icon: 'icon-user',
-  },
-  {
     name: 'Artist',
     url: '/artist',
     icon: 'icon-people ',

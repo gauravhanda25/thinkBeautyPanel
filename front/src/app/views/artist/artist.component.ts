@@ -57,7 +57,7 @@ export class ArtistComponent {
         options.headers.append('Content-Type', 'application/json');
         options.headers.append('Accept', 'application/json');
 
-        this.http.get(API_URL+'/Members?filter%3D%7B%22where%22%3A%7B%22or%22%3A%7B%22role_id%22%3A2%7D%7D%7D%26&access_token='+localStorage.getItem('currentUserToken'), options)
+        this.http.get(API_URL+'/Members?filter={"where":{"role_id":2, "status" : "active"}}&access_token='+localStorage.getItem('currentUserToken'), options)
         .subscribe(response => {
             console.log(response.json());       
             this.users = response.json();    
@@ -122,7 +122,7 @@ export class ArtistComponent {
         let where = '{"id": artist.id}';
         console.log(where);
 
-        this.http.post(API_URL+'/Members/update?where=%7B%22id%22%3A%22'+  artist.id +'%22%7D&access_token='+ localStorage.getItem('currentUserToken'), this.data,  options)
+        this.http.post(API_URL+'/Members/update?where={"id":"'+  artist.id +'}&access_token='+ localStorage.getItem('currentUserToken'), this.data,  options)
         .subscribe(response => {
             console.log(response.json());    
             localStorage.setItem('noticemessage', 'artistupdate');

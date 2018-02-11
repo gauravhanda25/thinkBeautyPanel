@@ -64,74 +64,7 @@ export const routes: Routes = [
         },
         loadChildren: './views/dashboard/dashboard.module#DashboardModule'
       },
-      {
-        path: 'calendar',
-        component: FullLayoutComponent,
-        canActivate: [NgxPermissionsGuard],
-        data: {
-          permissions: {
-            only: ['ADMIN','TRAINER'],
-            except: 'GUEST'
-          }
-        },
-        loadChildren: './views/calendar/calendar.module#CalendarInitModule'
-      },
-      {
-        path: 'events',
-        component: FullLayoutComponent,
-        canActivate: [NgxPermissionsGuard],
-        data: {
-          permissions: {
-            only: ['ADMIN','TRAINER'],
-            except: 'GUEST'
-          }
-        },
-        loadChildren: './views/events/events.module#EventsModule'
-      },
-      {
-        path: 'dealers',
-        component: FullLayoutComponent, 
-        canActivate: [NgxPermissionsGuard],
-        data: {
-          permissions: {
-            only: 'ADMIN'
-          }
-        },
-        loadChildren: './views/dealers/dealers.module#DealersModule'
-      },
-      {
-        path: 'adddealer',
-        component: FullLayoutComponent,
-        canActivate: [NgxPermissionsGuard],
-        data: {
-          permissions: {
-            only: 'ADMIN'
-          }
-        },
-        loadChildren: './views/adddealer/adddealer.module#AdddealerModule'
-      },
-      {
-        path: 'editdealer/:id',
-        component: FullLayoutComponent,
-        canActivate: [NgxPermissionsGuard],
-        data: {
-          permissions: {
-            only: 'ADMIN'
-          }
-        },
-        loadChildren: './views/adddealer/adddealer.module#AdddealerModule'
-      },
-      {
-        path: 'deldealer/:id',
-        component: FullLayoutComponent,
-        canActivate: [NgxPermissionsGuard],
-        data: {
-          permissions: {
-            only: 'ADMIN'
-          }
-        },
-        loadChildren: './views/dealers/dealers.module#DealersModule'
-      },
+          
       {
         path: 'artist',
         component: FullLayoutComponent,
@@ -248,16 +181,7 @@ export const routes: Routes = [
 
 
 
-      {
-        path: 'staffcalendar',
-        component: FullStaffLayoutComponent,
-        loadChildren: './views/calendar/calendar.module#CalendarInitModule'
-      },
-      {
-        path: 'staffevents',
-        component: FullStaffLayoutComponent,
-        loadChildren: './views/events/events.module#EventsModule'
-      },
+      
 
 
 
