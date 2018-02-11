@@ -82,7 +82,7 @@ export class AddsalonComponent {
     		city:'',
     		password:'',
     		emailVerified: false,
-    		status: 'inactive'
+    		status: 'active'
     	}
 
     	let options = new RequestOptions();

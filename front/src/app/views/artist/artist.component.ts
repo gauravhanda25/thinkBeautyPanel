@@ -24,6 +24,7 @@ export class ArtistComponent {
   	private users: any;
     private delparam: any;
     private nousers: any;
+    private data: any;
 
     private toasterService: ToasterService;
 
@@ -104,6 +105,39 @@ export class ArtistComponent {
 
  	}
 
+    changeStatus(artist) {
+        let options = new RequestOptions();
+        options.headers = new Headers();
+        options.headers.append('Content-Type', 'application/json');
+        options.headers.append('Accept', 'application/json');
+
+        this.data = {
+            status : ''
+        }
+        if(artist.status == 'active') {
+             this.data.status = 'inactive';
+        } else {
+            this.data.status = 'active';
+        }
+        let where = '{"id": artist.id}';
+        console.log(where);
+
+        this.http.post(API_URL+'/Members/update?where=%7B%22id%22%3A%22'+  artist.id +'%22%7D&access_token='+ localStorage.getItem('currentUserToken'), this.data,  options)
+        .subscribe(response => {
+            console.log(response.json());    
+            localStorage.setItem('noticemessage', 'artistupdate');
+            this.router.navigate(['artist']);  
+            const index: number = this.users.indexOf(artist);
+            console.log(index);
+            if (index !== -1) {
+             this.users.splice(index, 1);
+            }
+               
+        }, error => {
+            this.toasterService.pop('error', 'Error ',  error.json().error.message);
+            console.log(JSON.stringify(error.json()));
+        });
+    } 
     delartist(artist) {
         if(confirm("Are you sure?")){
             let options = new RequestOptions();

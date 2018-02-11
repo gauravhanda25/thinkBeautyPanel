@@ -82,7 +82,7 @@ export class AddartistComponent {
     		city:'',
     		password:'',
     		emailVerified: false,
-    		status: 'inactive'
+    		status: 'active'
     	}
 
     	let options = new RequestOptions();
