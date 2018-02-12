@@ -64,54 +64,7 @@ export const routes: Routes = [
         },
         loadChildren: './views/dashboard/dashboard.module#DashboardModule'
       },
-          
-      
-            {
-        path: 'salon',
-        component: FullLayoutComponent,
-        canActivate: [NgxPermissionsGuard],
-        data: {
-          permissions: {
-            only: 'ADMIN'
-          }
-        },
-        loadChildren: './views/salon/salon.module#SalonModule'
-      },
-      {
-        path: 'addsalon',
-        component: FullLayoutComponent,
-        canActivate: [NgxPermissionsGuard],
-        data: {
-          permissions: {
-            only: 'ADMIN'
-          }
-        },
-        loadChildren: './views/addsalon/addsalon.module#AddsalonModule'
-      },
-      {
-        path: 'editsalon/:id',
-        component: FullLayoutComponent,
-        canActivate: [NgxPermissionsGuard],
-        data: {
-          permissions: {
-            only: 'ADMIN'
-          }
-        },
-        loadChildren: './views/addsalon/addsalon.module#AddsalonModule'
-      },
-      {
-        path: 'delsalon/:id',
-        component: FullLayoutComponent,
-        canActivate: [NgxPermissionsGuard],
-        data: {
-          permissions: {
-            only: 'ADMIN'
-          }
-        },
-        loadChildren: './views/salon/salon.module#SalonModule'
-      },
-      
-	  
+          	  
       {
         path: 'emails',
         component: FullLayoutComponent,
@@ -134,15 +87,6 @@ export const routes: Routes = [
         },
         loadChildren: './views/invoices/invoices.module#InvoicesModule'
       },
-
-
-
-
-      
-
-
-
-
 
       {
         path: 'base',
@@ -202,6 +146,59 @@ export const routes: Routes = [
 
     ]
   },
+
+    {
+    path: 'salon',
+    component: FullLayoutComponent,
+    data: {
+      title: 'Salon'
+    },
+    children: [
+      {
+        path: '',
+        component: SimpleLayoutComponent,
+        canActivate: [NgxPermissionsGuard],
+        data: {
+          permissions: {
+            only: 'ADMIN'
+          }
+        },
+        loadChildren: './views/salon/salon.module#SalonModule'
+      },{
+        path: 'newrequests',
+        component: SimpleLayoutComponent,
+        canActivate: [NgxPermissionsGuard],
+        data: {
+          permissions: {
+            only: 'ADMIN'
+          }
+        },
+        loadChildren: './views/salon/salon.module#SalonModule'
+      },
+      {
+        path: 'addsalon',
+        component: SimpleLayoutComponent,
+        canActivate: [NgxPermissionsGuard],
+        data: {
+          permissions: {
+            only: 'ADMIN'
+          }
+        },
+              loadChildren: './views/addsalon/addsalon.module#AddsalonModule'
+      },
+      {
+        path: 'editsalon/:id',
+        component: SimpleLayoutComponent,
+        canActivate: [NgxPermissionsGuard],
+        data: {
+          permissions: {
+            only: 'ADMIN'
+          }
+        },
+        loadChildren: './views/addsalon/addsalon.module#AddsalonModule'
+      },
+    ]
+  },
   {
     path: 'artist',
     component: FullLayoutComponent,
@@ -251,17 +248,6 @@ export const routes: Routes = [
           }
         },
         loadChildren: './views/addartist/addartist.module#AddartistModule'
-      },
-      {
-        path: 'delartist/:id',
-        component: FullLayoutComponent,
-        canActivate: [NgxPermissionsGuard],
-        data: {
-          permissions: {
-            only: 'ADMIN'
-          }
-        },
-        loadChildren: './views/artist/artist.module#ArtistModule'
       },
     ]
   }

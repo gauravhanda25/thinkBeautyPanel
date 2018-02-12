@@ -76,7 +76,7 @@ export class AddsalonComponent {
     		block:'',
     		phone:'',
     		role_id: 3,
-    		artist_profession:'',
+    		salon_profession:'',
     		villa:'',
     		road:'',
     		city:'',

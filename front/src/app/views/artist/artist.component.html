@@ -41,8 +41,8 @@
                 <td>{{user.phone}}</td>
                 <td>{{user.email}}</td>
                 <td>
-                  <a class="btn btn-sm btn-outline-primary " href="#" routerLink='/artist/editartist/{{user.id}}'><i class="fa fa-edit"></i> </a>                 
-                  <button class="btn btn-sm btn-outline-primary " (click) ="delartist(user)"><i class="fa fa-trash"></i></button>
+                  <a class="btn btn-sm btn-outline-primary " href="#" routerLink='/artist/editartist/{{user.id}}' *ngIf="check_account.action == 'active'"><i class="fa fa-edit"></i> </a>                 
+                  <button class="btn btn-sm btn-outline-primary " (click) ="delartist(user)" *ngIf="check_account.action == 'active'"><i class="fa fa-trash"></i></button>
                   <button class="btn btn-sm btn-outline-primary " (click) ="changeStatus(user)">{{check_account.actionName}}</button>
                 </td>
               </tr>
