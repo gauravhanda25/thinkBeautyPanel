@@ -59,6 +59,8 @@ export class ArtistComponent {
         options.headers.append('Content-Type', 'application/json');
         options.headers.append('Accept', 'application/json');
         // alert(this.router.url);
+
+        this.changeAllStatuses();
         if(this.router.url === '/artist/newrequests'){
          this.use_url = API_URL+'/Members?filter={"where":{"role_id":2, "status" : "inactive"}}&access_token='+localStorage.getItem('currentUserToken');
          
@@ -156,6 +158,25 @@ export class ArtistComponent {
             console.log(JSON.stringify(error.json()));
         });
     } 
+
+    changeAllStatuses()  {
+        let options = new RequestOptions();
+        options.headers = new Headers();
+        options.headers.append('Content-Type', 'application/json');
+        options.headers.append('Accept', 'application/json');
+
+          
+
+        this.http.post(API_URL+'/Members/update?where={"seen":false}&access_token='+ localStorage.getItem('currentUserToken'), {"seen" : true},  options)
+        .subscribe(response => {
+
+            console.log("status changed");
+               
+        }, error => {
+            this.toasterService.pop('error', 'Error ',  error.json().error.message);
+            
+        });
+    }
     delartist(artist) {
         if(confirm("Are you sure?")){
             let options = new RequestOptions();

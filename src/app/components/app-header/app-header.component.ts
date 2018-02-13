@@ -13,8 +13,76 @@ import { API_URL } from '../../globals';
 
 export class AppHeaderComponent {
 	public data:any;
+	private users: any;
+	private use_url: any;
+	private artists_requests : any;
+	private salon_requests : any;
+	private salon_registered : Number;
+	private artists_registered : Number;
+	private where_condition : any;
+	private notification_number : number;
+	private showNotification : boolean;
 	constructor(private NgxRolesService: NgxRolesService, private NgxPermissionsService: NgxPermissionsService, private router:Router, private http: Http) {
+		this.showNotification = true;
 		this.data = {};
+		this.where_condition = {
+       'artistRequests' : '{"where":{"role_id":2, "status" : "inactive" , "seen" : false}}',
+       'artistRegistered' : '{"where":{"role_id":2, "status" : "active" }}',
+       'salonRequests' : '{"where":{"role_id":3, "status" : "inactive" , "seen" : false}}',
+       'salonRegistered' : '{"where":{"role_id":3, "status" : "active" }}',
+    }
+    this.notification_number = 0;
+    let options = new RequestOptions();
+        options.headers = new Headers();
+        options.headers.append('Content-Type', 'application/json');
+        options.headers.append('Accept', 'application/json');
+        this.use_url = API_URL+'/Members?filter='+this.where_condition.artistRequests+'&access_token='+localStorage.getItem('currentUserToken');
+
+        this.http.get(this.use_url, options)
+        .subscribe(response => {
+            console.log(response.json().length);       
+            this.artists_requests = response.json().length;
+            this.notification_number =  this.notification_number + parseInt(this.artists_requests);
+        console.log('here i am' + this.notification_number);
+        }, error => {
+            console.log(JSON.stringify(error.json()));
+        }); 
+
+        this.use_url = API_URL+'/Members?filter='+this.where_condition.artistRegistered+'&access_token='+localStorage.getItem('currentUserToken');
+        this.http.get(this.use_url, options)
+        .subscribe(response => {
+            console.log(response.json().length);       
+            this.artists_registered = response.json().length;
+        }, error => {
+            console.log(JSON.stringify(error.json()));
+        });
+
+
+        
+        this.use_url = API_URL+'/Members?filter='+this.where_condition.salonRequests+'&access_token='+localStorage.getItem('currentUserToken');
+         this.http.get(this.use_url, options)
+        .subscribe(response => {
+            console.log(response.json().length);       
+            this.salon_requests = response.json().length;
+            this.notification_number =  this.notification_number + parseInt(this.salon_requests);
+        }, error => {
+            console.log(JSON.stringify(error.json()));
+        });
+
+
+
+        this.use_url = API_URL+'/Members?filter='+this.where_condition.salonRegistered+'&access_token='+localStorage.getItem('currentUserToken');
+         this.http.get(this.use_url, options)
+        .subscribe(response => {
+            console.log(response.json().length);       
+            this.salon_registered = response.json().length;
+        }, error => {
+            console.log(JSON.stringify(error.json()));
+        }); 
+
+        if(this.notification_number) {
+        	this.showNotification = true;
+        }
 	}
 
 	logout() {
@@ -33,6 +101,11 @@ export class AppHeaderComponent {
 		localStorage.clear();
 	    this.NgxRolesService.flushRoles();
 	    this.router.navigate(['login']);
+	}
+
+	removeNotification() {
+		this.showNotification = false;
+		return false;
 	}
 
  }

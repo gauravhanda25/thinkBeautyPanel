@@ -151,11 +151,11 @@ export const routes: Routes = [
     path: 'salon',
     component: FullLayoutComponent,
     data: {
-      title: 'Salon'
+      title: 'Manage Salons'
     },
     children: [
       {
-        path: '',
+        path: 'registered',
         component: SimpleLayoutComponent,
         canActivate: [NgxPermissionsGuard],
         data: {
@@ -203,11 +203,11 @@ export const routes: Routes = [
     path: 'artist',
     component: FullLayoutComponent,
     data: {
-      title: 'Artists'
+      title: 'Manage Artists'
     },
     children: [
       {
-        path: '',
+        path: 'registered',
         component: SimpleLayoutComponent,
         canActivate: [NgxPermissionsGuard],
         data: {

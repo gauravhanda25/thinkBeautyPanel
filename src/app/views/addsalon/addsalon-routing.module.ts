@@ -8,7 +8,7 @@ const routes: Routes = [
     path: '',
     component: AddsalonComponent,
     data: {
-      title: 'Add Salon'
+      title: 'Manage Salons'
     }
   }
 ];
