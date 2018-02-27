@@ -58,7 +58,7 @@ export const routes: Routes = [
         canActivate: [NgxPermissionsGuard],
         data: {
           permissions: {
-            only: ['ADMIN','TRAINER'],
+            only: ['ADMIN','ARTIST'],
             except: 'GUEST'
           }
         },
@@ -164,6 +164,17 @@ export const routes: Routes = [
           }
         },
         loadChildren: './views/salon/salon.module#SalonModule'
+      },
+      {
+        path: 'rejected',
+        component: SimpleLayoutComponent,
+        canActivate: [NgxPermissionsGuard],
+        data: {
+          permissions: {
+            only: 'ADMIN'
+          }
+        },
+        loadChildren: './views/salon/salon.module#SalonModule'
       },{
         path: 'newrequests',
         component: SimpleLayoutComponent,
@@ -216,7 +227,19 @@ export const routes: Routes = [
           }
         },
         loadChildren: './views/artist/artist.module#ArtistModule'
-      },{
+      },
+      {
+        path: 'rejected',
+        component: SimpleLayoutComponent,
+        canActivate: [NgxPermissionsGuard],
+        data: {
+          permissions: {
+            only: 'ADMIN'
+          }
+        },
+        loadChildren: './views/artist/artist.module#ArtistModule'
+      },
+      {
         path: 'newrequests',
         component: SimpleLayoutComponent,
         canActivate: [NgxPermissionsGuard],

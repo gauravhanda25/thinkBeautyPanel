@@ -12,7 +12,7 @@
           <div class="row mb-3">
             <div class="col-md-4 offset-md-8">
               <div class="input-group">
-                <span class="input-group-addon"><i class="fa fa-search"></i></span>
+                <span class="input-group-addon"></span>
                 <input type="text" class="form-control" [(ngModel)]="filterQuery" placeholder="Search by name"/>
               </div>
             </div>
@@ -43,7 +43,10 @@
                 <td>
                   <a class="btn btn-sm btn-outline-primary " href="#" routerLink='/salon/editsalon/{{user.id}}' *ngIf="check_account.action == 'active'"><i class="fa fa-edit"></i> </a>                 
                   <button class="btn btn-sm btn-outline-primary " (click) ="delsalon(user)" *ngIf="check_account.action == 'active'"><i class="fa fa-trash"></i></button>
-              <button class="btn btn-sm btn-outline-primary " (click) ="changeStatus(user)">{{check_account.actionName}}</button>
+                  <button class="btn btn-sm btn-outline-primary " *ngIf="check_account.action == 'active'" (click) ="changeStatus(user, 'inactive')">{{check_account.actionName}}</button>
+                  <button class="btn btn-sm btn-outline-primary " *ngIf="check_account.action == 'inactive'" (click) ="changeStatus(user, 'reject')">Reject</button>
+
+                  <button class="btn btn-sm btn-outline-primary " *ngIf="check_account.action == 'reject'" (click) ="changeStatus(user, 'active')">Activate</button>
                 </td>
               </tr>
             </tbody>            

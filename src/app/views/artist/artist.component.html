@@ -12,7 +12,7 @@
           <div class="row mb-3">
             <div class="col-md-4 offset-md-8">
               <div class="input-group">
-                <span class="input-group-addon"><i class="fa fa-search"></i></span>
+                <span class="input-group-addon"></span>
                 <input type="text" class="form-control" [(ngModel)]="filterQuery" placeholder="Search by name"/>
               </div>
             </div>
@@ -22,6 +22,7 @@
               <tr>
                 <th><mfDefaultSorter by="name">Name</mfDefaultSorter></th>
                 <th><mfDefaultSorter by="role">Role</mfDefaultSorter></th>
+                <th><mfDefaultSorter by="profession">Profession</mfDefaultSorter></th>
                 <th><mfDefaultSorter by="province">City</mfDefaultSorter></th>
                 <th><mfDefaultSorter by="country">Country</mfDefaultSorter></th>
                 <th><mfDefaultSorter by="phone">Phone</mfDefaultSorter></th>
@@ -36,14 +37,18 @@
               <tr *ngFor="let user of mf.data" >
                 <td>{{user.name}}</td>
                 <td>{{user.role}}</td>
+                <td>{{profession_vals[user.profession]}}</td>
                 <td>{{user.city}}</td>
                 <td>{{user.countryname}}</td>
                 <td>{{user.mobile}}</td>
                 <td>{{user.email}}</td>
                 <td>
                   <a class="btn btn-sm btn-outline-primary " href="#" routerLink='/artist/editartist/{{user.id}}' *ngIf="check_account.action == 'active'"><i class="fa fa-edit"></i> </a>                 
-                  <button class="btn btn-sm btn-outline-primary " (click) ="delartist(user)" *ngIf="check_account.action == 'active'"><i class="fa fa-trash"></i></button>
-                  <button class="btn btn-sm btn-outline-primary " (click) ="changeStatus(user)">{{check_account.actionName}}</button>
+                  <button class="btn btn-sm btn-outline-primary "  (click) ="delartist(user)" *ngIf="check_account.action == 'active'"><i class="fa fa-trash"></i></button>
+                  <button class="btn btn-sm btn-outline-primary " *ngIf="check_account.action == 'active'" (click) ="changeStatus(user, 'inactive')">{{check_account.actionName}}</button>
+                  <button class="btn btn-sm btn-outline-primary " *ngIf="check_account.action == 'inactive'" (click) ="changeStatus(user, 'reject')">Reject</button>
+
+                  <button class="btn btn-sm btn-outline-primary " *ngIf="check_account.action == 'reject'" (click) ="changeStatus(user, 'active')">Activate</button>
                 </td>
               </tr>
             </tbody>            

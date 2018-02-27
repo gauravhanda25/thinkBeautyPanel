@@ -20,6 +20,11 @@ export const navigation = [
         icon: 'icon-people',
       },
       {
+        name: 'Rejected Artists',
+        url: '/artist/rejected',
+        icon: 'icon-people',
+      },
+      {
         name: 'Add New Artist',
         url: '/artist/addartist',
         icon: 'icon-people',
@@ -41,6 +46,11 @@ export const navigation = [
     url: '/salon/registered',
     icon: 'icon-list',
   },
+    {
+    name: 'Rejected Salon',
+    url: '/salon/rejected',
+    icon: 'icon-list',
+  },
       {
     name: 'Add New Salon',
     url: '/salon/addsalon',
@@ -50,7 +60,7 @@ export const navigation = [
   }
 ];
 
-export const staffnavigation = [
+export const artistnavigation = [
   {
     name: 'Dashboard',
     url: '/dashboard',

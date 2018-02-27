@@ -1,20 +1,20 @@
 import { Component, ElementRef, Input, OnInit, Renderer2 } from '@angular/core';
 
 // Import navigation elements
-import { staffnavigation } from './../../_nav';
+import { artistnavigation } from './../../_nav';
 
 @Component({
-  selector: 'app-staffsidebar-nav',
+  selector: 'app-artistsidebar-nav',
   template: `
     <nav class="sidebar-nav">
       <ul class="nav">
-        <ng-template ngFor let-navitem [ngForOf]="staffnavigation">
+        <ng-template ngFor let-navitem [ngForOf]="artistnavigation">
           <li *ngIf="isDivider(navitem)" class="nav-divider"></li>
           <ng-template [ngIf]="isTitle(navitem)">
-            <app-staffsidebar-nav-title [title]='navitem'></app-staffsidebar-nav-title>
+            <app-artistsidebar-nav-title [title]='navitem'></app-artistsidebar-nav-title>
           </ng-template>
           <ng-template [ngIf]="!isDivider(navitem)&&!isTitle(navitem)">
-            <app-staffsidebar-nav-item [item]='navitem'></app-staffsidebar-nav-item>
+            <app-artistsidebar-nav-item [item]='navitem'></app-artistsidebar-nav-item>
           </ng-template>
         </ng-template>
       </ul>
@@ -22,7 +22,7 @@ import { staffnavigation } from './../../_nav';
 })
 export class AppStaffsidebarNavComponent {
 
-  public staffnavigation = staffnavigation;
+  public artistnavigation = artistnavigation;
 
   public isDivider(item) {
     return item.divider ? true : false
@@ -38,17 +38,17 @@ export class AppStaffsidebarNavComponent {
 import { Router } from '@angular/router';
 
 @Component({
-  selector: 'app-staffsidebar-nav-item',
+  selector: 'app-artistsidebar-nav-item',
   template: `
     <li *ngIf="!isDropdown(); else dropdown" [ngClass]="hasClass() ? 'nav-item ' + item.class : 'nav-item'">
-      <app-staffsidebar-nav-link [link]='item'></app-staffsidebar-nav-link>
+      <app-artistsidebar-nav-link [link]='item'></app-artistsidebar-nav-link>
     </li>
     <ng-template #dropdown>
       <li [ngClass]="hasClass() ? 'nav-item nav-dropdown ' + item.class : 'nav-item nav-dropdown'"
           [class.open]="isActive()"
           routerLinkActive="open"
           appNavDropdown>
-        <app-staffsidebar-nav-dropdown [link]='item'></app-staffsidebar-nav-dropdown>
+        <app-artistsidebar-nav-dropdown [link]='item'></app-artistsidebar-nav-dropdown>
       </li>
     </ng-template>
     `
@@ -77,7 +77,7 @@ export class AppStaffsidebarNavItemComponent {
 }
 
 @Component({
-  selector: 'app-staffsidebar-nav-link',
+  selector: 'app-artistsidebar-nav-link',
   template: `
     <a *ngIf="!isExternalLink(); else external"
       [ngClass]="hasVariant() ? 'nav-link nav-link-' + link.variant : 'nav-link'"
@@ -126,7 +126,7 @@ export class AppStaffsidebarNavLinkComponent {
 }
 
 @Component({
-  selector: 'app-staffsidebar-nav-dropdown',
+  selector: 'app-artistsidebar-nav-dropdown',
   template: `
     <a class="nav-link nav-dropdown-toggle" appNavDropdownToggle>
       <i *ngIf="isIcon()" class="{{ link.icon }}"></i>
@@ -135,7 +135,7 @@ export class AppStaffsidebarNavLinkComponent {
     </a>
     <ul class="nav-dropdown-items">
       <ng-template ngFor let-child [ngForOf]="link.children">
-        <app-staffsidebar-nav-item [item]='child'></app-staffsidebar-nav-item>
+        <app-artistsidebar-nav-item [item]='child'></app-artistsidebar-nav-item>
       </ng-template>
     </ul>
   `
@@ -155,7 +155,7 @@ export class AppStaffsidebarNavDropdownComponent {
 }
 
 @Component({
-  selector: 'app-staffsidebar-nav-title',
+  selector: 'app-artistsidebar-nav-title',
   template: ''
 })
 export class AppStaffsidebarNavTitleComponent implements OnInit {

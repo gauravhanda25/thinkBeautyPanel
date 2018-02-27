@@ -1,19 +1,20 @@
+<div class="app flex-row align-items-center login-form">
 <div class="container">
     <div class="row" style="margin:15% 0">
         <div class="col-sm-4 col-sm-offset-4" style="margin:auto;">
-            <div class="card">         
+            <div class="card login-block">         
               <form class="form-horizontal ng-untouched ng-pristine ng-valid" novalidate="" (ngSubmit)="onSubmit()" #loginForm="ngForm"> 
                 <div class="text-center img-responsive" style="margin: 15px 0 0 15px">
-                  <img src="/admin-panel/assets/img/logo.png" style="width:150px" >
+                  <img src="/panel/assets/img/logo.png" style="width:150px" >
                 </div>
                 <div class="card-body">                    
-                    <p class="text-muted">Sign In to your account</p>   
+                    <p class="text-white">Sign In to your account</p>   
                     <div class="alert alert-danger" [hidden]="!error">Username or password doesn't match!</div>
                     <div class="form-group row">
                       <div class="col-md-12">
                         <div class="input-group">
                           <div class="input-group-prepend">
-                            <span class="input-group-text"><i class="fa fa-user"></i></span>
+                            <span class="input-group-addon"><i class="icon-user"></i></span>
                           </div>
                           <input class="form-control" name="username" placeholder="Username/Email" type="text" [(ngModel)]="data.username" required>
                         </div>
@@ -23,7 +24,7 @@
                       <div class="col-md-12">
                         <div class="input-group">
                           <div class="input-group-prepend">
-                            <span class="input-group-text"><i class="fa fa-lock"></i></span>
+                            <span class="input-group-addon"><i class="icon-lock"></i></span>
                           </div>
                           <input class="form-control" name="password" placeholder="Password" type="password" [(ngModel)]="data.password"  required>
                         </div>
@@ -56,5 +57,6 @@
             </div>
         </div>
     </div>
+</div>
 </div>
 <toaster-container [toasterconfig]="toasterconfig"></toaster-container>

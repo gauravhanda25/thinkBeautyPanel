@@ -66,8 +66,8 @@ export class LoginComponent {
 		
 	    this.http.post(API_URL+'/Members/login?include=user', this.data,  options)
 	        .subscribe(response => {
-	        	//console.log(response.json().userId);
-    			//console.log(response.json().user.role_id);
+	        	console.log(response.json().id);
+    			console.log(response.json().user.role_id);
     			localStorage.setItem('currentUserToken', response.json().id);
     			localStorage.setItem('currentUserRoleId', response.json().user.role_id);
     			localStorage.setItem('currentUser', response.json());
@@ -75,10 +75,10 @@ export class LoginComponent {
 
     			if(localStorage.getItem('currentUserRoleId') == "1"){
     				localStorage.setItem('currentUserRole', "ADMIN");
-    			} else if(localStorage.getItem('currentUserRoleId') == "2"){
-    				localStorage.setItem('currentUserRole', "TRAINER");
+    			} else if(response.json().user.role_id == "2"){
+    				localStorage.setItem('currentUserRole', "ARTIST");
     			} else if(localStorage.getItem('currentUserRoleId') == "3"){
-    				localStorage.setItem('currentUserRole', "REGIONAL");
+    				localStorage.setItem('currentUserRole', "SALON");
     			} else if(localStorage.getItem('currentUserRoleId') == "4"){
     				localStorage.setItem('currentUserRole', "ACCOUNT");
     			}
@@ -88,7 +88,8 @@ export class LoginComponent {
     			this.NgxRolesService.addRole(localStorage.getItem('currentUserRole'), ['A']	);
 
 				if(response.json().user.role_id) {
-             		this.router.navigate(['dashboard']);
+            console.log("I am here");
+            this.router.navigate(['dashboard']);
 				} else {
              	 //this.error = 1;
                this.toasterService.pop('error', 'Login Error ', "Username or password doesn't match!");

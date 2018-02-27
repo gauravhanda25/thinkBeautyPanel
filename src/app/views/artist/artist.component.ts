@@ -27,6 +27,7 @@ export class ArtistComponent {
     private data: any;
     private use_url: any;
     private check_account: any;
+    private profession_vals: any;
 
     private toasterService: ToasterService;
 
@@ -39,7 +40,7 @@ export class ArtistComponent {
     public filterQuery = '';
 
     constructor(private router:Router, private http: Http, private activatedRoute: ActivatedRoute, toasterService: ToasterService ) { 
-
+        this.profession_vals = ['Make Up', 'Hair', 'Make Up & Hair'];
         this.toasterService = toasterService;
 
         this.nousers = 1;
@@ -61,22 +62,31 @@ export class ArtistComponent {
         // alert(this.router.url);
 
         this.changeAllStatuses();
-        if(this.router.url === '/artist/newrequests'){
-         this.use_url = API_URL+'/Members?filter={"where":{"role_id":2, "status" : "inactive"}}&access_token='+localStorage.getItem('currentUserToken');
-         
-         this.check_account = {
-            id: '',
-            action: 'inactive',
-            actionName : 'Verify'
+        const reqUrl = this.router.url;
+        if(reqUrl === '/artist/newrequests'){
+             this.use_url = API_URL+'/Members?filter={"where":{"role_id":2, "status" : "inactive"}}&access_token='+localStorage.getItem('currentUserToken');
+             
+             this.check_account = {
+                id: '',
+                action: 'inactive',
+                actionName : 'Verify'
+            }
         }
-         
-        }else{
-          this.check_account = {
-            id: '',
-            action: 'active',
-            actionName : 'Block'
-        }
-         this.use_url = API_URL+'/Members?filter={"where":{"role_id":2, "status" : "active"}}&access_token='+localStorage.getItem('currentUserToken');
+        else if(reqUrl === '/artist/registered')
+        {
+              this.check_account = {
+                id: '',
+                action: 'active',
+                actionName : 'Block'
+            }
+             this.use_url = API_URL+'/Members?filter={"where":{"role_id":2, "status" : "active"}}&access_token='+localStorage.getItem('currentUserToken');
+        } else {
+            this.check_account = {
+                id: '',
+                action: 'reject',
+                actionName : 'Block'
+            }
+             this.use_url = API_URL+'/Members?filter={"where":{"role_id":2, "status" : "reject"}}&access_token=' + localStorage.getItem('currentUserToken');
         }
 
         this.http.get(this.use_url, options)
@@ -127,18 +137,14 @@ export class ArtistComponent {
 
  	}
 
-    changeStatus(artist) {
+    changeStatus(artist, status) {
         let options = new RequestOptions();
         options.headers = new Headers();
         options.headers.append('Content-Type', 'application/json');
         options.headers.append('Accept', 'application/json');
 
         
-        if(artist.status == 'active') {
-             artist.status = 'inactive';
-        } else {
-            artist.status = 'active';
-        }
+        artist.status = status;
         let where = '{"id": artist.id}';
         console.log(where);
 
