@@ -57,6 +57,7 @@ export const routes: Routes = [
         component: FullLayoutComponent,        
         canActivate: [NgxPermissionsGuard],
         data: {
+          title: 'Dashboard',
           permissions: {
             only: ['ADMIN','ARTIST'],
             except: 'GUEST'
@@ -64,6 +65,50 @@ export const routes: Routes = [
         },
         loadChildren: './views/dashboard/dashboard.module#DashboardModule'
       },
+
+      {
+        path: 'makeup',
+        component: FullLayoutComponent,        
+        canActivate: [NgxPermissionsGuard],
+        data: {
+          permissions: {
+            only: ['ADMIN'],
+            except: 'GUEST'
+          }
+        },
+        loadChildren: './views/makeup/makeup.module#MakeupModule'
+      },
+
+      {
+        path: 'hair',
+        component: FullLayoutComponent,        
+        canActivate: [NgxPermissionsGuard],
+        data: {
+          permissions: {
+            only: ['ADMIN'],
+            except: 'GUEST'
+          }
+        },
+        loadChildren: './views/hair/hair.module#HairModule'
+      },
+
+      {
+        path: 'nails',
+        component: FullLayoutComponent,        
+        canActivate: [NgxPermissionsGuard],
+        data: {
+          permissions: {
+            only: ['ADMIN'],
+            except: 'GUEST'
+          }
+        },
+        loadChildren: './views/nails/nails.module#NailsModule'
+      },
+
+
+
+
+
           	  
       {
         path: 'emails',

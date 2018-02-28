@@ -1,0 +1,40 @@
+<div class="animated fadeIn">
+  <div class="row">
+  	<div class="col-lg-12">
+      	<div class="card">         
+            <form class="form-horizontal ng-untouched ng-pristine ng-valid" novalidate="" (ngSubmit)="onSubmit()" #makeupForm="ngForm">
+				<div class="card-header">
+					<span *ngIf="editparam.action == 'add'">Add New Makeup Service</span>
+                    <span *ngIf="editparam.action == 'edit'">Edit Makeup Service</span>
+				</div>
+                <div class="card-body">                    
+                    <div class="form-group row" >
+                      	<div class="col-md-6">
+							<label for="name">Name<span class="text-danger">*</span></label>
+                        	<input class="form-control" name="name" placeholder="Name" type="text"  [(ngModel)]="data.name" required>
+                        </div>
+                        <div class="col-md-6">
+                         <label for="status">Status<span class="text-danger">*</span></label>
+                          <select class="form-control" name="status" [(ngModel)]="data.status" required>
+                            <option value="">Select Status</option>
+                            <option value="1">Active</option>
+                            <option value="0">Inactive</option>
+                          </select>
+                        </div>
+                    </div> 
+                                        
+                    <div class="form-group row">
+                      <div class="col-md-6">                     
+                         <button class="btn btn-large btn-primary" type="submit" *ngIf="editparam.action == 'add'" [disabled] = "!makeupForm.form.valid" >Add Makeup Service</button>               
+                         <button class="btn btn-large btn-primary" type="submit" *ngIf="editparam.action == 'edit'">Update Makeup Service</button>
+                      </div>
+                    </div> 
+                </div>                 
+              </form>
+            </div>
+    </div>    
+
+  </div>
+  <!--/.row-->
+</div>
+<toaster-container [toasterconfig]="toasterconfig"></toaster-container>

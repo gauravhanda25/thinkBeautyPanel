@@ -57,6 +57,29 @@ export const navigation = [
     icon: 'icon-list',
   },
       ]
+  }, 
+
+  {
+    name: 'Services',
+    url: '/',
+    icon: 'icon-settings',
+    children: [
+      {
+        name: 'Makeup',
+        url: '/makeup',
+        icon: 'icon-list',
+      },
+      {
+        name: 'Hair',
+        url: '/hair',
+        icon: 'icon-list',
+      },
+      {
+        name: 'Nails',
+        url: '/nails',
+        icon: 'icon-list',
+      }
+    ]
   }
 ];
 

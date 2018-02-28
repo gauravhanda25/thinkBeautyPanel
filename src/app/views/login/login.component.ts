@@ -70,6 +70,7 @@ export class LoginComponent {
     			console.log(response.json().user.role_id);
     			localStorage.setItem('currentUserToken', response.json().id);
     			localStorage.setItem('currentUserRoleId', response.json().user.role_id);
+          localStorage.setItem('currentUserId', response.json().user.id);
     			localStorage.setItem('currentUser', response.json());
 
 
@@ -79,9 +80,7 @@ export class LoginComponent {
     				localStorage.setItem('currentUserRole', "ARTIST");
     			} else if(localStorage.getItem('currentUserRoleId') == "3"){
     				localStorage.setItem('currentUserRole', "SALON");
-    			} else if(localStorage.getItem('currentUserRoleId') == "4"){
-    				localStorage.setItem('currentUserRole', "ACCOUNT");
-    			}
+    			} 
 
           this.NgxRolesService.flushRoles();
 
