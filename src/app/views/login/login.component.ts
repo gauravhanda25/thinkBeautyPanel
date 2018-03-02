@@ -3,7 +3,7 @@ import { HttpModule } from '@angular/http';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import {Injectable, Inject} from '@angular/core';
 import {Http, Response, Headers, RequestOptions} from '@angular/http';
-import { RouterModule, Routes, Router } from '@angular/router';
+import { RouterModule, Routes, Router, NavigationEnd, ActivatedRoute, ParamMap } from '@angular/router';
 import { API_URL } from '../../globals';
 import { NgxPermissionsService, NgxRolesService } from 'ngx-permissions';
 
@@ -31,8 +31,9 @@ export class LoginComponent {
         timeout: 5000
       });
 
+      public loginType:any;
 
-	constructor(private NgxRolesService: NgxRolesService, private NgxPermissionsService: NgxPermissionsService, @Inject(Http) private http: Http, @Inject(Router)private router:Router, toasterService: ToasterService) {
+	constructor(private NgxRolesService: NgxRolesService, private NgxPermissionsService: NgxPermissionsService, @Inject(Http) private http: Http, @Inject(Router)private router:Router, @Inject(ActivatedRoute) private activatedRoute: ActivatedRoute, toasterService: ToasterService) {
 	    this.data  = {
 	      username: '',
 	      password:'',
@@ -42,6 +43,17 @@ export class LoginComponent {
       this.toasterService = toasterService;
 
 	    NgxPermissionsService.loadPermissions(["A"]);
+
+      router.events.subscribe((event: any) => {
+        if (event instanceof NavigationEnd ) {
+          console.log(event.url);
+          if(event.url == "/artistlogin"){
+            this.loginType = "artist"
+          } else if(event.url == "/admin"){
+            this.loginType = "admin"
+          } 
+        }
+      });
 	  }
 
 
@@ -57,7 +69,14 @@ export class LoginComponent {
           delete this.data.email;
        }
 
-      // console.log(this.data);
+
+       if(this.loginType = "admin"){
+        this.data.role_id = 1;
+       } else {
+        this.data.role_id = 2;
+       }
+      
+      console.log(this.data);
 
 	    let options = new RequestOptions();
         options.headers = new Headers();
@@ -86,10 +105,9 @@ export class LoginComponent {
 
     			this.NgxRolesService.addRole(localStorage.getItem('currentUserRole'), ['A']	);
 
-				if(response.json().user.role_id) {
-            console.log("I am here");
-            this.router.navigate(['dashboard']);
-				} else {
+  				if(response.json().user.role_id) {
+              this.router.navigate(['dashboard']);
+  				} else {
              	 //this.error = 1;
                this.toasterService.pop('error', 'Login Error ', "Username or password doesn't match!");
             		//console.log(this.error);

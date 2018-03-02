@@ -98,9 +98,18 @@ export class AppHeaderComponent {
 	          console.log(error.json());
       		}
       	);
+
+        let routenavigate:any;
+        if(localStorage.getItem('currentUserRoleId') == "1") {
+            routenavigate = "admin"
+        } else if(localStorage.getItem('currentUserRoleId') == "2") {
+            routenavigate = "artistlogin"
+        }
+
 		localStorage.clear();
 	    this.NgxRolesService.flushRoles();
-	    this.router.navigate(['login']);
+
+	    this.router.navigate([routenavigate]);
 	}
 
 	removeNotification() {

@@ -90,19 +90,14 @@ export const artistnavigation = [
     icon: 'icon-speedometer',
   },
   {
-    name: 'Calendar',
-    url: '/calendar',
-    icon: 'icon-calendar',
-  },
-  {
-    name: 'Events',
-    url: '/events',
+    name: 'Your Services',
+    url: '/myservices',
     icon: 'icon-list',
   },
   {
-    name: 'Invoices',
-    url: '/invoices',
-    icon: 'icon-list',
-  }  
+    name: 'Availability',
+    url: '/availability',
+    icon: 'icon-clock',
+  }
   
 ];

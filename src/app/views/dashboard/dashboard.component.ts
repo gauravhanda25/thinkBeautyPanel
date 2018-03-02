@@ -28,9 +28,7 @@ export class DashboardComponent {
       localStorage.setItem('currentUserRole', "ARTIST");
     } else if(localStorage.getItem('currentUserRoleId') == "3"){
       localStorage.setItem('currentUserRole', "SALON");
-    } else if(localStorage.getItem('currentUserRoleId') == "4"){
-      localStorage.setItem('currentUserRole', "ACCOUNT");
-    }
+    } 
 
     this.NgxRolesService.flushRoles();
 

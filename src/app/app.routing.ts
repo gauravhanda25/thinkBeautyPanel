@@ -17,7 +17,7 @@ import {
 export const routes: Routes = [
   {
     path: '', 
-    redirectTo: 'login',
+    redirectTo: 'admin',
     pathMatch: 'full',
   },
   {
@@ -28,7 +28,11 @@ export const routes: Routes = [
     },
     children: [
       {
-        path: 'login',
+        path: 'admin',
+        loadChildren: './views/login/login.module#LoginModule'
+      },
+      {
+        path: 'artistlogin',
         loadChildren: './views/login/login.module#LoginModule'
       },
       {
@@ -72,8 +76,7 @@ export const routes: Routes = [
         canActivate: [NgxPermissionsGuard],
         data: {
           permissions: {
-            only: ['ADMIN'],
-            except: 'GUEST'
+            only: ['ADMIN']
           }
         },
         loadChildren: './views/makeup/makeup.module#MakeupModule'
@@ -85,8 +88,7 @@ export const routes: Routes = [
         canActivate: [NgxPermissionsGuard],
         data: {
           permissions: {
-            only: ['ADMIN'],
-            except: 'GUEST'
+            only: ['ADMIN']
           }
         },
         loadChildren: './views/hair/hair.module#HairModule'
@@ -98,14 +100,36 @@ export const routes: Routes = [
         canActivate: [NgxPermissionsGuard],
         data: {
           permissions: {
-            only: ['ADMIN'],
-            except: 'GUEST'
+            only: ['ADMIN']
           }
         },
         loadChildren: './views/nails/nails.module#NailsModule'
       },
 
+      {
+        path: 'myservices',
+        component: FullLayoutComponent,        
+        canActivate: [NgxPermissionsGuard],
+        data: {
+          permissions: {
+            only: ['ARTIST'],
+            except: ['ADMIN','GUEST']
+          }
+        },
+        loadChildren: './views/artistservices/artistservices.module#ArtistservicesModule'
+      },
 
+      {
+        path: 'availability',
+        component: FullLayoutComponent,        
+        canActivate: [NgxPermissionsGuard],
+        data: {
+          permissions: {
+            only: ['ARTIST']
+          }
+        },
+        loadChildren: './views/artistavail/artistavail.module#ArtistavailModule'
+      },
 
 
 
