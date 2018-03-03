@@ -11,6 +11,11 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { NgModule } from '@angular/core';
 
+// Tabs Component
+import { TabsModule } from 'ngx-bootstrap/tabs';
+
+import { ModalDirective } from 'ngx-bootstrap/modal';
+
 // Toastr
 import { ToasterModule, ToasterService, ToasterConfig, Toast }  from 'angular2-toaster/angular2-toaster';
 
@@ -22,6 +27,232 @@ import { ToasterModule, ToasterService, ToasterConfig, Toast }  from 'angular2-t
 
 @Injectable()
 export class AddartistservicesComponent {
-	
+
+	private makeupservices: any;
+	private makeupservicesData:any;
+	private nailservices: any;
+	private nailservicesData:any;
+	private hairservices: any;
+	private hairservicesData:any;
+
+	private data: any;
+  	private editparam: any;
+
+	private toasterService: ToasterService;
+	public toasterconfig : ToasterConfig =
+	  new ToasterConfig({
+		tapToDismiss: true,
+		timeout: 5000
+	  });
+	  
+	  
+    constructor(private NgxRolesService: NgxRolesService, private NgxPermissionsService: NgxPermissionsService, @Inject(Http) private http: Http, @Inject(Router)private router:Router, private activatedRoute: ActivatedRoute,toasterService: ToasterService) {
+		//console.log(localStorage.getItem('currentUserRoleId'));
+ 			
+	  if(localStorage.getItem('currentUserRoleId') == "1"){
+        localStorage.setItem('currentUserRole', "ADMIN");
+      } else if(localStorage.getItem('currentUserRoleId') == "2"){
+        localStorage.setItem('currentUserRole', "ARTIST");
+      } else if(localStorage.getItem('currentUserRoleId') == "3"){
+        localStorage.setItem('currentUserRole', "SALON");
+      } 
+
+	   this.NgxRolesService.flushRoles();
+
+	   if(localStorage.getItem('currentUserRole') != null) { 
+	   	this.NgxRolesService.addRole(localStorage.getItem('currentUserRole'), ['A'] );
+	   } else {
+	   	this.NgxRolesService.addRole("GUEST", ['A'] );	   
+	   } 
+
+	   let roles = NgxRolesService.getRoles();
+	    NgxRolesService.roles$.subscribe((data) => {
+	        console.log(data);
+	    })
+
+		this.toasterService = toasterService;
+		
+    	this.data = {    		
+    		price:'',
+    		duration: '',
+    		artistId: localStorage.getItem('currentUserId'),
+    		serviceId: '',
+    		subserviceId: ''
+    	}
+
+    	this.getAllArtistData();
+    	
+    	this.editparam = {
+    		id: '',
+    		action: 'add'
+    	}
+
+  	}
+
+
+
+  		
+  	getAllArtistData(){
+  		let options = new RequestOptions();
+        options.headers = new Headers();
+        options.headers.append('Content-Type', 'application/json');
+        options.headers.append('Accept', 'application/json');
+
+    	this.http.get(API_URL+'/Makeups?access_token='+ localStorage.getItem('currentUserToken'), options)
+        .subscribe(response => {
+        	//console.log(response.json());	
+        	this.makeupservices = response.json();
+
+        	this.makeupservicesData = [];
+
+        	for(let ser in this.makeupservices) {
+	        	this.http.get(API_URL+'/Artistservices?filter={"where":{"and":[{"subserviceId":"'+this.makeupservices[ser].id+'"},{"artistId":"'+localStorage.getItem('currentUserId')+'"}]}}&access_token='+ localStorage.getItem('currentUserToken'), options)
+		        .subscribe(r => {
+		        	if(r.json().length != 0){
+		        		this.makeupservicesData[this.makeupservices[ser].id] = r.json()[0];
+		        	} else {
+		        		this.makeupservicesData[this.makeupservices[ser].id] = '';
+		        	}
+		        	console.log(this.makeupservicesData);
+			    }, error => {
+			        console.log(JSON.stringify(error.json()));
+			    });
+			}
+	    }, error => {
+	        console.log(JSON.stringify(error.json()));
+	    });
+
+	    this.http.get(API_URL+'/Nails?access_token='+ localStorage.getItem('currentUserToken'), options)
+        .subscribe(response => {
+        	//console.log(response.json());	
+        	this.nailservices = response.json();
+
+        	this.nailservicesData = [];
+
+        	for(let ser in this.nailservices) {
+	        	this.http.get(API_URL+'/Artistservices?filter={"where":{"and":[{"subserviceId":"'+this.nailservices[ser].id+'"},{"artistId":"'+localStorage.getItem('currentUserId')+'"}]}}&access_token='+ localStorage.getItem('currentUserToken'), options)
+		        .subscribe(r => {
+		        	if(r.json().length != 0){
+		        		this.nailservicesData[this.nailservices[ser].id] = r.json()[0];
+		        	} else {
+		        		this.nailservicesData[this.nailservices[ser].id] = '';
+		        	}
+		        	console.log(this.nailservicesData);
+			    }, error => {
+			        console.log(JSON.stringify(error.json()));
+			    });
+			}
+	    }, error => {
+	        console.log(JSON.stringify(error.json()));
+	    });
+
+	    this.http.get(API_URL+'/Hairs?access_token='+ localStorage.getItem('currentUserToken'), options)
+        .subscribe(response => {
+        	//console.log(response.json());	
+        	this.hairservices = response.json();
+
+        	this.hairservicesData = [];
+
+        	for(let ser in this.hairservices) {
+	        	this.http.get(API_URL+'/Artistservices?filter={"where":{"and":[{"subserviceId":"'+this.hairservices[ser].id+'"},{"artistId":"'+localStorage.getItem('currentUserId')+'"}]}}&access_token='+ localStorage.getItem('currentUserToken'), options)
+		        .subscribe(r => {
+		        	if(r.json().length != 0){
+		        		this.hairservicesData[this.hairservices[ser].id] = r.json()[0];
+		        	} else {
+		        		this.hairservicesData[this.hairservices[ser].id] = '';
+		        	}
+		        	console.log(this.hairservicesData);
+			    }, error => {
+			        console.log(JSON.stringify(error.json()));
+			    });
+			}
+	    }, error => {
+	        console.log(JSON.stringify(error.json()));
+	    });
+
+  	}
+
+
+  	savesubservicedata(subserviceId, serviceId) {
+  		this.data.serviceId = serviceId;
+  		this.data.subserviceId = subserviceId;
+
+  		let options = new RequestOptions();
+	    options.headers = new Headers();
+        options.headers.append('Content-Type', 'application/json');
+        options.headers.append('Accept', 'application/json');
+
+    	this.http.post(API_URL+'/Artistservices?access_token='+ localStorage.getItem('currentUserToken'), this.data, options)
+        .subscribe(response => {
+
+	    	this.data = {    		
+	    		price:'',
+	    		duration: '',
+	    		artistId: localStorage.getItem('currentUserId'),
+	    		serviceId: '',
+	    		subserviceId: ''
+	    	}
+			this.toasterService.pop('success', 'Success', "Service saved successfully");
+    		
+    		this.getAllArtistData();
+
+	    }, error => {
+	        console.log(JSON.stringify(error.json()));
+	    });
+
+  	}
+
+  	updatesubservicedata(artistSubserviceId) {
+
+  		this.data = {
+  			price: artistSubserviceId.price,
+	    	duration: artistSubserviceId.duration,
+  		}
+
+  		let options = new RequestOptions();
+	    options.headers = new Headers();
+        options.headers.append('Content-Type', 'application/json');
+        options.headers.append('Accept', 'application/json');
+
+    	this.http.post(API_URL+'/Artistservices/update?where=%7B%22id%22%3A%22'+artistSubserviceId.id+'%22%7D&access_token='+ localStorage.getItem('currentUserToken'), this.data, options)
+        .subscribe(response => {
+        	console.log(response.json());
+
+	    	this.data = {    		
+	    		price:'',
+	    		duration: '',
+	    		artistId: localStorage.getItem('currentUserId'),
+	    		serviceId: '',
+	    		subserviceId: ''
+	    	}
+			this.toasterService.pop('success', 'Success', "Service updated successfully");
+    		
+    		this.getAllArtistData();
+
+	    }, error => {
+	        console.log(JSON.stringify(error.json()));
+	    });
+
+  	}
+
+  	delsubservicedata(recordId) {
+  		let options = new RequestOptions();
+	    options.headers = new Headers();
+        options.headers.append('Content-Type', 'application/json');
+        options.headers.append('Accept', 'application/json');
+
+    	this.http.delete(API_URL+'/Artistservices/'+recordId+'?access_token='+ localStorage.getItem('currentUserToken'), options)
+        .subscribe(response => {
+
+			this.toasterService.pop('success', 'Success', "Service removed successfully");
+
+    		this.getAllArtistData();
+
+	    }, error => {
+	        console.log(JSON.stringify(error.json()));
+	    });
+
+  	}
+
 
 }

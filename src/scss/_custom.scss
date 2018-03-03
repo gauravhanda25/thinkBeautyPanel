@@ -35,3 +35,24 @@
 		}
  	}
 }
+
+.service-card{
+	border:1px solid #ccc;
+	border-left:3px solid #ceb26f;
+	margin:5px;
+	padding:5px;
+	width:32%;
+	overflow:auto;
+}
+
+.service-card h6{
+	float:left;
+}
+
+.service-card span{
+	margin-left:5px;
+	margin-right:5px;
+}
+
+.service-card span button{
+}

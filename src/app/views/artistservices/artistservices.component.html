@@ -1,20 +1,64 @@
 <div class="animated fadeIn">
   <div class="row">
     <div class="col-lg-12">
-      <a class="btn btn-large btn-primary pull-right" href="#" routerLink='addartistservices' style="margin-bottom:5px"><i class="fa fa-user-plus"></i> Add New</a>
+      <a class="btn btn-large btn-primary pull-right" href="#" routerLink='addartistservices' style="margin-bottom:5px"><i class="fa fa-user-plus"></i> Add/Change Service</a>
     </div>
     <div class="clearfix"></div>
     <div class="col-lg-12">
-      <div class="card">
-        <div class="card-header">
-          <i class="fa fa-align-justify"></i> Artist Services
-        </div>
-        <div class="card-body">
-          
-        </div>
+        <div class="card">         
+            <div class="card-header">                                    
+              <span>Review Services</span>
       </div>
-    </div>
-    <!--/.col-->
+            <div class="card-body">  
+              <!-- Nav tabs -->
+              <tabset>
+                <tab heading="Makeup"> 
+                    <div class="form-group row" >
+                      <div class="col-md-4 service-card card-body" *ngFor = "let subservice of makeupservices">
+                         <h6>{{subservice.name}} </h6>
+
+                         <div class="clearfix"></div>
+                         <span >Price: ${{makeupservicesData[subservice.id].price}}</span>
+                         <span >Duration: {{makeupservicesData[subservice.id].duration}}</span>
+
+                          
+                      </div>                                        
+                    </div>
+                  </tab>
+                  <tab heading="Nails"> 
+                    <div class="form-group row" >
+                      <div class="col-md-4 service-card card-body" *ngFor = "let subservice of nailservices">
+                        <h6>{{subservice.name}}</h6>
+
+                         <div class="clearfix"></div>
+                         <span >Price: ${{nailservicesData[subservice.id].price}}</span>
+                         <span >Duration: {{nailservicesData[subservice.id].duration}}</span>
+
+                        
+                      </div>                                        
+                    </div>
+                  </tab>
+                  <tab heading="Hair"> 
+                    <div class="form-group row" >
+                      <div class="col-md-4 service-card card-body" *ngFor = "let subservice of hairservices">
+                         <h6>{{subservice.name}}</h6>
+
+                         <div class="clearfix"></div>
+                         <span >Price: ${{hairservicesData[subservice.id].price}}</span>
+                         <span >Duration: {{hairservicesData[subservice.id].duration}}</span>
+
+
+                        
+                      </div>                                        
+                    </div>
+                  </tab>
+
+              </tabset>
+      </div>
+        </div> 
+    </div>    
+
   </div>
   <!--/.row-->
 </div>
+<toaster-container [toasterconfig]="toasterconfig"></toaster-container>

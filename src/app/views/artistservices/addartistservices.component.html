@@ -1,9 +1,145 @@
 <div class="animated fadeIn">
   <div class="row">
   	<div class="col-lg-12">
-      	
+      	<div class="card">         
+            <div class="card-header">                                    
+              <span *ngIf="editparam.action == 'add'">Add/Change Services</span>
+			</div>
+          	<div class="card-body">  
+            	<!-- Nav tabs -->
+            	<tabset>
+            		<tab heading="Makeup"> 
+	                  <div class="form-group row" >
+	                    <div class="col-md-4 service-card card-body" *ngFor = "let subservice of makeupservices">
+	                       <h6>{{subservice.name}}</h6>
+
+	                       <span class="pull-right">
+	                       		<button class="btn btn-sm btn-primary" type="button" data-toggle="modal" (click)="makeupModal.show()" *ngIf="makeupservicesData[subservice.id] == ''">+</button>
+	                       		<button class="btn btn-sm btn-danger" type="button"  *ngIf="makeupservicesData[subservice.id] != ''" (click)="delsubservicedata(makeupservicesData[subservice.id].id)" >-</button>
+	                       		<button class="btn btn-sm btn-primary" type="button"  *ngIf="makeupservicesData[subservice.id] != ''" data-toggle="modal" (click)="makeupModal.show()"  >Edit</button>
+	                       </span>
+
+	                       <div class="clearfix"></div>
+	                       <span *ngIf="makeupservicesData[subservice.id] != ''">Price: ${{makeupservicesData[subservice.id].price}}</span>
+	                       <span *ngIf="makeupservicesData[subservice.id] != ''">Duration: {{makeupservicesData[subservice.id].duration}}</span>
+
+	                        <div bsModal #makeupModal="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+	                          <div class="modal-dialog modal-primary" role="document">
+	                            <div class="modal-content">
+	                              <div class="modal-body">
+	                              	<h6>{{subservice.name}}</h6>
+	                                <button type="button" class="btn btn-default pull-right closeModalButton" (click)="makeupModal.hide()" style="margin-right:5px;" >Cancel</button>	
+	                                <button class="btn btn-primary pull-right" type="button" (click)="savesubservicedata(subservice.id,1)" style="margin-right:5px;" *ngIf="makeupservicesData[subservice.id]== ''" >Save</button> 
+	                                <button class="btn btn-primary pull-right" type="button" (click)="updatesubservicedata(makeupservicesData[subservice.id])" style="margin-right:5px;" *ngIf="makeupservicesData[subservice.id] != ''" >Update</button>                                
+	                              </div>
+	                              <div class="modal-footer"> 
+	                              	<div class="form-group row">
+		                                <div class="col-md-6">
+		                                  <label>PRICE </label>
+		                                  <input class="form-control" name="price" type="text"  [(ngModel)]="data.price"  value="{{makeupservicesData[subservice.id].price}}" placeholder="e.g. $1200" >
+		                                </div>
+		                                <div class="col-md-6">
+		                                  <label>DURATION </label>
+		                                  <input class="form-control" name="duration" type="text"  [(ngModel)]="data.duration" placeholder="e.g. 12min OR 1hr" value="{{makeupservicesData[subservice.id].duration}}" >
+		                                </div>
+	                                </div>
+	                              </div>
+	                            </div><!-- /.modal-content -->
+	                          </div><!-- /.modal-dialog -->
+	                        </div><!-- /.modal -->
+	                    </div>		                                    
+	                  </div>
+              		</tab>
+              		<tab heading="Nails"> 
+	                  <div class="form-group row" >
+	                    <div class="col-md-4 service-card card-body" *ngFor = "let subservice of nailservices">
+	                      <h6>{{subservice.name}}</h6>
+
+	                       <span class="pull-right">
+	                       		<button class="btn btn-sm btn-primary" type="button" data-toggle="modal" (click)="nailsModal.show()" *ngIf="nailservicesData[subservice.id] == ''">+</button>
+	                       		<button class="btn btn-sm btn-danger" type="button"  *ngIf="nailservicesData[subservice.id] != ''"  (click)="delsubservicedata(nailservicesData[subservice.id].id)" >-</button>
+	                       </span>
+
+	                       <div class="clearfix"></div>
+	                       <span *ngIf="nailservicesData[subservice.id] != ''">Price: ${{nailservicesData[subservice.id].price}}</span>
+	                       <span *ngIf="nailservicesData[subservice.id] != ''">Duration: {{nailservicesData[subservice.id].duration}}</span>
+
+	                       <div bsModal #nailsModal="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+	                          <div class="modal-dialog modal-primary" role="document">
+	                            <div class="modal-content">
+	                              <div class="modal-body">
+	                              	<h6>{{subservice.name}}</h6>
+	                                <button type="button" class="btn btn-default pull-right closeModalButton" (click)="nailsModal.hide()" style="margin-right:5px;">Cancel</button>	
+	                                <button class="btn btn-primary pull-right" style="margin-right:5px;" type="button" (click)="savesubservicedata(subservice.id,2)" >Save</button>	   
+	                                <button class="btn btn-primary pull-right" type="button" (click)="updatesubservicedata(nailservicesData[subservice.id])" style="margin-right:5px;" *ngIf="nailservicesData[subservice.id] != ''" >Update</button>                                
+	                              </div>
+	                              <div class="modal-footer"> 
+	                              	<div class="form-group row">
+		                                <div class="col-md-6">
+		                                  <label>PRICE </label>
+		                                  <input class="form-control" name="price" type="text"  [(ngModel)]="data.price"  value="{{nailservicesData[subservice.id].price}}" placeholder="e.g. $1200" >
+		                                </div>
+		                                <div class="col-md-6">
+		                                  <label>DURATION </label>
+		                                  <input class="form-control" name="duration" type="text"  [(ngModel)]="data.duration" placeholder="e.g. 12min OR 1hr" value="{{nailservicesData[subservice.id].duration}}" >
+		                                </div>
+	                                </div>
+	                              </div>
+	                            </div><!-- /.modal-content -->
+	                          </div><!-- /.modal-dialog -->
+	                        </div><!-- /.modal -->
+	                    </div>		                                    
+	                  </div>
+              		</tab>
+              		<tab heading="Hair"> 
+	                  <div class="form-group row" >
+	                    <div class="col-md-4 service-card card-body" *ngFor = "let subservice of hairservices">
+	                       <h6>{{subservice.name}}</h6>
+
+	                       <span class="pull-right">
+	                       		<button class="btn btn-sm btn-primary" type="button" data-toggle="modal" (click)="hairModal.show()" *ngIf="hairservicesData[subservice.id] == ''">+</button>
+	                       		<button class="btn btn-sm btn-danger" type="button"  *ngIf="hairservicesData[subservice.id] != ''"  (click)="delsubservicedata(hairservicesData[subservice.id].id)" >-</button>
+	                       </span>
+
+	                       <div class="clearfix"></div>
+	                       <span *ngIf="hairservicesData[subservice.id] != ''">Price: ${{hairservicesData[subservice.id].price}}</span>
+	                       <span *ngIf="hairservicesData[subservice.id] != ''">Duration: {{hairservicesData[subservice.id].duration}}</span>
+
+
+	                       <div bsModal #hairModal="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+	                          <div class="modal-dialog modal-primary" role="document">
+	                            <div class="modal-content">
+	                              <div class="modal-body">
+	                              	<h6>{{subservice.name}}</h6>
+	                                <button type="button" class="btn btn-default pull-right closeModalButton" (click)="hairModal.hide()" style="margin-right:5px;">Cancel</button>	
+	                                <button class="btn btn-primary pull-right" style="margin-right:5px;" type="button" (click)="savesubservicedata(subservice.id,3)" >Save</button> 
+	                                <button class="btn btn-primary pull-right" type="button" (click)="updatesubservicedata(hairservicesData[subservice.id])" style="margin-right:5px;" *ngIf="hairservicesData[subservice.id] != ''" >Update</button>                                
+	                              </div>
+	                              <div class="modal-footer"> 
+	                              	<div class="form-group row">
+		                                <div class="col-md-6">
+		                                  <label>PRICE </label>
+		                                  <input class="form-control" name="price" type="text"  [(ngModel)]="data.price"  value="{{hairservicesData[subservice.id].price}}" placeholder="e.g. $1200" >
+		                                </div>
+		                                <div class="col-md-6">
+		                                  <label>DURATION </label>
+		                                  <input class="form-control" name="duration" type="text"  [(ngModel)]="data.duration" placeholder="e.g. 12min OR 1hr" value="{{hairservicesData[subservice.id].duration}}" >
+		                                </div>
+	                                </div>
+	                              </div>
+	                            </div><!-- /.modal-content -->
+	                          </div><!-- /.modal-dialog -->
+	                        </div><!-- /.modal -->
+	                    </div>		                                    
+	                  </div>
+              		</tab>
+
+           		</tabset>
+			</div>
+        </div> 
     </div>    
 
   </div>
   <!--/.row-->
 </div>
+<toaster-container [toasterconfig]="toasterconfig"></toaster-container>

@@ -8,6 +8,12 @@ import { DataFilterPipe } from './datafilterpipe';
 import { DataTableModule } from 'angular2-datatable';
 import { HttpModule } from '@angular/http';
 
+
+import { ModalModule } from "ngx-bootstrap";
+
+// Tabs Component
+import { TabsModule } from 'ngx-bootstrap/tabs';
+
 //Routing
 import { ArtistservicesRoutingModule } from './artistservices-routing.module';
 
@@ -19,9 +25,11 @@ import { ToasterModule, ToasterService} from 'angular2-toaster/angular2-toaster'
   CommonModule,
   DataTableModule,
   HttpModule,
+  TabsModule,
   FormsModule,
   ToasterModule,
-  ArtistservicesRoutingModule
+  ArtistservicesRoutingModule,
+    ModalModule.forRoot()
   ],
   declarations: [
     ArtistservicesComponent,
