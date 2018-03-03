@@ -6,54 +6,54 @@ export const navigation = [
   },
   {
     name: 'Manage Artists',
-    url: '/artist',
+    url: '/manageartist',
     icon: 'icon-people',
     children: [
       {
         name: 'New Artist Requests',
-        url: '/artist/newrequests',
+        url: '/manageartist/newrequests',
         icon: 'icon-people',
       },
       {
         name: 'Registered Artists',
-        url: '/artist/registered',
+        url: '/manageartist/registered',
         icon: 'icon-people',
       },
       {
         name: 'Rejected Artists',
-        url: '/artist/rejected',
+        url: '/manageartist/rejected',
         icon: 'icon-people',
       },
       {
         name: 'Add New Artist',
-        url: '/artist/addartist',
+        url: '/manageartist/addartist',
         icon: 'icon-people',
       },
     ]
   }, 
     {
     name: 'Manage Salons',
-    url: '/salon',
+    url: '/managesalon',
     icon: 'icon-list',
           children: [
       {
     name: 'New Salon Requests',
-    url: '/salon/newrequests',
+    url: '/managesalon/newrequests',
     icon: 'icon-list',
   },
     {
     name: 'Registered Salon',
-    url: '/salon/registered',
+    url: '/managesalon/registered',
     icon: 'icon-list',
   },
     {
     name: 'Rejected Salon',
-    url: '/salon/rejected',
+    url: '/managesalon/rejected',
     icon: 'icon-list',
   },
       {
     name: 'Add New Salon',
-    url: '/salon/addsalon',
+    url: '/managesalon/addsalon',
     icon: 'icon-list',
   },
       ]

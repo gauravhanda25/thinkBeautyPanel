@@ -47,11 +47,13 @@ export class LoginComponent {
       router.events.subscribe((event: any) => {
         if (event instanceof NavigationEnd ) {
           console.log(event.url);
-          if(event.url == "/artistlogin"){
+          if(event.url == "/artist"){
             this.loginType = "artist"
           } else if(event.url == "/admin"){
             this.loginType = "admin"
-          } 
+          } else {
+
+          }
         }
       });
 	  }
@@ -70,7 +72,7 @@ export class LoginComponent {
        }
 
 
-       if(this.loginType = "admin"){
+       if(this.loginType == "admin"){
         this.data.role_id = 1;
        } else {
         this.data.role_id = 2;
@@ -92,14 +94,17 @@ export class LoginComponent {
           localStorage.setItem('currentUserId', response.json().user.id);
     			localStorage.setItem('currentUser', response.json());
 
-
-    			if(localStorage.getItem('currentUserRoleId') == "1"){
-    				localStorage.setItem('currentUserRole', "ADMIN");
-    			} else if(response.json().user.role_id == "2"){
-    				localStorage.setItem('currentUserRole', "ARTIST");
-    			} else if(localStorage.getItem('currentUserRoleId') == "3"){
-    				localStorage.setItem('currentUserRole', "SALON");
-    			} 
+          if(this.data.role_id == localStorage.getItem('currentUserRoleId')){
+      			if(localStorage.getItem('currentUserRoleId') == "1"){
+      				localStorage.setItem('currentUserRole', "ADMIN");
+      			} else if(response.json().user.role_id == "2"){
+      				localStorage.setItem('currentUserRole', "ARTIST");
+      			} else if(localStorage.getItem('currentUserRoleId') == "3"){
+      				localStorage.setItem('currentUserRole', "SALON");
+      			} 
+          } else {
+            this.toasterService.pop('error', 'Login Error ', "Username or password doesn't match!");
+          }
 
           this.NgxRolesService.flushRoles();
 

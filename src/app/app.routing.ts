@@ -32,7 +32,7 @@ export const routes: Routes = [
         loadChildren: './views/login/login.module#LoginModule'
       },
       {
-        path: 'artistlogin',
+        path: 'artist',
         loadChildren: './views/login/login.module#LoginModule'
       },
       {
@@ -217,7 +217,7 @@ export const routes: Routes = [
   },
 
     {
-    path: 'salon',
+    path: 'managesalon',
     component: FullLayoutComponent,
     data: {
       title: 'Manage Salons'
@@ -280,7 +280,7 @@ export const routes: Routes = [
     ]
   },
   {
-    path: 'artist',
+    path: 'manageartist',
     component: FullLayoutComponent,
     data: {
       title: 'Manage Artists'

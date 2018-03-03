@@ -33,14 +33,70 @@
 	                                <button class="btn btn-primary pull-right" type="button" (click)="updatesubservicedata(makeupservicesData[subservice.id])" style="margin-right:5px;" *ngIf="makeupservicesData[subservice.id] != ''" >Update</button>                                
 	                              </div>
 	                              <div class="modal-footer"> 
-	                              	<div class="form-group row">
+	                              	<div class="form-group row" *ngIf="makeupservicesData[subservice.id] == ''">
 		                                <div class="col-md-6">
 		                                  <label>PRICE </label>
-		                                  <input class="form-control" name="price" type="text"  [(ngModel)]="data.price"  value="{{makeupservicesData[subservice.id].price}}" placeholder="e.g. $1200" >
+		                                  <input class="form-control" name="price" type="text"  [(ngModel)]="data.price"  placeholder="e.g. 1200" required>
 		                                </div>
 		                                <div class="col-md-6">
 		                                  <label>DURATION </label>
-		                                  <input class="form-control" name="duration" type="text"  [(ngModel)]="data.duration" placeholder="e.g. 12min OR 1hr" value="{{makeupservicesData[subservice.id].duration}}" >
+		                                  <select class="form-control" name="duration" [(ngModel)]="data.duration" required>
+		                                  	<option value="">Duration</option>
+		                                  	<option value="15min">15min</option>
+		                                  	<option value="30min">30min</option>
+		                                  	<option value="45min">45min</option>
+		                                  	<option value="1hr">1hr</option>
+		                                  	<option value="1hr 15min">1hr 15min</option>
+		                                  	<option value="1hr 30min">1hr 30min</option>
+		                                  	<option value="1hr 45min">1hr 45min</option>
+		                                  	<option value="2hr">2hr</option>
+		                                  	<option value="2hr 15min">2hr 15min</option>
+		                                  	<option value="2hr 30min">2hr 30min</option>
+		                                  	<option value="2hr 45min">2hr 45min</option>
+		                                  	<option value="3hr">3hr</option>
+		                                  	<option value="3hr 15min">3hr 15min</option>
+		                                  	<option value="3hr 30min">3hr 30min</option>
+		                                  	<option value="3hr 45min">3hr 45min</option>
+		                                  	<option value="4hr">4hr</option>
+		                                  	<option value="5hr">5hr</option>
+		                                  	<option value="6hr">6hr</option>
+		                                  	<option value="7hr">7hr</option>
+		                                  	<option value="8hr">8hr</option>
+		                                  </select>
+		                                  <!-- <input class="form-control" name="duration" type="text"  [(ngModel)]="data.duration" placeholder="e.g. 12min OR 1hr"  > -->
+		                                </div>
+	                                </div>
+	                                <div class="form-group row" *ngIf="makeupservicesData[subservice.id] != ''">
+		                                <div class="col-md-6">
+		                                  <label>PRICE </label>
+		                                  <input class="form-control" name="price" type="text"  [(ngModel)]="makeupservicesData[subservice.id].price"  value="{{makeupservicesData[subservice.id].price}}" placeholder="e.g. 1200" >
+		                                </div>
+		                                <div class="col-md-6">
+		                                  <label>DURATION </label>
+		                                  <select class="form-control" name="duration"  [(ngModel)]="makeupservicesData[subservice.id].duration" required>
+		                                  	<option value="">Duration</option>
+		                                  	<option value="15min">15min</option>
+		                                  	<option value="30min">30min</option>
+		                                  	<option value="45min">45min</option>
+		                                  	<option value="1hr">1hr</option>
+		                                  	<option value="1hr 15min">1hr 15min</option>
+		                                  	<option value="1hr 30min">1hr 30min</option>
+		                                  	<option value="1hr 45min">1hr 45min</option>
+		                                  	<option value="2hr">2hr</option>
+		                                  	<option value="2hr 15min">2hr 15min</option>
+		                                  	<option value="2hr 30min">2hr 30min</option>
+		                                  	<option value="2hr 45min">2hr 45min</option>
+		                                  	<option value="3hr">3hr</option>
+		                                  	<option value="3hr 15min">3hr 15min</option>
+		                                  	<option value="3hr 30min">3hr 30min</option>
+		                                  	<option value="3hr 45min">3hr 45min</option>
+		                                  	<option value="4hr">4hr</option>
+		                                  	<option value="5hr">5hr</option>
+		                                  	<option value="6hr">6hr</option>
+		                                  	<option value="7hr">7hr</option>
+		                                  	<option value="8hr">8hr</option>
+		                                  </select>
+		                                 <!--  <input class="form-control" name="duration" type="text"  [(ngModel)]="makeupservicesData[subservice.id].duration" placeholder="e.g. 12min OR 1hr" value="{{makeupservicesData[subservice.id].duration}}" > -->
 		                                </div>
 	                                </div>
 	                              </div>
@@ -57,7 +113,8 @@
 
 	                       <span class="pull-right">
 	                       		<button class="btn btn-sm btn-primary" type="button" data-toggle="modal" (click)="nailsModal.show()" *ngIf="nailservicesData[subservice.id] == ''">+</button>
-	                       		<button class="btn btn-sm btn-danger" type="button"  *ngIf="nailservicesData[subservice.id] != ''"  (click)="delsubservicedata(nailservicesData[subservice.id].id)" >-</button>
+	                       		<button class="btn btn-sm btn-danger" type="button"  *ngIf="nailservicesData[subservice.id] != ''"  (click)="delsubservicedata(nailservicesData[subservice.id].id)" >-</button>	                       		
+	                       		<button class="btn btn-sm btn-primary" type="button"  *ngIf="nailservicesData[subservice.id] != ''" data-toggle="modal" (click)="nailsModal.show()"  >Edit</button>
 	                       </span>
 
 	                       <div class="clearfix"></div>
@@ -74,14 +131,68 @@
 	                                <button class="btn btn-primary pull-right" type="button" (click)="updatesubservicedata(nailservicesData[subservice.id])" style="margin-right:5px;" *ngIf="nailservicesData[subservice.id] != ''" >Update</button>                                
 	                              </div>
 	                              <div class="modal-footer"> 
-	                              	<div class="form-group row">
+	                              	<div class="form-group row" *ngIf="nailservicesData[subservice.id] == ''">
 		                                <div class="col-md-6">
 		                                  <label>PRICE </label>
-		                                  <input class="form-control" name="price" type="text"  [(ngModel)]="data.price"  value="{{nailservicesData[subservice.id].price}}" placeholder="e.g. $1200" >
+		                                  <input class="form-control" name="price" type="text"  [(ngModel)]="data.price"  value="{{nailservicesData[subservice.id].price}}" placeholder="e.g. 1200" >
 		                                </div>
 		                                <div class="col-md-6">
 		                                  <label>DURATION </label>
-		                                  <input class="form-control" name="duration" type="text"  [(ngModel)]="data.duration" placeholder="e.g. 12min OR 1hr" value="{{nailservicesData[subservice.id].duration}}" >
+		                                  <select class="form-control" name="duration"  [(ngModel)]="data.duration" required>
+		                                  	<option value="">Duration</option>
+		                                  	<option value="15min">15min</option>
+		                                  	<option value="30min">30min</option>
+		                                  	<option value="45min">45min</option>
+		                                  	<option value="1hr">1hr</option>
+		                                  	<option value="1hr 15min">1hr 15min</option>
+		                                  	<option value="1hr 30min">1hr 30min</option>
+		                                  	<option value="1hr 45min">1hr 45min</option>
+		                                  	<option value="2hr">2hr</option>
+		                                  	<option value="2hr 15min">2hr 15min</option>
+		                                  	<option value="2hr 30min">2hr 30min</option>
+		                                  	<option value="2hr 45min">2hr 45min</option>
+		                                  	<option value="3hr">3hr</option>
+		                                  	<option value="3hr 15min">3hr 15min</option>
+		                                  	<option value="3hr 30min">3hr 30min</option>
+		                                  	<option value="3hr 45min">3hr 45min</option>
+		                                  	<option value="4hr">4hr</option>
+		                                  	<option value="5hr">5hr</option>
+		                                  	<option value="6hr">6hr</option>
+		                                  	<option value="7hr">7hr</option>
+		                                  	<option value="8hr">8hr</option>
+		                                  </select>
+		                                </div>
+	                                </div>
+	                                <div class="form-group row" *ngIf="nailservicesData[subservice.id] != ''">
+		                                <div class="col-md-6">
+		                                  <label>PRICE </label>
+		                                  <input class="form-control" name="price" type="text"  [(ngModel)]="nailservicesData[subservice.id].price"  value="{{nailservicesData[subservice.id].price}}" placeholder="e.g. 1200" >
+		                                </div>
+		                                <div class="col-md-6">
+		                                  <label>DURATION </label>
+		                                  <select class="form-control" name="duration"  [(ngModel)]="nailservicesData[subservice.id].duration" required>
+		                                  	<option value="">Duration</option>
+		                                  	<option value="15min">15min</option>
+		                                  	<option value="30min">30min</option>
+		                                  	<option value="45min">45min</option>
+		                                  	<option value="1hr">1hr</option>
+		                                  	<option value="1hr 15min">1hr 15min</option>
+		                                  	<option value="1hr 30min">1hr 30min</option>
+		                                  	<option value="1hr 45min">1hr 45min</option>
+		                                  	<option value="2hr">2hr</option>
+		                                  	<option value="2hr 15min">2hr 15min</option>
+		                                  	<option value="2hr 30min">2hr 30min</option>
+		                                  	<option value="2hr 45min">2hr 45min</option>
+		                                  	<option value="3hr">3hr</option>
+		                                  	<option value="3hr 15min">3hr 15min</option>
+		                                  	<option value="3hr 30min">3hr 30min</option>
+		                                  	<option value="3hr 45min">3hr 45min</option>
+		                                  	<option value="4hr">4hr</option>
+		                                  	<option value="5hr">5hr</option>
+		                                  	<option value="6hr">6hr</option>
+		                                  	<option value="7hr">7hr</option>
+		                                  	<option value="8hr">8hr</option>
+		                                  </select>
 		                                </div>
 	                                </div>
 	                              </div>
@@ -98,7 +209,8 @@
 
 	                       <span class="pull-right">
 	                       		<button class="btn btn-sm btn-primary" type="button" data-toggle="modal" (click)="hairModal.show()" *ngIf="hairservicesData[subservice.id] == ''">+</button>
-	                       		<button class="btn btn-sm btn-danger" type="button"  *ngIf="hairservicesData[subservice.id] != ''"  (click)="delsubservicedata(hairservicesData[subservice.id].id)" >-</button>
+	                       		<button class="btn btn-sm btn-danger" type="button"  *ngIf="hairservicesData[subservice.id] != ''"  (click)="delsubservicedata(hairservicesData[subservice.id].id)" >-</button>	                       		
+	                       		<button class="btn btn-sm btn-primary" type="button"  *ngIf="hairservicesData[subservice.id] != ''" data-toggle="modal" (click)="hairModal.show()"  >Edit</button>
 	                       </span>
 
 	                       <div class="clearfix"></div>
@@ -116,14 +228,68 @@
 	                                <button class="btn btn-primary pull-right" type="button" (click)="updatesubservicedata(hairservicesData[subservice.id])" style="margin-right:5px;" *ngIf="hairservicesData[subservice.id] != ''" >Update</button>                                
 	                              </div>
 	                              <div class="modal-footer"> 
-	                              	<div class="form-group row">
+	                              	<div class="form-group row" *ngIf="hairservicesData[subservice.id] == ''">
 		                                <div class="col-md-6">
 		                                  <label>PRICE </label>
-		                                  <input class="form-control" name="price" type="text"  [(ngModel)]="data.price"  value="{{hairservicesData[subservice.id].price}}" placeholder="e.g. $1200" >
+		                                  <input class="form-control" name="price" type="text"  [(ngModel)]="data.price"  value="{{hairservicesData[subservice.id].price}}" placeholder="e.g. 1200" >
 		                                </div>
 		                                <div class="col-md-6">
 		                                  <label>DURATION </label>
-		                                  <input class="form-control" name="duration" type="text"  [(ngModel)]="data.duration" placeholder="e.g. 12min OR 1hr" value="{{hairservicesData[subservice.id].duration}}" >
+		                                 <select class="form-control" name="duration"  [(ngModel)]="data.duration" required>
+		                                  	<option value="">Duration</option>
+		                                  	<option value="15min">15min</option>
+		                                  	<option value="30min">30min</option>
+		                                  	<option value="45min">45min</option>
+		                                  	<option value="1hr">1hr</option>
+		                                  	<option value="1hr 15min">1hr 15min</option>
+		                                  	<option value="1hr 30min">1hr 30min</option>
+		                                  	<option value="1hr 45min">1hr 45min</option>
+		                                  	<option value="2hr">2hr</option>
+		                                  	<option value="2hr 15min">2hr 15min</option>
+		                                  	<option value="2hr 30min">2hr 30min</option>
+		                                  	<option value="2hr 45min">2hr 45min</option>
+		                                  	<option value="3hr">3hr</option>
+		                                  	<option value="3hr 15min">3hr 15min</option>
+		                                  	<option value="3hr 30min">3hr 30min</option>
+		                                  	<option value="3hr 45min">3hr 45min</option>
+		                                  	<option value="4hr">4hr</option>
+		                                  	<option value="5hr">5hr</option>
+		                                  	<option value="6hr">6hr</option>
+		                                  	<option value="7hr">7hr</option>
+		                                  	<option value="8hr">8hr</option>
+		                                  </select>
+		                                </div>
+	                                </div>
+	                                <div class="form-group row" *ngIf="hairservicesData[subservice.id] != ''">
+		                                <div class="col-md-6">
+		                                  <label>PRICE </label>
+		                                  <select class="form-control" name="duration"  [(ngModel)]="hairservicesData[subservice.id].duration" required>
+		                                  	<option value="">Duration</option>
+		                                  	<option value="15min">15min</option>
+		                                  	<option value="30min">30min</option>
+		                                  	<option value="45min">45min</option>
+		                                  	<option value="1hr">1hr</option>
+		                                  	<option value="1hr 15min">1hr 15min</option>
+		                                  	<option value="1hr 30min">1hr 30min</option>
+		                                  	<option value="1hr 45min">1hr 45min</option>
+		                                  	<option value="2hr">2hr</option>
+		                                  	<option value="2hr 15min">2hr 15min</option>
+		                                  	<option value="2hr 30min">2hr 30min</option>
+		                                  	<option value="2hr 45min">2hr 45min</option>
+		                                  	<option value="3hr">3hr</option>
+		                                  	<option value="3hr 15min">3hr 15min</option>
+		                                  	<option value="3hr 30min">3hr 30min</option>
+		                                  	<option value="3hr 45min">3hr 45min</option>
+		                                  	<option value="4hr">4hr</option>
+		                                  	<option value="5hr">5hr</option>
+		                                  	<option value="6hr">6hr</option>
+		                                  	<option value="7hr">7hr</option>
+		                                  	<option value="8hr">8hr</option>
+		                                  </select>
+		                                </div>
+		                                <div class="col-md-6">
+		                                  <label>DURATION </label>
+		                                  <input class="form-control" name="duration" type="text"  [(ngModel)]="hairservicesData[subservice.id].duration" placeholder="e.g. 12min OR 1hr" value="{{hairservicesData[subservice.id].duration}}" >
 		                                </div>
 	                                </div>
 	                              </div>

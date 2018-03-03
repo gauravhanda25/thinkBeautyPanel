@@ -203,7 +203,6 @@ export class AddartistservicesComponent {
   	}
 
   	updatesubservicedata(artistSubserviceId) {
-
   		this.data = {
   			price: artistSubserviceId.price,
 	    	duration: artistSubserviceId.duration,
@@ -213,6 +212,8 @@ export class AddartistservicesComponent {
 	    options.headers = new Headers();
         options.headers.append('Content-Type', 'application/json');
         options.headers.append('Accept', 'application/json');
+
+        console.log(this.data);
 
     	this.http.post(API_URL+'/Artistservices/update?where=%7B%22id%22%3A%22'+artistSubserviceId.id+'%22%7D&access_token='+ localStorage.getItem('currentUserToken'), this.data, options)
         .subscribe(response => {
