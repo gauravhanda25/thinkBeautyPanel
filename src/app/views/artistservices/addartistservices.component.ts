@@ -148,7 +148,7 @@ export class AddartistservicesComponent {
 
 	    this.http.get(API_URL+'/Hairs?access_token='+ localStorage.getItem('currentUserToken'), options)
         .subscribe(response => {
-        	//console.log(response.json());	
+        	console.log(response.json());	
         	this.hairservices = response.json();
 
         	this.hairservicesData = [];
@@ -181,6 +181,8 @@ export class AddartistservicesComponent {
 	    options.headers = new Headers();
         options.headers.append('Content-Type', 'application/json');
         options.headers.append('Accept', 'application/json');
+
+        console.log(this.data);
 
     	this.http.post(API_URL+'/Artistservices?access_token='+ localStorage.getItem('currentUserToken'), this.data, options)
         .subscribe(response => {

@@ -17,6 +17,7 @@ export class DashboardComponent {
   private salon_requests : Number;
   private salon_registered : Number;
   private artists_registered : Number;
+  private artist_services: Number;
   private where_condition : any;
   constructor(private NgxRolesService: NgxRolesService, private NgxPermissionsService: NgxPermissionsService, private router:Router, private http: Http) {
 
@@ -96,6 +97,15 @@ export class DashboardComponent {
             console.log(JSON.stringify(error.json()));
         }); 
 
+
+        this.use_url = API_URL+'/Artistservices?filter={"where":{"artistId":"'+localStorage.getItem('currentUserId')+'"}}&access_token='+localStorage.getItem('currentUserToken');
+         this.http.get(this.use_url, options)
+        .subscribe(response => {
+            console.log(response.json().length);       
+            this.artist_services = response.json().length;
+        }, error => {
+            console.log(JSON.stringify(error.json()));
+        });
 
       }
   }

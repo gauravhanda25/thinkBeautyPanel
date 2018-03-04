@@ -21,12 +21,10 @@ export class AppComponent {
     if(localStorage.getItem('currentUserRoleId') == "1"){
         localStorage.setItem('currentUserRole', "ADMIN");
       } else if(localStorage.getItem('currentUserRoleId') == "2"){
-        localStorage.setItem('currentUserRole', "TRAINER");
+        localStorage.setItem('currentUserRole', "ARTIST");
       } else if(localStorage.getItem('currentUserRoleId') == "3"){
-        localStorage.setItem('currentUserRole', "REGIONAL");
-      } else if(localStorage.getItem('currentUserRoleId') == "4"){
-        localStorage.setItem('currentUserRole', "ACCOUNT");
-      }
+        localStorage.setItem('currentUserRole', "SALON");
+      } 
 
       this.NgxRolesService.flushRoles();
 

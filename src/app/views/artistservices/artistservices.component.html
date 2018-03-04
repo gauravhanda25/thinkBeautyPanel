@@ -1,7 +1,7 @@
 <div class="animated fadeIn">
   <div class="row">
     <div class="col-lg-12">
-      <a class="btn btn-large btn-primary pull-right" href="#" routerLink='addartistservices' style="margin-bottom:5px"><i class="fa fa-user-plus"></i> Add/Change Service</a>
+      <a class="btn btn-large btn-primary pull-right" href="#" routerLink='addartistservices' style="margin-bottom:5px"><i class="fa fa-user-plus"></i> Add New Service</a>
     </div>
     <div class="clearfix"></div>
     <div class="col-lg-12">
@@ -14,12 +14,13 @@
               <tabset>
                 <tab heading="Makeup"> 
                     <div class="form-group row" >
-                      <div class="col-md-4 service-card card-body" *ngFor = "let subservice of makeupservices">
+                      <div class="col-md-12" *ngIf = "nomakeup == 0"> No makeup services added by you.</div>
+                      <div class="col-md-4 service-card card-body" *ngFor = "let subservice of makeup">
                          <h6>{{subservice.name}} </h6>
 
                          <div class="clearfix"></div>
-                         <span >Price: ${{makeupservicesData[subservice.id].price}}</span>
-                         <span >Duration: {{makeupservicesData[subservice.id].duration}}</span>
+                         <span *ngIf = "makeupservicesData[subservice.id]">Price: ${{makeupservicesData[subservice.id].price}}</span>
+                         <span *ngIf = "makeupservicesData[subservice.id]">Duration: {{makeupservicesData[subservice.id].duration}}</span>
 
                           
                       </div>                                        
@@ -27,12 +28,13 @@
                   </tab>
                   <tab heading="Nails"> 
                     <div class="form-group row" >
-                      <div class="col-md-4 service-card card-body" *ngFor = "let subservice of nailservices">
+                      <div class="col-md-12" *ngIf = "nonail == 0"> No nails services added by you.</div>
+                      <div class="col-md-4 service-card card-body" *ngFor = "let subservice of nails">
                         <h6>{{subservice.name}}</h6>
 
                          <div class="clearfix"></div>
-                         <span >Price: ${{nailservicesData[subservice.id].price}}</span>
-                         <span >Duration: {{nailservicesData[subservice.id].duration}}</span>
+                         <span *ngIf = "nailservicesData[subservice.id]">Price: ${{nailservicesData[subservice.id].price}}</span>
+                         <span *ngIf = "nailservicesData[subservice.id]">Duration: {{nailservicesData[subservice.id].duration}}</span>
 
                         
                       </div>                                        
@@ -40,12 +42,13 @@
                   </tab>
                   <tab heading="Hair"> 
                     <div class="form-group row" >
-                      <div class="col-md-4 service-card card-body" *ngFor = "let subservice of hairservices">
+                      <div class="col-md-12" *ngIf = "nohair == 0"> No hair services added by you.</div>
+                      <div class="col-md-4 service-card card-body" *ngFor = "let subservice of hair">
                          <h6>{{subservice.name}}</h6>
 
                          <div class="clearfix"></div>
-                         <span >Price: ${{hairservicesData[subservice.id].price}}</span>
-                         <span >Duration: {{hairservicesData[subservice.id].duration}}</span>
+                         <span *ngIf = "hairservicesData[subservice.id]">Price: ${{hairservicesData[subservice.id].price}}</span>
+                         <span *ngIf = "hairservicesData[subservice.id]">Duration: {{hairservicesData[subservice.id].duration}}</span>
 
 
                         

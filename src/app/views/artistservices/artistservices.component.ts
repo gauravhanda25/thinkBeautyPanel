@@ -30,10 +30,18 @@ export class ArtistservicesComponent {
 
 	private makeupservices: any;
 	private makeupservicesData:any;
+	private makeup:any = [];
+	private nomakeup:any = 0;
+	
 	private nailservices: any;
 	private nailservicesData:any;
+	private nails:any = [];
+	private nonail:any = 0;
+
 	private hairservices: any;
 	private hairservicesData:any;
+	private hair:any = [];
+	private nohair:any = 0;
 
 	private data: any;
   	private editparam: any;
@@ -82,6 +90,7 @@ export class ArtistservicesComponent {
 
     	this.getAllArtistData();
 
+
   	}
 
   	getAllArtistData(){
@@ -93,28 +102,28 @@ export class ArtistservicesComponent {
     	this.http.get(API_URL+'/Makeups?access_token='+ localStorage.getItem('currentUserToken'), options)
         .subscribe(response => {
         	this.makeupservices = response.json();
-
+        	console.log(response.json());
         	this.makeupservicesData = [];
 
         	let removedata:any = 0;
 
-        	for(let ser in this.makeupservices) {
-	        	this.http.get(API_URL+'/Artistservices?filter={"where":{"and":[{"subserviceId":"'+this.makeupservices[parseInt(ser)-removedata].id+'"},{"artistId":"'+localStorage.getItem('currentUserId')+'"}]}}&access_token='+ localStorage.getItem('currentUserToken'), options)
+        	for(let ser in response.json()) {
+	        	this.http.get(API_URL+'/Artistservices?filter={"where":{"and":[{"subserviceId":"'+response.json()[parseInt(ser)-removedata].id+'"},{"artistId":"'+localStorage.getItem('currentUserId')+'"}]}}&access_token='+ localStorage.getItem('currentUserToken'), options)
 		        .subscribe(r => {
 		        	if(r.json().length != 0) {
-		        		this.makeupservicesData[this.makeupservices[parseInt(ser)-removedata].id] = r.json()[0];
+		        		this.makeupservicesData[response.json()[parseInt(ser)-removedata].id] = r.json()[0];
+		        		this.makeup.push(this.makeupservices[parseInt(ser)-removedata]);
+		        		this.nomakeup = 1;
 		        	} else if(r.json().length == 0){
-		        		this.makeupservicesData[this.makeupservices[parseInt(ser)-removedata].id] = '';
-						let index = this.makeupservices.indexOf(this.makeupservices[parseInt(ser)-removedata]);
-		        		if (index > -1) {
-		        			removedata = removedata + 1;
-						    this.makeupservices.splice(index, 1);
-						}
+		        		this.makeupservicesData[response.json()[parseInt(ser)-removedata].id] = '';
+		        		delete this.makeupservices[parseInt(ser)-removedata];
 		        	}
+
 			    }, error => {
 			        console.log(JSON.stringify(error.json()));
 			    });
 			}
+
 
 	    }, error => {
 	        console.log(JSON.stringify(error.json()));
@@ -130,18 +139,16 @@ export class ArtistservicesComponent {
 
         	let removedata:any = 0;
 
-        	for(let ser in this.nailservices) {
-	        	this.http.get(API_URL+'/Artistservices?filter={"where":{"and":[{"subserviceId":"'+this.nailservices[parseInt(ser)-removedata].id+ '"},{"artistId":"'+localStorage.getItem('currentUserId')+'"}]}}&access_token='+ localStorage.getItem('currentUserToken'), options)
+        	for(let ser in response.json()) {
+	        	this.http.get(API_URL+'/Artistservices?filter={"where":{"and":[{"subserviceId":"'+response.json()[parseInt(ser)-removedata].id+ '"},{"artistId":"'+localStorage.getItem('currentUserId')+'"}]}}&access_token='+ localStorage.getItem('currentUserToken'), options)
 		        .subscribe(r => {
 		        	if(r.json().length != 0){
-		        		this.nailservicesData[this.nailservices[parseInt(ser)-removedata].id] = r.json()[0];
-		        	} else {
-		        		this.nailservicesData[this.nailservices[parseInt(ser)-removedata].id] = '';
-		        		let index = this.nailservices.indexOf(this.nailservices[parseInt(ser)-removedata]);
-		        		if (index > -1) {
-		        			removedata = removedata + 1;
-						    this.nailservices.splice(index, 1);
-						}
+		        		this.nailservicesData[response.json()[parseInt(ser)-removedata].id] = r.json()[0];        		
+		        		this.nails.push(this.nailservices[parseInt(ser)-removedata]);
+		        		this.nonail = 1;
+		        	} else if(r.json().length == 0){
+		        		this.nailservicesData[response.json()[parseInt(ser)-removedata].id] = '';
+		        		delete this.nailservices[parseInt(ser)-removedata];
 		        	}
 			    }, error => {
 			        console.log(JSON.stringify(error.json()));
@@ -163,27 +170,21 @@ export class ArtistservicesComponent {
 
         	let removedata:any = 0;
 
-        	for(let ser in this.hairservices) {
-	        	this.http.get(API_URL+'/Artistservices?filter={"where":{"and":[{"subserviceId":"'+this.hairservices[parseInt(ser)-removedata].id+ '"},{"artistId":"'+localStorage.getItem('currentUserId')+'"}]}}&access_token='+ localStorage.getItem('currentUserToken'), options)
+        	for(let ser in response.json()) {
+	        	this.http.get(API_URL+'/Artistservices?filter={"where":{"and":[{"subserviceId":"'+response.json()[parseInt(ser)-removedata].id+ '"},{"artistId":"'+localStorage.getItem('currentUserId')+'"}]}}&access_token='+ localStorage.getItem('currentUserToken'), options)
 		        .subscribe(r => {
 		        	if(r.json().length != 0){
-		        		this.hairservicesData[this.hairservices[parseInt(ser)-removedata].id] = r.json()[0];
-		        	} else {
-		        		this.hairservicesData[this.hairservices[parseInt(ser)-removedata].id] = '';
-		        		let index = this.hairservices.indexOf(this.hairservices[parseInt(ser)-removedata]);
-		        		if (index > -1) {
-		        			removedata = removedata + 1;
-						    this.hairservices.splice(index, 1);
-						}
+		        		this.hairservicesData[response.json()[parseInt(ser)-removedata].id] = r.json()[0];
+		        		this.hair.push(this.hairservices[parseInt(ser)-removedata]);
+		        		this.nohair = 1;
+		        	} else if(r.json().length == 0){
+		        		this.hairservicesData[response.json()[parseInt(ser)-removedata].id] = '';
+		        		delete this.hairservices[parseInt(ser)-removedata];
 		        	}
-			   		// alert(this.hairservices.length);
 			    }, error => {
 			        console.log(JSON.stringify(error.json()));
 			    });
-
 			}
-
-
 	    }, error => {
 	        console.log(JSON.stringify(error.json()));
 	    });

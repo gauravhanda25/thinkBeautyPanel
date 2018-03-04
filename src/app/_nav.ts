@@ -6,7 +6,7 @@ export const navigation = [
   },
   {
     name: 'Manage Artists',
-    url: '/manageartist',
+    url: '/',
     icon: 'icon-people',
     children: [
       {
@@ -33,7 +33,7 @@ export const navigation = [
   }, 
     {
     name: 'Manage Salons',
-    url: '/managesalon',
+    url: '/',
     icon: 'icon-list',
           children: [
       {
@@ -90,7 +90,7 @@ export const artistnavigation = [
     icon: 'icon-speedometer',
   },
   {
-    name: 'Your Services',
+    name: 'My Services',
     url: '/myservices',
     icon: 'icon-list',
   },

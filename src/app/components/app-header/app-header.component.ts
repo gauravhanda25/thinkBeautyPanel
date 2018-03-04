@@ -36,8 +36,9 @@ export class AppHeaderComponent {
         options.headers = new Headers();
         options.headers.append('Content-Type', 'application/json');
         options.headers.append('Accept', 'application/json');
-        this.use_url = API_URL+'/Members?filter='+this.where_condition.artistRequests+'&access_token='+localStorage.getItem('currentUserToken');
 
+        this.use_url = API_URL+'/Members?filter='+this.where_condition.artistRequests+'&access_token='+localStorage.getItem('currentUserToken');
+        console.log(this.use_url);
         this.http.get(this.use_url, options)
         .subscribe(response => {
             console.log(response.json().length);       
