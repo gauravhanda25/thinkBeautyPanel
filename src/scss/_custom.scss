@@ -36,7 +36,7 @@
  	}
 }
 
-.service-card{
+.service-card {
 	border:1px solid #ccc;
 	border-left:3px solid #ceb26f;
 	margin:5px;
@@ -45,14 +45,25 @@
 	overflow:auto;
 }
 
-.service-card h6{
+.service-card h6 {
 	float:left;
 }
 
-.service-card span{
-	margin-left:5px;
+.service-card span {
 	margin-right:5px;
 }
 
-.service-card span button{
+.service-card span button {
+}
+
+input:-webkit-autofill,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus,
+input:-webkit-autofill:active {
+    transition: background-color 5000s ease-in-out 0s;
+    -webkit-text-fill-color: #fff !important;
+}
+
+.toast-success {
+	background-color:#ceb26f !important;
 }

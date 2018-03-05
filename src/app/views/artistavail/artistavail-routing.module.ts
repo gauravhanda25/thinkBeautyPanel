@@ -8,7 +8,7 @@ const routes: Routes = [
 	{
 		path: '',
 		data: {
-		  title: "Artist Services"
+		  title: "Artist Availability"
 		},
 	
 	   children:[
@@ -24,14 +24,14 @@ const routes: Routes = [
 			path: 'addartistavail',
 			component: AddartistavailComponent,
 			data: {
-			  title: "Add Service"
+			  title: "Add Availability"
 			}
 		},
 		{
 			 path: 'editartistavail/:id',
 			component: AddartistavailComponent,
 			data: {
-			  title: "Edit Service"
+			  title: "Edit Availability"
 			}
 		}
 		]	

@@ -42,7 +42,7 @@ export class AddartistservicesComponent {
 	public toasterconfig : ToasterConfig =
 	  new ToasterConfig({
 		tapToDismiss: true,
-		timeout: 5000
+		timeout: 1000
 	  });
 	  
 	  

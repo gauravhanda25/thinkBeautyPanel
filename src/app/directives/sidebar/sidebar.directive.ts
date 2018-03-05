@@ -12,7 +12,8 @@ export class SidebarToggleDirective {
   @HostListener('click', ['$event'])
   toggleOpen($event: any) {
     $event.preventDefault();
-    document.querySelector('body').classList.toggle('sidebar-hidden');
+   //document.querySelector('body').classList.toggle('sidebar-hidden');
+    document.querySelector('body').classList.toggle('sidebar-minimized');
   }
 }
 

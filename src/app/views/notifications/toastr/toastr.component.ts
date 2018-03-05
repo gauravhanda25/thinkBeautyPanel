@@ -13,7 +13,7 @@ export class ToastrComponent {
   public toasterconfig : ToasterConfig =
     new ToasterConfig({
       tapToDismiss: true,
-      timeout: 5000
+      timeout: 1000
     });
 
   constructor(toasterService: ToasterService) {

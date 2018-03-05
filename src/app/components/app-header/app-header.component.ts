@@ -38,21 +38,17 @@ export class AppHeaderComponent {
         options.headers.append('Accept', 'application/json');
 
         this.use_url = API_URL+'/Members?filter='+this.where_condition.artistRequests+'&access_token='+localStorage.getItem('currentUserToken');
-        console.log(this.use_url);
         this.http.get(this.use_url, options)
-        .subscribe(response => {
-            console.log(response.json().length);       
+        .subscribe(response => {       
             this.artists_requests = response.json().length;
-            this.notification_number =  this.notification_number + parseInt(this.artists_requests);
-        console.log('here i am' + this.notification_number);
+            this.notification_number =  this.notification_number + parseInt(this.artists_requests);       
         }, error => {
             console.log(JSON.stringify(error.json()));
         }); 
 
         this.use_url = API_URL+'/Members?filter='+this.where_condition.artistRegistered+'&access_token='+localStorage.getItem('currentUserToken');
         this.http.get(this.use_url, options)
-        .subscribe(response => {
-            console.log(response.json().length);       
+        .subscribe(response => {      
             this.artists_registered = response.json().length;
         }, error => {
             console.log(JSON.stringify(error.json()));
@@ -62,8 +58,7 @@ export class AppHeaderComponent {
         
         this.use_url = API_URL+'/Members?filter='+this.where_condition.salonRequests+'&access_token='+localStorage.getItem('currentUserToken');
          this.http.get(this.use_url, options)
-        .subscribe(response => {
-            console.log(response.json().length);       
+        .subscribe(response => {     
             this.salon_requests = response.json().length;
             this.notification_number =  this.notification_number + parseInt(this.salon_requests);
         }, error => {
@@ -74,8 +69,7 @@ export class AppHeaderComponent {
 
         this.use_url = API_URL+'/Members?filter='+this.where_condition.salonRegistered+'&access_token='+localStorage.getItem('currentUserToken');
          this.http.get(this.use_url, options)
-        .subscribe(response => {
-            console.log(response.json().length);       
+        .subscribe(response => {     
             this.salon_registered = response.json().length;
         }, error => {
             console.log(JSON.stringify(error.json()));

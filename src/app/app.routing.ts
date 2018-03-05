@@ -56,84 +56,7 @@ export const routes: Routes = [
     },
     children: [
       
-      {
-        path: 'dashboard',
-        component: FullLayoutComponent,        
-        canActivate: [NgxPermissionsGuard],
-        data: {
-          title: 'Dashboard',
-          permissions: {
-            only: ['ADMIN','ARTIST'],
-            except: 'GUEST'
-          }
-        },
-        loadChildren: './views/dashboard/dashboard.module#DashboardModule'
-      },
-
-      {
-        path: 'makeup',
-        component: FullLayoutComponent,        
-        canActivate: [NgxPermissionsGuard],
-        data: {
-          permissions: {
-            only: ['ADMIN']
-          }
-        },
-        loadChildren: './views/makeup/makeup.module#MakeupModule'
-      },
-
-      {
-        path: 'hair',
-        component: FullLayoutComponent,        
-        canActivate: [NgxPermissionsGuard],
-        data: {
-          permissions: {
-            only: ['ADMIN']
-          }
-        },
-        loadChildren: './views/hair/hair.module#HairModule'
-      },
-
-      {
-        path: 'nails',
-        component: FullLayoutComponent,        
-        canActivate: [NgxPermissionsGuard],
-        data: {
-          permissions: {
-            only: ['ADMIN']
-          }
-        },
-        loadChildren: './views/nails/nails.module#NailsModule'
-      },
-
-      {
-        path: 'myservices',
-        component: FullLayoutComponent,        
-        canActivate: [NgxPermissionsGuard],
-        data: {
-          permissions: {
-            only: ['ARTIST'],
-            except: ['ADMIN','GUEST']
-          }
-        },
-        loadChildren: './views/artistservices/artistservices.module#ArtistservicesModule'
-      },
-
-      {
-        path: 'availability',
-        component: FullLayoutComponent,        
-        canActivate: [NgxPermissionsGuard],
-        data: {
-          permissions: {
-            only: ['ARTIST']
-          }
-        },
-        loadChildren: './views/artistavail/artistavail.module#ArtistavailModule'
-      },
-
-
-
-          	  
+               	  
       {
         path: 'emails',
         component: FullLayoutComponent,
@@ -342,7 +265,81 @@ export const routes: Routes = [
         loadChildren: './views/addartist/addartist.module#AddartistModule'
       },
     ]
-  }
+  },
+  {
+        path: 'dashboard',
+        component: FullLayoutComponent,        
+        canActivate: [NgxPermissionsGuard],
+        data: {
+          permissions: {
+            only: ['ADMIN','ARTIST'],
+            except: 'GUEST'
+          }
+        },
+        loadChildren: './views/dashboard/dashboard.module#DashboardModule'
+      },
+
+      {
+        path: 'makeup',
+        component: FullLayoutComponent,        
+        canActivate: [NgxPermissionsGuard],
+        data: {
+          permissions: {
+            only: ['ADMIN']
+          }
+        },
+        loadChildren: './views/makeup/makeup.module#MakeupModule'
+      },
+
+      {
+        path: 'hair',
+        component: FullLayoutComponent,        
+        canActivate: [NgxPermissionsGuard],
+        data: {
+          permissions: {
+            only: ['ADMIN']
+          }
+        },
+        loadChildren: './views/hair/hair.module#HairModule'
+      },
+
+      {
+        path: 'nails',
+        component: FullLayoutComponent,        
+        canActivate: [NgxPermissionsGuard],
+        data: {
+          permissions: {
+            only: ['ADMIN']
+          }
+        },
+        loadChildren: './views/nails/nails.module#NailsModule'
+      },
+
+      {
+        path: 'myservices',
+        component: FullLayoutComponent,        
+        canActivate: [NgxPermissionsGuard],
+        data: {
+          permissions: {
+            only: ['ARTIST'],
+            except: ['ADMIN','GUEST']
+          }
+        },
+        loadChildren: './views/artistservices/artistservices.module#ArtistservicesModule'
+      },
+
+      {
+        path: 'availability',
+        component: FullLayoutComponent,        
+        canActivate: [NgxPermissionsGuard],
+        data: {
+          permissions: {
+            only: ['ARTIST'],
+            except: ['ADMIN','GUEST']
+          }
+        },
+        loadChildren: './views/artistavail/artistavail.module#ArtistavailModule'
+      }
 ];
 
 @NgModule({

@@ -1,54 +1,99 @@
 <div class="animated fadeIn" >
-  <div class="row" *ngxPermissionsOnly="['ADMIN']">
-    <div class="col-sm-6 col-lg-3">
-      <div class="card text-white bg-primary">
+  <div class="row " style="padding: 0 150px;" > 
+    <div class="col-md-6" *ngIf="role=='ADMIN'">
+      <div class="card">
+         <div class="card-header bg-primary" style="background-color: #8c7f5f !important;">
+            <h4>New Artist Requests</h4>
+         </div>
         <div class="card-body pb-0">
           
-          <h4 class="mb-0" >{{artists_requests}}</h4>
-          <p>New Artist Requests</p>
+          <h4 class="mb-0" >
+            <p class="pull-left">Total</p>
+            <p class="pull-right">{{artists_requests}}</p>
+          </h4>
         </div>
        
       </div>
     </div><!--/.col-->
-    <div class="col-sm-6 col-lg-3">
-      <div class="card text-white bg-info">
+    <div class="col-md-6" *ngIf="role=='ADMIN'">
+      <div class="card">
+         <div class="card-header bg-info"  style="background-color: #65625a  !important;">
+            <h4>Registered Artists</h4>
+         </div>
         <div class="card-body pb-0">
-          <h4 class="mb-0">{{artists_registered}}</h4>
-          <p>Registered Artists</p>
+          <h4 class="mb-0" >
+            <p class="pull-left">Total</p>
+            <p class="pull-right">{{artists_registered}}</p>
+          </h4>
         </div>
         
       </div>
     </div><!--/.col-->
-    <div class="col-sm-6 col-lg-3">
-      <div class="card text-white bg-warning">
-        <div class="card-body pb-0">
-          
-          <h4 class="mb-0">{{salon_requests}}</h4>
-          <p>New Salon Requests</p>
+    <div class="col-md-6" *ngIf="role=='ADMIN'">
+      <div class="card">
+         <div class="card-header bg-success"  style="background-color: #696762  !important;">
+            <h4>New Salon Requests</h4>
+         </div>
+        <div class="card-body pb-0">          
+          <h4 class="mb-0" >
+            <p class="pull-left">Total</p>
+            <p class="pull-right">{{salon_requests}}</p>
+          </h4>
         </div>
         
       </div>
     </div><!--/.col-->
-    <div class="col-sm-6 col-lg-3">
-      <div class="card text-white bg-danger">
-        <div class="card-body pb-0">
-          
-          <h4 class="mb-0">{{salon_registered}}</h4>
-          <p>Registered Salon</p>
+    <div class="col-md-6" *ngIf="role=='ADMIN'">
+      <div class="card">
+         <div class="card-header bg-danger"  style="background-color: #8a7541  !important;">
+            <h4>Registered Salon</h4>
+         </div>
+        <div class="card-body pb-0">          
+         <h4 class="mb-0" >
+            <p class="pull-left">Total</p>
+            <p class="pull-right">{{salon_registered}}</p>
+          </h4>
         </div>
         
       </div>
     </div><!--/.col-->
-  </div><!--/.row-->
- <div class="row" *ngxPermissionsExcept="['ADMIN']">
-    <div class="col-sm-6 col-lg-3">
-      <div class="card text-white bg-primary">
-        <div class="card-body pb-0">
-          
-          <h4 class="mb-0" >{{artist_services}}</h4>
-          <p>Total Services</p>
-        </div>
-       
+    <div class="col-md-6" *ngIf="role=='ARTIST'">
+      <div class="card">
+         <div class="card-header bg-info"  style="background-color: #65625a  !important;">
+            <h4>Services</h4>
+         </div>
+        <div class="card-body pb-0">          
+         <h4 class="mb-0" >
+            <p class="pull-left">Total</p>
+            <p class="pull-right">{{artist_services}}</p>
+          </h4>
+        </div>      
+      </div>
+    </div><!--/.col-->
+    <div class="col-md-6" *ngIf="role=='ARTIST'">
+      <div class="card">
+         <div class="card-header bg-primary"  style="background-color: #8c7f5f !important;">
+            <h4>Revenue</h4>
+         </div>
+        <div class="card-body pb-0">          
+         <h4 class="mb-0" >
+            <p class="pull-left">Total</p>
+            <p class="pull-right">0<!-- {{artist_revenue}} --></p>
+          </h4>
+        </div>      
+      </div>
+    </div><!--/.col-->
+    <div class="col-md-6" *ngIf="role=='ARTIST'">
+      <div class="card">
+         <div class="card-header bg-success"  style="background-color: #8a7541  !important;">
+            <h4>Bookings</h4>
+         </div>
+        <div class="card-body pb-0">          
+         <h4 class="mb-0" >
+            <p class="pull-left">Total</p>
+            <p class="pull-right">0<!-- {{artist_bookings}} --></p>
+          </h4>
+        </div>      
       </div>
     </div><!--/.col-->
   </div><!--/.row-->

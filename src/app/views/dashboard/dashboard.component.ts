@@ -19,16 +19,20 @@ export class DashboardComponent {
   private artists_registered : Number;
   private artist_services: Number;
   private where_condition : any;
+  private role:any;
   constructor(private NgxRolesService: NgxRolesService, private NgxPermissionsService: NgxPermissionsService, private router:Router, private http: Http) {
 
 
     console.log(localStorage.getItem('currentUserRoleId'));
     if(localStorage.getItem('currentUserRoleId') == "1"){
       localStorage.setItem('currentUserRole', "ADMIN");
+      this.role = "ADMIN";
     } else if(localStorage.getItem('currentUserRoleId') == "2"){
       localStorage.setItem('currentUserRole', "ARTIST");
+      this.role = "ARTIST";
     } else if(localStorage.getItem('currentUserRoleId') == "3"){
       localStorage.setItem('currentUserRole', "SALON");
+      this.role = "SALON";
     } 
 
     this.NgxRolesService.flushRoles();
@@ -59,8 +63,7 @@ export class DashboardComponent {
         this.use_url = API_URL+'/Members?filter='+this.where_condition.artistRequests+'&access_token='+localStorage.getItem('currentUserToken');
 
         this.http.get(this.use_url, options)
-        .subscribe(response => {
-            console.log(response.json().length);       
+        .subscribe(response => {      
             this.artists_requests = response.json().length;
         }, error => {
             console.log(JSON.stringify(error.json()));
@@ -68,8 +71,7 @@ export class DashboardComponent {
 
         this.use_url = API_URL+'/Members?filter='+this.where_condition.artistRegistered+'&access_token='+localStorage.getItem('currentUserToken');
         this.http.get(this.use_url, options)
-        .subscribe(response => {
-            console.log(response.json().length);       
+        .subscribe(response => {    
             this.artists_registered = response.json().length;
         }, error => {
             console.log(JSON.stringify(error.json()));
@@ -79,8 +81,7 @@ export class DashboardComponent {
 
         this.use_url = API_URL+'/Members?filter='+this.where_condition.salonRequests+'&access_token='+localStorage.getItem('currentUserToken');
          this.http.get(this.use_url, options)
-        .subscribe(response => {
-            console.log(response.json().length);       
+        .subscribe(response => {       
             this.salon_requests = response.json().length;
         }, error => {
             console.log(JSON.stringify(error.json()));
@@ -90,8 +91,7 @@ export class DashboardComponent {
 
         this.use_url = API_URL+'/Members?filter='+this.where_condition.salonRegistered+'&access_token='+localStorage.getItem('currentUserToken');
          this.http.get(this.use_url, options)
-        .subscribe(response => {
-            console.log(response.json().length);       
+        .subscribe(response => {      
             this.salon_registered = response.json().length;
         }, error => {
             console.log(JSON.stringify(error.json()));
@@ -100,8 +100,7 @@ export class DashboardComponent {
 
         this.use_url = API_URL+'/Artistservices?filter={"where":{"artistId":"'+localStorage.getItem('currentUserId')+'"}}&access_token='+localStorage.getItem('currentUserToken');
          this.http.get(this.use_url, options)
-        .subscribe(response => {
-            console.log(response.json().length);       
+        .subscribe(response => {      
             this.artist_services = response.json().length;
         }, error => {
             console.log(JSON.stringify(error.json()));

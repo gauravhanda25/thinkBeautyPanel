@@ -30,7 +30,7 @@ export class ResetpwdComponent {
     public toasterconfig : ToasterConfig =
       new ToasterConfig({
         tapToDismiss: true,
-        timeout: 5000
+        timeout: 1000
       });
 
 	constructor(@Inject(Http) private http: Http, @Inject(Router)private router:Router, @Inject(ActivatedRoute) private activatedRoute: ActivatedRoute, toasterService: ToasterService) {
