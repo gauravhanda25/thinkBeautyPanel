@@ -9,14 +9,14 @@
             	<!-- Nav tabs -->
             	<tabset>
             		<tab heading="Makeup"> 
-	                  <div class="form-group row" >
-	                    <div class="col-md-4 service-card card-body" *ngFor = "let subservice of makeupservices">
+	                  <div class="form-group row"  *ngFor = "let subservice of makeupservices">
+	                    <div class="col-md-4 service-card card-body">
 	                       <h6>{{subservice.name}}</h6>
 
 	                       <span class="pull-right">
-	                       		<button class="btn btn-sm btn-primary" type="button" data-toggle="modal" (click)="makeupModal.show()" *ngIf="makeupservicesData[subservice.id] == ''">+</button>
-	                       		<button class="btn btn-sm btn-primary" type="button"  *ngIf="makeupservicesData[subservice.id] != ''" data-toggle="modal" (click)="makeupModal.show()"  >Edit</button>
-	                       		<button class="btn btn-sm btn-danger" type="button"  *ngIf="makeupservicesData[subservice.id] != ''" (click)="delsubservicedata(makeupservicesData[subservice.id].id)" >-</button>
+	                       		<button class="btn btn-sm btn-primary" type="button" data-toggle="modal" (click)="makeupModal.show()" *ngIf="makeupservicesData[subservice.id] == ''"><span class="fa fa-plus"></span></button>
+	                       		<button class="btn btn-sm btn-primary" type="button"  *ngIf="makeupservicesData[subservice.id] != ''" data-toggle="modal" (click)="makeupModal.show()"  ><span class="fa fa-pencil"></span></button>
+	                       		<button class="btn btn-sm btn-danger" type="button"  *ngIf="makeupservicesData[subservice.id] != ''" (click)="delsubservicedata(makeupservicesData[subservice.id].id)" ><span class="fa fa-trash"></span></button>
 	                       </span>
 
 	                       <div class="clearfix"></div>
@@ -117,14 +117,14 @@
 	                  </div>
               		</tab>
               		<tab heading="Nails"> 
-	                  <div class="form-group row" >
-	                    <div class="col-md-4 service-card card-body" *ngFor = "let subservice of nailservices">
+	                  <div class="form-group row"  *ngFor = "let subservice of nailservices">
+	                    <div class="col-md-4 service-card card-body">
 	                      <h6>{{subservice.name}}</h6>
 
 	                       <span class="pull-right">
-	                       		<button class="btn btn-sm btn-primary" type="button" data-toggle="modal" (click)="nailsModal.show()" *ngIf="nailservicesData[subservice.id] == ''">+</button>
-	                       		<button class="btn btn-sm btn-primary" type="button"  *ngIf="nailservicesData[subservice.id] != ''" data-toggle="modal" (click)="nailsModal.show()"  >Edit</button>
-	                       		<button class="btn btn-sm btn-danger" type="button"  *ngIf="nailservicesData[subservice.id] != ''"  (click)="delsubservicedata(nailservicesData[subservice.id].id)" >-</button>	                       		
+	                       		<button class="btn btn-sm btn-primary" type="button" data-toggle="modal" (click)="nailsModal.show()" *ngIf="nailservicesData[subservice.id] == ''"><span class="fa fa-plus"></span></button>
+	                       		<button class="btn btn-sm btn-primary" type="button"  *ngIf="nailservicesData[subservice.id] != ''" data-toggle="modal" (click)="nailsModal.show()"  ><span class="fa fa-pencil"></span></button>
+	                       		<button class="btn btn-sm btn-danger" type="button"  *ngIf="nailservicesData[subservice.id] != ''"  (click)="delsubservicedata(nailservicesData[subservice.id].id)" ><span class="fa fa-trash"></span></button>	                       		
 	                       </span>
 
 	                       <div class="clearfix"></div>
@@ -223,14 +223,14 @@
 	                  </div>
               		</tab>
               		<tab heading="Hair"> 
-	                  <div class="form-group row" >
-	                    <div class="col-md-4 service-card card-body" *ngFor = "let subservice of hairservices">
+	                  <div class="form-group row" *ngFor = "let subservice of hairservices">
+	                    <div class="col-md-4 service-card card-body" >
 	                       <h6>{{subservice.name}}</h6>
 
 	                       <span class="pull-right">
-	                       		<button class="btn btn-sm btn-primary" type="button" data-toggle="modal" (click)="hairModal.show()" *ngIf="hairservicesData[subservice.id] == ''">+</button>
-	                       		<button class="btn btn-sm btn-primary" type="button"  *ngIf="hairservicesData[subservice.id] != ''" data-toggle="modal" (click)="hairModal.show()"  >Edit</button>
-	                       		<button class="btn btn-sm btn-danger" type="button"  *ngIf="hairservicesData[subservice.id] != ''"  (click)="delsubservicedata(hairservicesData[subservice.id].id)" >-</button>	                       		
+	                       		<button class="btn btn-sm btn-primary" type="button" data-toggle="modal" (click)="hairModal.show()" *ngIf="hairservicesData[subservice.id] == ''"><span class="fa fa-plus"></span></button>
+	                       		<button class="btn btn-sm btn-primary" type="button"  *ngIf="hairservicesData[subservice.id] != ''" data-toggle="modal" (click)="hairModal.show()"  ><span class="fa fa-pencil"></span></button>
+	                       		<button class="btn btn-sm btn-danger" type="button"  *ngIf="hairservicesData[subservice.id] != ''"  (click)="delsubservicedata(hairservicesData[subservice.id].id)" ><span class="fa fa-trash"></span></button>	                       		
 	                       </span>
 
 	                       <div class="clearfix"></div>

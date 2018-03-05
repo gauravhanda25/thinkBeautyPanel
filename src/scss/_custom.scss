@@ -39,9 +39,8 @@
 .service-card {
 	border:1px solid #ccc;
 	border-left:3px solid #ceb26f;
-	margin:5px;
+	margin-bottom:5px;
 	padding:5px;
-	width:32%;
 	overflow:auto;
 }
 
@@ -66,4 +65,8 @@ input:-webkit-autofill:active {
 
 .toast-success {
 	background-color:#ceb26f !important;
+}
+
+.tab-content .tab-pane {
+    padding: 1rem 5rem;
 }
