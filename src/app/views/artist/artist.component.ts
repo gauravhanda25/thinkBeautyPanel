@@ -63,7 +63,7 @@ export class ArtistComponent {
 
         this.changeAllStatuses();
         const reqUrl = this.router.url;
-        if(reqUrl === '/artist/newrequests'){
+        if(reqUrl === '/manageartist/newrequests'){
              this.use_url = API_URL+'/Members?filter={"where":{"role_id":2, "status" : "inactive"}}&access_token='+localStorage.getItem('currentUserToken');
              
              this.check_account = {
@@ -72,7 +72,7 @@ export class ArtistComponent {
                 actionName : 'Verify'
             }
         }
-        else if(reqUrl === '/artist/registered')
+        else if(reqUrl === '/manageartist/registered')
         {
               this.check_account = {
                 id: '',

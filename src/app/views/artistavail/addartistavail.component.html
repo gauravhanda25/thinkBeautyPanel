@@ -1,9 +1,67 @@
 <div class="animated fadeIn">
   <div class="row">
   	<div class="col-lg-12">
-      	
-    </div>    
+  		<div class="card">         
+            <div class="card-header">
 
+              <span >Add/Edit Availability</span>
+              <button (click)="onSave()" class="btn btn-primary pull-right" *ngIf="editparam.action == 'add'">Save</button>
+              <button (click)="onUpdate()" class="btn btn-primary pull-right" *ngIf="editparam.action == 'edit'">Update</button>
+			</div>
+        	<div class="card-body">  
+		      	<table class="table " >
+			        <tr *ngFor = "let dayno of weekdayno">
+			          <td style="border-bottom:3px solid #a4b7c1" >{{week[dayno]}}
+			            <label class="switch switch-text switch-pill switch-lg switch-primary pull-right">			              
+			              <input type="checkbox" [(ngModel)]="data.closed[dayno]"  class="switch-input" (change)="showDaySlots(dayno)">
+			              <span class="switch-label" data-on="On" data-off="Off"></span>
+			              <span class="switch-handle"></span>
+			            </label>
+			            <div class="clearfix"></div>
+			            <div *ngIf="day[dayno] == 1">
+			              <div class="col-md-12 weekday-hour"  style="padding:10px;border-top:1px solid #a4b7c1; overflow:auto;">
+			                <div class="col-md-6 pull-left p-0">
+			                  <div class="col-md-6  pull-left p-0">HOURS</div>
+			                  <div class="col-md-6  pull-left p-0"> <input class="form-control" name="hoursfrom[{{dayno}}]" type="text"  [(ngModel)]="data.hoursfrom[dayno]"  placeholder="From" required></div>
+			                </div>
+			                <div class="col-md-1  pull-left ">
+			                  <label>|</label>
+			                </div>
+			                <div class="col-md-5  pull-left p-0">
+			                  <div class="col-md-4  pull-left p-0">TO</div>
+			                  <div class="col-md-6  pull-left p-0"> <input class="form-control" name="hoursto[{{dayno}}]" type="text"  [(ngModel)]="data.hoursto[dayno]"  placeholder="To" required></div>
+			                </div>
+			              </div>
+			              <div class="col-md-12 weekday-break"  *ngIf="break[dayno] == 1" style="padding:10px;border-top:1px solid #a4b7c1;overflow:auto;">
+			                <div class="col-md-6  pull-left p-0">
+			                  <div class="col-md-6  pull-left p-0">BREAK</div>
+			                  <div class="col-md-6 pull-left p-0"> <input class="form-control" name="breakfrom[{{dayno}}]" type="text"  [(ngModel)]="data.breakfrom[dayno]"  placeholder="From" required></div>
+			                </div>
+			                <div class="col-md-1  pull-left ">
+			                  <label>|</label>
+			                </div>
+			                <div class="col-md-5  pull-left p-0">
+			                  <div class="col-md-4 pull-left p-0">TO</div>
+			                  <div class="col-md-6 pull-left p-0"> <input class="form-control" name="breakto[{{dayno}}]" type="text"  [(ngModel)]="data.breakto[dayno]"  placeholder="To" required></div>
+			                </div>
+			              </div>
+			              <div class="clearfix"></div>
+			              <div class="col-md-12  week-breakadd"  style="padding:10px;border-top:1px solid #a4b7c1;overflow:auto;">
+			                <div class="col-md-12 p-0 text-center">
+			                  <a class="text-info" *ngIf="break[dayno] == 0" (click)="showBreakSlots(dayno)" >Add Break</a>
+			                </div>
+			                <div class="col-md-12 p-0 text-center">
+			                  <a class="text-danger" *ngIf="break[dayno] == 1" (click)="removeBreakSlots(dayno)" >Remove Break</a>
+			                </div>
+			              </div>
+			            </div>
+			          </td>
+			        </tr>
+			    </table>
+		    </div>
+		</div>
+    </div>    
   </div>
   <!--/.row-->
 </div>
+<toaster-container [toasterconfig]="toasterconfig"></toaster-container>
