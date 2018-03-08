@@ -8,7 +8,7 @@ const routes: Routes = [
 	{
 		path: '',
 		data: {
-		  title: "Artist Availability"
+		  title: "Availability"
 		},
 	
 	   children:[
@@ -17,7 +17,7 @@ const routes: Routes = [
 			path: '',
 			component: ArtistavailComponent,
 			data: {
-			  title: "Manage"
+			  title: ""
 			}
 		},
 		{
