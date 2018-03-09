@@ -1,0 +1,48 @@
+<div class="animated fadeIn">
+  <div class="row">
+  	<div class="col-lg-12">
+  		<div class="card">         
+            <div class="card-header">
+
+              <span >Add/Edit Vacation Time</span>
+              <button (click)="onSave()" class="btn btn-primary pull-right">Save</button>
+			</div>
+        	<div class="card-body">  
+		      	<table class="table " >
+			        <tr >
+			        	<td style="border-bottom:3px solid #a4b7c1" >Start On
+			        		<input class="col-md-7 form-control pull-right" name="starton" type="text"  [(ngModel)]="data.starton"  placeholder="Start On" required>
+			        	</td>
+			        </tr>
+			        <!-- <tr *ngIf = " day == 0" >
+			        	<td style="border-bottom:3px solid #a4b7c1" >Start Time
+			        		<input class="col-md-7 form-control pull-right" name="starttime" type="text"  [(ngModel)]="data.starttime" placeholder="Start Time" required>
+			        	</td>
+			        </tr> -->
+			        <tr >
+			        	<td style="border-bottom:3px solid #a4b7c1" >End On
+			        		<input class="col-md-7 form-control pull-right" name="endon" type="text"  [(ngModel)]="data.endon"  placeholder="End On" required>
+			        	</td>
+			        </tr>
+			        <!-- <tr *ngIf = " day == 0" >
+			        	<td style="border-bottom:3px solid #a4b7c1" >End Time
+			        		<input class="col-md-7 form-control pull-right" name="endtime" type="text"  [(ngModel)]="data.endtime" placeholder="End Time" required>
+			        	</td>
+			        </tr> -->
+			        <tr >
+			        	<td style="border-bottom:3px solid #a4b7c1" >All Day
+			        		<label class="switch switch-text switch-pill switch-lg switch-primary pull-right">			              
+				              	<input type="checkbox" checked class="switch-input" checked [disabled] ="1">
+				              	<span class="switch-label" data-on="On" data-off="Off"></span>
+				             	 <span class="switch-handle"></span> <!-- (change)="showAllDay()"  --> 
+			            	</label>
+			        	</td>
+			        </tr>
+			    </table>
+		    </div>
+		</div>
+    </div>    
+  </div>
+  <!--/.row-->
+</div>
+<toaster-container [toasterconfig]="toasterconfig"></toaster-container>

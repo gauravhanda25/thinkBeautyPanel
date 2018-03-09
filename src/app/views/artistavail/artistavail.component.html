@@ -1,16 +1,41 @@
 <div class="animated fadeIn">
   <div class="row">
     <div class="col-lg-12">
-      <a class="btn btn-large btn-primary pull-right" href="#" routerLink='addartistavail' style="margin-bottom:5px"><i class="fa fa-user-plus"></i> Add New</a>
-    </div>
-    <div class="clearfix"></div>
-    <div class="col-lg-12">
       <div class="card">
         <div class="card-header">
           <i class="fa fa-align-justify"></i> Artist Availability
         </div>
-        <div class="card-body">
-          jllkjklj
+        <div class="card-body ">
+          <div class="col-md-4 pull-left">
+            <table class="table table-striped" >
+                <tr *ngFor = "let dayno of weekdayno">
+                  <td>{{week[dayno]}} : </td>
+                  <td>  <span *ngIf="data[dayno].closed == 'yes'">
+                      Closed
+                    </span>
+                    <span *ngIf="data[dayno].closed == 'no'">
+                        {{data[dayno].hoursfrom}} - {{data[dayno].hoursto}}
+                    </span>
+                  </td>
+                </tr>
+            </table>
+          </div>
+          <div class="col-md-4 pull-left">
+            <table class="table table-striped" >
+                <tr *ngFor = "let data of vacationData">
+                  <td>{{data.starton}} - {{data.endon}}</td>
+                </tr>
+            </table>
+          </div>
+          <div class="col-md-4 pull-right">            
+            <div class="col-md-12 text-center">
+              <a class="btn btn-large btn-primary" href="#" routerLink='addartistavail' style="margin-bottom:15px"><i class="fa fa-clock-o"></i> Manage Ongoing Availability</a>
+            </div>
+            <div class="col-md-12  text-center">
+              <a class="btn btn-large btn-primary" href="#" routerLink='addartistvacation' style="margin-bottom:15px"><i class="fa fa-clock-o"></i> Manage Vacation Time</a>
+            </div>
+            <div class="clearfix"></div>
+          </div>
         </div>
       </div>
     </div>

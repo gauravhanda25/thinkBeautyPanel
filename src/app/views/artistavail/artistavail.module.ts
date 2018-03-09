@@ -3,6 +3,7 @@ import { FormsModule } from '@angular/forms';
 import { NgModule } from '@angular/core';
 import { ArtistavailComponent } from './artistavail.component';
 import { AddartistavailComponent } from './addartistavail.component';
+import { AddartistvacationComponent } from './addartistvacation.component';
 
 import { DataFilterPipe } from './datafilterpipe';
 import { DataTableModule } from 'angular2-datatable';
@@ -26,7 +27,8 @@ import { ToasterModule, ToasterService} from 'angular2-toaster/angular2-toaster'
   declarations: [
     ArtistavailComponent,
     AddartistavailComponent,
-	DataFilterPipe
+    AddartistvacationComponent,
+	  DataFilterPipe
   ]
 })
 export class ArtistavailModule { }

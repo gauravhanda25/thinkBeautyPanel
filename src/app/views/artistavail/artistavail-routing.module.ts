@@ -3,6 +3,7 @@ import { Routes,     RouterModule } from '@angular/router';
 
 import { ArtistavailComponent } from './artistavail.component';
 import { AddartistavailComponent } from './addartistavail.component';
+import { AddartistvacationComponent } from './addartistvacation.component';
 
 const routes: Routes = [
 	{
@@ -24,7 +25,14 @@ const routes: Routes = [
 			path: 'addartistavail',
 			component: AddartistavailComponent,
 			data: {
-			  title: "Add Availability"
+			  title: "Add/Edit Availability"
+			}
+		},
+		{
+			path: 'addartistvacation',
+			component: AddartistvacationComponent,
+			data: {
+			  title: "Add/Edit Vacation Time"
 			}
 		},
 		{
