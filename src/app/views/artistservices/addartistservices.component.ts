@@ -10,6 +10,7 @@ import { NgxPermissionsService, NgxRolesService } from 'ngx-permissions';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { NgModule } from '@angular/core';
+import {IOption} from 'ng-select';
 
 // Tabs Component
 import { TabsModule } from 'ngx-bootstrap/tabs';
@@ -19,9 +20,12 @@ import { ModalDirective } from 'ngx-bootstrap/modal';
 // Toastr
 import { ToasterModule, ToasterService, ToasterConfig, Toast }  from 'angular2-toaster/angular2-toaster';
 
+// Ng2-file-upload
+import { FileSelectDirective, FileDropDirective, FileUploadModule, FileUploader } from 'ng2-file-upload';
+
 @Component({
 	templateUrl: 'addartistservices.component.html',
-	styleUrls: ['../../../scss/vendors/toastr/toastr.scss'],
+	styleUrls: ['../../../scss/vendors/toastr/toastr.scss', '../../../scss/vendors/ng-select/ng-select.scss',  '../../../scss/vendors/bs-datepicker/bs-datepicker.scss'],
 	encapsulation: ViewEncapsulation.None
 })
 
@@ -34,6 +38,8 @@ export class AddartistservicesComponent {
 	private nailservicesData:any;
 	private hairservices: any;
 	private hairservicesData:any;
+
+	public servicetypes: Array<IOption> = [];
 
 	private data: any;
   	private editparam: any;
@@ -77,7 +83,8 @@ export class AddartistservicesComponent {
     		duration: '',
     		artistId: localStorage.getItem('currentUserId'),
     		serviceId: '',
-    		subserviceId: ''
+    		subserviceId: '',
+    		servicetype: ''
     	}
 
     	this.getAllArtistData();
@@ -87,9 +94,12 @@ export class AddartistservicesComponent {
     		action: 'add'
     	}
 
+
+    	this.servicetypes.push({label: "Home", value: "Home"});
+    	this.servicetypes.push({label: "Salon", value: "Salon"});
+    	this.servicetypes.push({label: "GCC", value: "GCC"});
+        this.servicetypes = [...this.servicetypes];
   	}
-
-
 
   		
   	getAllArtistData(){
@@ -98,7 +108,7 @@ export class AddartistservicesComponent {
         options.headers.append('Content-Type', 'application/json');
         options.headers.append('Accept', 'application/json');
 
-    	this.http.get(API_URL+'/Makeups?access_token='+ localStorage.getItem('currentUserToken'), options)
+        this.http.get(API_URL+'/Makeups?access_token='+ localStorage.getItem('currentUserToken'), options)
         .subscribe(response => {
         	//console.log(response.json());	
         	this.makeupservices = response.json();
@@ -192,7 +202,8 @@ export class AddartistservicesComponent {
 	    		duration: '',
 	    		artistId: localStorage.getItem('currentUserId'),
 	    		serviceId: '',
-	    		subserviceId: ''
+	    		subserviceId: '',
+	    		servicetype: ''
 	    	}
 			this.toasterService.pop('success', 'Success', "Service saved successfully");
     		
@@ -208,6 +219,7 @@ export class AddartistservicesComponent {
   		this.data = {
   			price: artistSubserviceId.price,
 	    	duration: artistSubserviceId.duration,
+	    	servicetype: artistSubserviceId.servicetype
   		}
 
   		let options = new RequestOptions();
@@ -226,7 +238,8 @@ export class AddartistservicesComponent {
 	    		duration: '',
 	    		artistId: localStorage.getItem('currentUserId'),
 	    		serviceId: '',
-	    		subserviceId: ''
+	    		subserviceId: '',
+	    		servicetype: ''
 	    	}
 			this.toasterService.pop('success', 'Success', "Service updated successfully");
     		

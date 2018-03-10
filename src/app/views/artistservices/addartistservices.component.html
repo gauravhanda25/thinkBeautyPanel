@@ -20,8 +20,11 @@
 	                       </span>
 
 	                       <div class="clearfix"></div>
-	                       <span *ngIf="makeupservicesData[subservice.id] != ''">Price: ${{makeupservicesData[subservice.id].price}}</span>
-	                       <span *ngIf="makeupservicesData[subservice.id] != ''">Duration: {{makeupservicesData[subservice.id].duration}}</span>
+	                       
+	                       <span *ngIf="makeupservicesData[subservice.id]">BHD{{makeupservicesData[subservice.id].price}} for </span>
+	                       <span *ngIf="makeupservicesData[subservice.id]">{{makeupservicesData[subservice.id].duration}}</span>
+	                       <span *ngIf="makeupservicesData[subservice.id]"><br/>{{makeupservicesData[subservice.id].servicetype}}
+	                       </span>
 
 	                        <div bsModal #makeupModal="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
 	                          <div class="modal-dialog modal-primary" role="document">
@@ -38,7 +41,7 @@
 		                                  	<label>PRICE </label>
 		                                  	<div class="input-group">
 							                  <div class="input-group-prepend">
-							                    <span class="input-group-text">$</span>
+							                    <span class="input-group-text">BHD</span>
 							                  </div>
 		                                 	  <input class="form-control" name="price" type="text"  [(ngModel)]="data.price"  placeholder="e.g. 1200" required>
 		                                 	</div>
@@ -70,13 +73,19 @@
 		                                  </select>
 		                                  <!-- <input class="form-control" name="duration" type="text"  [(ngModel)]="data.duration" placeholder="e.g. 12min OR 1hr"  > -->
 		                                </div>
-	                                </div>
-	                                <div class="form-group row" *ngIf="makeupservicesData[subservice.id] != ''">
+		                                <div class="col-md-6">
+					                      <label>Service type<span class="text-danger">*</span></label> 
+					                      <ng-select class="bootstrap"  name="servicetype"  placeholder="Select Service Type"
+					                       [options]="servicetypes" [multiple]="true" 
+					                       [(ngModel)]="data.servicetype" required></ng-select>
+					                    </div>
+					                  </div> 
+	                                  <div class="form-group row" *ngIf="makeupservicesData[subservice.id] != ''">
 		                                <div class="col-md-6">
 		                                  <label>PRICE </label>
 		                                  <div class="input-group">
 							                  <div class="input-group-prepend">
-							                    <span class="input-group-text">$</span>
+							                    <span class="input-group-text">BHD</span>
 							                  </div>
 		                                  	  <input class="form-control" name="price" type="text"  [(ngModel)]="makeupservicesData[subservice.id].price"  value="{{makeupservicesData[subservice.id].price}}" placeholder="e.g. 1200" >
 		                                  	</div>
@@ -108,15 +117,20 @@
 		                                  </select>
 		                                 <!--  <input class="form-control" name="duration" type="text"  [(ngModel)]="makeupservicesData[subservice.id].duration" placeholder="e.g. 12min OR 1hr" value="{{makeupservicesData[subservice.id].duration}}" > -->
 		                                </div>
+		                                <div class="col-md-6">
+					                      <label>Service type<span class="text-danger">*</span></label> 
+					                      <ng-select class="bootstrap"  name="servicetype"  placeholder="Select Service Type"  [options]="servicetypes" [multiple]="true" 
+					                       [(ngModel)]="makeupservicesData[subservice.id].servicetype"  required></ng-select>
+					                    </div>
+	                                </div>  
 	                                </div>
 	                              </div>
 	                            </div><!-- /.modal-content -->
 	                          </div><!-- /.modal-dialog -->
 	                        </div><!-- /.modal -->
-	                    </div>		                                    
-	                  </div>
+	                    </div>		  
               		</tab>
-              		<tab heading="Nails"> 
+              		<!-- <tab heading="Nails"> 
 	                  <div class="form-group row"  *ngFor = "let subservice of nailservices">
 	                    <div class="col-md-4 service-card card-body">
 	                      <h6>{{subservice.name}}</h6>
@@ -128,7 +142,7 @@
 	                       </span>
 
 	                       <div class="clearfix"></div>
-	                       <span *ngIf="nailservicesData[subservice.id] != ''">Price: ${{nailservicesData[subservice.id].price}}</span>
+	                       <span *ngIf="nailservicesData[subservice.id] != ''">Price: BHD{{nailservicesData[subservice.id].price}}</span>
 	                       <span *ngIf="nailservicesData[subservice.id] != ''">Duration: {{nailservicesData[subservice.id].duration}}</span>
 
 	                       <div bsModal #nailsModal="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
@@ -146,7 +160,7 @@
 		                                  <label>PRICE </label>
 		                                  <div class="input-group">
 							                  <div class="input-group-prepend">
-							                    <span class="input-group-text">$</span>
+							                    <span class="input-group-text">BHD</span>
 							                  </div>
 		                                	  <input class="form-control" name="price" type="text"  [(ngModel)]="data.price"  value="{{nailservicesData[subservice.id].price}}" placeholder="e.g. 1200" >
 		                                	</div>
@@ -183,7 +197,7 @@
 		                                  <label>PRICE </label>
 		                                  <div class="input-group">
 							                  <div class="input-group-prepend">
-							                    <span class="input-group-text">$</span>
+							                    <span class="input-group-text">BHD</span>
 							                  </div>
 		                                  	  <input class="form-control" name="price" type="text"  [(ngModel)]="nailservicesData[subservice.id].price"  value="{{nailservicesData[subservice.id].price}}" placeholder="e.g. 1200" >
 		                                  	</div>
@@ -216,12 +230,12 @@
 		                                </div>
 	                                </div>
 	                              </div>
-	                            </div><!-- /.modal-content -->
-	                          </div><!-- /.modal-dialog -->
-	                        </div><!-- /.modal -->
+	                            </div>
+	                          </div>
+	                        </div>
 	                    </div>		                                    
 	                  </div>
-              		</tab>
+              		</tab> -->
               		<tab heading="Hair"> 
 	                  <div class="form-group row" *ngFor = "let subservice of hairservices">
 	                    <div class="col-md-4 service-card card-body" >
@@ -234,8 +248,10 @@
 	                       </span>
 
 	                       <div class="clearfix"></div>
-	                       <span *ngIf="hairservicesData[subservice.id] != ''">Price: ${{hairservicesData[subservice.id].price}}</span>
-	                       <span *ngIf="hairservicesData[subservice.id] != ''">Duration: {{hairservicesData[subservice.id].duration}}</span>
+	                       <span *ngIf="hairservicesData[subservice.id]">BHD{{hairservicesData[subservice.id].price}} for </span> 
+	                       <span *ngIf="hairservicesData[subservice.id]">{{hairservicesData[subservice.id].duration}}</span>
+	                       <span *ngIf="hairservicesData[subservice.id]"><br/>{{hairservicesData[subservice.id].servicetype}}
+	                       </span>
 
 
 	                       <div bsModal #hairModal="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
@@ -253,7 +269,7 @@
 		                                  <label>PRICE </label>
 		                                  <div class="input-group">
 							                  <div class="input-group-prepend">
-							                    <span class="input-group-text">$</span>
+							                    <span class="input-group-text">BHD</span>
 							                  </div>
 		                                  	  <input class="form-control" name="price" type="text"  [(ngModel)]="data.price"  value="{{hairservicesData[subservice.id].price}}" placeholder="e.g. 1200" >
 		                                  	</div>
@@ -284,13 +300,19 @@
 		                                  	<option value="8hr">8hr</option>
 		                                  </select>
 		                                </div>
+		                                <div class="col-md-6">
+					                      <label>Service type<span class="text-danger">*</span></label> 
+					                      <ng-select class="bootstrap"  name="servicetype"  placeholder="Select Service Type"
+					                       [options]="servicetypes" [multiple]="true" 
+					                       [(ngModel)]="data.servicetype" required></ng-select>
+					                    </div>
 	                                </div>
 	                                <div class="form-group row" *ngIf="hairservicesData[subservice.id] != ''">
 		                                 <div class="col-md-6">
 		                                  <label>PRICE </label>
 		                                  <div class="input-group">
 							                  <div class="input-group-prepend">
-							                    <span class="input-group-text">$</span>
+							                    <span class="input-group-text">BHD</span>
 							                  </div>
 		                                  	  <input class="form-control" name="price" type="text"  [(ngModel)]="hairservicesData[subservice.id].price"  value="{{hairservicesData[subservice.id].price}}" placeholder="e.g. 1200" >
 		                                  	</div>
@@ -321,6 +343,11 @@
 		                                  	<option value="8hr">8hr</option>
 		                                  </select>
 		                                </div>
+		                                <div class="col-md-6">
+					                      <label>Service type<span class="text-danger">*</span></label> 
+					                      <ng-select class="bootstrap"  name="servicetype"  placeholder="Select Service Type"  [options]="servicetypes" [multiple]="true" 
+					                       [(ngModel)]="hairservicesData[subservice.id].servicetype"  required></ng-select>
+					                    </div>
 	                                </div>
 	                              </div>
 	                            </div><!-- /.modal-content -->
@@ -329,7 +356,9 @@
 	                    </div>		                                    
 	                  </div>
               		</tab>
+              		<tab heading = "Courses">
 
+              		</tab>
            		</tabset>
 			</div>
         </div> 
