@@ -356,8 +356,123 @@
 	                    </div>		                                    
 	                  </div>
               		</tab>
-              		<tab heading = "Courses">
+              		<tab heading = "Courses" >
+              			<div class="form-group row"><div class="col-md-12"><button type="button" class="btn btn-small btn-primary pull-right" data-toggle="modal" (click)="courseModal.show()"><span class="fa fa-plus"></span>Add New Course</button></div></div>
 
+              			 <div class="form-group row" *ngFor = "let coursedetail of coursesData">
+		                    <div class="col-md-4 service-card card-body" >
+		                       <h6>{{coursedetail.name}}</h6>
+
+		                       <span class="pull-right">
+		                       		<button class="btn btn-sm btn-primary" type="button"  data-toggle="modal" (click)="updateCourseModal.show()"  ><span class="fa fa-pencil"></span></button>
+		                       		<button class="btn btn-sm btn-danger" type="button" (click)="delcoursedata(coursedetail.id)" ><span class="fa fa-trash"></span></button>	                       		
+		                       </span>
+
+		                       <div class="clearfix"></div>
+		                       <span >BHD{{coursedetail.price}} for </span> 
+		                       <span >{{coursedetail.duration}}</span>
+		                    </div>
+
+		                    <div bsModal #updateCourseModal="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+	                          <div class="modal-dialog modal-primary" role="document">
+	                            <div class="modal-content">
+	                              <div class="modal-body">
+	                              	<h6>Update Course Details</h6>
+	                                <button type="button" class="btn btn-default pull-right closeModalButton" (click)="updateCourseModal.hide()" style="margin-right:5px;">Cancel</button>
+		                            <button class="btn btn-primary pull-right" type="button" (click)="updatecoursedata(coursedetail)" style="margin-right:5px;" >Update</button>	
+	                              </div>
+	                              <div class="modal-footer"> 
+	                              	<div class="form-group row" >
+		                                <div class="col-md-6">
+		                                  <label>Name </label>	  
+		                                  <input class="form-control" name="coursename" type="text"  [(ngModel)]="coursedetail.name"  value="{{coursedetail.name}}" placeholder="Course Name">
+		                                </div>
+		                                <div class="col-md-6">
+		                                  <label>Price </label>
+		                                  <div class="input-group">
+							                  <div class="input-group-prepend">
+							                    <span class="input-group-text">BHD</span>
+							                  </div>
+		                                  	  <input class="form-control" name="courseprice" type="text"  [(ngModel)]="coursedetail.price"  value="{{coursedetail.price}}" placeholder="e.g. 1200" >
+		                                  	</div>
+		                                </div>
+		                                <div class="col-md-6">	                                	
+		                                  <label>Description </label>
+		                                  <input class="form-control" name="coursedescription" type="text"  [(ngModel)]="coursedetail.description"  value="{{coursedetail.description}}" placeholder="Course Description" >
+					                    </div>				                    
+		                                <div class="col-md-6">	                                	
+		                                  <label>Course Duration(in days) </label>
+		                                  <input class="form-control" name="courseduration" type="text"  [(ngModel)]="coursedetail.duration"  value="{{coursedetail.duration}}" placeholder="Course Duration (in days)" >
+					                    </div>			       
+					                              
+		                                <div class="col-md-6">	                                	
+		                                  <label>Time Slot From </label>                                  
+		                                  <!-- <input class="form-control" name="coursetimeslotFrom" type="text"  [(ngModel)]="coursedetail.timeslotFrom"  value="{{coursedetail.timeslotFrom}}" placeholder="From" > -->
+		                                   <timepicker [(ngModel)]="coursedetail.timeslotFrom" (change)="changed()" [hourStep]="hstep" [minuteStep]="mstep" [showMeridian]="ismeridian" [readonlyInput]="!isEnabled"></timepicker>
+		                                 </div>
+		                                 <div class="col-md-6">
+		                                 	<label>Time Slot To</label>
+		                                  <!-- <input class="form-control " name="coursetimeslotTo" type="text"  [(ngModel)]="coursedetail.timeslotTo"  value="{{coursedetail.timeslotTo}}" placeholder="To" > -->
+		                                  <timepicker [(ngModel)]="coursedetail.timeslotTo" (change)="changed()" [hourStep]="hstep" [minuteStep]="mstep" [showMeridian]="ismeridian" [readonlyInput]="!isEnabled"></timepicker>
+					                    </div>
+	                                </div>
+	                              </div>
+	                            </div><!-- /.modal-content -->
+	                          </div><!-- /.modal-dialog -->
+	                        </div><!-- /.modal -->
+		                </div>
+
+
+
+
+
+
+                       <div bsModal #courseModal="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                          <div class="modal-dialog modal-primary" role="document">
+                            <div class="modal-content">
+                              <div class="modal-body">
+                              	<h6>New Course Details</h6>
+                                <button type="button" class="btn btn-default pull-right closeModalButton" (click)="courseModal.hide()" style="margin-right:5px;">Cancel</button>
+                                <button class="btn btn-primary pull-right" style="margin-right:5px;" type="button" (click)="savecoursedata()" >Save</button> 
+                              </div>
+                              <div class="modal-footer"> 
+                              	<div class="form-group row" >
+	                                <div class="col-md-6">
+	                                  <label>Name </label>	  
+	                                  <input class="form-control" name="name" type="text"  [(ngModel)]="course.name"  value="" placeholder="Course Name">
+	                                </div>
+	                                <div class="col-md-6">
+	                                  <label>Price </label>
+	                                  <div class="input-group">
+						                  <div class="input-group-prepend">
+						                    <span class="input-group-text">BHD</span>
+						                  </div>
+	                                  	  <input class="form-control" name="price" type="text"  [(ngModel)]="course.price"  value="" placeholder="e.g. 1200" >
+	                                  	</div>
+	                                </div>
+	                                <div class="col-md-6">	                                	
+	                                  <label>Description </label>
+	                                  <input class="form-control" name="description" type="text"  [(ngModel)]="course.description"  value="" placeholder="Course Description" >
+				                    </div>				                    
+	                                <div class="col-md-6">	                                	
+	                                  <label>Course Duration(in days) </label>
+	                                  <input class="form-control" name="duration" type="text"  [(ngModel)]="course.duration"  value="" placeholder="Course Duration (in days)" >
+				                    </div>			                    
+	                                <div class="col-md-6">	                                	
+	                                  <label>Time Slot From </label>	                                  
+	                                  <!-- <input class="form-control" name="timeslotFrom" type="text"  [(ngModel)]="course.timeslotFrom"  value="" placeholder="From" > -->
+	                                  <timepicker [(ngModel)]="course.timeslotFrom" (change)="changed()" [hourStep]="hstep" [minuteStep]="mstep" [showMeridian]="ismeridian" [readonlyInput]="!isEnabled"></timepicker>
+	                                </div>
+	                                <div class="col-md-6">
+	                                  <label>Time Slot To</label>
+	                                 <!--  <input class="form-control" name="timeslotTo" type="text"  [(ngModel)]="course.timeslotTo"  value="" placeholder="To" > -->
+										<timepicker [(ngModel)]="course.timeslotTo" (change)="changed()" [hourStep]="hstep" [minuteStep]="mstep" [showMeridian]="ismeridian" [readonlyInput]="!isEnabled"></timepicker>
+				                    </div>
+                                </div>
+                              </div>
+                            </div><!-- /.modal-content -->
+                          </div><!-- /.modal-dialog -->
+                        </div><!-- /.modal -->
               		</tab>
            		</tabset>
 			</div>

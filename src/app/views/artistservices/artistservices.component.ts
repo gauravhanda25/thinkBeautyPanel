@@ -46,6 +46,10 @@ export class ArtistservicesComponent {
 	private data: any;
   	private editparam: any;
 
+
+	private coursesData:any;
+	private nocourses:any = 0;
+
 	private toasterService: ToasterService;
 	public toasterconfig : ToasterConfig =
 	  new ToasterConfig({
@@ -89,8 +93,30 @@ export class ArtistservicesComponent {
     	}
 
     	this.getAllArtistData();
+    	this.getAllArtistCourseData();
 
 
+  	}
+
+  	getAllArtistCourseData(){
+  		let options = new RequestOptions();
+        options.headers = new Headers();
+        options.headers.append('Content-Type', 'application/json');
+        options.headers.append('Accept', 'application/json');
+
+        this.http.get(API_URL+'/Artistcourses?filter={"where":{"and":[{"artistId":"'+localStorage.getItem('currentUserId')+'"}]}}&access_token='+ localStorage.getItem('currentUserToken'), options)
+        .subscribe(r => {
+        	if(r.json().length != 0){
+        		this.coursesData = r.json();
+        		this.nocourses = 1;
+        	} else {
+        		this.coursesData = '';
+        	}
+
+        	console.log(this.coursesData);
+	    }, error => {
+	        console.log(JSON.stringify(error.json()));
+	    });
   	}
 
   	getAllArtistData(){

@@ -30,6 +30,10 @@ import { SelectModule } from 'ng-select';
 // Datepicker
 import { BsDatepickerModule } from 'ngx-bootstrap';
 
+
+// Timepicker
+import { TimepickerModule } from 'ngx-bootstrap';
+
 @NgModule({
   imports: [
   CommonModule,
@@ -41,6 +45,7 @@ import { BsDatepickerModule } from 'ngx-bootstrap';
   SelectModule,
   FileUploadModule,
   BsDatepickerModule.forRoot(),
+  TimepickerModule.forRoot(),
   ArtistservicesRoutingModule,
   ModalModule.forRoot()
   ],

@@ -53,6 +53,17 @@
                   </tab>
 
                   <tab heading="Courses">
+                    <div class="col-md-12" *ngIf = "nocourses == 0"> No courses added by you.</div>
+
+                     <div class="form-group row" *ngFor = "let coursedetail of coursesData">
+                        <div class="col-md-4 service-card card-body" >
+                           <h6>{{coursedetail.name}}</h6>
+
+                           <div class="clearfix"></div>
+                           <span >BHD{{coursedetail.price}} for </span> 
+                           <span >{{coursedetail.duration}}</span>
+                        </div>
+                      </div>
 
                   </tab>
 

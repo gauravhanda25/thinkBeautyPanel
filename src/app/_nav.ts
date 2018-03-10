@@ -94,10 +94,25 @@ export const artistnavigation = [
     url: '/myservices',
     icon: 'icon-list',
   },
-  {
+
+  /*  {
     name: 'Availability',
-    url: '/availability',
+    url: '/',
     icon: 'icon-clock',
+    children: [
+  */
+      {
+        name: 'Home/Salon Availability',
+        url: '/availability',
+        icon: 'icon-clock',
+      },
+      {
+        name: 'GCC Availability',
+        url: '/gccavailability',
+        icon: 'icon-clock',
+      }
+  /*  ]
   }
+  */
   
 ];
