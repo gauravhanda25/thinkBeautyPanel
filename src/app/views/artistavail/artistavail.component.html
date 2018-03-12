@@ -33,7 +33,7 @@
             </tab>
             <tab heading="Specific Date">
               <a class="btn btn-large btn-primary pull-right" href="#" routerLink='addartistspecificdate' style="margin-bottom:5px"><i class="fa fa-user-plus"></i> Add New Availability</a>
-              <table class="table table-striped">
+              <table class="table table-striped"> 
                 <tr *ngFor = "let rec of specificData">
                   <td  *ngIf="dateAvail == 1">{{rec.date}} : </td>  
                   <td  *ngIf="dateAvail == 1">{{rec.hoursfrom}} - {{rec.hoursto}}</td>   

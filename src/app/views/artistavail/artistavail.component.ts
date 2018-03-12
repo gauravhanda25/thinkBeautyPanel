@@ -30,7 +30,7 @@ export class ArtistavailComponent {
 	
 	private workingData:any = [];
   private weekendData:any = [];
-  private specificData: any = [];
+  private specificData:any = [];
   private availData:any;
 
   private workingAvail:any = 0;
@@ -91,6 +91,8 @@ export class ArtistavailComponent {
         .subscribe(response => {
         	console.log(this.availData = response.json());
 
+          let i:any = 0;
+
           for(let index in this.availData){ 
             if(this.availData[index].days == "working") {
               this.workingAvail = 1; 
@@ -101,10 +103,13 @@ export class ArtistavailComponent {
               this.weekendData.hoursfrom = moment(this.availData[index].hoursfrom).format("hh:mm A");
               this.weekendData.hoursto =  moment(this.availData[index].hoursto).format("hh:mm A"); 
             } else if(this.availData[index].days == "specificDate") {     
-              this.dateAvail = 1;     
-              this.specificData.date = moment(this.availData[index].date).format("DD/MM/YYYY");       
-              this.specificData.hoursfrom = moment(this.availData[index].hoursfrom).format("hh:mm A");
-              this.specificData.hoursto =  moment(this.availData[index].hoursto).format("hh:mm A"); 
+              this.dateAvail = 1;  
+              this.specificData[i] = [];   
+              this.specificData[i].date = moment(this.availData[index].date).format("DD/MM/YYYY");       
+              this.specificData[i].hoursfrom = moment(this.availData[index].hoursfrom).format("hh:mm A");
+              this.specificData[i].hoursto =  moment(this.availData[index].hoursto).format("hh:mm A"); 
+
+              i=i+1;
             }   
                       
           }
