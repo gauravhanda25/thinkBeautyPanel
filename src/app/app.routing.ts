@@ -339,6 +339,19 @@ export const routes: Routes = [
           }
         },
         loadChildren: './views/artistavail/artistavail.module#ArtistavailModule'
+      },
+
+      {
+        path: 'gccavailability',
+        component: FullLayoutComponent,        
+        canActivate: [NgxPermissionsGuard],
+        data: {
+          permissions: {
+            only: ['ARTIST'],
+            except: ['ADMIN','GUEST']
+          }
+        },
+        loadChildren: './views/artistavail/artistavail.module#ArtistavailModule'
       }
 ];
 

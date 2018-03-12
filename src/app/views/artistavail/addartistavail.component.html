@@ -18,35 +18,47 @@
 			              <span class="switch-handle"></span>
 			            </label>
 			            <div class="clearfix"></div>
-			            <div *ngIf="day[dayno] == 1">
+			            <div *ngIf="day[dayno] == 1 && data.serviceFor == 'home'">
 			              <div class="col-md-12 weekday-hour"  style="padding:10px;border-top:1px solid #a4b7c1; overflow:auto;">
 			                <div class="col-md-6 pull-left p-0">
-			                  <div class="col-md-6  pull-left p-0">HOURS</div>
-			                  <div class="col-md-6  pull-left p-0"> <input class="form-control" name="hoursfrom[{{dayno}}]" type="text"  [(ngModel)]="data.hoursfrom[dayno]"  placeholder="From" required></div>
+			                  <div class="col-md-3  pull-left p-0">HOURS</div>
+			                  <div class="col-md-9  pull-left p-0"> 
+			                  	<!-- <input class="form-control" name="hoursfrom[{{dayno}}]" type="text"  [(ngModel)]="data.hoursfrom[dayno]"  placeholder="From" required> -->
+			                  	<timepicker [(ngModel)]="data.hoursfrom[dayno]" (change)="changed()" [hourStep]="hstep" [minuteStep]="mstep" [showMeridian]="ismeridian" [readonlyInput]="!isEnabled"></timepicker>
+			                  </div>
 			                </div>
 			                <div class="col-md-1  pull-left ">
 			                  <label>|</label>
 			                </div>
 			                <div class="col-md-5  pull-left p-0">
-			                  <div class="col-md-4  pull-left p-0">TO</div>
-			                  <div class="col-md-6  pull-left p-0"> <input class="form-control" name="hoursto[{{dayno}}]" type="text"  [(ngModel)]="data.hoursto[dayno]"  placeholder="To" required></div>
+			                  <div class="col-md-3  pull-left p-0">TO</div>
+			                  <div class="col-md-9  pull-left p-0"> 
+			                  	<!-- <input class="form-control" name="hoursto[{{dayno}}]" type="text"  [(ngModel)]="data.hoursto[dayno]"  placeholder="To" required> -->
+			                  	<timepicker [(ngModel)]="data.hoursto[dayno]" (change)="changed()" [hourStep]="hstep" [minuteStep]="mstep" [showMeridian]="ismeridian" [readonlyInput]="!isEnabled"></timepicker>
+			                  </div>
 			                </div>
 			              </div>
-			              <div class="col-md-12 weekday-break"  *ngIf="break[dayno] == 1" style="padding:10px;border-top:1px solid #a4b7c1;overflow:auto;">
+			              <div class="col-md-12 weekday-break"  *ngIf="break[dayno] == 1  && data.serviceFor == 'home'" style="padding:10px;border-top:1px solid #a4b7c1;overflow:auto;">
 			                <div class="col-md-6  pull-left p-0">
-			                  <div class="col-md-6  pull-left p-0">BREAK</div>
-			                  <div class="col-md-6 pull-left p-0"> <input class="form-control" name="breakfrom[{{dayno}}]" type="text"  [(ngModel)]="data.breakfrom[dayno]"  placeholder="From" required></div>
+			                  <div class="col-md-3  pull-left p-0">BREAK</div>
+			                  <div class="col-md-9 pull-left p-0"> 
+			                  	<!-- <input class="form-control" name="breakfrom[{{dayno}}]" type="text"  [(ngModel)]="data.breakfrom[dayno]"  placeholder="From" required> -->
+			                  	<timepicker [(ngModel)]="data.breakfrom[dayno]" (change)="changed()" [hourStep]="hstep" [minuteStep]="mstep" [showMeridian]="ismeridian" [readonlyInput]="!isEnabled"></timepicker>
+			                 </div>
 			                </div>
 			                <div class="col-md-1  pull-left ">
 			                  <label>|</label>
 			                </div>
 			                <div class="col-md-5  pull-left p-0">
-			                  <div class="col-md-4 pull-left p-0">TO</div>
-			                  <div class="col-md-6 pull-left p-0"> <input class="form-control" name="breakto[{{dayno}}]" type="text"  [(ngModel)]="data.breakto[dayno]"  placeholder="To" required></div>
+			                  <div class="col-md-3 pull-left p-0">TO</div>
+			                  <div class="col-md-9 pull-left p-0"> 
+			                  	<!-- <input class="form-control" name="breakto[{{dayno}}]" type="text"  [(ngModel)]="data.breakto[dayno]"  placeholder="To" required> -->
+			                  	<timepicker [(ngModel)]="data.breakto[dayno]" (change)="changed()" [hourStep]="hstep" [minuteStep]="mstep" [showMeridian]="ismeridian" [readonlyInput]="!isEnabled"></timepicker>
+			                  </div>
 			                </div>
 			              </div>
 			              <div class="clearfix"></div>
-			              <div class="col-md-12  week-breakadd"  style="padding:10px;border-top:1px solid #a4b7c1;overflow:auto;">
+			              <div class="col-md-12  week-breakadd" *ngIf="data.serviceFor == 'home'" style="padding:10px;border-top:1px solid #a4b7c1;overflow:auto;">
 			                <div class="col-md-12 p-0 text-center">
 			                  <a class="text-info" *ngIf="break[dayno] == 0" (click)="showBreakSlots(dayno)" >Add Break</a>
 			                </div>

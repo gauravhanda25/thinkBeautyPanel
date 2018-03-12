@@ -16,7 +16,8 @@ import { ToasterModule, ToasterService, ToasterConfig, Toast }  from 'angular2-t
 
 @Component({
 	templateUrl: 'addartistvacation.component.html',
-	styleUrls: ['../../../scss/vendors/toastr/toastr.scss'],
+
+	styleUrls: ['../../../scss/vendors/toastr/toastr.scss',   '../../../scss/vendors/bs-datepicker/bs-datepicker.scss'],
 	encapsulation: ViewEncapsulation.None
 })
 
@@ -25,7 +26,11 @@ export class AddartistvacationComponent {
 	
 	  private data: any;
   	private editparam: any;
-  //	private day: any = 1;
+
+  	//private day: any = 1;
+
+    public bsStartValue = new Date();
+    public bsEndValue = new Date();
 
   	private toasterService: ToasterService;
   	public toasterconfig : ToasterConfig =
@@ -60,8 +65,8 @@ export class AddartistvacationComponent {
 	    })
 
 		this.toasterService = toasterService;
-		
-    	this.data = { 
+
+     	this.data = { 
     		allday: 'yes', 
         starton: '',
        // starttime: '',
@@ -70,24 +75,20 @@ export class AddartistvacationComponent {
     		artistId: localStorage.getItem('currentUserId')
     	}
 
+      const reqUrl = this.router.url;
+      if(reqUrl == "/availability/addartistvacation") {
+        this.data.serviceFor = "home";
+      } else if(reqUrl == "/gccavailability/addartistvacation") {
+        this.data.serviceFor = "gcc";
+      }
+
     	this.editparam = {
     		id: '',
     		action: 'add'
     	}    	
+
   	}
 
-
-    /*
-    showAllDay(){
-  		if(this.data.allday){
-  			this.day = 1;
-        this.data.starttime = '';
-        this.data.endtime =  '';
-  		} else {
-  			this.day = 0;
-  		}
-  	}
-    */
 
   	onSave() {
   		let options = new RequestOptions();
@@ -95,17 +96,20 @@ export class AddartistvacationComponent {
         options.headers.append('Content-Type', 'application/json');
         options.headers.append('Accept', 'application/json');
 
-        console.log(this.data);
-
 	    	this.http.post(API_URL+'/Artistvacations?access_token='+ localStorage.getItem('currentUserToken'), this.data, options)
 	      .subscribe(response => {
-            console.log(response.json());
 				    this.toasterService.pop('success', 'Success', "Vacation Time saved successfully"); 
-            this.router.navigate(['availability']);  
+
+            if(this.data.serviceFor == "home") {
+              this.router.navigate(['availability']);
+            } else if(this.data.serviceFor == "gcc") {
+              this.router.navigate(['gccavailability']);
+            }
 
 		    }, error => {
 		        console.log(JSON.stringify(error.json()));
 		    });
-		}
+  	}
+
   	
 }

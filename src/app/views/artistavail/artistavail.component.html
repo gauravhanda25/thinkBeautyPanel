@@ -7,13 +7,18 @@
         </div>
         <div class="card-body ">
           <div class="col-md-4 pull-left">
-            <table class="table table-striped" >
+            <table class="table table-striped" *ngIf = "availData != ''">
                 <tr *ngFor = "let dayno of weekdayno">
                   <td>{{week[dayno]}} : </td>
                   <td>  <span *ngIf="data[dayno].closed == 'yes'">
                       Closed
                     </span>
-                    <span *ngIf="data[dayno].closed == 'no'">
+
+                    <span *ngIf="data[dayno].closed == 'no' && serviceFor == 'gcc'">
+                       Open
+                    </span>
+
+                    <span *ngIf="data[dayno].closed == 'no'  && serviceFor == 'home'">
                         {{data[dayno].hoursfrom}} - {{data[dayno].hoursto}}
                     </span>
                   </td>
@@ -23,7 +28,7 @@
           <div class="col-md-4 pull-left">
             <table class="table table-striped" >
                 <tr *ngFor = "let data of vacationData">
-                  <td>{{data.starton}} - {{data.endon}}</td>
+                  <td>{{data.starton}} - {{data.endon}} </td>
                 </tr>
             </table>
           </div>

@@ -40,6 +40,39 @@ export class AddartistavailComponent {
 		timeout: 1000
 	  });
 	  
+
+    // Timepicker
+
+  public hstep:number = 1;
+  public mstep:number = 15;
+  public ismeridian:boolean = true;
+  public isEnabled:boolean = true;
+
+  public mytime:Date = new Date();
+  public options:any = {
+    hstep: [1, 2, 3],
+    mstep: [1, 5, 10, 15, 25, 30]
+  };
+
+  public toggleMode():void {
+    this.ismeridian = !this.ismeridian;
+  };
+
+  public update():void {
+    let d = new Date();
+    d.setHours(14);
+    d.setMinutes(0);
+    this.mytime = d;
+  };
+
+  public changed():void {
+    console.log('Time changed to: ' + this.mytime);
+  };
+
+  public clear():void {
+    this.mytime = void 0;
+  };
+
 	  
     constructor(private NgxRolesService: NgxRolesService, private NgxPermissionsService: NgxPermissionsService, @Inject(Http) private http: Http, @Inject(Router)private router:Router, private activatedRoute: ActivatedRoute,toasterService: ToasterService) {
 		//console.log(localStorage.getItem('currentUserRoleId'));
@@ -67,15 +100,25 @@ export class AddartistavailComponent {
 
 		this.toasterService = toasterService;
 		
-    	this.data = {  
-    		closed: [],
-    		day: [],  		
-    		hoursfrom:[],
-    		hoursto: [],
-    		artistId: localStorage.getItem('currentUserId'),
-    		breakfrom: [],
-    		breakto: []
-    	}
+      this.data = {  
+        closed: [],
+        day: [],      
+        hoursfrom:[],
+        hoursto: [],
+        artistId: localStorage.getItem('currentUserId'),
+        breakfrom: [],
+        breakto: []
+      }
+
+
+      const reqUrl = this.router.url;
+      if(reqUrl == "/availability/addartistavail") {
+        this.data.serviceFor = "home";
+      } else if(reqUrl == "/gccavailability/addartistavail") {
+        this.data.serviceFor = "gcc";
+      }
+
+
 
     	this.editparam = {
     		id: '',
@@ -136,7 +179,8 @@ export class AddartistavailComponent {
   	    		hoursto: this.data.hoursto[dayno],
   	    		artistId: localStorage.getItem('currentUserId'),
   	    		breakfrom: this.data.breakfrom[dayno],
-  	    		breakto: this.data.breakto[dayno]
+  	    		breakto: this.data.breakto[dayno],
+            serviceFor: this.data.serviceFor
         	}
         	console.log(savedata);
 
@@ -170,10 +214,11 @@ export class AddartistavailComponent {
   	    		hoursto: this.data.hoursto[dayno],
   	    		artistId: localStorage.getItem('currentUserId'),
   	    		breakfrom: this.data.breakfrom[dayno],
-  	    		breakto: this.data.breakto[dayno]
+  	    		breakto: this.data.breakto[dayno],
+            serviceFor: this.data.serviceFor
         	}
 
-	    	this.http.post(API_URL+'/Artistavailabilities/update?where=%7B%22and%22%3A%5B%7B%22artistId%22%3A%22'+localStorage.getItem('currentUserId')+'%22%7D%2C%7B%22day%22%3A%22'+savedata.day+'%22%7D%5D%7D&access_token='+ localStorage.getItem('currentUserToken'), savedata, options)
+	    	this.http.post(API_URL+'/Artistavailabilities/update?where=%7B%22and%22%3A%5B%7B%22artistId%22%3A%22'+localStorage.getItem('currentUserId')+'%22%7D%2C%7B%22serviceFor%22%3A%22'+savedata.serviceFor+'%22%7D%2C%7B%22day%22%3A%22'+savedata.day+'%22%7D%5D%7D&access_token='+ localStorage.getItem('currentUserToken'), savedata, options)
         .subscribe(response => {
 				  if(dayno == "6") {
             this.toasterService.pop('success', 'Success', "Availability updated successfully"); 
@@ -192,7 +237,7 @@ export class AddartistavailComponent {
         options.headers.append('Content-Type', 'application/json');
         options.headers.append('Accept', 'application/json');
 
-    	this.http.get(API_URL+'/Artistavailabilities?filter={"where":{"or":[{"artistId":"'+localStorage.getItem('currentUserId')+'"}]}}&access_token='+ localStorage.getItem('currentUserToken'), options)
+    	this.http.get(API_URL+'/Artistavailabilities?filter={"where":{"and":[{"artistId":"'+localStorage.getItem('currentUserId')+'"},{"serviceFor":"'+this.data.serviceFor+'"}]}}&access_token='+ localStorage.getItem('currentUserToken'), options)
         .subscribe(response => {
         	console.log(this.availData = response.json());
 

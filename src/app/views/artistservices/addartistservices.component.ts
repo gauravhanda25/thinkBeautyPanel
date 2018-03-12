@@ -10,6 +10,7 @@ import { NgxPermissionsService, NgxRolesService } from 'ngx-permissions';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { NgModule } from '@angular/core';
+import {IOption} from 'ng-select';
 
 // Tabs Component
 import { TabsModule } from 'ngx-bootstrap/tabs';
@@ -19,9 +20,12 @@ import { ModalDirective } from 'ngx-bootstrap/modal';
 // Toastr
 import { ToasterModule, ToasterService, ToasterConfig, Toast }  from 'angular2-toaster/angular2-toaster';
 
+// Ng2-file-upload
+import { FileSelectDirective, FileDropDirective, FileUploadModule, FileUploader } from 'ng2-file-upload';
+
 @Component({
 	templateUrl: 'addartistservices.component.html',
-	styleUrls: ['../../../scss/vendors/toastr/toastr.scss'],
+	styleUrls: ['../../../scss/vendors/toastr/toastr.scss', '../../../scss/vendors/ng-select/ng-select.scss',  '../../../scss/vendors/bs-datepicker/bs-datepicker.scss'],
 	encapsulation: ViewEncapsulation.None
 })
 
@@ -35,7 +39,13 @@ export class AddartistservicesComponent {
 	private hairservices: any;
 	private hairservicesData:any;
 
+	private coursesData:any;
+
+	public servicetypes: Array<IOption> = [];
+
 	private data: any;
+	private course: any;
+	private coursedetail:any;
   	private editparam: any;
 
 	private toasterService: ToasterService;
@@ -45,7 +55,42 @@ export class AddartistservicesComponent {
 		timeout: 1000
 	  });
 	  
-	  
+	
+  // Timepicker
+
+  public hstep:number = 1;
+  public mstep:number = 15;
+  public ismeridian:boolean = true;
+  public isEnabled:boolean = true;
+
+  public mytime:Date = new Date();
+  public options:any = {
+    hstep: [1, 2, 3],
+    mstep: [1, 5, 10, 15, 25, 30]
+  };
+
+  public toggleMode():void {
+    this.ismeridian = !this.ismeridian;
+  };
+
+  public update():void {
+    let d = new Date();
+    d.setHours(14);
+    d.setMinutes(0);
+    this.mytime = d;
+  };
+
+  public changed():void {
+    console.log('Time changed to: ' + this.mytime);
+  };
+
+  public clear():void {
+    this.mytime = void 0;
+  };
+
+
+
+
     constructor(private NgxRolesService: NgxRolesService, private NgxPermissionsService: NgxPermissionsService, @Inject(Http) private http: Http, @Inject(Router)private router:Router, private activatedRoute: ActivatedRoute,toasterService: ToasterService) {
 		//console.log(localStorage.getItem('currentUserRoleId'));
  			
@@ -77,9 +122,32 @@ export class AddartistservicesComponent {
     		duration: '',
     		artistId: localStorage.getItem('currentUserId'),
     		serviceId: '',
-    		subserviceId: ''
+    		subserviceId: '',
+    		servicetype: ''
     	}
 
+    	this.course = { 
+    		name: '',   		
+    		price:'',
+    		description: '' ,
+    		duration: '',
+    		timeslotFrom: this.mytime,
+    		timeslotTo: this.mytime,
+    		artistId: localStorage.getItem('currentUserId')
+    	}
+
+    	this.coursedetail = { 
+    		name: '',   		
+    		price:'',
+    		description: '' ,
+    		duration: '',
+    		timeslotFrom: '',
+    		timeslotTo: '',
+    		artistId: localStorage.getItem('currentUserId')
+    	}
+
+
+    	this.getAllArtistCourseData();
     	this.getAllArtistData();
     	
     	this.editparam = {
@@ -87,9 +155,32 @@ export class AddartistservicesComponent {
     		action: 'add'
     	}
 
+
+    	this.servicetypes.push({label: "Home", value: "Home"});
+    	this.servicetypes.push({label: "Salon", value: "Salon"});
+    	this.servicetypes.push({label: "GCC", value: "GCC"});
+        this.servicetypes = [...this.servicetypes];
   	}
 
+  	getAllArtistCourseData(){
+  		let options = new RequestOptions();
+        options.headers = new Headers();
+        options.headers.append('Content-Type', 'application/json');
+        options.headers.append('Accept', 'application/json');
 
+        this.http.get(API_URL+'/Artistcourses?filter={"where":{"and":[{"artistId":"'+localStorage.getItem('currentUserId')+'"}]}}&access_token='+ localStorage.getItem('currentUserToken'), options)
+        .subscribe(r => {
+        	if(r.json().length != 0){
+        		this.coursesData = r.json();
+        	} else {
+        		this.coursesData = '';
+        	}
+
+        	console.log(this.coursesData);
+	    }, error => {
+	        console.log(JSON.stringify(error.json()));
+	    });
+  	}
 
   		
   	getAllArtistData(){
@@ -98,7 +189,7 @@ export class AddartistservicesComponent {
         options.headers.append('Content-Type', 'application/json');
         options.headers.append('Accept', 'application/json');
 
-    	this.http.get(API_URL+'/Makeups?access_token='+ localStorage.getItem('currentUserToken'), options)
+        this.http.get(API_URL+'/Makeups?access_token='+ localStorage.getItem('currentUserToken'), options)
         .subscribe(response => {
         	//console.log(response.json());	
         	this.makeupservices = response.json();
@@ -192,7 +283,8 @@ export class AddartistservicesComponent {
 	    		duration: '',
 	    		artistId: localStorage.getItem('currentUserId'),
 	    		serviceId: '',
-	    		subserviceId: ''
+	    		subserviceId: '',
+	    		servicetype: ''
 	    	}
 			this.toasterService.pop('success', 'Success', "Service saved successfully");
     		
@@ -208,6 +300,7 @@ export class AddartistservicesComponent {
   		this.data = {
   			price: artistSubserviceId.price,
 	    	duration: artistSubserviceId.duration,
+	    	servicetype: artistSubserviceId.servicetype
   		}
 
   		let options = new RequestOptions();
@@ -226,7 +319,8 @@ export class AddartistservicesComponent {
 	    		duration: '',
 	    		artistId: localStorage.getItem('currentUserId'),
 	    		serviceId: '',
-	    		subserviceId: ''
+	    		subserviceId: '',
+	    		servicetype: ''
 	    	}
 			this.toasterService.pop('success', 'Success', "Service updated successfully");
     		
@@ -250,6 +344,95 @@ export class AddartistservicesComponent {
 			this.toasterService.pop('success', 'Success', "Service removed successfully");
 
     		this.getAllArtistData();
+
+	    }, error => {
+	        console.log(JSON.stringify(error.json()));
+	    });
+
+  	}
+
+  	savecoursedata() {
+  		let options = new RequestOptions();
+	    options.headers = new Headers();
+        options.headers.append('Content-Type', 'application/json');
+        options.headers.append('Accept', 'application/json');
+
+    	this.http.post(API_URL+'/Artistcourses?access_token='+ localStorage.getItem('currentUserToken'), this.course, options)
+        .subscribe(response => {
+
+	    	this.course = { 
+	    		name: '',   		
+	    		price:'',
+	    		description: '' ,
+	    		duration: '',
+	    		timeslotFrom: '',
+	    		timeslotTo: '',
+	    		artistId: localStorage.getItem('currentUserId')
+	    	}
+
+			this.toasterService.pop('success', 'Success', "Course saved successfully");
+    		
+    		this.getAllArtistCourseData();
+
+	    }, error => {
+	        console.log(JSON.stringify(error.json()));
+	    });
+
+  	}
+
+  	updatecoursedata(course) {
+
+  		let options = new RequestOptions();
+	    options.headers = new Headers();
+        options.headers.append('Content-Type', 'application/json');
+        options.headers.append('Accept', 'application/json');
+
+        this.coursedetail = { 
+    		name: course.name,   		
+    		price: course.price,
+    		description: course.description ,
+    		duration: course.duration,
+    		timeslotFrom: course.timeslotFrom,
+    		timeslotTo: course.timeslotTo,
+    		artistId: localStorage.getItem('currentUserId')
+    	}
+
+    	this.http.post(API_URL+'/Artistcourses/update?where=%7B%22id%22%3A%22'+course.id+'%22%7D&access_token='+ localStorage.getItem('currentUserToken'), this.coursedetail, options)
+        .subscribe(response => {
+        	console.log(response.json());
+
+	    	this.coursedetail = { 
+	    		name: '',   		
+	    		price:'',
+	    		description: '' ,
+	    		duration: '',
+	    		timeslotFrom: '',
+	    		timeslotTo: '',
+	    		artistId: localStorage.getItem('currentUserId')
+	    	}
+
+			this.toasterService.pop('success', 'Success', "Course updated successfully");
+    		
+    		this.getAllArtistCourseData();
+
+	    }, error => {
+	        console.log(JSON.stringify(error.json()));
+	    });
+
+  	}
+
+  	delcoursedata(courseId) {
+  		let options = new RequestOptions();
+	    options.headers = new Headers();
+        options.headers.append('Content-Type', 'application/json');
+        options.headers.append('Accept', 'application/json');
+
+    	this.http.delete(API_URL+'/Artistcourses/'+courseId+'?access_token='+ localStorage.getItem('currentUserToken'), options)
+        .subscribe(response => {
+
+			this.toasterService.pop('success', 'Success', "Course removed successfully");
+
+    		this.getAllArtistCourseData();
 
 	    }, error => {
 	        console.log(JSON.stringify(error.json()));

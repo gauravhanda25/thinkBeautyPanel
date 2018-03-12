@@ -20,6 +20,20 @@ import { ArtistservicesRoutingModule } from './artistservices-routing.module';
 // Toastr
 import { ToasterModule, ToasterService} from 'angular2-toaster/angular2-toaster';
 
+// Ng2-file-upload
+import { FileSelectDirective, FileDropDirective, FileUploadModule, FileUploader } from 'ng2-file-upload';
+
+// Ng2-select
+import { SelectModule } from 'ng-select';
+
+
+// Datepicker
+import { BsDatepickerModule } from 'ngx-bootstrap';
+
+
+// Timepicker
+import { TimepickerModule } from 'ngx-bootstrap';
+
 @NgModule({
   imports: [
   CommonModule,
@@ -28,13 +42,17 @@ import { ToasterModule, ToasterService} from 'angular2-toaster/angular2-toaster'
   TabsModule,
   FormsModule,
   ToasterModule,
+  SelectModule,
+  FileUploadModule,
+  BsDatepickerModule.forRoot(),
+  TimepickerModule.forRoot(),
   ArtistservicesRoutingModule,
-    ModalModule.forRoot()
+  ModalModule.forRoot()
   ],
   declarations: [
     ArtistservicesComponent,
     AddartistservicesComponent,
-	DataFilterPipe
+	  DataFilterPipe
   ]
 })
 export class ArtistservicesModule { }

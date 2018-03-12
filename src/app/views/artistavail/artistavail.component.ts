@@ -10,6 +10,7 @@ import { NgxPermissionsService, NgxRolesService } from 'ngx-permissions';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { NgModule } from '@angular/core';
+import * as moment from 'moment';
 
 // Toastr
 import { ToasterModule, ToasterService, ToasterConfig }  from 'angular2-toaster/angular2-toaster';
@@ -19,13 +20,16 @@ import { ToasterModule, ToasterService, ToasterConfig }  from 'angular2-toaster/
 	encapsulation: ViewEncapsulation.None
 })
 export class ArtistavailComponent {
-	  private data: any;
-  	private editparam: any;
-  	private week :any = ['Monday','Tuesday','Wednesday','Thursday','Friday','Saturday','Sunday'];
-  	private weekdayno :any = [0,1,2,3,4,5,6];
-  	
-  	private availData:any;
-    private vacationData:any;
+
+	private data: any;
+	private editparam: any;
+	private week :any = ['Monday','Tuesday','Wednesday','Thursday','Friday','Saturday','Sunday'];
+	private weekdayno :any = [0,1,2,3,4,5,6];
+	
+	private availData:any;
+  private vacationData:any;
+
+  private serviceFor:any;
 
 	private toasterService: ToasterService;
 	public toasterconfig : ToasterConfig =
@@ -66,6 +70,13 @@ export class ArtistavailComponent {
     		action: 'add'
     	}
 
+      const reqUrl = this.router.url;
+      if(reqUrl == "/availability") {
+        this.serviceFor = "home";
+      } else if(reqUrl == "/gccavailability") {
+        this.serviceFor = "gcc";
+      }
+
 	    this.getAllAvailData();
       this.getAllVacationData();
 
@@ -77,7 +88,7 @@ export class ArtistavailComponent {
         options.headers.append('Content-Type', 'application/json');
         options.headers.append('Accept', 'application/json');
 
-    	this.http.get(API_URL+'/Artistavailabilities?filter={"where":{"or":[{"artistId":"'+localStorage.getItem('currentUserId')+'"}]}}&access_token='+ localStorage.getItem('currentUserToken'), options)
+    	this.http.get(API_URL+'/Artistavailabilities?filter={"where":{"and":[{"artistId":"'+localStorage.getItem('currentUserId')+'"},{"serviceFor":"'+this.serviceFor+'"}]}}&access_token='+ localStorage.getItem('currentUserToken'), options)
         .subscribe(response => {
         	console.log(this.availData = response.json());
         	this.data = [];
@@ -85,10 +96,10 @@ export class ArtistavailComponent {
           for(let index in this.availData){  
           	this.data[this.availData[index].dayindex] = [];          
             this.data[this.availData[index].dayindex].closed = this.availData[index].closed;
-            this.data[this.availData[index].dayindex].hoursfrom = this.availData[index].hoursfrom;
-            this.data[this.availData[index].dayindex].hoursto =  this.availData[index].hoursto;
-            this.data[this.availData[index].dayindex].breakfrom =  this.availData[index].breakfrom;
-            this.data[this.availData[index].dayindex].breakto = this.availData[index].breakto;
+            this.data[this.availData[index].dayindex].hoursfrom = moment(this.availData[index].hoursfrom).format("hh:mm A");
+            this.data[this.availData[index].dayindex].hoursto =  moment(this.availData[index].hoursto).format("hh:mm A");
+            this.data[this.availData[index].dayindex].breakfrom =  moment(this.availData[index].breakfrom).format("hh:mm A");
+            this.data[this.availData[index].dayindex].breakto =  moment(this.availData[index].breakto).format("hh:mm A");
            
           }
 
@@ -109,9 +120,15 @@ export class ArtistavailComponent {
         options.headers.append('Content-Type', 'application/json');
         options.headers.append('Accept', 'application/json');
 
-      this.http.get(API_URL+'/Artistvacations?filter={"where":{"or":[{"artistId":"'+localStorage.getItem('currentUserId')+'"}]}}&access_token='+ localStorage.getItem('currentUserToken'), options)
+      this.http.get(API_URL+'/Artistvacations?filter={"where":{"and":[{"artistId":"'+localStorage.getItem('currentUserId')+'"},{"serviceFor":"'+this.serviceFor+'"}]}}&access_token='+ localStorage.getItem('currentUserToken'), options)
         .subscribe(response => {
           console.log(this.vacationData = response.json());
+
+
+          for(let index in this.vacationData){ 
+            this.vacationData[index].starton = moment(this.vacationData[index].starton).format("DD/MM/YYYY");
+            this.vacationData[index].endon = moment(this.vacationData[index].endon).format("DD/MM/YYYY");
+          }
 
         }, error => {
           console.log(JSON.stringify(error.json()));
