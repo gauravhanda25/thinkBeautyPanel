@@ -4,7 +4,7 @@
   		<div class="card">         
             <div class="card-header">
 
-              <span >Add/Edit Vacation Time</span>
+              <span >Add/Edit GCC Availability</span>
               <button (click)="onSave()" class="btn btn-primary pull-right" *ngIf="editparam.action == 'add'">Save</button>
               <button (click)="onUpdate()" class="btn btn-primary pull-right" *ngIf="editparam.action == 'edit'">Update</button>
 			</div>
@@ -25,6 +25,14 @@
 			        	<td style="border-bottom:3px solid #a4b7c1" >End On
 
 			        		<input class="col-md-7 form-control pull-right" name="endon" type="text"  [(ngModel)]="data.endon"  placeholder="End On" required readonly #edp="bsDatepicker" bsDatepicker [(bsValue)]="bsEndValue">
+			        	</td>
+			        </tr>
+			        <tr >
+			        	<td style="border-bottom:3px solid #a4b7c1" >GCC Location
+			        		<select class="col-md-7 form-control pull-right" name="gcclocation"  [(ngModel)]="data.gcclocation" required>
+		                       <option value="">Select GCC Location</option>
+		                       <option *ngFor="let loc of gcclocations" value="{{loc.id}}">{{loc.name}}</option>
+		                     </select>
 			        	</td>
 			        </tr>
 			        <!-- <tr *ngIf = " day == 0" >

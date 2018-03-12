@@ -329,20 +329,7 @@ export const routes: Routes = [
       },
 
       {
-        path: 'availability',
-        component: FullLayoutComponent,        
-        canActivate: [NgxPermissionsGuard],
-        data: {
-          permissions: {
-            only: ['ARTIST'],
-            except: ['ADMIN','GUEST']
-          }
-        },
-        loadChildren: './views/artistavail/artistavail.module#ArtistavailModule'
-      },
-
-      {
-        path: 'gccavailability',
+        path: 'schedule',
         component: FullLayoutComponent,        
         canActivate: [NgxPermissionsGuard],
         data: {

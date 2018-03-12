@@ -102,13 +102,18 @@ export const artistnavigation = [
     children: [
   */
       {
-        name: 'Home/Salon Availability',
-        url: '/availability',
+        name: 'Work Availability',
+        url: '/schedule/work',
+        icon: 'icon-clock',
+      },
+      {
+        name: 'Vacations',
+        url: '/schedule/vacation',
         icon: 'icon-clock',
       },
       {
         name: 'GCC Availability',
-        url: '/gccavailability',
+        url: '/schedule/gcc',
         icon: 'icon-clock',
       }
   /*  ]

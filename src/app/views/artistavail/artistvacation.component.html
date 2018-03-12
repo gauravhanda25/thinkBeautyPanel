@@ -1,0 +1,26 @@
+<div class="animated fadeIn">
+  <div class="row">
+    <div class="col-lg-12">
+      <div class="card">
+        <div class="card-header">
+          <i class="fa fa-align-justify"></i> Vacation Time
+        </div>
+        <div class="card-body ">          
+          <div class="col-md-6 pull-left">
+            <table class="table table-striped" >
+                <tr *ngFor = "let data of vacationData">
+                  <td>{{data.starton}} - {{data.endon}} </td>
+                </tr>
+            </table>
+          </div>
+          <div class="col-md-6 pull-right">
+             <a class="btn btn-large btn-primary pull-right" href="#" routerLink='addartistvacation' style="margin-bottom:5px"><i class="fa fa-user-plus"></i> Add New Vacations</a>
+          </div>
+        </div>
+
+      </div>
+    </div>
+    <!--/.col-->
+  </div>
+  <!--/.row-->
+</div>

@@ -23,13 +23,20 @@ export class ArtistavailComponent {
 
 	private data: any;
 	private editparam: any;
-	private week :any = ['Monday','Tuesday','Wednesday','Thursday','Friday','Saturday','Sunday'];
-	private weekdayno :any = [0,1,2,3,4,5,6];
+	private workingdays :any = ['Sunday','Monday','Tuesday','Wednesday','Thursday'];
+	private workingdayno :any = [0,1,2,3,4];
+  private weekenddays :any = ['Friday','Saturday'];
+  private weekenddayno :any = [0,1];
 	
-	private availData:any;
-  private vacationData:any;
+	private workingData:any = [];
+  private weekendData:any = [];
+  private specificData: any = [];
+  private availData:any;
 
-  private serviceFor:any;
+  private workingAvail:any = 0;
+  private weekendAvail:any = 0;
+  private dateAvail:any = 0;
+
 
 	private toasterService: ToasterService;
 	public toasterconfig : ToasterConfig =
@@ -70,15 +77,7 @@ export class ArtistavailComponent {
     		action: 'add'
     	}
 
-      const reqUrl = this.router.url;
-      if(reqUrl == "/availability") {
-        this.serviceFor = "home";
-      } else if(reqUrl == "/gccavailability") {
-        this.serviceFor = "gcc";
-      }
-
-	    this.getAllAvailData();
-      this.getAllVacationData();
+      this.getAllAvailData();
 
   	}
 
@@ -88,50 +87,34 @@ export class ArtistavailComponent {
         options.headers.append('Content-Type', 'application/json');
         options.headers.append('Accept', 'application/json');
 
-    	this.http.get(API_URL+'/Artistavailabilities?filter={"where":{"and":[{"artistId":"'+localStorage.getItem('currentUserId')+'"},{"serviceFor":"'+this.serviceFor+'"}]}}&access_token='+ localStorage.getItem('currentUserToken'), options)
+    	   this.http.get(API_URL+'/Artistavailabilities?filter={"where":{"and":[{"artistId":"'+localStorage.getItem('currentUserId')+'"}]}}&access_token='+ localStorage.getItem('currentUserToken'), options)
         .subscribe(response => {
         	console.log(this.availData = response.json());
-        	this.data = [];
 
-          for(let index in this.availData){  
-          	this.data[this.availData[index].dayindex] = [];          
-            this.data[this.availData[index].dayindex].closed = this.availData[index].closed;
-            this.data[this.availData[index].dayindex].hoursfrom = moment(this.availData[index].hoursfrom).format("hh:mm A");
-            this.data[this.availData[index].dayindex].hoursto =  moment(this.availData[index].hoursto).format("hh:mm A");
-            this.data[this.availData[index].dayindex].breakfrom =  moment(this.availData[index].breakfrom).format("hh:mm A");
-            this.data[this.availData[index].dayindex].breakto =  moment(this.availData[index].breakto).format("hh:mm A");
-           
+          for(let index in this.availData){ 
+            if(this.availData[index].days == "working") {
+              this.workingAvail = 1; 
+              this.workingData.hoursfrom = moment(this.availData[index].hoursfrom).format("hh:mm A");
+              this.workingData.hoursto =  moment(this.availData[index].hoursto).format("hh:mm A"); 
+            } else if(this.availData[index].days == "weekend") {
+              this.weekendAvail = 1;             
+              this.weekendData.hoursfrom = moment(this.availData[index].hoursfrom).format("hh:mm A");
+              this.weekendData.hoursto =  moment(this.availData[index].hoursto).format("hh:mm A"); 
+            } else if(this.availData[index].days == "specificDate") {     
+              this.dateAvail = 1;     
+              this.specificData.date = moment(this.availData[index].date).format("DD/MM/YYYY");       
+              this.specificData.hoursfrom = moment(this.availData[index].hoursfrom).format("hh:mm A");
+              this.specificData.hoursto =  moment(this.availData[index].hoursto).format("hh:mm A"); 
+            }   
+                      
           }
 
-          console.log(this.data);
-
+          console.log(this.workingData, this.weekendData,this.specificData);
         	if(response.json().length != 0) {
         		this.editparam.action = "edit";
         	}
-
         }, error => {
 	        console.log(JSON.stringify(error.json()));
 	    });
   	}
-
-    getAllVacationData() {
-      let options = new RequestOptions();
-        options.headers = new Headers();
-        options.headers.append('Content-Type', 'application/json');
-        options.headers.append('Accept', 'application/json');
-
-      this.http.get(API_URL+'/Artistvacations?filter={"where":{"and":[{"artistId":"'+localStorage.getItem('currentUserId')+'"},{"serviceFor":"'+this.serviceFor+'"}]}}&access_token='+ localStorage.getItem('currentUserToken'), options)
-        .subscribe(response => {
-          console.log(this.vacationData = response.json());
-
-
-          for(let index in this.vacationData){ 
-            this.vacationData[index].starton = moment(this.vacationData[index].starton).format("DD/MM/YYYY");
-            this.vacationData[index].endon = moment(this.vacationData[index].endon).format("DD/MM/YYYY");
-          }
-
-        }, error => {
-          console.log(JSON.stringify(error.json()));
-      });
-    }
 }

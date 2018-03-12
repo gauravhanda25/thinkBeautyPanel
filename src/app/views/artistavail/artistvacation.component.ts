@@ -10,34 +10,27 @@ import { NgxPermissionsService, NgxRolesService } from 'ngx-permissions';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { NgModule } from '@angular/core';
+import * as moment from 'moment';
 
 // Toastr
-import { ToasterModule, ToasterService, ToasterConfig, Toast }  from 'angular2-toaster/angular2-toaster';
-
+import { ToasterModule, ToasterService, ToasterConfig }  from 'angular2-toaster/angular2-toaster';
 @Component({
-	templateUrl: 'addartistvacation.component.html',
-
-	styleUrls: ['../../../scss/vendors/toastr/toastr.scss',   '../../../scss/vendors/bs-datepicker/bs-datepicker.scss'],
+	templateUrl: 'artistvacation.component.html',
+	styleUrls: ['../../../scss/vendors/toastr/toastr.scss'],
 	encapsulation: ViewEncapsulation.None
 })
+export class ArtistvacationComponent {
 
-@Injectable()
-export class AddartistvacationComponent {
-	
-	  private data: any;
-  	private editparam: any;
+	private data: any;
+	private editparam: any;
+  private vacationData:any;
 
-  	//private day: any = 1;
-
-    public bsStartValue = new Date();
-    public bsEndValue = new Date();
-
-  	private toasterService: ToasterService;
-  	public toasterconfig : ToasterConfig =
-  	  new ToasterConfig({
-  		tapToDismiss: true,
-  		timeout: 1000
-  	  });
+	private toasterService: ToasterService;
+	public toasterconfig : ToasterConfig =
+	  new ToasterConfig({
+		tapToDismiss: true,
+		timeout: 1000
+	  });
 	  
 	  
     constructor(private NgxRolesService: NgxRolesService, private NgxPermissionsService: NgxPermissionsService, @Inject(Http) private http: Http, @Inject(Router)private router:Router, private activatedRoute: ActivatedRoute,toasterService: ToasterService) {
@@ -65,39 +58,32 @@ export class AddartistvacationComponent {
 	    })
 
 		this.toasterService = toasterService;
-
-     	this.data = { 
-    		allday: 'yes', 
-        starton: '',
-       // starttime: '',
-        endon: '',
-       // endtime: '',
-    		artistId: localStorage.getItem('currentUserId')
-    	}
-
-      this.editparam = {
+		
+    	this.editparam = {
     		id: '',
     		action: 'add'
-    	}    	
+    	}
+
+      this.getAllVacationData();
 
   	}
-
-
-  	onSave() {
-  		let options = new RequestOptions();
-	    options.headers = new Headers();
-        options.headers.append('Content-Type', 'application/json');
-        options.headers.append('Accept', 'application/json');
-
-	    	this.http.post(API_URL+'/Artistvacations?access_token='+ localStorage.getItem('currentUserToken'), this.data, options)
-	      .subscribe(response => {
-				    this.toasterService.pop('success', 'Success', "Vacation Time saved successfully"); 
-            this.router.navigate(['schedule/vacation']);
-
-		    }, error => {
-		        console.log(JSON.stringify(error.json()));
-		    });
-  	}
-
   	
+    getAllVacationData() {
+      let options = new RequestOptions();
+      options.headers = new Headers();
+      options.headers.append('Content-Type', 'application/json');
+      options.headers.append('Accept', 'application/json');
+
+      this.http.get(API_URL+'/Artistvacations?filter={"where":{"and":[{"artistId":"'+localStorage.getItem('currentUserId')+'"}]}}&access_token='+ localStorage.getItem('currentUserToken'), options)
+        .subscribe(response => {
+          console.log(this.vacationData = response.json());
+          for(let index in this.vacationData){ 
+            this.vacationData[index].starton = moment(this.vacationData[index].starton).format("DD/MM/YYYY");
+            this.vacationData[index].endon = moment(this.vacationData[index].endon).format("DD/MM/YYYY");
+          }
+
+        }, error => {
+          console.log(JSON.stringify(error.json()));
+      });
+    }
 }

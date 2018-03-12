@@ -70,3 +70,7 @@ input:-webkit-autofill:active {
 .tab-content .tab-pane {
     padding: 1rem 5rem;
 }
+
+.form-control:disabled, .form-control[readonly], ng-select > div.disabled   {
+    background-color: transparent !important;
+ }

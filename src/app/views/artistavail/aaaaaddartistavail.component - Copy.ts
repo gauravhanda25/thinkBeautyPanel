@@ -16,16 +16,22 @@ import { ToasterModule, ToasterService, ToasterConfig, Toast }  from 'angular2-t
 
 @Component({
 	templateUrl: 'addartistavail.component.html',
-	styleUrls: ['../../../scss/vendors/toastr/toastr.scss'   '../../../scss/vendors/bs-datepicker/bs-datepicker.scss'],
+	styleUrls: ['../../../scss/vendors/toastr/toastr.scss'],
 	encapsulation: ViewEncapsulation.None
 })
 
 @Injectable()
 export class AddartistavailComponent {
 	
-	  private data: any;
-  	private editparam: any; 
-   public bsStartValue = new Date();
+	private data: any;
+  	private editparam: any;
+  	private week :any = ['Monday','Tuesday','Wednesday','Thursday','Friday','Saturday','Sunday'];
+  	private weekdayno :any = [0,1,2,3,4,5,6];
+  	private break: any = [];
+  	private day: any = [];
+
+  	private availData:any;
+    private closedChecked:any = [];
 
 	private toasterService: ToasterService;
 	public toasterconfig : ToasterConfig =
@@ -94,23 +100,23 @@ export class AddartistavailComponent {
 
 		this.toasterService = toasterService;
 		
-      this.data = { 
-        days: '',      
-        hoursfrom: '',
-        hoursto: '',
+      this.data = {  
+        closed: [],
+        day: [],      
+        hoursfrom:[],
+        hoursto: [],
         artistId: localStorage.getItem('currentUserId'),
-        date: ''
+        breakfrom: [],
+        breakto: []
       }
 
 
       const reqUrl = this.router.url;
-      if(reqUrl == "/schedule/work/addartistworking") {
-        this.data.days = "working";
-      } else if(reqUrl == "/schedule/work/addartistweekend") {
-        this.data.days = "weekend";
-      } else if(reqUrl == "/schedule/work/addartistspecificdate") {
-        this.data.days = "specificDate";
-      } 
+      if(reqUrl == "/availability/addartistavail") {
+        this.data.serviceFor = "home";
+      } else if(reqUrl == "/gccavailability/addartistavail") {
+        this.data.serviceFor = "gcc";
+      }
 
 
 
@@ -119,24 +125,77 @@ export class AddartistavailComponent {
     		action: 'add'
     	}
 
-    	this.getAllAvailData();
+    	for(let no in this.weekdayno){
+    		this.break[no] = 0;
+    		this.day[no] = 0;  		
+	    	this.data.hoursfrom[no] = '';
+	    	this.data.hoursto[no] =  '';
+	    	this.data.breakfrom[no] =  '';
+	    	this.data.breakto[no] = '';
+    	}
 
+
+	    this.getAllAvailData();
+
+  	}
+
+  	showBreakSlots(dayno){
+  		this.break[dayno] = 1;
+  	}
+
+  	removeBreakSlots(dayno){
+  		this.break[dayno] = 0;
+  		this.data.breakfrom[dayno] = '';
+  		this.data.breakto[dayno] = '';
+
+  	}
+
+  	showDaySlots(dayno){
+  		if(this.data.closed[dayno]){
+  			this.day[dayno] = 1;
+  		} else {
+  			this.day[dayno] = 0;
+  			this.break[dayno] = 0;
+  			this.data.hoursfrom[dayno] = '';
+	    	this.data.hoursto[dayno] =  '';
+	    	this.data.breakfrom[dayno] =  '';
+	    	this.data.breakto[dayno] = '';
+  		}
   	}
 
   	onSave() {
   		let options = new RequestOptions();
 	    options.headers = new Headers();
-      options.headers.append('Content-Type', 'application/json');
-      options.headers.append('Accept', 'application/json');
+        options.headers.append('Content-Type', 'application/json');
+        options.headers.append('Accept', 'application/json');
 
-    	this.http.post(API_URL+'/Artistavailabilities?access_token='+ localStorage.getItem('currentUserToken'), this.data, options)
-      .subscribe(response => {
-			    this.toasterService.pop('success', 'Success', "Availability saved successfully"); 
-          this.router.navigate(['schedule/work']);
-	    }, error => {
-	        console.log(JSON.stringify(error.json()));
-	    });
-	  }
+        let savedata:any;
+        for(let dayno in this.weekdayno) {
+        	savedata = {
+        		closed: (this.data.closed[dayno]? "no" : "yes") ,
+  	    		day: this.week[dayno] ,  
+  	    		dayindex: dayno,		
+  	    		hoursfrom: this.data.hoursfrom[dayno],
+  	    		hoursto: this.data.hoursto[dayno],
+  	    		artistId: localStorage.getItem('currentUserId'),
+  	    		breakfrom: this.data.breakfrom[dayno],
+  	    		breakto: this.data.breakto[dayno],
+            serviceFor: this.data.serviceFor
+        	}
+        	console.log(savedata);
+
+	    	this.http.post(API_URL+'/Artistavailabilities?access_token='+ localStorage.getItem('currentUserToken'), savedata, options)
+	      .subscribe(response => {
+          if(dayno == "6") {
+				    this.toasterService.pop('success', 'Success', "Availability saved successfully"); 
+
+            this.getAllAvailData(); 
+          }  		
+		    }, error => {
+		        console.log(JSON.stringify(error.json()));
+		    });
+		}
+  	}
 
   	onUpdate() {
   		let options = new RequestOptions();

@@ -15,17 +15,18 @@ import { NgModule } from '@angular/core';
 import { ToasterModule, ToasterService, ToasterConfig, Toast }  from 'angular2-toaster/angular2-toaster';
 
 @Component({
-	templateUrl: 'addartistvacation.component.html',
+	templateUrl: 'addartistgcc.component.html',
 
 	styleUrls: ['../../../scss/vendors/toastr/toastr.scss',   '../../../scss/vendors/bs-datepicker/bs-datepicker.scss'],
 	encapsulation: ViewEncapsulation.None
 })
 
 @Injectable()
-export class AddartistvacationComponent {
+export class AddartistgccComponent {
 	
 	  private data: any;
   	private editparam: any;
+    private gcclocations:any;
 
   	//private day: any = 1;
 
@@ -72,6 +73,7 @@ export class AddartistvacationComponent {
        // starttime: '',
         endon: '',
        // endtime: '',
+       gcclocation: '',
     		artistId: localStorage.getItem('currentUserId')
     	}
 
@@ -79,6 +81,19 @@ export class AddartistvacationComponent {
     		id: '',
     		action: 'add'
     	}    	
+
+      let options = new RequestOptions();
+      options.headers = new Headers();
+      options.headers.append('Content-Type', 'application/json');
+      options.headers.append('Accept', 'application/json');
+
+      this.http.get(API_URL+'/Artistgcclocations?access_token='+ localStorage.getItem('currentUserToken'), options)
+      .subscribe(response => {
+         this.gcclocations = response.json();
+
+      }, error => {
+          console.log(JSON.stringify(error.json()));
+      });
 
   	}
 
@@ -89,10 +104,10 @@ export class AddartistvacationComponent {
         options.headers.append('Content-Type', 'application/json');
         options.headers.append('Accept', 'application/json');
 
-	    	this.http.post(API_URL+'/Artistvacations?access_token='+ localStorage.getItem('currentUserToken'), this.data, options)
+	    	this.http.post(API_URL+'/Artistgcc?access_token='+ localStorage.getItem('currentUserToken'), this.data, options)
 	      .subscribe(response => {
-				    this.toasterService.pop('success', 'Success', "Vacation Time saved successfully"); 
-            this.router.navigate(['schedule/vacation']);
+				    this.toasterService.pop('success', 'Success', "GCC Availability saved successfully"); 
+            this.router.navigate(['schedule/gcc']);
 
 		    }, error => {
 		        console.log(JSON.stringify(error.json()));

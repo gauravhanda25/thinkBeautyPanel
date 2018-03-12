@@ -4,35 +4,74 @@ import { Routes,     RouterModule } from '@angular/router';
 import { ArtistavailComponent } from './artistavail.component';
 import { AddartistavailComponent } from './addartistavail.component';
 import { AddartistvacationComponent } from './addartistvacation.component';
+import { AddartistgccComponent } from './addartistgcc.component';
+import { ArtistvacationComponent } from './artistvacation.component';
+import { ArtistgccComponent } from './artistgcc.component';
+
 
 const routes: Routes = [
 	{
 		path: '',
 		data: {
-		  title: "Artist Availability"
+		  title: "Schedule"
 		},
 	
 	   children:[
 	   {
 		  
-			path: '',
+			path: 'work',
 			component: ArtistavailComponent,
 			data: {
-			  title: "Manage"
+			  title: "Manage Work Availability"
 			}
 		},
 		{
-			path: 'addartistavail',
+			path: 'work/addartistworking',
 			component: AddartistavailComponent,
 			data: {
-			  title: "Add/Edit Availability"
+			  title: "Add/Edit Working Availability"
 			}
 		},
 		{
-			path: 'addartistvacation',
+			path: 'work/addartistweekend',
+			component: AddartistavailComponent,
+			data: {
+			  title: "Add/Edit Weekend Availability"
+			}
+		},
+		{
+			path: 'work/addartistspecificdate',
+			component: AddartistavailComponent,
+			data: {
+			  title: "Add/Edit Availability on Specific Date"
+			}
+		},
+		{
+			path: 'vacation',
+			component: ArtistvacationComponent,
+			data: {
+			  title: "Manage Vacation Time"
+			}
+		},
+		{
+			path: 'vacation/addartistvacation',
 			component: AddartistvacationComponent,
 			data: {
 			  title: "Add/Edit Vacation Time"
+			}
+		},
+		{
+			path: 'gcc',
+			component: ArtistgccComponent,
+			data: {
+			  title: "Manage GCC Availability"
+			}
+		},
+		{
+			path: 'gcc/addartistgcc',
+			component: AddartistgccComponent,
+			data: {
+			  title: "Add/Edit GCC Availability"
 			}
 		},
 		{

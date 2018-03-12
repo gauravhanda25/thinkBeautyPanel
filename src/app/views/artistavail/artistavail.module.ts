@@ -4,11 +4,17 @@ import { NgModule } from '@angular/core';
 import { ArtistavailComponent } from './artistavail.component';
 import { AddartistavailComponent } from './addartistavail.component';
 import { AddartistvacationComponent } from './addartistvacation.component';
+import { AddartistgccComponent } from './addartistgcc.component';
+import { ArtistvacationComponent } from './artistvacation.component';
+import { ArtistgccComponent } from './artistgcc.component';
 
 import { DataFilterPipe } from './datafilterpipe';
 import { DataTableModule } from 'angular2-datatable';
 import { HttpModule } from '@angular/http';
 import * as moment from 'moment';
+
+// Tabs Component
+import { TabsModule } from 'ngx-bootstrap/tabs';
 
 //Routing
 import { ArtistavailRoutingModule } from './artistavail-routing.module';
@@ -29,6 +35,7 @@ import { TimepickerModule } from 'ngx-bootstrap';
   CommonModule,
   DataTableModule,
   HttpModule,
+  TabsModule,
   FormsModule,
   ToasterModule,
   ArtistavailRoutingModule,
@@ -39,6 +46,9 @@ import { TimepickerModule } from 'ngx-bootstrap';
     ArtistavailComponent,
     AddartistavailComponent,
     AddartistvacationComponent,
+    AddartistgccComponent,
+    ArtistvacationComponent,
+    ArtistgccComponent,
 	  DataFilterPipe
   ]
 })
