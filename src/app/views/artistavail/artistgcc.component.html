@@ -15,12 +15,13 @@
                        <option *ngFor="let loc of gcclocations" value="{{loc.id}}">{{loc.name}}</option>
                      </select>
                   </td>
-                  <td>{{data.starton}} - {{data.endon}} </td>
+                    <td>{{data.starton}} - {{data.endon}} </td>
+                    <td><button class="btn btn-large btn-primary pull-right" href="#" (click)="resetAvail(data.id)" style="margin-bottom:5px">Reset GCC Availability</button></td>
                 </tr>
             </table>
           </div>
           <div class="col-md-6 pull-right">
-             <a class="btn btn-large btn-primary pull-right" href="#" routerLink='addartistgcc' style="margin-bottom:5px"><i class="fa fa-user-plus"></i> Add New GCC Availability</a>
+             <a class="btn btn-large btn-primary pull-right" href="#" routerLink='addartistgcc' style="margin-bottom:5px"><i class="fa fa-user-plus"></i> Schedule GCC Availability</a>
           </div>
         </div>
 

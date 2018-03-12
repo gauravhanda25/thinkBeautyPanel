@@ -74,6 +74,8 @@ export class ArtistvacationComponent {
       options.headers.append('Content-Type', 'application/json');
       options.headers.append('Accept', 'application/json');
 
+      this.vacationData = [];
+
       this.http.get(API_URL+'/Artistvacations?filter={"where":{"and":[{"artistId":"'+localStorage.getItem('currentUserId')+'"}]}}&access_token='+ localStorage.getItem('currentUserToken'), options)
         .subscribe(response => {
           console.log(this.vacationData = response.json());
@@ -85,5 +87,19 @@ export class ArtistvacationComponent {
         }, error => {
           console.log(JSON.stringify(error.json()));
       });
+    }
+
+    resetAvail(id){
+      let options = new RequestOptions();
+      options.headers = new Headers();
+      options.headers.append('Content-Type', 'application/json');
+      options.headers.append('Accept', 'application/json');
+      this.http.delete(API_URL+'/Artistvacations/'+id+'?access_token='+ localStorage.getItem('currentUserToken'), options)
+      .subscribe(response => {
+        this.getAllVacationData();
+      }, error => {
+          console.log(JSON.stringify(error.json()));
+      });
+
     }
 }

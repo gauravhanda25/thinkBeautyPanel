@@ -95,9 +95,9 @@ export const artistnavigation = [
     icon: 'icon-list',
   },
 
-  /*  {
-    name: 'Availability',
-    url: '/',
+ /* {
+    name: 'Schedule',
+    url: '/schedule',
     icon: 'icon-clock',
     children: [
   */

@@ -92,19 +92,27 @@ export class ArtistavailComponent {
         	console.log(this.availData = response.json());
 
           let i:any = 0;
+          this.workingData = [];
+          this.weekendData = [];
+          this.workingAvail = 0;
+          this.weekendAvail = 0;
+          this.dateAvail = 0; 
 
           for(let index in this.availData){ 
             if(this.availData[index].days == "working") {
               this.workingAvail = 1; 
+              this.workingData.id = this.availData[index].id;
               this.workingData.hoursfrom = moment(this.availData[index].hoursfrom).format("hh:mm A");
               this.workingData.hoursto =  moment(this.availData[index].hoursto).format("hh:mm A"); 
             } else if(this.availData[index].days == "weekend") {
               this.weekendAvail = 1;             
+              this.weekendData.id = this.availData[index].id;
               this.weekendData.hoursfrom = moment(this.availData[index].hoursfrom).format("hh:mm A");
               this.weekendData.hoursto =  moment(this.availData[index].hoursto).format("hh:mm A"); 
             } else if(this.availData[index].days == "specificDate") {     
               this.dateAvail = 1;  
               this.specificData[i] = [];   
+              this.specificData[i].id = this.availData[index].id;
               this.specificData[i].date = moment(this.availData[index].date).format("DD/MM/YYYY");       
               this.specificData[i].hoursfrom = moment(this.availData[index].hoursfrom).format("hh:mm A");
               this.specificData[i].hoursto =  moment(this.availData[index].hoursto).format("hh:mm A"); 
@@ -122,4 +130,18 @@ export class ArtistavailComponent {
 	        console.log(JSON.stringify(error.json()));
 	    });
   	}
+
+    resetAvail(id){
+      let options = new RequestOptions();
+      options.headers = new Headers();
+      options.headers.append('Content-Type', 'application/json');
+      options.headers.append('Accept', 'application/json');
+      this.http.delete(API_URL+'/Artistavailabilities/'+id+'?access_token='+ localStorage.getItem('currentUserToken'), options)
+      .subscribe(response => {
+        this.getAllAvailData();
+      }, error => {
+          console.log(JSON.stringify(error.json()));
+      });
+
+    }
 }

@@ -90,6 +90,8 @@ export class ArtistgccComponent {
       options.headers = new Headers();
       options.headers.append('Content-Type', 'application/json');
       options.headers.append('Accept', 'application/json');
+ 
+      this.gccData = [];
 
       this.http.get(API_URL+'/Artistgcc?filter={"where":{"and":[{"artistId":"'+localStorage.getItem('currentUserId')+'"}]}}&access_token='+ localStorage.getItem('currentUserToken'), options)
         .subscribe(response => {
@@ -103,5 +105,19 @@ export class ArtistgccComponent {
         }, error => {
           console.log(JSON.stringify(error.json()));
       });
+    }
+
+    resetAvail(id){
+      let options = new RequestOptions();
+      options.headers = new Headers();
+      options.headers.append('Content-Type', 'application/json');
+      options.headers.append('Accept', 'application/json');
+      this.http.delete(API_URL+'/Artistgcc/'+id+'?access_token='+ localStorage.getItem('currentUserToken'), options)
+      .subscribe(response => {
+        this.getAllgccData();
+      }, error => {
+          console.log(JSON.stringify(error.json()));
+      });
+
     }
 }
