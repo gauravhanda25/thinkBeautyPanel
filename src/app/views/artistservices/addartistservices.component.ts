@@ -333,21 +333,23 @@ export class AddartistservicesComponent {
   	}
 
   	delsubservicedata(recordId) {
-  		let options = new RequestOptions();
-	    options.headers = new Headers();
+  		if(confirm("Are you sure?")){
+        let options = new RequestOptions();
+	      options.headers = new Headers();
         options.headers.append('Content-Type', 'application/json');
         options.headers.append('Accept', 'application/json');
 
-    	this.http.delete(API_URL+'/Artistservices/'+recordId+'?access_token='+ localStorage.getItem('currentUserToken'), options)
-        .subscribe(response => {
+      	this.http.delete(API_URL+'/Artistservices/'+recordId+'?access_token='+ localStorage.getItem('currentUserToken'), options)
+          .subscribe(response => {
 
-			this.toasterService.pop('success', 'Success', "Service removed successfully");
+  			this.toasterService.pop('success', 'Success', "Service removed successfully");
 
-    		this.getAllArtistData();
+      		this.getAllArtistData();
 
-	    }, error => {
-	        console.log(JSON.stringify(error.json()));
-	    });
+  	    }, error => {
+  	        console.log(JSON.stringify(error.json()));
+  	    });
+      }
 
   	}
 
@@ -422,21 +424,23 @@ export class AddartistservicesComponent {
   	}
 
   	delcoursedata(courseId) {
-  		let options = new RequestOptions();
-	    options.headers = new Headers();
+      if(confirm("Are you sure?")){
+    		let options = new RequestOptions();
+  	    options.headers = new Headers();
         options.headers.append('Content-Type', 'application/json');
         options.headers.append('Accept', 'application/json');
 
-    	this.http.delete(API_URL+'/Artistcourses/'+courseId+'?access_token='+ localStorage.getItem('currentUserToken'), options)
-        .subscribe(response => {
+      	this.http.delete(API_URL+'/Artistcourses/'+courseId+'?access_token='+ localStorage.getItem('currentUserToken'), options)
+          .subscribe(response => {
 
-			this.toasterService.pop('success', 'Success', "Course removed successfully");
+  			this.toasterService.pop('success', 'Success', "Course removed successfully");
 
-    		this.getAllArtistCourseData();
+      		this.getAllArtistCourseData();
 
-	    }, error => {
-	        console.log(JSON.stringify(error.json()));
-	    });
+  	    }, error => {
+  	        console.log(JSON.stringify(error.json()));
+  	    });
+      }
 
   	}
 

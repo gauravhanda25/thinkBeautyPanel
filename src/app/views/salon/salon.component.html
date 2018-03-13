@@ -41,7 +41,7 @@
                 <td>{{user.mobile}}</td>
                 <td>{{user.email}}</td>
                 <td>
-                  <a class="btn btn-sm btn-outline-primary " href="#" routerLink='/salon/editsalon/{{user.id}}' *ngIf="check_account.action == 'active'"><i class="fa fa-edit"></i> </a>                 
+                  <a class="btn btn-sm btn-outline-primary " href="#" routerLink='/managesalon/editsalon/{{user.id}}' *ngIf="check_account.action == 'active'"><i class="fa fa-edit"></i> </a>                 
                   <button class="btn btn-sm btn-outline-primary " (click) ="delsalon(user)" *ngIf="check_account.action == 'active'"><i class="fa fa-trash"></i></button>
                   <button class="btn btn-sm btn-outline-primary " *ngIf="check_account.action == 'active'" (click) ="changeStatus(user, 'inactive')">Block</button>
 

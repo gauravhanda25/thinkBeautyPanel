@@ -11,20 +11,24 @@
             		<tab heading="Makeup"> 
 	                  <div class="form-group row"  *ngFor = "let subservice of makeupservices">
 	                    <div class="col-md-4 service-card card-body">
-	                       <h6>{{subservice.name}}</h6>
+	                       <h6>{{subservice.name}}
+		                       <span *ngIf="makeupservicesData[subservice.id]">({{makeupservicesData[subservice.id].servicetype}})
+		                       </span>
+		                   </h6>
+	                       
 
 	                       <span class="pull-right">
-	                       		<button class="btn btn-sm btn-primary" type="button" data-toggle="modal" (click)="makeupModal.show()" *ngIf="makeupservicesData[subservice.id] == ''"><span class="fa fa-plus"></span></button>
-	                       		<button class="btn btn-sm btn-primary" type="button"  *ngIf="makeupservicesData[subservice.id] != ''" data-toggle="modal" (click)="makeupModal.show()"  ><span class="fa fa-pencil"></span></button>
-	                       		<button class="btn btn-sm btn-danger" type="button"  *ngIf="makeupservicesData[subservice.id] != ''" (click)="delsubservicedata(makeupservicesData[subservice.id].id)" ><span class="fa fa-trash"></span></button>
+	                       		<button class="btn btn-sm btn-outline-primary" type="button" data-toggle="modal" (click)="makeupModal.show()" *ngIf="makeupservicesData[subservice.id] == ''"><span class="fa fa-plus"></span></button>
+	                       		<button class="btn btn-sm btn-outline-primary" type="button"  *ngIf="makeupservicesData[subservice.id] != ''" data-toggle="modal" (click)="makeupModal.show()"  ><span class="fa fa-pencil"></span></button>
+	                       		<button class="btn btn-sm btn-outline-primary" type="button"  *ngIf="makeupservicesData[subservice.id] != ''" (click)="delsubservicedata(makeupservicesData[subservice.id].id)" ><span class="fa fa-trash"></span></button>
 	                       </span>
 
 	                       <div class="clearfix"></div>
 	                       
 	                       <span *ngIf="makeupservicesData[subservice.id]">BHD{{makeupservicesData[subservice.id].price}} for </span>
 	                       <span *ngIf="makeupservicesData[subservice.id]">{{makeupservicesData[subservice.id].duration}}</span>
-	                       <span *ngIf="makeupservicesData[subservice.id]"><br/>{{makeupservicesData[subservice.id].servicetype}}
-	                       </span>
+	                       <!-- <span *ngIf="makeupservicesData[subservice.id]">{{makeupservicesData[subservice.id].servicetype}}
+	                       </span> -->
 
 	                        <div bsModal #makeupModal="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
 	                          <div class="modal-dialog modal-primary" role="document">
@@ -239,19 +243,22 @@
               		<tab heading="Hair"> 
 	                  <div class="form-group row" *ngFor = "let subservice of hairservices">
 	                    <div class="col-md-4 service-card card-body" >
-	                       <h6>{{subservice.name}}</h6>
+	                       <h6>{{subservice.name}}
+	                       		<span *ngIf="hairservicesData[subservice.id]">({{hairservicesData[subservice.id].servicetype}})
+	                       		</span>
+	                       </h6>
 
 	                       <span class="pull-right">
-	                       		<button class="btn btn-sm btn-primary" type="button" data-toggle="modal" (click)="hairModal.show()" *ngIf="hairservicesData[subservice.id] == ''"><span class="fa fa-plus"></span></button>
-	                       		<button class="btn btn-sm btn-primary" type="button"  *ngIf="hairservicesData[subservice.id] != ''" data-toggle="modal" (click)="hairModal.show()"  ><span class="fa fa-pencil"></span></button>
-	                       		<button class="btn btn-sm btn-danger" type="button"  *ngIf="hairservicesData[subservice.id] != ''"  (click)="delsubservicedata(hairservicesData[subservice.id].id)" ><span class="fa fa-trash"></span></button>	                       		
+	                       		<button class="btn btn-sm btn-outline-primary" type="button" data-toggle="modal" (click)="hairModal.show()" *ngIf="hairservicesData[subservice.id] == ''"><span class="fa fa-plus"></span></button>
+	                       		<button class="btn btn-sm btn-outline-primary" type="button"  *ngIf="hairservicesData[subservice.id] != ''" data-toggle="modal" (click)="hairModal.show()"  ><span class="fa fa-pencil"></span></button>
+	                       		<button class="btn btn-sm btn-outline-primary" type="button"  *ngIf="hairservicesData[subservice.id] != ''"  (click)="delsubservicedata(hairservicesData[subservice.id].id)" ><span class="fa fa-trash"></span></button>	                       		
 	                       </span>
 
 	                       <div class="clearfix"></div>
 	                       <span *ngIf="hairservicesData[subservice.id]">BHD{{hairservicesData[subservice.id].price}} for </span> 
 	                       <span *ngIf="hairservicesData[subservice.id]">{{hairservicesData[subservice.id].duration}}</span>
-	                       <span *ngIf="hairservicesData[subservice.id]"><br/>{{hairservicesData[subservice.id].servicetype}}
-	                       </span>
+	                       <!-- <span *ngIf="hairservicesData[subservice.id]"><br/>{{hairservicesData[subservice.id].servicetype}}
+	                       </span> -->
 
 
 	                       <div bsModal #hairModal="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
@@ -357,15 +364,16 @@
 	                  </div>
               		</tab>
               		<tab heading = "Courses" >
-              			<div class="form-group row"><div class="col-md-12"><button type="button" class="btn btn-small btn-primary pull-right" data-toggle="modal" (click)="courseModal.show()"><span class="fa fa-plus"></span>Add New Course</button></div></div>
+
+              			<div class="form-group row"><div class="col-md-12"><button type="button" class="btn btn-sm btn-primary pull-right" data-toggle="modal" (click)="courseModal.show()"><span class="fa fa-plus"></span> Add New Course</button></div></div>
 
               			 <div class="form-group row" *ngFor = "let coursedetail of coursesData">
 		                    <div class="col-md-4 service-card card-body" >
 		                       <h6>{{coursedetail.name}}</h6>
 
 		                       <span class="pull-right">
-		                       		<button class="btn btn-sm btn-primary" type="button"  data-toggle="modal" (click)="updateCourseModal.show()"  ><span class="fa fa-pencil"></span></button>
-		                       		<button class="btn btn-sm btn-danger" type="button" (click)="delcoursedata(coursedetail.id)" ><span class="fa fa-trash"></span></button>	                       		
+		                       		<button class="btn btn-sm btn-outline-primary" type="button"  data-toggle="modal" (click)="updateCourseModal.show()"  ><span class="fa fa-pencil"></span></button>
+		                       		<button class="btn btn-sm btn-outline-primary" type="button" (click)="delcoursedata(coursedetail.id)" ><span class="fa fa-trash"></span></button>	                       		
 		                       </span>
 
 		                       <div class="clearfix"></div>
