@@ -21,7 +21,7 @@
 
 	                       <div class="clearfix"></div>
 	                       
-	                       <span *ngIf="makeupservicesData[subservice.id]">BHD{{makeupservicesData[subservice.id].price}} for </span>
+	                       <span *ngIf="makeupservicesData[subservice.id]">BHD {{makeupservicesData[subservice.id].price}} for</span>
 	                       <span *ngIf="makeupservicesData[subservice.id]">{{makeupservicesData[subservice.id].duration}}</span>
 	                       <span *ngIf="makeupservicesData[subservice.id]"><br/>{{makeupservicesData[subservice.id].servicetype}}
 	                       </span>
@@ -50,28 +50,28 @@
 		                                  <label>DURATION </label>
 		                                  <select class="form-control" name="duration" [(ngModel)]="data.duration" required>
 		                                  	<option value="">Duration</option>
-		                                  	<option value="15min">15min</option>
-		                                  	<option value="30min">30min</option>
-		                                  	<option value="45min">45min</option>
-		                                  	<option value="1hr">1hr</option>
-		                                  	<option value="1hr 15min">1hr 15min</option>
-		                                  	<option value="1hr 30min">1hr 30min</option>
-		                                  	<option value="1hr 45min">1hr 45min</option>
-		                                  	<option value="2hr">2hr</option>
-		                                  	<option value="2hr 15min">2hr 15min</option>
-		                                  	<option value="2hr 30min">2hr 30min</option>
-		                                  	<option value="2hr 45min">2hr 45min</option>
-		                                  	<option value="3hr">3hr</option>
-		                                  	<option value="3hr 15min">3hr 15min</option>
-		                                  	<option value="3hr 30min">3hr 30min</option>
-		                                  	<option value="3hr 45min">3hr 45min</option>
-		                                  	<option value="4hr">4hr</option>
-		                                  	<option value="5hr">5hr</option>
-		                                  	<option value="6hr">6hr</option>
-		                                  	<option value="7hr">7hr</option>
-		                                  	<option value="8hr">8hr</option>
+		                                  	<option value="15 mins">15 mins</option>
+		                                  	<option value="30 mins">30 mins</option>
+		                                  	<option value="45 mins">45 mins</option>
+		                                  	<option value="1 hr">1 hr</option>
+		                                  	<option value="1 hr 15 mins">1 hr 15 mins</option>
+		                                  	<option value="1 hr 30 mins">1 hr 30 mins</option>
+		                                  	<option value="1 hr 45 mins">1 hr 45 mins</option>
+		                                  	<option value="2 hrs">2 hrs</option>
+		                                  	<option value="2 hrs 15 mins">2 hrs 15 mins</option>
+		                                  	<option value="2 hrs 30 mins">2 hrs 30 mins</option>
+		                                  	<option value="2 hrs 45 mins">2 hrs 45 mins</option>
+		                                  	<option value="3 hrs">3 hrs</option>
+		                                  	<option value="3 hrs 15 mins">3 hrs 15 mins</option>
+		                                  	<option value="3 hrs 30 mins">3 hrs 30 mins</option>
+		                                  	<option value="3 hrs 45 mins">3 hrs 45 mins</option>
+		                                  	<option value="4 hrs">4 hrs</option>
+		                                  	<option value="5 hrs">5 hrs</option>
+		                                  	<option value="6 hrs">6 hrs</option>
+		                                  	<option value="7 hrs">7 hrs</option>
+		                                  	<option value="8 hrs">8 hrs</option>
 		                                  </select>
-		                                  <!-- <input class="form-control" name="duration" type="text"  [(ngModel)]="data.duration" placeholder="e.g. 12min OR 1hr"  > -->
+		                                  <!-- <input class="form-control" name="duration" type="text"  [(ngModel)]="data.duration" placeholder="e.g. 12 mins OR 1 hrs"  > -->
 		                                </div>
 		                                <div class="col-md-6">
 					                      <label>Service type<span class="text-danger">*</span></label> 
@@ -94,28 +94,28 @@
 		                                  <label>DURATION </label>
 		                                  <select class="form-control" name="duration"  [(ngModel)]="makeupservicesData[subservice.id].duration" required>
 		                                  	<option value="">Duration</option>
-		                                  	<option value="15min">15min</option>
-		                                  	<option value="30min">30min</option>
-		                                  	<option value="45min">45min</option>
-		                                  	<option value="1hr">1hr</option>
-		                                  	<option value="1hr 15min">1hr 15min</option>
-		                                  	<option value="1hr 30min">1hr 30min</option>
-		                                  	<option value="1hr 45min">1hr 45min</option>
-		                                  	<option value="2hr">2hr</option>
-		                                  	<option value="2hr 15min">2hr 15min</option>
-		                                  	<option value="2hr 30min">2hr 30min</option>
-		                                  	<option value="2hr 45min">2hr 45min</option>
-		                                  	<option value="3hr">3hr</option>
-		                                  	<option value="3hr 15min">3hr 15min</option>
-		                                  	<option value="3hr 30min">3hr 30min</option>
-		                                  	<option value="3hr 45min">3hr 45min</option>
-		                                  	<option value="4hr">4hr</option>
-		                                  	<option value="5hr">5hr</option>
-		                                  	<option value="6hr">6hr</option>
-		                                  	<option value="7hr">7hr</option>
-		                                  	<option value="8hr">8hr</option>
+		                                  	<option value="15 mins">15 mins</option>
+		                                  	<option value="30 mins">30 mins</option>
+		                                  	<option value="45 mins">45 mins</option>
+		                                  	<option value="1 hrs">1 hr</option>
+		                                  	<option value="1 hr 15 mins">1 hr 15 mins</option>
+		                                  	<option value="1 hr 30 mins">1 hr 30 mins</option>
+		                                  	<option value="1 hr 45 mins">1 hr 45 mins</option>
+		                                  	<option value="2 hrs">2 hrs</option>
+		                                  	<option value="2 hrs 15 mins">2 hrs 15 mins</option>
+		                                  	<option value="2 hrs 30 mins">2 hrs 30 mins</option>
+		                                  	<option value="2 hrs 45 mins">2 hrs 45 mins</option>
+		                                  	<option value="3 hrs">3 hrs</option>
+		                                  	<option value="3 hrs 15 mins">3 hrs 15 mins</option>
+		                                  	<option value="3 hrs 30 mins">3 hrs 30 mins</option>
+		                                  	<option value="3 hrs 45 mins">3 hrs 45 mins</option>
+		                                  	<option value="4 hrs">4 hrs</option>
+		                                  	<option value="5 hrs">5 hrs</option>
+		                                  	<option value="6 hrs">6 hrs</option>
+		                                  	<option value="7 hrs">7 hrs</option>
+		                                  	<option value="8 hrs">8 hrs</option>
 		                                  </select>
-		                                 <!--  <input class="form-control" name="duration" type="text"  [(ngModel)]="makeupservicesData[subservice.id].duration" placeholder="e.g. 12min OR 1hr" value="{{makeupservicesData[subservice.id].duration}}" > -->
+		                                 <!--  <input class="form-control" name="duration" type="text"  [(ngModel)]="makeupservicesData[subservice.id].duration" placeholder="e.g. 12 mins OR 1 hrs" value="{{makeupservicesData[subservice.id].duration}}" > -->
 		                                </div>
 		                                <div class="col-md-6">
 					                      <label>Service type<span class="text-danger">*</span></label> 
@@ -169,26 +169,26 @@
 		                                  <label>DURATION </label>
 		                                  <select class="form-control" name="duration"  [(ngModel)]="data.duration" required>
 		                                  	<option value="">Duration</option>
-		                                  	<option value="15min">15min</option>
-		                                  	<option value="30min">30min</option>
-		                                  	<option value="45min">45min</option>
-		                                  	<option value="1hr">1hr</option>
-		                                  	<option value="1hr 15min">1hr 15min</option>
-		                                  	<option value="1hr 30min">1hr 30min</option>
-		                                  	<option value="1hr 45min">1hr 45min</option>
-		                                  	<option value="2hr">2hr</option>
-		                                  	<option value="2hr 15min">2hr 15min</option>
-		                                  	<option value="2hr 30min">2hr 30min</option>
-		                                  	<option value="2hr 45min">2hr 45min</option>
-		                                  	<option value="3hr">3hr</option>
-		                                  	<option value="3hr 15min">3hr 15min</option>
-		                                  	<option value="3hr 30min">3hr 30min</option>
-		                                  	<option value="3hr 45min">3hr 45min</option>
-		                                  	<option value="4hr">4hr</option>
-		                                  	<option value="5hr">5hr</option>
-		                                  	<option value="6hr">6hr</option>
-		                                  	<option value="7hr">7hr</option>
-		                                  	<option value="8hr">8hr</option>
+		                                  	<option value="15 mins">15 mins</option>
+		                                  	<option value="30 mins">30 mins</option>
+		                                  	<option value="45 mins">45 mins</option>
+		                                  	<option value="1 hrs">1 hrs</option>
+		                                  	<option value="1 hrs 15 mins">1 hrs 15 mins</option>
+		                                  	<option value="1 hrs 30 mins">1 hrs 30 mins</option>
+		                                  	<option value="1 hrs 45 mins">1 hrs 45 mins</option>
+		                                  	<option value="2 hrs">2 hrs</option>
+		                                  	<option value="2 hrs 15 mins">2 hrs 15 mins</option>
+		                                  	<option value="2 hrs 30 mins">2 hrs 30 mins</option>
+		                                  	<option value="2 hrs 45 mins">2 hrs 45 mins</option>
+		                                  	<option value="3 hrs">3 hrs</option>
+		                                  	<option value="3 hrs 15 mins">3 hrs 15 mins</option>
+		                                  	<option value="3 hrs 30 mins">3 hrs 30 mins</option>
+		                                  	<option value="3 hrs 45 mins">3 hrs 45 mins</option>
+		                                  	<option value="4 hrs">4 hrs</option>
+		                                  	<option value="5 hrs">5 hrs</option>
+		                                  	<option value="6 hrs">6 hrs</option>
+		                                  	<option value="7 hrs">7 hrs</option>
+		                                  	<option value="8 hrs">8 hrs</option>
 		                                  </select>
 		                                </div>
 	                                </div>
@@ -206,26 +206,26 @@
 		                                  <label>DURATION </label>
 		                                  <select class="form-control" name="duration"  [(ngModel)]="nailservicesData[subservice.id].duration" required>
 		                                  	<option value="">Duration</option>
-		                                  	<option value="15min">15min</option>
-		                                  	<option value="30min">30min</option>
-		                                  	<option value="45min">45min</option>
-		                                  	<option value="1hr">1hr</option>
-		                                  	<option value="1hr 15min">1hr 15min</option>
-		                                  	<option value="1hr 30min">1hr 30min</option>
-		                                  	<option value="1hr 45min">1hr 45min</option>
-		                                  	<option value="2hr">2hr</option>
-		                                  	<option value="2hr 15min">2hr 15min</option>
-		                                  	<option value="2hr 30min">2hr 30min</option>
-		                                  	<option value="2hr 45min">2hr 45min</option>
-		                                  	<option value="3hr">3hr</option>
-		                                  	<option value="3hr 15min">3hr 15min</option>
-		                                  	<option value="3hr 30min">3hr 30min</option>
-		                                  	<option value="3hr 45min">3hr 45min</option>
-		                                  	<option value="4hr">4hr</option>
-		                                  	<option value="5hr">5hr</option>
-		                                  	<option value="6hr">6hr</option>
-		                                  	<option value="7hr">7hr</option>
-		                                  	<option value="8hr">8hr</option>
+		                                  	<option value="15 mins">15 mins</option>
+		                                  	<option value="30 mins">30 mins</option>
+		                                  	<option value="45 mins">45 mins</option>
+		                                  	<option value="1 hrs">1 hrs</option>
+		                                  	<option value="1 hrs 15 mins">1 hrs 15 mins</option>
+		                                  	<option value="1 hrs 30 mins">1 hrs 30 mins</option>
+		                                  	<option value="1 hrs 45 mins">1 hrs 45 mins</option>
+		                                  	<option value="2 hrs">2 hrs</option>
+		                                  	<option value="2 hrs 15 mins">2 hrs 15 mins</option>
+		                                  	<option value="2 hrs 30 mins">2 hrs 30 mins</option>
+		                                  	<option value="2 hrs 45 mins">2 hrs 45 mins</option>
+		                                  	<option value="3 hrs">3 hrs</option>
+		                                  	<option value="3 hrs 15 mins">3 hrs 15 mins</option>
+		                                  	<option value="3 hrs 30 mins">3 hrs 30 mins</option>
+		                                  	<option value="3 hrs 45 mins">3 hrs 45 mins</option>
+		                                  	<option value="4 hrs">4 hrs</option>
+		                                  	<option value="5 hrs">5 hrs</option>
+		                                  	<option value="6 hrs">6 hrs</option>
+		                                  	<option value="7 hrs">7 hrs</option>
+		                                  	<option value="8 hrs">8 hrs</option>
 		                                  </select>
 		                                </div>
 	                                </div>
@@ -248,7 +248,7 @@
 	                       </span>
 
 	                       <div class="clearfix"></div>
-	                       <span *ngIf="hairservicesData[subservice.id]">BHD{{hairservicesData[subservice.id].price}} for </span> 
+	                       <span *ngIf="hairservicesData[subservice.id]">BHD {{hairservicesData[subservice.id].price}} for</span>
 	                       <span *ngIf="hairservicesData[subservice.id]">{{hairservicesData[subservice.id].duration}}</span>
 	                       <span *ngIf="hairservicesData[subservice.id]"><br/>{{hairservicesData[subservice.id].servicetype}}
 	                       </span>
@@ -278,26 +278,26 @@
 		                                  <label>DURATION </label>
 		                                 <select class="form-control" name="duration"  [(ngModel)]="data.duration" required>
 		                                  	<option value="">Duration</option>
-		                                  	<option value="15min">15min</option>
-		                                  	<option value="30min">30min</option>
-		                                  	<option value="45min">45min</option>
-		                                  	<option value="1hr">1hr</option>
-		                                  	<option value="1hr 15min">1hr 15min</option>
-		                                  	<option value="1hr 30min">1hr 30min</option>
-		                                  	<option value="1hr 45min">1hr 45min</option>
-		                                  	<option value="2hr">2hr</option>
-		                                  	<option value="2hr 15min">2hr 15min</option>
-		                                  	<option value="2hr 30min">2hr 30min</option>
-		                                  	<option value="2hr 45min">2hr 45min</option>
-		                                  	<option value="3hr">3hr</option>
-		                                  	<option value="3hr 15min">3hr 15min</option>
-		                                  	<option value="3hr 30min">3hr 30min</option>
-		                                  	<option value="3hr 45min">3hr 45min</option>
-		                                  	<option value="4hr">4hr</option>
-		                                  	<option value="5hr">5hr</option>
-		                                  	<option value="6hr">6hr</option>
-		                                  	<option value="7hr">7hr</option>
-		                                  	<option value="8hr">8hr</option>
+		                                  	<option value="15 mins">15 mins</option>
+		                                  	<option value="30 mins">30 mins</option>
+		                                  	<option value="45 mins">45 mins</option>
+		                                  	<option value="1 hr">1 hr</option>
+		                                  	<option value="1 hr 15 mins">1 hr 15 mins</option>
+		                                  	<option value="1 hr 30 mins">1 hr 30 mins</option>
+		                                  	<option value="1 hr 45 mins">1 hr 45 mins</option>
+		                                  	<option value="2 hrs">2 hrs</option>
+		                                  	<option value="2 hrs 15 mins">2 hrs 15 mins</option>
+		                                  	<option value="2 hrs 30 mins">2 hrs 30 mins</option>
+		                                  	<option value="2 hrs 45 mins">2 hrs 45 mins</option>
+		                                  	<option value="3 hrs">3 hrs</option>
+		                                  	<option value="3 hrs 15 mins">3 hrs 15 mins</option>
+		                                  	<option value="3 hrs 30 mins">3 hrs 30 mins</option>
+		                                  	<option value="3 hrs 45 mins">3 hrs 45 mins</option>
+		                                  	<option value="4 hrs">4 hrs</option>
+		                                  	<option value="5 hrs">5 hrs</option>
+		                                  	<option value="6 hrs">6 hrs</option>
+		                                  	<option value="7 hrs">7 hrs</option>
+		                                  	<option value="8 hrs">8 hrs</option>
 		                                  </select>
 		                                </div>
 		                                <div class="col-md-6">
@@ -321,26 +321,26 @@
 		                                  <label>DURATION </label>
 		                                  <select class="form-control" name="duration"  [(ngModel)]="hairservicesData[subservice.id].duration" required>
 		                                  	<option value="">Duration</option>
-		                                  	<option value="15min">15min</option>
-		                                  	<option value="30min">30min</option>
-		                                  	<option value="45min">45min</option>
-		                                  	<option value="1hr">1hr</option>
-		                                  	<option value="1hr 15min">1hr 15min</option>
-		                                  	<option value="1hr 30min">1hr 30min</option>
-		                                  	<option value="1hr 45min">1hr 45min</option>
-		                                  	<option value="2hr">2hr</option>
-		                                  	<option value="2hr 15min">2hr 15min</option>
-		                                  	<option value="2hr 30min">2hr 30min</option>
-		                                  	<option value="2hr 45min">2hr 45min</option>
-		                                  	<option value="3hr">3hr</option>
-		                                  	<option value="3hr 15min">3hr 15min</option>
-		                                  	<option value="3hr 30min">3hr 30min</option>
-		                                  	<option value="3hr 45min">3hr 45min</option>
-		                                  	<option value="4hr">4hr</option>
-		                                  	<option value="5hr">5hr</option>
-		                                  	<option value="6hr">6hr</option>
-		                                  	<option value="7hr">7hr</option>
-		                                  	<option value="8hr">8hr</option>
+		                                  	<option value="15 mins">15 mins</option>
+		                                  	<option value="30 mins">30 mins</option>
+		                                  	<option value="45 mins">45 mins</option>
+		                                  	<option value="1 hr">1 hr</option>
+		                                  	<option value="1 hr 15 mins">1 hr 15 mins</option>
+		                                  	<option value="1 hr 30 mins">1 hr 30 mins</option>
+		                                  	<option value="1 hr 45 mins">1 hr 45 mins</option>
+		                                  	<option value="2 hrs">2 hrs</option>
+		                                  	<option value="2 hrs 15 mins">2 hrs 15 mins</option>
+		                                  	<option value="2 hrs 30 mins">2 hrs 30 mins</option>
+		                                  	<option value="2 hrs 45 mins">2 hrs 45 mins</option>
+		                                  	<option value="3 hrs">3 hrs</option>
+		                                  	<option value="3 hrs 15 mins">3 hrs 15 mins</option>
+		                                  	<option value="3 hrs 30 mins">3 hrs 30 mins</option>
+		                                  	<option value="3 hrs 45 mins">3 hrs 45 mins</option>
+		                                  	<option value="4 hrs">4 hrs</option>
+		                                  	<option value="5 hrs">5 hrs</option>
+		                                  	<option value="6 hrs">6 hrs</option>
+		                                  	<option value="7 hrs">7 hrs</option>
+		                                  	<option value="8 hrs">8 hrs</option>
 		                                  </select>
 		                                </div>
 		                                <div class="col-md-6">
@@ -369,7 +369,7 @@
 		                       </span>
 
 		                       <div class="clearfix"></div>
-		                       <span >BHD{{coursedetail.price}} for </span> 
+		                       <span >BHD {{coursedetail.price}} for</span>
 		                       <span >{{coursedetail.duration}}</span>
 		                    </div>
 
@@ -408,12 +408,12 @@
 		                                <div class="col-md-6">	                                	
 		                                  <label>Time Slot From </label>                                  
 		                                  <!-- <input class="form-control" name="coursetimeslotFrom" type="text"  [(ngModel)]="coursedetail.timeslotFrom"  value="{{coursedetail.timeslotFrom}}" placeholder="From" > -->
-		                                   <timepicker [(ngModel)]="coursedetail.timeslotFrom" (change)="changed()" [hourStep]="hstep" [minuteStep]="mstep" [showMeridian]="ismeridian" [readonlyInput]="!isEnabled"></timepicker>
+		                                   <timepicker [(ngModel)]="coursedetail.timeslotFrom" (change)="changed()" [hourStep]="hstep" [ minsuteStep]="mstep" [showMeridian]="ismeridian" [readonlyInput]="!isEnabled"></timepicker>
 		                                 </div>
 		                                 <div class="col-md-6">
 		                                 	<label>Time Slot To</label>
 		                                  <!-- <input class="form-control " name="coursetimeslotTo" type="text"  [(ngModel)]="coursedetail.timeslotTo"  value="{{coursedetail.timeslotTo}}" placeholder="To" > -->
-		                                  <timepicker [(ngModel)]="coursedetail.timeslotTo" (change)="changed()" [hourStep]="hstep" [minuteStep]="mstep" [showMeridian]="ismeridian" [readonlyInput]="!isEnabled"></timepicker>
+		                                  <timepicker [(ngModel)]="coursedetail.timeslotTo" (change)="changed()" [hourStep]="hstep" [ minsuteStep]="mstep" [showMeridian]="ismeridian" [readonlyInput]="!isEnabled"></timepicker>
 					                    </div>
 	                                </div>
 	                              </div>
@@ -461,12 +461,12 @@
 	                                <div class="col-md-6">	                                	
 	                                  <label>Time Slot From </label>	                                  
 	                                  <!-- <input class="form-control" name="timeslotFrom" type="text"  [(ngModel)]="course.timeslotFrom"  value="" placeholder="From" > -->
-	                                  <timepicker [(ngModel)]="course.timeslotFrom" (change)="changed()" [hourStep]="hstep" [minuteStep]="mstep" [showMeridian]="ismeridian" [readonlyInput]="!isEnabled"></timepicker>
+	                                  <timepicker [(ngModel)]="course.timeslotFrom" (change)="changed()" [hourStep]="hstep" [ minsuteStep]="mstep" [showMeridian]="ismeridian" [readonlyInput]="!isEnabled"></timepicker>
 	                                </div>
 	                                <div class="col-md-6">
 	                                  <label>Time Slot To</label>
 	                                 <!--  <input class="form-control" name="timeslotTo" type="text"  [(ngModel)]="course.timeslotTo"  value="" placeholder="To" > -->
-										<timepicker [(ngModel)]="course.timeslotTo" (change)="changed()" [hourStep]="hstep" [minuteStep]="mstep" [showMeridian]="ismeridian" [readonlyInput]="!isEnabled"></timepicker>
+										<timepicker [(ngModel)]="course.timeslotTo" (change)="changed()" [hourStep]="hstep" [ minsuteStep]="mstep" [showMeridian]="ismeridian" [readonlyInput]="!isEnabled"></timepicker>
 				                    </div>
                                 </div>
                               </div>
