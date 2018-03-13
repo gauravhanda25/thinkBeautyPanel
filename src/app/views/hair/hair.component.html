@@ -35,8 +35,8 @@
                 <td *ngIf = "data.status == '1'"><span class="text-success">Active</span></td> 
                 <td *ngIf = "data.status == '0'"><span class="text-danger">Inactive</span></td> 
                 <td>
-                  <a class="btn btn-small btn-outline-primary " href="#" routerLink='edithair/{{data.id}}'><i class="fa fa-edit"></i> </a>
-                  <button class="btn btn-small btn-outline-primary " (click) ="delhair(data)"><i class="fa fa-trash"></i></button>
+                  <a class="btn btn-sm btn-outline-primary " href="#" routerLink='edithair/{{data.id}}'><i class="fa fa-edit"></i> </a>
+                  <button class="btn btn-sm btn-outline-primary " (click) ="delhair(data)"><i class="fa fa-trash"></i></button>
                 </td>
               </tr>
             </tbody>

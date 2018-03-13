@@ -24,8 +24,8 @@
                           <input class="form-control" name="password" placeholder="Password" type="password"  [(ngModel)]="data.password" required *ngIf="editparam.action == 'add'"> <!-- required = "editparam.action == 'add'"  -->
                         </div>
                         <div class="col-md-6">
-                          <label>CPR<span class="text-danger">*</span></label> 
-                          <input class="form-control" name="cpr" placeholder="CPR" type="text"  [(ngModel)]="data.cpr" >  
+                          <label>CPR No.<span class="text-danger">*</span></label> 
+                          <input class="form-control" name="cpr" placeholder="CPR No." type="text"  [(ngModel)]="data.cpr" >  
                         </div>
 <!--                                               <div class="col-md-6">
                           <label>Username<span class="text-danger">*</span></label>                          
@@ -43,20 +43,23 @@
                         
                     </div> 
                     <div class="form-group row" >
+                      <div class="col-md-12"><h5>Address</h5></div>
+                    </div>
+                    <div class="form-group row" >
               <div class="col-md-6">
-                      <label>Villa<span class="text-danger">*</span></label>
- <input class="form-control" name="villa" placeholder="Villa" type="text"  [(ngModel)]="data.villa" >  
+                      <label>Villa No.<span class="text-danger">*</span></label>
+ <input class="form-control" name="villa" placeholder="Villa No." type="text"  [(ngModel)]="data.villa" >  
                     </div> 
                                       <div class="col-md-6">
-                      <label>Road<span class="text-danger">*</span></label>
- <input class="form-control" name="road" placeholder="Road" type="text"  [(ngModel)]="data.road" >  
+                      <label>Road No.<span class="text-danger">*</span></label>
+ <input class="form-control" name="road" placeholder="Road No." type="text"  [(ngModel)]="data.road" >  
                     </div> 
 
                     </div> 
                     <div class="form-group row">    
                        <div class="col-md-6">
-                          <label>Block<span class="text-danger">*</span></label>
-     <input class="form-control" name="block" placeholder="Block" type="text"  [(ngModel)]="data.block" >  
+                          <label>Block No.<span class="text-danger">*</span></label>
+     <input class="form-control" name="block" placeholder="Block No." type="text"  [(ngModel)]="data.block" >  
                         </div>                   
                        <div class="col-md-6">
                           <label>City<span class="text-danger">*</span></label>

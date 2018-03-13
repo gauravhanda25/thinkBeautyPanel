@@ -133,39 +133,42 @@ export class SalonComponent {
         });    	        
 
  	}
-    changeStatus(salon) {
+    changeStatus(salon, status, action) {
         let options = new RequestOptions();
         options.headers = new Headers();
         options.headers.append('Content-Type', 'application/json');
         options.headers.append('Accept', 'application/json');
 
-        
-        if(salon.status == 'active') {
-             salon.status = 'inactive';
-        } else {
-            salon.status = 'active';
-        }
-        let where = '{"id": salon.id}';
-        console.log(where);
+        let msg:any = "Are you sure you want to "+action+" the selected Salon?";
 
-        this.http.post(API_URL+'/Members/update?where={"id":"'+  salon.id +'"}&access_token='+ localStorage.getItem('currentUserToken'), salon,  options)
-        .subscribe(response => {
-
-            this.toasterService.pop('success', 'Success ', "Salon Record updated successfully.");
-            //this.router.navigate(['artist']);  
-            const index: number = this.users.indexOf(salon);
-
-            if (index !== -1) {
-             this.users.splice(index, 1);
+        if(confirm(msg)){
+            if(salon.status == 'active') {
+                 salon.status = 'inactive';
+            } else {
+                salon.status = 'active';
             }
-               
-        }, error => {
-            this.toasterService.pop('error', 'Error ',  error.json().error.message);
-            console.log(JSON.stringify(error.json()));
-        });
+            let where = '{"id": salon.id}';
+            console.log(where);
+
+            this.http.post(API_URL+'/Members/update?where={"id":"'+  salon.id +'"}&access_token='+ localStorage.getItem('currentUserToken'), salon,  options)
+            .subscribe(response => {
+
+                this.toasterService.pop('success', 'Success ', "Salon Record updated successfully.");
+                //this.router.navigate(['artist']);  
+                const index: number = this.users.indexOf(salon);
+
+                if (index !== -1) {
+                 this.users.splice(index, 1);
+                }
+                   
+            }, error => {
+                this.toasterService.pop('error', 'Error ',  error.json().error.message);
+                console.log(JSON.stringify(error.json()));
+            });
+        }
     } 
     delsalon(salon) {
-        if(confirm("Are you sure?")){
+        if(confirm("Are you sure you want to delete the selected Salon?")){
             let options = new RequestOptions();
             options.headers = new Headers();
             options.headers.append('Content-Type', 'application/json');
