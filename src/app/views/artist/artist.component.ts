@@ -146,6 +146,24 @@ export class ArtistComponent {
         let msg:any = "Are you sure you want to "+action+" the selected Artist?";
 
         if(confirm(msg)){
+            let today:any = new Date();
+            let dd:any = today.getDate();
+            let mm:any = today.getMonth()+1; //January is 0!
+            let yyyy:any = today.getFullYear();
+
+            if(dd<10) {
+                dd = '0'+dd
+            } 
+
+            if(mm<10) {
+                mm = '0'+mm
+            } 
+
+            today = mm + '-' + dd + '-' + yyyy;
+
+
+            artist.action_on = today;
+
             artist.status = status;
             let where = '{"id": artist.id}';
             console.log(where);

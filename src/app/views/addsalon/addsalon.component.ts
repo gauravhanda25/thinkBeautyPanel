@@ -67,6 +67,21 @@ export class AddsalonComponent {
 	        console.log(data);
 	    })
 
+	    let today:any = new Date();
+		let dd:any = today.getDate();
+		let mm:any = today.getMonth()+1; //January is 0!
+		let yyyy:any = today.getFullYear();
+
+		if(dd<10) {
+			dd = '0'+dd
+		} 
+
+		if(mm<10) {
+			mm = '0'+mm
+		} 
+
+		today = mm + '-' + dd + '-' + yyyy;
+
     	this.data = {    		
     		name:'',
     		email:'',
@@ -82,7 +97,8 @@ export class AddsalonComponent {
     		cpr:'',
     		password:'',
     		emailVerified: false,
-    		status: 'active'
+    		status: 'active',
+    		created_on: today
     	}
 
     	let options = new RequestOptions();
@@ -174,10 +190,15 @@ export class AddsalonComponent {
 	        .subscribe(response => {
 	        	console.log(response.json());   
     			localStorage.setItem('noticemessage', 'salonadd');
-		   		this.router.navigate(['salon']);  			
+		   		this.router.navigate(['managesalon/registered']);  			
 			       
 		    }, error => {
-                this.toasterService.pop('error', 'Error ',  error.json().error.message);
+                if(error.json().error.statusCode == "422") {
+                	this.toasterService.pop('error', 'Error ',  "Email Address already exists. Please use different email");
+                	this.error = 1;
+		    	} else {
+                	this.toasterService.pop('error', 'Error ',  error.json().error.message);
+		    	}
 		        console.log(JSON.stringify(error.json()));
 		    });
 			
@@ -194,10 +215,15 @@ export class AddsalonComponent {
 	        .subscribe(response => {
 	        	console.log(response.json());	
     			localStorage.setItem('noticemessage', 'salonupdate');
-    			this.router.navigate(['salon']);  
+    			this.router.navigate(['managesalon/registered']);  
                	
 		    }, error => {
-                this.toasterService.pop('error', 'Error ',  error.json().error.message);
+                if(error.json().error.statusCode == "422") {
+                	this.toasterService.pop('error', 'Error ',  "Email Address already exists. Please use different email");
+                	this.error = 1;
+		    	} else {
+                	this.toasterService.pop('error', 'Error ',  error.json().error.message);
+		    	}
 		        console.log(JSON.stringify(error.json()));
 		    });
 		}    
