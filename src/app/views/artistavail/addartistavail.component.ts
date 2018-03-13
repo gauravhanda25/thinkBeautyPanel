@@ -16,7 +16,7 @@ import { ToasterModule, ToasterService, ToasterConfig, Toast }  from 'angular2-t
 
 @Component({
 	templateUrl: 'addartistavail.component.html',
-	styleUrls: ['../../../scss/vendors/toastr/toastr.scss'   '../../../scss/vendors/bs-datepicker/bs-datepicker.scss'],
+	styleUrls: ['../../../scss/vendors/toastr/toastr.scss',   '../../../scss/vendors/bs-datepicker/bs-datepicker.scss'],
 	encapsulation: ViewEncapsulation.None
 })
 
