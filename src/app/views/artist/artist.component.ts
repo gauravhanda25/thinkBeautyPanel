@@ -137,32 +137,35 @@ export class ArtistComponent {
 
  	}
 
-    changeStatus(artist, status) {
+    changeStatus(artist, status, action) {
         let options = new RequestOptions();
         options.headers = new Headers();
         options.headers.append('Content-Type', 'application/json');
         options.headers.append('Accept', 'application/json');
 
-        
-        artist.status = status;
-        let where = '{"id": artist.id}';
-        console.log(where);
+        let msg:any = "Are you sure you want to "+action+" the selected Artist?";
 
-        this.http.post(API_URL+'/Members/update?where={"id":"'+  artist.id +'"}&access_token='+ localStorage.getItem('currentUserToken'), artist,  options)
-        .subscribe(response => {
+        if(confirm(msg)){
+            artist.status = status;
+            let where = '{"id": artist.id}';
+            console.log(where);
 
-            this.toasterService.pop('success', 'Success ', "Artist Record updated successfully.");
-            //this.router.navigate(['artist']);  
-            const index: number = this.users.indexOf(artist);
+            this.http.post(API_URL+'/Members/update?where={"id":"'+  artist.id +'"}&access_token='+ localStorage.getItem('currentUserToken'), artist,  options)
+            .subscribe(response => {
 
-            if (index !== -1) {
-             this.users.splice(index, 1);
-            }
-               
-        }, error => {
-            this.toasterService.pop('error', 'Error ',  error.json().error.message);
-            console.log(JSON.stringify(error.json()));
-        });
+                this.toasterService.pop('success', 'Success ', "Artist Record updated successfully.");
+                //this.router.navigate(['artist']);  
+                const index: number = this.users.indexOf(artist);
+
+                if (index !== -1) {
+                 this.users.splice(index, 1);
+                }
+                   
+            }, error => {
+                this.toasterService.pop('error', 'Error ',  error.json().error.message);
+                console.log(JSON.stringify(error.json()));
+            });
+        }
     } 
 
     changeAllStatuses()  {
@@ -184,7 +187,7 @@ export class ArtistComponent {
         });
     }
     delartist(artist) {
-        if(confirm("Are you sure?")){
+        if(confirm("Are you sure you want to delete the selected Artist?")){
             let options = new RequestOptions();
             options.headers = new Headers();
             options.headers.append('Content-Type', 'application/json');

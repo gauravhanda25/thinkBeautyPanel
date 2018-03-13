@@ -1,6 +1,6 @@
 <div class="animated fadeIn" >
-  <div class="row " style="padding: 0 150px;" > 
-    <div class="col-md-6" *ngIf="role=='ADMIN'">
+  <div class="row " > 
+    <div class="col-md-4" *ngIf="role=='ADMIN'">
       <div class="card">
          <div class="card-header bg-primary" style="background-color: #8c7f5f !important;">
             <h4>New Artist Requests</h4>
@@ -15,7 +15,7 @@
        
       </div>
     </div><!--/.col-->
-    <div class="col-md-6" *ngIf="role=='ADMIN'">
+    <div class="col-md-4" *ngIf="role=='ADMIN'">
       <div class="card">
          <div class="card-header bg-info"  style="background-color: #65625a  !important;">
             <h4>Registered Artists</h4>
@@ -29,7 +29,7 @@
         
       </div>
     </div><!--/.col-->
-    <div class="col-md-6" *ngIf="role=='ADMIN'">
+    <div class="col-md-4" *ngIf="role=='ADMIN'">
       <div class="card">
          <div class="card-header bg-success"  style="background-color: #696762  !important;">
             <h4>New Salon Requests</h4>
@@ -43,7 +43,7 @@
         
       </div>
     </div><!--/.col-->
-    <div class="col-md-6" *ngIf="role=='ADMIN'">
+    <div class="col-md-4" *ngIf="role=='ADMIN'">
       <div class="card">
          <div class="card-header bg-danger"  style="background-color: #8a7541  !important;">
             <h4>Registered Salon</h4>
@@ -57,43 +57,130 @@
         
       </div>
     </div><!--/.col-->
-    <div class="col-md-6" *ngIf="role=='ARTIST'">
+    <div class="col-md-4" *ngIf="role=='ADMIN'">
+      <div class="card">
+         <div class="card-header bg-primary"  style="background-color: #8c7f5f !important;">
+            <h4>Current Month Revenue</h4>
+         </div>
+        <div class="card-body pb-0">
+          <div class="form-group row">
+            <div class="col-sm-9"><h4 class="mb-0" >Total</h4></div>
+            <div class="col-sm-3"><h4 class="mb-0" >0</h4></div>
+          </div>          
+          <div class="form-group row" style="margin-top:15px;">
+            <div class="col-sm-6 text-center"><h6>Till Date</h6></div>
+            <div class="col-sm-6 text-center"><h6>Upcoming</h6></div>
+            <div class="col-sm-6 text-center" style="background:#ccc;"><h6>(01-Mar to 04-Mar)</h6></div>
+            <div class="col-sm-6 text-center"  style="background:#ccc;"><h6>(05-Mar to 31-Mar)</h6></div>
+            <div class="col-sm-6 text-center"><h6>2</h6></div>
+            <div class="col-sm-6 text-center"><h6>0</h6></div>
+          </div>
+        </div>           
+      </div>
+    </div><!--/.col-->
+    <div class="col-md-4" *ngIf="role=='ADMIN'">
+      <div class="card">
+         <div class="card-header bg-primary"  style="background-color: #8c7f5f !important;">
+            <h4>Lifetime Revenue</h4>
+         </div>
+        <div class="card-body pb-0">
+          <div class="form-group row">
+            <div class="col-sm-9"><h4 class="mb-0" >Total</h4></div>
+            <div class="col-sm-3"><h4 class="mb-0" >0</h4></div>
+          </div>          
+          <div class="form-group row" style="margin-top:15px;">
+            <div class="col-sm-6 text-center"><h6>Till Date</h6></div>
+            <div class="col-sm-6 text-center"><h6>Upcoming</h6></div>
+            <div class="col-sm-6 text-center" style="background:#ccc;"><h6>(01-Mar to 04-Mar)</h6></div>
+            <div class="col-sm-6 text-center"  style="background:#ccc;"><h6>(05-Mar to 31-Mar)</h6></div>
+            <div class="col-sm-6 text-center"><h6>2</h6></div>
+            <div class="col-sm-6 text-center"><h6>0</h6></div>
+          </div>
+        </div>         
+      </div>
+    </div><!--/.col-->
+    <div class="col-md-4" *ngIf="role=='ARTIST'">
       <div class="card">
          <div class="card-header bg-info"  style="background-color: #65625a  !important;">
             <h4>Services</h4>
          </div>
-        <div class="card-body pb-0">          
-         <h4 class="mb-0" >
-            <p class="pull-left">Total</p>
-            <p class="pull-right">{{artist_services}}</p>
-          </h4>
-        </div>      
+         <div class="card-body pb-0">
+          <div class="form-group row">
+            <div class="col-sm-9"><h4 class="mb-0" >Total</h4></div>
+            <div class="col-sm-3"><h4 class="mb-0" >{{artist_services}}</h4></div>
+          </div>          
+          <div class="form-group row" style="margin-top:15px;">
+            <div class="col-sm-6 text-center">&nbsp;</div>
+            <div class="col-sm-6 text-center">&nbsp;</div>
+            <div class="col-sm-6 text-center">&nbsp;</div>
+            <div class="col-sm-6 text-center">&nbsp;</div>
+            <div class="col-sm-6 text-center">&nbsp;</div>
+            <div class="col-sm-6 text-center">&nbsp;</div>
+          </div>
+        </div>         
       </div>
     </div><!--/.col-->
-    <div class="col-md-6" *ngIf="role=='ARTIST'">
-      <div class="card">
-         <div class="card-header bg-primary"  style="background-color: #8c7f5f !important;">
-            <h4>Revenue</h4>
-         </div>
-        <div class="card-body pb-0">          
-         <h4 class="mb-0" >
-            <p class="pull-left">Total</p>
-            <p class="pull-right">0<!-- {{artist_revenue}} --></p>
-          </h4>
-        </div>      
-      </div>
-    </div><!--/.col-->
-    <div class="col-md-6" *ngIf="role=='ARTIST'">
+    <div class="col-md-4" *ngIf="role=='ARTIST'">
       <div class="card">
          <div class="card-header bg-success"  style="background-color: #8a7541  !important;">
             <h4>Bookings</h4>
          </div>
-        <div class="card-body pb-0">          
-         <h4 class="mb-0" >
-            <p class="pull-left">Total</p>
-            <p class="pull-right">0<!-- {{artist_bookings}} --></p>
-          </h4>
+        <div class="card-body pb-0">
+          <div class="form-group row">
+            <div class="col-sm-9"><h4 class="mb-0" >Total</h4></div>
+            <div class="col-sm-3"><h4 class="mb-0" >0</h4></div>
+          </div>          
+          <div class="form-group row" style="margin-top:15px;">
+            <div class="col-sm-6 text-center"><h6>Till Date</h6></div>
+            <div class="col-sm-6 text-center"><h6>Upcoming</h6></div>
+            <div class="col-sm-6 text-center" style="background:#ccc;"><h6>(01-Mar to 04-Mar)</h6></div>
+            <div class="col-sm-6 text-center"  style="background:#ccc;"><h6>(05-Mar to 31-Mar)</h6></div>
+            <div class="col-sm-6 text-center"><h6>2</h6></div>
+            <div class="col-sm-6 text-center"><h6>0</h6></div>
+          </div>
         </div>      
+      </div>
+    </div><!--/.col-->
+    <div class="col-md-4" *ngIf="role=='ARTIST'">
+      <div class="card">
+         <div class="card-header bg-primary"  style="background-color: #8c7f5f !important;">
+            <h4>Current Month Revenue</h4>
+         </div>
+        <div class="card-body pb-0">
+          <div class="form-group row">
+            <div class="col-sm-9"><h4 class="mb-0" >Total</h4></div>
+            <div class="col-sm-3"><h4 class="mb-0" >0</h4></div>
+          </div>          
+          <div class="form-group row" style="margin-top:15px;">
+            <div class="col-sm-6 text-center"><h6>Till Date</h6></div>
+            <div class="col-sm-6 text-center"><h6>Upcoming</h6></div>
+            <div class="col-sm-6 text-center" style="background:#ccc;"><h6>(01-Mar to 04-Mar)</h6></div>
+            <div class="col-sm-6 text-center"  style="background:#ccc;"><h6>(05-Mar to 31-Mar)</h6></div>
+            <div class="col-sm-6 text-center"><h6>2</h6></div>
+            <div class="col-sm-6 text-center"><h6>0</h6></div>
+          </div>
+        </div>           
+      </div>
+    </div><!--/.col-->
+    <div class="col-md-4" *ngIf="role=='ARTIST'">
+      <div class="card">
+         <div class="card-header bg-primary"  style="background-color: #8c7f5f !important;">
+            <h4>Lifetime Revenue</h4>
+         </div>
+        <div class="card-body pb-0">
+          <div class="form-group row">
+            <div class="col-sm-9"><h4 class="mb-0" >Total</h4></div>
+            <div class="col-sm-3"><h4 class="mb-0" >0</h4></div>
+          </div>          
+          <div class="form-group row" style="margin-top:15px;">
+            <div class="col-sm-6 text-center"><h6>Till Date</h6></div>
+            <div class="col-sm-6 text-center"><h6>Upcoming</h6></div>
+            <div class="col-sm-6 text-center" style="background:#ccc;"><h6>(01-Mar to 04-Mar)</h6></div>
+            <div class="col-sm-6 text-center"  style="background:#ccc;"><h6>(05-Mar to 31-Mar)</h6></div>
+            <div class="col-sm-6 text-center"><h6>2</h6></div>
+            <div class="col-sm-6 text-center"><h6>0</h6></div>
+          </div>
+        </div>         
       </div>
     </div><!--/.col-->
   </div><!--/.row-->

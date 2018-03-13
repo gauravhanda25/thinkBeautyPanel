@@ -44,9 +44,11 @@
 	overflow:auto;
 }
 
-.service-card h6 {
+.service-card h6, .modal-body h5  {
 	float:left;
+	padding-top: 5px;
 }
+
 
 .service-card span {
 	margin-right:5px;

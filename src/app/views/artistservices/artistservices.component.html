@@ -84,7 +84,7 @@
 
                            <span class="pull-right">
                               <button class="btn btn-sm btn-outline-primary" type="button"  data-toggle="modal" (click)="updateCourseModal.show()"  ><span class="fa fa-pencil"></span></button>
-                              <button class="btn btn-sm btn-outline-primary" type="button" (click)="delcoursedata(coursedetail.id)" ><span class="fa fa-trash"></span></button>                            
+                              <button class="btn btn-sm btn-outline-primary" type="button" (click)="delcoursedata(coursedetail.id)" ><span class="fa fa-trash"></span></button>                           
                            </span>
 
                            <div class="clearfix"></div>
@@ -96,11 +96,11 @@
                             <div class="modal-dialog modal-primary" role="document">
                               <div class="modal-content">
                                 <div class="modal-body">
-                                  <h6>Update Course Details</h6>
+                                  <h5>Update Course Details</h5>
                                   <button type="button" class="btn btn-default pull-right closeModalButton" (click)="updateCourseModal.hide()" style="margin-right:5px;">Cancel</button>
                                 <button class="btn btn-primary pull-right" type="button" (click)="updatecoursedata(coursedetail)" style="margin-right:5px;" >Update</button>  
                                 </div>
-                                <div class="modal-footer"> 
+                                <div class="card-body" style="border-top:1px solid #c2cfd6;"> 
                                   <div class="form-group row" >
                                     <div class="col-md-6">
                                       <label>Name </label>    
@@ -115,6 +115,8 @@
                                           <input class="form-control" name="courseprice" type="text"  [(ngModel)]="coursedetail.price"  value="{{coursedetail.price}}" placeholder="e.g. 1200" >
                                         </div>
                                     </div>
+                                </div>
+                                <div class="form-group row" >
                                     <div class="col-md-6">                                    
                                       <label>Description </label>
                                       <input class="form-control" name="coursedescription" type="text"  [(ngModel)]="coursedetail.description"  value="{{coursedetail.description}}" placeholder="Course Description" >
@@ -122,8 +124,9 @@
                                     <div class="col-md-6">                                    
                                       <label>Course Duration(in days) </label>
                                       <input class="form-control" name="courseduration" type="text"  [(ngModel)]="coursedetail.duration"  value="{{coursedetail.duration}}" placeholder="Course Duration (in days)" >
-                              </div>             
-                                        
+                              </div>
+                          </div>
+                          <div class="form-group row" >                               
                                     <div class="col-md-6">                                    
                                       <label>Time Slot From </label>                                  
                                       <!-- <input class="form-control" name="coursetimeslotFrom" type="text"  [(ngModel)]="coursedetail.timeslotFrom"  value="{{coursedetail.timeslotFrom}}" placeholder="From" > -->
@@ -150,11 +153,11 @@
                           <div class="modal-dialog modal-primary" role="document">
                             <div class="modal-content">
                               <div class="modal-body">
-                                <h6>New Course Details</h6>
+                                <h5>New Course Details</h5>
                                 <button type="button" class="btn btn-default pull-right closeModalButton" (click)="courseModal.hide()" style="margin-right:5px;">Cancel</button>
                                 <button class="btn btn-primary pull-right" style="margin-right:5px;" type="button" (click)="savecoursedata()" >Save</button> 
                               </div>
-                              <div class="modal-footer"> 
+                              <div class="card-body" style="border-top:1px solid #c2cfd6;"> 
                                 <div class="form-group row" >
                                   <div class="col-md-6">
                                     <label>Name </label>    
@@ -169,6 +172,8 @@
                                         <input class="form-control" name="price" type="text"  [(ngModel)]="course.price"  value="" placeholder="e.g. 1200" >
                                       </div>
                                   </div>
+                              </div>
+                              <div class="form-group row" >
                                   <div class="col-md-6">                                    
                                     <label>Description </label>
                                     <input class="form-control" name="description" type="text"  [(ngModel)]="course.description"  value="" placeholder="Course Description" >
@@ -176,7 +181,9 @@
                                   <div class="col-md-6">                                    
                                     <label>Course Duration(in days) </label>
                                     <input class="form-control" name="duration" type="text"  [(ngModel)]="course.duration"  value="" placeholder="Course Duration (in days)" >
-                            </div>                          
+                            </div>
+                        </div>
+                        <div class="form-group row" >                         
                                   <div class="col-md-6">                                    
                                     <label>Time Slot From </label>                                    
                                     <!-- <input class="form-control" name="timeslotFrom" type="text"  [(ngModel)]="course.timeslotFrom"  value="" placeholder="From" > -->

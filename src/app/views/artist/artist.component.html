@@ -1,7 +1,7 @@
 <div class="animated fadeIn">
   <div class="row">
     <div class="col-lg-12" *ngIf="check_account.action == 'active'">
-      <a class="btn btn-large btn-primary pull-right" href="#" routerLink='/manageartist/addartist' style="margin-bottom:5px"><i class="fa fa-user-plus"></i> Add New</a>
+      <a class="btn btn-large btn-primary pull-right" href="#" routerLink='/manageartist/addartist' style="margin-bottom:5px"><i class="fa fa-user-plus"></i> Add New Artist</a>
     </div>
     <div class="col-lg-12">
       <div class="card">
@@ -32,7 +32,7 @@
             </thead>
             <tbody> 
               <tr *ngIf = "nousers == 0">
-                <td colspan="7">No Artist Records</td>
+                <td colspan="8">No Artist Records</td>
               </tr>
               <tr *ngFor="let user of mf.data" >
                 <td>{{user.name}}</td>
@@ -46,13 +46,13 @@
                   <a class="btn btn-sm btn-outline-primary " href="#" routerLink='/manageartist/editartist/{{user.id}}' *ngIf="check_account.action == 'active'"><i class="fa fa-edit"></i> </a>                 
                   <button class="btn btn-sm btn-outline-primary "  (click) ="delartist(user)" *ngIf="check_account.action == 'active'"><i class="fa fa-trash"></i></button>
 
-                  <button class="btn btn-sm btn-outline-primary " *ngIf="check_account.action == 'active'" (click) ="changeStatus(user, 'inactive')">Block</button>
+                  <button class="btn btn-sm btn-outline-primary " *ngIf="check_account.action == 'active'" (click) ="changeStatus(user, 'inactive','block')">Block</button>
 
-                  <button class="btn btn-sm btn-outline-primary " *ngIf="check_account.action == 'inactive'" (click) ="changeStatus(user, 'active')">Verify</button>
+                  <button class="btn btn-sm btn-outline-primary " *ngIf="check_account.action == 'inactive'" (click) ="changeStatus(user, 'active','verify')">Verify</button>
 
-                  <button class="btn btn-sm btn-outline-primary " *ngIf="check_account.action == 'inactive'" (click) ="changeStatus(user, 'reject')">Reject</button>
+                  <button class="btn btn-sm btn-outline-primary " *ngIf="check_account.action == 'inactive'" (click) ="changeStatus(user, 'reject','reject')">Reject</button>
 
-                  <button class="btn btn-sm btn-outline-primary " *ngIf="check_account.action == 'reject'" (click) ="changeStatus(user, 'active')">Activate</button>
+                  <button class="btn btn-sm btn-outline-primary " *ngIf="check_account.action == 'reject'" (click) ="changeStatus(user, 'active','activate')">Activate</button>
                 </td>
               </tr>
             </tbody>            

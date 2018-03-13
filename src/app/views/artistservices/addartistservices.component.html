@@ -34,12 +34,13 @@
 	                          <div class="modal-dialog modal-primary" role="document">
 	                            <div class="modal-content">
 	                              <div class="modal-body">
-	                              	<h6>{{subservice.name}}</h6>
+	                              	<h5>{{subservice.name}}</h5>
 	                                <button type="button" class="btn btn-default pull-right closeModalButton" (click)="makeupModal.hide()" style="margin-right:5px;" >Cancel</button>	
-	                                <button class="btn btn-primary pull-right" type="button" (click)="savesubservicedata(subservice.id,1)" style="margin-right:5px;" *ngIf="makeupservicesData[subservice.id]== ''" >Save</button> 
-	                                <button class="btn btn-primary pull-right" type="button" (click)="updatesubservicedata(makeupservicesData[subservice.id])" style="margin-right:5px;" *ngIf="makeupservicesData[subservice.id] != ''" >Update</button>                                
+	                                <button class="btn btn-primary pull-right" type="button" (click)="savesubservicedata(subservice.id,1)" [disabled] = "!makeupServiceForm.form.valid" style="margin-right:5px;" *ngIf="makeupservicesData[subservice.id]== ''" >Save</button> 
+	                                <button class="btn btn-primary pull-right" type="button" (click)="updatesubservicedata(makeupservicesData[subservice.id])" style="margin-right:5px;" *ngIf="makeupservicesData[subservice.id] != ''" [disabled] = "!makeupServiceForm.form.valid" >Update</button>                                
 	                              </div>
-	                              <div class="modal-footer"> 
+	                              <div class="card-body" style="border-top:1px solid #c2cfd6;"> 
+	                              	<form class="form-horizontal ng-untouched ng-pristine ng-valid" novalidate="" #makeupServiceForm="ngForm">
 	                              	<div class="form-group row" *ngIf="makeupservicesData[subservice.id] == ''">
 		                                <div class="col-md-6">
 		                                  	<label>PRICE </label>
@@ -77,6 +78,8 @@
 		                                  </select>
 		                                  <!-- <input class="form-control" name="duration" type="text"  [(ngModel)]="data.duration" placeholder="e.g. 12min OR 1hr"  > -->
 		                                </div>
+		                            </div>
+		                            <div class="form-group row" *ngIf="makeupservicesData[subservice.id] == ''">
 		                                <div class="col-md-6">
 					                      <label>Service type<span class="text-danger">*</span></label> 
 					                      <ng-select class="bootstrap"  name="servicetype"  placeholder="Select Service Type"
@@ -121,12 +124,14 @@
 		                                  </select>
 		                                 <!--  <input class="form-control" name="duration" type="text"  [(ngModel)]="makeupservicesData[subservice.id].duration" placeholder="e.g. 12min OR 1hr" value="{{makeupservicesData[subservice.id].duration}}" > -->
 		                                </div>
+		                            </div>
+		                            <div class="form-group row" *ngIf="makeupservicesData[subservice.id] != ''">
 		                                <div class="col-md-6">
 					                      <label>Service type<span class="text-danger">*</span></label> 
 					                      <ng-select class="bootstrap"  name="servicetype"  placeholder="Select Service Type"  [options]="servicetypes" [multiple]="true" 
 					                       [(ngModel)]="makeupservicesData[subservice.id].servicetype"  required></ng-select>
 					                    </div>
-	                                </div>  
+	                                </div>  </form>
 	                                </div>
 	                              </div>
 	                            </div><!-- /.modal-content -->
@@ -265,12 +270,13 @@
 	                          <div class="modal-dialog modal-primary" role="document">
 	                            <div class="modal-content">
 	                              <div class="modal-body">
-	                              	<h6>{{subservice.name}}</h6>
+	                              	<h5>{{subservice.name}}</h5>
 	                                <button type="button" class="btn btn-default pull-right closeModalButton" (click)="hairModal.hide()" style="margin-right:5px;">Cancel</button>	
-	                                <button class="btn btn-primary pull-right" style="margin-right:5px;" type="button" (click)="savesubservicedata(subservice.id,3)" *ngIf="hairservicesData[subservice.id] == ''">Save</button> 
-	                                <button class="btn btn-primary pull-right" type="button" (click)="updatesubservicedata(hairservicesData[subservice.id])" style="margin-right:5px;" *ngIf="hairservicesData[subservice.id] != ''" >Update</button>                                
+	                                <button class="btn btn-primary pull-right" style="margin-right:5px;" type="button" (click)="savesubservicedata(subservice.id,3)" *ngIf="hairservicesData[subservice.id] == ''" [disabled] = "!hairServiceForm.form.valid">Save</button> 
+	                                <button class="btn btn-primary pull-right" type="button" (click)="updatesubservicedata(hairservicesData[subservice.id])" style="margin-right:5px;" *ngIf="hairservicesData[subservice.id] != ''" [disabled] = "!hairServiceForm.form.valid" >Update</button>                                
 	                              </div>
-	                              <div class="modal-footer"> 
+	                              <div class="card-body" style="border-top:1px solid #c2cfd6; "> 
+	                              	<form class="form-horizontal ng-untouched ng-pristine ng-valid" novalidate="" #hairServiceForm="ngForm">
 	                              	<div class="form-group row" *ngIf="hairservicesData[subservice.id] == ''">
 		                                <div class="col-md-6">
 		                                  <label>PRICE </label>
@@ -307,6 +313,8 @@
 		                                  	<option value="8hr">8hr</option>
 		                                  </select>
 		                                </div>
+		                            </div>
+		                            <div class="form-group row" *ngIf="hairservicesData[subservice.id] == ''">
 		                                <div class="col-md-6">
 					                      <label>Service type<span class="text-danger">*</span></label> 
 					                      <ng-select class="bootstrap"  name="servicetype"  placeholder="Select Service Type"
@@ -350,12 +358,14 @@
 		                                  	<option value="8hr">8hr</option>
 		                                  </select>
 		                                </div>
+		                            </div>
+		                            <div class="form-group row" *ngIf="hairservicesData[subservice.id] != ''">
 		                                <div class="col-md-6">
 					                      <label>Service type<span class="text-danger">*</span></label> 
 					                      <ng-select class="bootstrap"  name="servicetype"  placeholder="Select Service Type"  [options]="servicetypes" [multiple]="true" 
 					                       [(ngModel)]="hairservicesData[subservice.id].servicetype"  required></ng-select>
 					                    </div>
-	                                </div>
+	                                </div></form>
 	                              </div>
 	                            </div><!-- /.modal-content -->
 	                          </div><!-- /.modal-dialog -->
@@ -385,15 +395,16 @@
 	                          <div class="modal-dialog modal-primary" role="document">
 	                            <div class="modal-content">
 	                              <div class="modal-body">
-	                              	<h6>Update Course Details</h6>
+	                              	<h5>Update Course Details</h5>
 	                                <button type="button" class="btn btn-default pull-right closeModalButton" (click)="updateCourseModal.hide()" style="margin-right:5px;">Cancel</button>
-		                            <button class="btn btn-primary pull-right" type="button" (click)="updatecoursedata(coursedetail)" style="margin-right:5px;" >Update</button>	
+		                            <button class="btn btn-primary pull-right" type="button" (click)="updatecoursedata(coursedetail)" style="margin-right:5px;" [disabled] = "!courseServiceForm.form.valid" >Update</button>	
 	                              </div>
-	                              <div class="modal-footer"> 
+	                              <div class="card-body" style="border-top:1px solid #c2cfd6;">
+	                              <form class="form-horizontal ng-untouched ng-pristine ng-valid" novalidate="" #courseServiceForm="ngForm"> 
 	                              	<div class="form-group row" >
 		                                <div class="col-md-6">
 		                                  <label>Name </label>	  
-		                                  <input class="form-control" name="coursename" type="text"  [(ngModel)]="coursedetail.name"  value="{{coursedetail.name}}" placeholder="Course Name">
+		                                  <input class="form-control" name="coursename" type="text"  [(ngModel)]="coursedetail.name" required value="{{coursedetail.name}}" placeholder="Course Name">
 		                                </div>
 		                                <div class="col-md-6">
 		                                  <label>Price </label>
@@ -401,29 +412,32 @@
 							                  <div class="input-group-prepend">
 							                    <span class="input-group-text">BHD</span>
 							                  </div>
-		                                  	  <input class="form-control" name="courseprice" type="text"  [(ngModel)]="coursedetail.price"  value="{{coursedetail.price}}" placeholder="e.g. 1200" >
+		                                  	  <input class="form-control" name="courseprice" type="text"  [(ngModel)]="coursedetail.price"  value="{{coursedetail.price}}" required placeholder="e.g. 1200" >
 		                                  	</div>
 		                                </div>
+		                            </div>
+		                            <div class="form-group row" >
 		                                <div class="col-md-6">	                                	
 		                                  <label>Description </label>
-		                                  <input class="form-control" name="coursedescription" type="text"  [(ngModel)]="coursedetail.description"  value="{{coursedetail.description}}" placeholder="Course Description" >
+		                                  <input class="form-control" name="coursedescription" type="text"  [(ngModel)]="coursedetail.description"  value="{{coursedetail.description}}" required placeholder="Course Description" >
 					                    </div>				                    
 		                                <div class="col-md-6">	                                	
 		                                  <label>Course Duration(in days) </label>
-		                                  <input class="form-control" name="courseduration" type="text"  [(ngModel)]="coursedetail.duration"  value="{{coursedetail.duration}}" placeholder="Course Duration (in days)" >
-					                    </div>			       
-					                              
+		                                  <input class="form-control" name="courseduration" type="text"  [(ngModel)]="coursedetail.duration"  value="{{coursedetail.duration}}" required placeholder="Course Duration (in days)" >
+					                    </div>
+					                </div>
+					                <div class="form-group row" >	                              
 		                                <div class="col-md-6">	                                	
 		                                  <label>Time Slot From </label>                                  
 		                                  <!-- <input class="form-control" name="coursetimeslotFrom" type="text"  [(ngModel)]="coursedetail.timeslotFrom"  value="{{coursedetail.timeslotFrom}}" placeholder="From" > -->
-		                                   <timepicker [(ngModel)]="coursedetail.timeslotFrom" (change)="changed()" [hourStep]="hstep" [minuteStep]="mstep" [showMeridian]="ismeridian" [readonlyInput]="!isEnabled"></timepicker>
+		                                   <timepicker [(ngModel)]="coursedetail.timeslotFrom" (change)="changed()" [hourStep]="hstep" [minuteStep]="mstep" required [showMeridian]="ismeridian" [readonlyInput]="!isEnabled"></timepicker>
 		                                 </div>
 		                                 <div class="col-md-6">
 		                                 	<label>Time Slot To</label>
 		                                  <!-- <input class="form-control " name="coursetimeslotTo" type="text"  [(ngModel)]="coursedetail.timeslotTo"  value="{{coursedetail.timeslotTo}}" placeholder="To" > -->
-		                                  <timepicker [(ngModel)]="coursedetail.timeslotTo" (change)="changed()" [hourStep]="hstep" [minuteStep]="mstep" [showMeridian]="ismeridian" [readonlyInput]="!isEnabled"></timepicker>
+		                                  <timepicker [(ngModel)]="coursedetail.timeslotTo" (change)="changed()" [hourStep]="hstep" [minuteStep]="mstep" [showMeridian]="ismeridian" required [readonlyInput]="!isEnabled"></timepicker>
 					                    </div>
-	                                </div>
+	                                </div></form>
 	                              </div>
 	                            </div><!-- /.modal-content -->
 	                          </div><!-- /.modal-dialog -->
@@ -439,15 +453,16 @@
                           <div class="modal-dialog modal-primary" role="document">
                             <div class="modal-content">
                               <div class="modal-body">
-                              	<h6>New Course Details</h6>
+                              	<h5>New Course Details</h5>
                                 <button type="button" class="btn btn-default pull-right closeModalButton" (click)="courseModal.hide()" style="margin-right:5px;">Cancel</button>
-                                <button class="btn btn-primary pull-right" style="margin-right:5px;" type="button" (click)="savecoursedata()" >Save</button> 
+                                <button class="btn btn-primary pull-right" style="margin-right:5px;" type="button" (click)="savecoursedata()" [disabled] = "!courseServiceForm.form.valid">Save</button> 
                               </div>
-                              <div class="modal-footer"> 
+                              <div class="card-body" style="border-top:1px solid #c2cfd6;">                              	
+	                              <form class="form-horizontal ng-untouched ng-pristine ng-valid" novalidate="" #courseServiceForm="ngForm"> 
                               	<div class="form-group row" >
 	                                <div class="col-md-6">
 	                                  <label>Name </label>	  
-	                                  <input class="form-control" name="name" type="text"  [(ngModel)]="course.name"  value="" placeholder="Course Name">
+	                                  <input class="form-control" name="name" type="text"  [(ngModel)]="course.name" required value="" placeholder="Course Name">
 	                                </div>
 	                                <div class="col-md-6">
 	                                  <label>Price </label>
@@ -455,28 +470,32 @@
 						                  <div class="input-group-prepend">
 						                    <span class="input-group-text">BHD</span>
 						                  </div>
-	                                  	  <input class="form-control" name="price" type="text"  [(ngModel)]="course.price"  value="" placeholder="e.g. 1200" >
+	                                  	  <input class="form-control" name="price" type="text"  [(ngModel)]="course.price" required  value="" placeholder="e.g. 1200" >
 	                                  	</div>
 	                                </div>
+	                            </div>
+	                            <div class="form-group row" >
 	                                <div class="col-md-6">	                                	
 	                                  <label>Description </label>
-	                                  <input class="form-control" name="description" type="text"  [(ngModel)]="course.description"  value="" placeholder="Course Description" >
+	                                  <input class="form-control" name="description" type="text"  [(ngModel)]="course.description"  required value="" placeholder="Course Description" >
 				                    </div>				                    
 	                                <div class="col-md-6">	                                	
 	                                  <label>Course Duration(in days) </label>
-	                                  <input class="form-control" name="duration" type="text"  [(ngModel)]="course.duration"  value="" placeholder="Course Duration (in days)" >
-				                    </div>			                    
+	                                  <input class="form-control" name="duration" type="text"  [(ngModel)]="course.duration" required value="" placeholder="Course Duration (in days)" >
+				                    </div>
+				                </div>
+				                <div class="form-group row" >			                    
 	                                <div class="col-md-6">	                                	
 	                                  <label>Time Slot From </label>	                                  
 	                                  <!-- <input class="form-control" name="timeslotFrom" type="text"  [(ngModel)]="course.timeslotFrom"  value="" placeholder="From" > -->
-	                                  <timepicker [(ngModel)]="course.timeslotFrom" (change)="changed()" [hourStep]="hstep" [minuteStep]="mstep" [showMeridian]="ismeridian" [readonlyInput]="!isEnabled"></timepicker>
+	                                  <timepicker [(ngModel)]="course.timeslotFrom" (change)="changed()" [hourStep]="hstep" [minuteStep]="mstep" [showMeridian]="ismeridian" required [readonlyInput]="!isEnabled"></timepicker>
 	                                </div>
 	                                <div class="col-md-6">
 	                                  <label>Time Slot To</label>
 	                                 <!--  <input class="form-control" name="timeslotTo" type="text"  [(ngModel)]="course.timeslotTo"  value="" placeholder="To" > -->
-										<timepicker [(ngModel)]="course.timeslotTo" (change)="changed()" [hourStep]="hstep" [minuteStep]="mstep" [showMeridian]="ismeridian" [readonlyInput]="!isEnabled"></timepicker>
+										<timepicker [(ngModel)]="course.timeslotTo" (change)="changed()" [hourStep]="hstep" [minuteStep]="mstep" [showMeridian]="ismeridian" required [readonlyInput]="!isEnabled"></timepicker>
 				                    </div>
-                                </div>
+                                </div></form>
                               </div>
                             </div><!-- /.modal-content -->
                           </div><!-- /.modal-dialog -->
