@@ -46,7 +46,9 @@ export class AddartistservicesComponent {
 	private data: any;
 	private course: any;
 	private coursedetail:any;
-  	private editparam: any;
+  public bsStartValue = new Date();
+  public bsEndValue = new Date();
+  private editparam: any;  
 
 	private toasterService: ToasterService;
 	public toasterconfig : ToasterConfig =
@@ -131,6 +133,9 @@ export class AddartistservicesComponent {
     		price:'',
     		description: '' ,
     		duration: '',
+        location: '',
+        startfrom: '',
+        endon: '',
     		timeslotFrom: this.mytime,
     		timeslotTo: this.mytime,
     		artistId: localStorage.getItem('currentUserId')
@@ -141,6 +146,9 @@ export class AddartistservicesComponent {
     		price:'',
     		description: '' ,
     		duration: '',
+        location: '',
+        startfrom: '',
+        endon: '',
     		timeslotFrom: '',
     		timeslotTo: '',
     		artistId: localStorage.getItem('currentUserId')
@@ -367,6 +375,9 @@ export class AddartistservicesComponent {
 	    		price:'',
 	    		description: '' ,
 	    		duration: '',
+          location: '',
+          startfrom: '',
+          endon: '',
 	    		timeslotFrom: '',
 	    		timeslotTo: '',
 	    		artistId: localStorage.getItem('currentUserId')
@@ -390,14 +401,17 @@ export class AddartistservicesComponent {
         options.headers.append('Accept', 'application/json');
 
         this.coursedetail = { 
-    		name: course.name,   		
-    		price: course.price,
-    		description: course.description ,
-    		duration: course.duration,
-    		timeslotFrom: course.timeslotFrom,
-    		timeslotTo: course.timeslotTo,
-    		artistId: localStorage.getItem('currentUserId')
-    	}
+      		name: course.name,   		
+      		price: course.price,
+      		description: course.description ,
+      		duration: course.duration,
+          location: course.location,
+          startfrom: course.startfrom,
+          endon: course.endon,
+      		timeslotFrom: course.timeslotFrom,
+      		timeslotTo: course.timeslotTo,
+      		artistId: localStorage.getItem('currentUserId')
+      	}
 
     	this.http.post(API_URL+'/Artistcourses/update?where=%7B%22id%22%3A%22'+course.id+'%22%7D&access_token='+ localStorage.getItem('currentUserToken'), this.coursedetail, options)
         .subscribe(response => {
@@ -408,6 +422,9 @@ export class AddartistservicesComponent {
 	    		price:'',
 	    		description: '' ,
 	    		duration: '',
+          location: '',
+          startfrom: '',
+          endon: '',
 	    		timeslotFrom: '',
 	    		timeslotTo: '',
 	    		artistId: localStorage.getItem('currentUserId')

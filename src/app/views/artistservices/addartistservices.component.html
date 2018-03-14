@@ -416,16 +416,32 @@
 		                                  	</div>
 		                                </div>
 		                            </div>
-		                            <div class="form-group row" >
-		                                <div class="col-md-6">	                                	
+					                <div class="form-group row" >
+		                                <div class="col-md-12">	                                	
 		                                  <label>Description </label>
 		                                  <input class="form-control" name="coursedescription" type="text"  [(ngModel)]="coursedetail.description"  value="{{coursedetail.description}}" required placeholder="Course Description" >
+					                    </div>
+					                </div>	
+		                            <div class="form-group row" >
+		                                <div class="col-md-6">	                                	
+		                                  <label>Start From </label>
+		                                  <input class="form-control" name="coursestartfrom" type="text"  [(ngModel)]="coursedetail.startfrom" value="{{coursedetail.startfrom}}"  placeholder="Start From" required readonly #sdp="bsDatepicker" bsDatepicker [(bsValue)]="bsStartValue">
+					                    </div>				                    
+		                                <div class="col-md-6">	                                	
+		                                  <label>End On </label>
+		                                  <input class="form-control" name="courseendon" type="text"  [(ngModel)]="coursedetail.endon" value="{{coursedetail.endon}}" placeholder="End On" required readonly #edp="bsDatepicker" bsDatepicker [(bsValue)]="bsEndValue">
+					                    </div>
+					                </div>
+		                            <div class="form-group row" >
+		                                <div class="col-md-6">	                                	
+		                                  <label>Location </label>
+		                                  <input class="form-control" name="courselocation" type="text"  [(ngModel)]="coursedetail.location" value="{{coursedetail.location}}"  required placeholder="Course Location" >
 					                    </div>				                    
 		                                <div class="col-md-6">	                                	
 		                                  <label>Course Duration(in days) </label>
 		                                  <input class="form-control" name="courseduration" type="text"  [(ngModel)]="coursedetail.duration"  value="{{coursedetail.duration}}" required placeholder="Course Duration (in days)" >
 					                    </div>
-					                </div>
+					                </div>			
 					                <div class="form-group row" >	                              
 		                                <div class="col-md-6">	                                	
 		                                  <label>Time Slot From </label>                                  
@@ -464,7 +480,7 @@
                               	<div class="form-group row" >
 	                                <div class="col-md-6">
 	                                  <label>Name </label>	  
-	                                  <input class="form-control" name="name" type="text"  [(ngModel)]="course.name" required value="" placeholder="Course Name">
+	                                  <input class="form-control" name="name" type="text"  [(ngModel)]="course.name" required placeholder="Course Name">
 	                                </div>
 	                                <div class="col-md-6">
 	                                  <label>Price </label>
@@ -472,20 +488,36 @@
 						                  <div class="input-group-prepend">
 						                    <span class="input-group-text">BHD</span>
 						                  </div>
-	                                  	  <input class="form-control" name="price" type="text"  [(ngModel)]="course.price" required  value="" placeholder="e.g. 1200" >
+	                                  	  <input class="form-control" name="price" type="text"  [(ngModel)]="course.price" required  placeholder="e.g. 1200" >
 	                                  	</div>
 	                                </div>
 	                            </div>
 	                            <div class="form-group row" >
-	                                <div class="col-md-6">	                                	
+	                                <div class="col-md-12">	                                	
 	                                  <label>Description </label>
-	                                  <input class="form-control" name="description" type="text"  [(ngModel)]="course.description"  required value="" placeholder="Course Description" >
+	                                  <input class="form-control" name="description" type="text"  [(ngModel)]="course.description"  required placeholder="Course Description" >
+				                    </div>
+				                </div>	
+	                            <div class="form-group row" >
+	                                <div class="col-md-6">	                                	
+	                                  <label>Start From </label>
+	                                  <input class="form-control" name="startfrom" type="text"  [(ngModel)]="course.startfrom"  placeholder="Start From" required readonly #sdp="bsDatepicker" bsDatepicker [(bsValue)]="bsStartValue">
+				                    </div>				                    
+	                                <div class="col-md-6">	                                	
+	                                  <label>End On </label>
+	                                  <input class="form-control" name="endon" type="text"  [(ngModel)]="course.endon"  placeholder="End On" required readonly #edp="bsDatepicker" bsDatepicker [(bsValue)]="bsEndValue">
+				                    </div>
+				                </div>
+	                            <div class="form-group row" >
+	                                <div class="col-md-6">	                                	
+	                                  <label>Location </label>
+	                                  <input class="form-control" name="location" type="text"  [(ngModel)]="course.location"  required placeholder="Course Location" >
 				                    </div>				                    
 	                                <div class="col-md-6">	                                	
 	                                  <label>Course Duration(in days) </label>
-	                                  <input class="form-control" name="duration" type="text"  [(ngModel)]="course.duration" required value="" placeholder="Course Duration (in days)" >
+	                                  <input class="form-control" name="duration" type="text"  [(ngModel)]="course.duration" required placeholder="Course Duration (in days)" >
 				                    </div>
-				                </div>
+				                </div>				                
 				                <div class="form-group row" >			                    
 	                                <div class="col-md-6">	                                	
 	                                  <label>Time Slot From </label>	                                  
