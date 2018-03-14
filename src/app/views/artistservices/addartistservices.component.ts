@@ -120,7 +120,9 @@ export class AddartistservicesComponent {
 		this.toasterService = toasterService;
 		
     	this.data = {    		
-    		price:'',
+    		homeprice:'',
+        salonprice: '',
+        gccprice:'',
     		duration: '',
     		artistId: localStorage.getItem('currentUserId'),
     		serviceId: '',
@@ -286,8 +288,10 @@ export class AddartistservicesComponent {
     	this.http.post(API_URL+'/Artistservices?access_token='+ localStorage.getItem('currentUserToken'), this.data, options)
         .subscribe(response => {
 
-	    	this.data = {    		
-	    		price:'',
+	    	this.data = {     
+          homeprice:'',
+          salonprice: '',
+          gccprice:'',
 	    		duration: '',
 	    		artistId: localStorage.getItem('currentUserId'),
 	    		serviceId: '',
@@ -322,8 +326,10 @@ export class AddartistservicesComponent {
         .subscribe(response => {
         	console.log(response.json());
 
-	    	this.data = {    		
-	    		price:'',
+	    	this.data = {     
+          homeprice:'',
+          salonprice: '',
+          gccprice:'',
 	    		duration: '',
 	    		artistId: localStorage.getItem('currentUserId'),
 	    		serviceId: '',

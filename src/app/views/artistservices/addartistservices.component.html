@@ -43,15 +43,6 @@
 	                              	<form class="form-horizontal ng-untouched ng-pristine ng-valid" novalidate="" #makeupServiceForm="ngForm">
 	                              	<div class="form-group row" *ngIf="makeupservicesData[subservice.id] == ''">
 		                                <div class="col-md-6">
-		                                  	<label>PRICE </label>
-		                                  	<div class="input-group">
-							                  <div class="input-group-prepend">
-							                    <span class="input-group-text">BHD</span>
-							                  </div>
-		                                 	  <input class="form-control" name="price" type="text"  [(ngModel)]="data.price"  placeholder="e.g. 1200" required>
-		                                 	</div>
-		                                </div>
-		                                <div class="col-md-6">
 		                                  <label>DURATION </label>
 		                                  <select class="form-control" name="duration" [(ngModel)]="data.duration" required>
 		                                  	<option value="">Duration</option>
@@ -78,14 +69,23 @@
 		                                  </select>
 		                                  <!-- <input class="form-control" name="duration" type="text"  [(ngModel)]="data.duration" placeholder="e.g. 12 mins OR 1 hrs"  > -->
 		                                </div>
-		                            </div>
-		                            <div class="form-group row" *ngIf="makeupservicesData[subservice.id] == ''">
 		                                <div class="col-md-6">
 					                      <label>Service type<span class="text-danger">*</span></label> 
 					                      <ng-select class="bootstrap"  name="servicetype"  placeholder="Select Service Type"
 					                       [options]="servicetypes" [multiple]="true" 
 					                       [(ngModel)]="data.servicetype" required></ng-select>
 					                    </div>
+		                            </div>
+		                            <div class="form-group row" *ngIf="makeupservicesData[subservice.id] == ''">
+		                                <div class="col-md-6" *ngFor="let service of data.servicetype">
+		                                  	<label>PRICE ({{service}})</label>
+		                                  	<div class="input-group">
+							                  <div class="input-group-prepend">
+							                    <span class="input-group-text">BHD</span>
+							                  </div>
+		                                 	  <input class="form-control" name="price" type="text"  [(ngModel)]="data.price"  placeholder="e.g. 1200" required>
+		                                 	</div>
+		                                </div>
 					                  </div> 
 	                                  <div class="form-group row" *ngIf="makeupservicesData[subservice.id] != ''">
 		                                <div class="col-md-6">
