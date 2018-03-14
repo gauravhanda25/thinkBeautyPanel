@@ -374,11 +374,66 @@
 	                  </div>
               		</tab>
               		<tab heading = "Courses" >
-
               			<div class="form-group row"><div class="col-md-12"><button type="button" class="btn btn-sm btn-primary pull-right" data-toggle="modal" (click)="courseModal.show()"><span class="fa fa-plus"></span> Add New Course</button></div></div>
 
+
+ 							<div class="row mb-3">
+					            <div class="col-md-4 offset-md-8">
+					              <div class="input-group">
+					                <span class="input-group-addon"></span>
+					                <input type="text" class="form-control" [(ngModel)]="filterQuery" placeholder="Search by name"/>
+					              </div>
+					            </div>
+					          </div>
+					          <table class="table table-striped" [mfData]="coursesData | dataFilter : filterQuery" #mf="mfDataTable" [mfRowsOnPage]="10" style="    margin: 0 -1.7rem;">
+					            <thead >
+					              <tr>
+					                <th><mfDefaultSorter by="name">Name</mfDefaultSorter></th>
+					                <th><mfDefaultSorter by="price">Price</mfDefaultSorter></th>
+					                <th><mfDefaultSorter by="description">Description</mfDefaultSorter></th>
+					                <th><mfDefaultSorter by="startfrom">Start From</mfDefaultSorter></th>
+					                <th><mfDefaultSorter by="endon">End On</mfDefaultSorter></th>
+					                <th><mfDefaultSorter by="location">Location</mfDefaultSorter></th>
+					                <th><mfDefaultSorter by="duration">Duration(in days)</mfDefaultSorter></th>
+					                <th><mfDefaultSorter by="timeslotFrom">Timeslot From</mfDefaultSorter></th>
+					                <th><mfDefaultSorter by="timeslotTo">Timeslot To</mfDefaultSorter></th>
+					                <th>Action</th>
+					              </tr>
+					            </thead>
+					            <tbody> 
+					              <tr *ngIf = "nousers == 0">
+					                <td colspan="10">No Courses Records</td>
+					              </tr>
+					              <tr *ngFor="let course of mf.data" >
+					                <td>{{course.name}}</td>
+					                <td>{{course.price}}</td>
+					                <td>{{course.description}}</td>
+					                <td>{{course.startfrom}}</td>
+					                <td>{{course.endon}}</td>
+					                <td>{{course.location}}</td>
+					                <td>{{course.duration}}</td>
+					                <td>{{course.timeslotFrom}}</td>
+					                <td>{{course.timeslotTo}}</td>
+					                <td>
+					                  <button class="btn btn-sm btn-outline-primary" type="button"  data-toggle="modal" (click)="updateCourseModal.show()"  ><span class="fa fa-pencil"></span></button>
+		                       			<button class="btn btn-sm btn-outline-primary" type="button" (click)="delcoursedata(coursedetail.id)" ><span class="fa fa-trash"></span></button>
+					                </td>
+					              </tr>
+					            </tbody>            
+					            <tfoot>
+					              <tr>
+					                <td colspan="7">
+					                  <mfBootstrapPaginator [rowsOnPageSet]="[5,10,15]"></mfBootstrapPaginator>
+					                </td>
+					              </tr>
+					            </tfoot>
+					          </table>          
+
+
+
+
               			 <div class="form-group row" *ngFor = "let coursedetail of coursesData">
-		                    <div class="col-md-4 service-card card-body" >
+		                    <!-- <div class="col-md-4 service-card card-body" >
 		                       <h6>{{coursedetail.name}}</h6>
 
 		                       <span class="pull-right">
@@ -390,6 +445,8 @@
 		                       <span >BHD {{coursedetail.price}} for</span>
 		                       <span >{{coursedetail.duration}}</span>
 		                    </div>
+ -->
+
 
 		                    <div bsModal #updateCourseModal="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
 	                          <div class="modal-dialog modal-primary" role="document">
