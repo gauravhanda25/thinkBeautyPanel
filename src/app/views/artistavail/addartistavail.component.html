@@ -4,18 +4,18 @@
   		<div class="card">         
             <div class="card-header">
 
-              <span >Add/Edit Work Availability</span>
+              <span >Add/Edit <span *ngIf="breakadd == 1">Break</span> Availability</span>
               <button (click)="onSave()" class="btn btn-primary pull-right" *ngIf="editparam.action == 'add'">Save</button>
               <button (click)="onUpdate()" class="btn btn-primary pull-right" *ngIf="editparam.action == 'edit'">Update</button>
 			</div>
         	<div class="card-body">  
 		      	<table class="table " >
-			        <tr *ngIf='data.days == "specificDate"'>
+			        <tr *ngIf='data.days == "specificDate" && breakadd == 0'>
 			        	<td style="border-bottom:3px solid #a4b7c1" >Date
 			        		<input class="col-md-7 form-control pull-right" name="date" type="text"  [(ngModel)]="data.date"  placeholder="Specific Date" required readonly #sdp="bsDatepicker" bsDatepicker [(bsValue)]="bsStartValue">
 			        	</td>
 			        </tr>
-			       	<tr>
+			       	<tr *ngIf='breakadd == 0'>
 			        	<td style="border-bottom:3px solid #a4b7c1" >Hours
 
 			        		<timepicker [(ngModel)]="data.hoursfrom" (change)="changed()" [hourStep]="hstep" [minuteStep]="mstep" [showMeridian]="ismeridian" [readonlyInput]="!isEnabled"></timepicker>
@@ -23,6 +23,16 @@
 			        	<td style="border-bottom:3px solid #a4b7c1" >To
 
 			        		<timepicker [(ngModel)]="data.hoursto" (change)="changed()" [hourStep]="hstep" [minuteStep]="mstep" [showMeridian]="ismeridian" [readonlyInput]="!isEnabled"></timepicker>
+			        	</td>
+			        </tr>
+			        <tr  *ngIf='breakadd == 1'>
+			        	<td style="border-bottom:3px solid #a4b7c1" >Hours
+
+			        		<timepicker [(ngModel)]="data.breakfrom" (change)="changed()" [hourStep]="hstep" [minuteStep]="mstep" [showMeridian]="ismeridian" [readonlyInput]="!isEnabled"></timepicker>
+			        	</td>
+			        	<td style="border-bottom:3px solid #a4b7c1" >To
+
+			        		<timepicker [(ngModel)]="data.breakto" (change)="changed()" [hourStep]="hstep" [minuteStep]="mstep" [showMeridian]="ismeridian" [readonlyInput]="!isEnabled"></timepicker>
 			        	</td>
 			        </tr>
 			    </table>

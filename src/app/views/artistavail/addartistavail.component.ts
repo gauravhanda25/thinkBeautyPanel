@@ -26,6 +26,7 @@ export class AddartistavailComponent {
 	  private data: any;
   	private editparam: any; 
    public bsStartValue = new Date();
+   private breakadd:any = 0;
 
 	private toasterService: ToasterService;
 	public toasterconfig : ToasterConfig =
@@ -98,6 +99,8 @@ export class AddartistavailComponent {
         days: '',      
         hoursfrom: '',
         hoursto: '',
+        breakfrom: '',
+        breakto: '',
         artistId: localStorage.getItem('currentUserId'),
         date: ''
       }
@@ -110,6 +113,12 @@ export class AddartistavailComponent {
         this.data.days = "weekend";
       } else if(reqUrl == "/schedule/work/addartistspecificdate") {
         this.data.days = "specificDate";
+      }  else if(reqUrl == "/schedule/work/addartistbreak/weekend") {
+        this.data.days = "weekend";
+        this.breakadd = 1;
+      } else if(reqUrl == "/schedule/work/addartistbreak/working") {
+        this.data.days = "working";
+        this.breakadd = 1;
       } 
 
 
@@ -127,12 +136,26 @@ export class AddartistavailComponent {
       options.headers.append('Content-Type', 'application/json');
       options.headers.append('Accept', 'application/json');
 
-    	this.http.post(API_URL+'/Artistavailabilities?access_token='+ localStorage.getItem('currentUserToken'), this.data, options)
-      .subscribe(response => {
-			    this.toasterService.pop('success', 'Success', "Availability saved successfully"); 
-          this.router.navigate(['schedule/work']);
-	    }, error => {
-	        console.log(JSON.stringify(error.json()));
-	    });
+      if(this.breakadd == 0) {
+        this.http.post(API_URL+'/Artistavailabilities?access_token='+ localStorage.getItem('currentUserToken'), this.data, options)
+        .subscribe(response => {
+            this.toasterService.pop('success', 'Success', "Availability saved successfully"); 
+            this.router.navigate(['schedule/work']);
+        }, error => {
+            console.log(JSON.stringify(error.json()));
+        });
+      } else {
+        delete this.data.hoursfrom;
+        delete this.data.hoursto;
+
+        this.http.post(API_URL+'/Artistavailabilities/update?where={"and":[{"artistId":"'+localStorage.getItem('currentUserId')+'"},{"days":"'+this.data.days+'"}]}&access_token='+ localStorage.getItem('currentUserToken'), this.data, options)
+        .subscribe(response => {
+            this.toasterService.pop('success', 'Success', "Break saved successfully"); 
+            this.router.navigate(['schedule/work']);
+        }, error => {
+            console.log(JSON.stringify(error.json()));
+        });
+      }
+    	
 	  }
 }

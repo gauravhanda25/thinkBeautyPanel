@@ -8,9 +8,14 @@
         <div class="card-body ">          
           <div class="col-md-6 pull-left">
             <table class="table table-striped" >
+                <tr>
+                  <th>Vacation Period</th>
+                  <!-- <th>Break Time</th> -->
+                  <th>Action</th>
+                </tr>
                 <tr *ngFor = "let data of vacationData">
                   <td>{{data.starton}} - {{data.endon}} </td>
-                  <td><button class="btn btn-large btn-primary pull-right" href="#" (click)="resetAvail(data.id)" style="margin-bottom:5px">Reset Vacation</button></td>
+                  <td><button class="btn btn-sm btn-primary" href="#" (click)="resetAvail(data.id)" style="margin-bottom:5px">Reset Vacation</button></td>
                 </tr>
             </table>
           </div>

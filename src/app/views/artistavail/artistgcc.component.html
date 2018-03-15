@@ -8,15 +8,21 @@
         <div class="card-body ">          
           <div class="col-md-8 pull-left">
             <table class="table table-striped" >
+                <tr>
+                  <th>GCC Location</th>
+                  <th>From - To</th>
+                  <!-- <th>Break Time</th> -->
+                  <th>Action</th>
+                </tr>
                 <tr *ngFor = "let data of gccData">
                   <td>
                     <select class="form-control" style="-webkit-appearance: initial;background: transparent !important; border-color:transparent !important;    padding: 0 !important;    height: auto; width:auto;"  name="gcclocation" [disabled] = 1  [(ngModel)]="data.gcclocation">
-                       <option value="">Select GCC Location</option>
+                       <option value=""></option>
                        <option *ngFor="let loc of gcclocations" value="{{loc.id}}">{{loc.name}}</option>
                      </select>
                   </td>
                     <td>{{data.starton}} - {{data.endon}} </td>
-                    <td><button class="btn btn-large btn-primary pull-right" href="#" (click)="resetAvail(data.id)" style="margin-bottom:5px">Reset GCC Availability</button></td>
+                    <td><button class="btn btn-sm btn-primary" href="#" (click)="resetAvail(data.id)" style="margin-bottom:5px">Reset GCC Availability</button></td>
                 </tr>
             </table>
           </div>

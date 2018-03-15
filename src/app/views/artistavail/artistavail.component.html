@@ -13,16 +13,32 @@
               </div>    
               <div *ngIf="workingAvail == 0">
                 <a class="btn btn-large btn-primary pull-right" href="#" routerLink='addartistworking' style="margin-bottom:5px"><i class="fa fa-user-plus"></i> Schedule Availability</a>
-              </div>          
+              </div>   
+
+              <!-- <div *ngIf="workingBreakAvail == 1">
+                <button class="btn btn-large btn-primary pull-right" href="#" (click)="resetBreakAvail(workingBreakData.id)" style="margin-bottom:5px">Reset Break</button>
+              </div>     -->
+              <div *ngIf="workingBreakAvail == 0">
+                <a class="btn btn-large btn-primary pull-right" href="#" routerLink='addartistbreak/working' style="margin-bottom:5px"><i class="fa fa-user-plus"></i> Schedule Break</a>
+              </div>   
+
               <div class="col-md-6"> 
                 <table class="table table-striped">
+                  <tr>
+                    <th>Week Days</th>
+                    <th>Weekly Time</th>
+                    <th>Break Time</th>
+                  </tr>
                   <tr *ngFor = "let dayno of workingdayno">
                     <td>{{workingdays[dayno]}} : </td>  
                     <td *ngIf="workingAvail == 1" >{{workingData.hoursfrom}} - {{workingData.hoursto}}</td>
                     <td *ngIf="workingAvail == 0">No Availability</td> 
+                    <td *ngIf="workingBreakAvail == 1" >{{workingBreakData.breakfrom}} - {{workingBreakData.breakto}}</td>
+                    <td *ngIf="workingBreakAvail == 0">No Break</td> 
                   </tr>
                 </table>
               </div>
+
             </tab>
             <tab heading="Weekend">
               <div *ngIf="weekendAvail == 1">
@@ -31,12 +47,25 @@
               <div *ngIf="weekendAvail == 0">
                 <a class="btn btn-large btn-primary pull-right" href="#" routerLink='addartistweekend' style="margin-bottom:5px"><i class="fa fa-user-plus"></i> Schedule Availability</a>
               </div>
+             <!--  <div *ngIf="weekendBreakAvail == 1">
+                <button class="btn btn-large btn-primary pull-right" href="#" (click)="resetBreakAvail(weekendBreakData.id)" style="margin-bottom:5px">Reset Break</button>
+              </div>    -->
+              <div *ngIf="weekendBreakAvail == 0">
+                <a class="btn btn-large btn-primary pull-right" href="#" routerLink='addartistbreak/weekend' style="margin-bottom:5px"><i class="fa fa-user-plus"></i> Schedule Break</a>
+              </div>
               <div class="col-md-6">   
                  <table class="table table-striped">
+                  <tr>
+                    <th>Weekend Days</th>
+                    <th>Weekly Time</th>
+                    <th>Break Time</th>
+                  </tr>
                   <tr *ngFor = "let dayno of weekenddayno">
                     <td>{{weekenddays[dayno]}} : </td> 
                     <td *ngIf="weekendAvail == 1">{{weekendData.hoursfrom}} - {{weekendData.hoursto}}</td> 
-                    <td *ngIf="weekendAvail == 0">No Availability</td>                                      
+                    <td *ngIf="weekendAvail == 0">No Availability</td>    
+                    <td *ngIf="weekendBreakAvail == 1">{{weekendBreakData.breakfrom}} - {{weekendBreakData.breakto}}</td> 
+                    <td *ngIf="weekendBreakAvail == 0">No Break</td>                                          
                   </tr>
                 </table>
               </div>
@@ -46,11 +75,19 @@
               
               <div class="col-md-6"> 
                 <table class="table table-striped"> 
+                  <tr>
+                    <th>Date</th>
+                    <th>Weekly Time</th>
+                    <!-- <th>Break Time</th> -->
+                    <th>Action</th>
+                  </tr>
                   <tr *ngFor = "let rec of specificData">
                     <td  *ngIf="dateAvail == 1">{{rec.date}} : </td>  
                     <td  *ngIf="dateAvail == 1">{{rec.hoursfrom}} - {{rec.hoursto}}</td> 
+                  <!--   <td  *ngIf="dateAvail == 1">{{rec.breakfrom}} - {{rec.breakto}}</td>  -->
                     <td *ngIf="dateAvail == 1">
-                      <button class="btn btn-large btn-primary pull-right" href="#" (click)="resetAvail(rec.id)" style="margin-bottom:5px">Reset Availability</button>
+                      <button class="btn btn-sm btn-primary" href="#" (click)="resetAvail(rec.id)" style="margin-bottom:5px">Reset Availability</button>
+                     <!--  <a class="btn btn-large btn-primary pull-right" href="#"  (click)="addBreak(rec.date)"  routerLink='addartistbreak/specificdate' style="margin-bottom:5px"><i class="fa fa-user-plus"></i> Schedule Break</a> -->
                     </td>      
                     <td *ngIf="dateAvail == 0">No Availability for any date</td> 
                   </tr>

@@ -47,6 +47,13 @@ const routes: Routes = [
 			}
 		},
 		{
+			path: 'work/addartistbreak/:scheduletype',
+			component: AddartistavailComponent,
+			data: {
+			  title: "Add/Edit Break"
+			}
+		},
+		{
 			path: 'vacation',
 			component: ArtistvacationComponent,
 			data: {
