@@ -50,6 +50,8 @@ export class ArtistservicesComponent {
 	private coursesData:any;
 	private course: any;
 	private coursedetail:any;
+  public bsStartValue = new Date();
+  public bsEndValue = new Date();
 	private nocourses:any = 0;
 
 	private toasterService: ToasterService;
@@ -133,6 +135,9 @@ export class ArtistservicesComponent {
     		price:'',
     		description: '' ,
     		duration: '',
+        location: '',
+        startfrom: '',
+        endon: '',
     		timeslotFrom: this.mytime,
     		timeslotTo: this.mytime,
     		artistId: localStorage.getItem('currentUserId')
@@ -143,6 +148,9 @@ export class ArtistservicesComponent {
     		price:'',
     		description: '' ,
     		duration: '',
+        location: '',
+        startfrom: '',
+        endon: '',
     		timeslotFrom: '',
     		timeslotTo: '',
     		artistId: localStorage.getItem('currentUserId')
@@ -288,6 +296,9 @@ export class ArtistservicesComponent {
 	    		price:'',
 	    		description: '' ,
 	    		duration: '',
+          location: '',
+          startfrom: '',
+          endon: '',
 	    		timeslotFrom: '',
 	    		timeslotTo: '',
 	    		artistId: localStorage.getItem('currentUserId')
@@ -315,6 +326,9 @@ export class ArtistservicesComponent {
     		price: course.price,
     		description: course.description ,
     		duration: course.duration,
+        location:  course.location,
+        startfrom:  course.startfrom,
+        endon:  course.endon,
     		timeslotFrom: course.timeslotFrom,
     		timeslotTo: course.timeslotTo,
     		artistId: localStorage.getItem('currentUserId')
@@ -329,6 +343,9 @@ export class ArtistservicesComponent {
 	    		price:'',
 	    		description: '' ,
 	    		duration: '',
+          location: '',
+          startfrom: '',
+          endon: '',
 	    		timeslotFrom: '',
 	    		timeslotTo: '',
 	    		artistId: localStorage.getItem('currentUserId')
