@@ -17,7 +17,6 @@
 			        </tr>
 			       	<tr *ngIf='breakadd == 0'>
 			        	<td style="border-bottom:3px solid #a4b7c1" >Hours
-
 			        		<timepicker [(ngModel)]="data.hoursfrom" (change)="changed()" [hourStep]="hstep" [minuteStep]="mstep" [showMeridian]="ismeridian" [readonlyInput]="!isEnabled"></timepicker>
 			        	</td>
 			        	<td style="border-bottom:3px solid #a4b7c1" >To

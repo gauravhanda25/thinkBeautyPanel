@@ -18,13 +18,18 @@
                     <div  class="form-group row"  *ngFor = "let subservice of makeup">
                       <div class=" col-md-4 service-card card-body">
                          <h6>{{subservice.name}}
-                            <span *ngIf="makeupservicesData[subservice.id]">({{makeupservicesData[subservice.id].servicetype}})</span>
                          </h6>
                          <div class="clearfix"></div>
 
-                         <span *ngIf = "makeupservicesData[subservice.id]">BHD {{makeupservicesData[subservice.id].price}} for</span><span *ngIf = "makeupservicesData[subservice.id]">{{makeupservicesData[subservice.id].duration}}</span> 
-                         <!-- <span *ngIf="makeupservicesData[subservice.id]"><br/>{{makeupservicesData[subservice.id].servicetype}} 
-                         </span>                        --> 
+                         <div class="" *ngIf="makeupservicesData[subservice.id]">
+                            <div class="col-sm-12" *ngFor="let service of makeupservicesData[subservice.id].servicetype">
+                            <span><strong>{{service}}</strong></span>:
+                             <span >BHD {{makeupservicesData[subservice.id].price[service]}} for</span>
+                             <span >{{makeupservicesData[subservice.id].duration[service]}}</span>
+                             <!-- <span *ngIf="makeupservicesData[subservice.id]">{{makeupservicesData[subservice.id].servicetype}}
+                             </span> -->
+                          </div>
+                       </div>
                       </div>                                        
                     </div>
                   </tab>
@@ -41,18 +46,22 @@
                     </div>
                   </tab> -->
                   <tab heading="Hair"> 
-                    <div class="col-md-12" *ngIf = "nohair == 0"> No makeup services added by you.</div>
+                    <div class="col-md-12" *ngIf = "nohair == 0"> No Hair services added by you.</div>
 
                     <div class="form-group row" *ngFor = "let subservice of hair">
                       <div class=" col-md-4 service-card card-body"  >
                          <h6>{{subservice.name}} 
-                            <span *ngIf="hairservicesData[subservice.id]">({{hairservicesData[subservice.id].servicetype}})
-                            </span> 
                          </h6>
                          <div class="clearfix"></div>
-                         <span *ngIf = "hairservicesData[subservice.id]">BHD {{hairservicesData[subservice.id].price}} for</span><span *ngIf = "hairservicesData[subservice.id]">{{hairservicesData[subservice.id].duration}}</span>   
-                         <!-- <span *ngIf="hairservicesData[subservice.id]"><br/>{{hairservicesData[subservice.id].servicetype}}
-                         </span>  -->                                               
+                         <div class="" *ngIf="hairservicesData[subservice.id]">
+                            <div class="col-sm-12" *ngFor="let service of hairservicesData[subservice.id].servicetype">
+                            <span><strong>{{service}}</strong></span>:
+                             <span >BHD {{hairservicesData[subservice.id].price[service]}} for</span>
+                             <span >{{hairservicesData[subservice.id].duration[service]}}</span>
+                             <!-- <span *ngIf="hairservicesData[subservice.id]">{{hairservicesData[subservice.id].servicetype}}
+                             </span> -->
+                          </div>
+                       </div>                                              
                       </div>                                        
                     </div>
                   </tab>

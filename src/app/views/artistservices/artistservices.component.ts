@@ -124,7 +124,7 @@ export class ArtistservicesComponent {
 		
     	this.data = {    		
     		price:'',
-    		duration: '',
+    		duration: [],
     		artistId: localStorage.getItem('currentUserId'),
     		serviceId: '',
     		subserviceId: ''
@@ -203,6 +203,12 @@ export class ArtistservicesComponent {
 		        .subscribe(r => {
 		        	if(r.json().length != 0) {
 		        		this.makeupservicesData[response.json()[parseInt(ser)-removedata].id] = r.json()[0];
+                this.makeupservicesData[this.makeupservices[ser].id].price['Home'] = r.json()[0].price.home;
+                this.makeupservicesData[this.makeupservices[ser].id].price['Salon'] = r.json()[0].price.salon;
+                this.makeupservicesData[this.makeupservices[ser].id].price['GCC'] = r.json()[0].price.gcc;
+                this.makeupservicesData[this.makeupservices[ser].id].duration['Home'] = r.json()[0].duration.home;
+                this.makeupservicesData[this.makeupservices[ser].id].duration['Salon'] = r.json()[0].duration.salon;
+                this.makeupservicesData[this.makeupservices[ser].id].duration['GCC'] = r.json()[0].duration.gcc;
 		        		this.makeup.push(this.makeupservices[parseInt(ser)-removedata]);
 		        		this.nomakeup = 1;
 		        	} else if(r.json().length == 0){
@@ -266,6 +272,12 @@ export class ArtistservicesComponent {
 		        .subscribe(r => {
 		        	if(r.json().length != 0){
 		        		this.hairservicesData[response.json()[parseInt(ser)-removedata].id] = r.json()[0];
+                this.hairservicesData[this.hairservices[ser].id].price['Home'] = r.json()[0].price.home;
+                this.hairservicesData[this.hairservices[ser].id].price['Salon'] = r.json()[0].price.salon;
+                this.hairservicesData[this.hairservices[ser].id].price['GCC'] = r.json()[0].price.gcc;
+                this.hairservicesData[this.hairservices[ser].id].duration['Home'] = r.json()[0].duration.home;
+                this.hairservicesData[this.hairservices[ser].id].duration['Salon'] = r.json()[0].duration.salon;
+                this.hairservicesData[this.hairservices[ser].id].duration['GCC'] = r.json()[0].duration.gcc;
 		        		this.hair.push(this.hairservices[parseInt(ser)-removedata]);
 		        		this.nohair = 1;
 		        	} else if(r.json().length == 0){
