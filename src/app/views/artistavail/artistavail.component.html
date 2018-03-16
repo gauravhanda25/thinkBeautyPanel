@@ -12,14 +12,14 @@
                 <button class="btn btn-large btn-primary pull-right" href="#" (click)="resetAvail(workingData.id)" style="margin-bottom:5px">Reset Availability</button>
               </div>    
               <div *ngIf="workingAvail == 0">
-                <a class="btn btn-large btn-primary pull-right" href="#" routerLink='addartistworking' style="margin-bottom:5px"><i class="fa fa-user-plus"></i> Schedule Availability</a>
+                <a class="btn btn-large btn-primary pull-right" href="#" routerLink='addartistworking' style="margin-bottom:5px"><i class="fa fa-plus"></i> Schedule Availability</a>
               </div>   
 
               <!-- <div *ngIf="workingBreakAvail == 1">
                 <button class="btn btn-large btn-primary pull-right" href="#" (click)="resetBreakAvail(workingBreakData.id)" style="margin-bottom:5px">Reset Break</button>
               </div>     -->
-              <div *ngIf="workingBreakAvail == 0">
-                <a class="btn btn-large btn-primary pull-right" href="#" routerLink='addartistbreak/working' style="margin-bottom:5px"><i class="fa fa-user-plus"></i> Schedule Break</a>
+              <div *ngIf="workingBreakAvail == 0 && workingAvail == 1">
+                <a class="btn btn-large btn-primary pull-right" href="#" routerLink='addartistbreak/working' style="margin-bottom:5px; margin-right:10px"><i class="fa fa-plus"></i> Schedule Break</a>
               </div>   
 
               <div class="col-md-6"> 
@@ -45,13 +45,13 @@
                 <button class="btn btn-large btn-primary pull-right" href="#" (click)="resetAvail(weekendData.id)" style="margin-bottom:5px">Reset Availability</button>
               </div>   
               <div *ngIf="weekendAvail == 0">
-                <a class="btn btn-large btn-primary pull-right" href="#" routerLink='addartistweekend' style="margin-bottom:5px"><i class="fa fa-user-plus"></i> Schedule Availability</a>
+                <a class="btn btn-large btn-primary pull-right" href="#" routerLink='addartistweekend' style="margin-bottom:5px"><i class="fa fa-plus"></i> Schedule Availability</a>
               </div>
              <!--  <div *ngIf="weekendBreakAvail == 1">
                 <button class="btn btn-large btn-primary pull-right" href="#" (click)="resetBreakAvail(weekendBreakData.id)" style="margin-bottom:5px">Reset Break</button>
               </div>    -->
-              <div *ngIf="weekendBreakAvail == 0">
-                <a class="btn btn-large btn-primary pull-right" href="#" routerLink='addartistbreak/weekend' style="margin-bottom:5px"><i class="fa fa-user-plus"></i> Schedule Break</a>
+              <div *ngIf="weekendBreakAvail == 0 && weekendAvail == 1">
+                <a class="btn btn-large btn-primary pull-right" href="#" routerLink='addartistbreak/weekend' style="margin-bottom:5px; margin-right:10px"><i class="fa fa-plus"></i> Schedule Break</a>
               </div>
               <div class="col-md-6">   
                  <table class="table table-striped">
@@ -71,9 +71,9 @@
               </div>
             </tab>
             <tab heading="Specific Date">
-              <a class="btn btn-large btn-primary pull-right" href="#" routerLink='addartistspecificdate' style="margin-bottom:5px"><i class="fa fa-user-plus"></i> Schedule Availability</a>
+              <a class="btn btn-large btn-primary pull-right" href="#" routerLink='addartistspecificdate' style="margin-bottom:5px"><i class="fa fa-plus"></i> Schedule Availability</a>
               
-              <div class="col-md-6"> 
+              <div class="col-md-8"> 
                 <table class="table table-striped"> 
                   <tr>
                     <th>Date</th>
@@ -87,7 +87,7 @@
                   <!--   <td  *ngIf="dateAvail == 1">{{rec.breakfrom}} - {{rec.breakto}}</td>  -->
                     <td *ngIf="dateAvail == 1">
                       <button class="btn btn-sm btn-primary" href="#" (click)="resetAvail(rec.id)" style="margin-bottom:5px">Reset Availability</button>
-                     <!--  <a class="btn btn-large btn-primary pull-right" href="#"  (click)="addBreak(rec.date)"  routerLink='addartistbreak/specificdate' style="margin-bottom:5px"><i class="fa fa-user-plus"></i> Schedule Break</a> -->
+                      <!-- <a class="btn btn-sm btn-primary" href="#"  (click)="specificDateBreakModal.show()"  style="margin-bottom:5px"><i class="fa fa-plus"></i> Schedule Break</a> -->
                     </td>      
                     <td *ngIf="dateAvail == 0">No Availability for any date</td> 
                   </tr>

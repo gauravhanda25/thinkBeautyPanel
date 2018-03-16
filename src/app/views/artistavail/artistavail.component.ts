@@ -110,34 +110,51 @@ export class ArtistavailComponent {
             if(this.availData[index].days == "working") {
               this.workingAvail = 1; 
               this.workingData.id = this.availData[index].id;
-              this.workingData.hoursfrom = moment(this.availData[index].hoursfrom).format("hh:mm A");
-              this.workingData.hoursto =  moment(this.availData[index].hoursto).format("hh:mm A"); 
+             // this.workingData.hoursfrom = moment(this.availData[index].hoursfrom).format("hh:mm A");
+             // this.workingData.hoursto =  moment(this.availData[index].hoursto).format("hh:mm A"); 
+
+              this.workingData.hoursfrom = this.availData[index].hoursfrom;
+              this.workingData.hoursto =  this.availData[index].hoursto; 
 
               if(this.availData[index].breakfrom != '' && this.availData[index].breakto != '') {
                 this.workingBreakAvail = 1; 
                 this.workingBreakData.id = this.availData[index].id;
-                this.workingBreakData.breakfrom = moment(this.availData[index].breakfrom).format("hh:mm A");
-                this.workingBreakData.breakto =  moment(this.availData[index].breakto).format("hh:mm A"); 
-              }
+               // this.workingBreakData.breakfrom = moment(this.availData[index].breakfrom).format("hh:mm A");
+               // this.workingBreakData.breakto =  moment(this.availData[index].breakto).format("hh:mm A"); 
+
+                this.workingBreakData.breakfrom = this.availData[index].breakfrom;
+                this.workingBreakData.breakto =  this.availData[index].breakto; 
+                }
             } else if(this.availData[index].days == "weekend") {
               this.weekendAvail = 1;                  
               this.weekendData.id = this.availData[index].id;
-              this.weekendData.hoursfrom = moment(this.availData[index].hoursfrom).format("hh:mm A");
-              this.weekendData.hoursto =  moment(this.availData[index].hoursto).format("hh:mm A"); 
+             // this.weekendData.hoursfrom = moment(this.availData[index].hoursfrom).format("hh:mm A");
+             // this.weekendData.hoursto =  moment(this.availData[index].hoursto).format("hh:mm A"); 
+
+              this.weekendData.hoursfrom = this.availData[index].hoursfrom;
+              this.weekendData.hoursto =  this.availData[index].hoursto; 
 
               if(this.availData[index].breakfrom != '' && this.availData[index].breakto != '') {
                 this.weekendBreakAvail = 1; 
                 this.weekendBreakData.id = this.availData[index].id;
-                this.weekendBreakData.breakfrom = moment(this.availData[index].breakfrom).format("hh:mm A");
-                this.weekendBreakData.breakto =  moment(this.availData[index].breakto).format("hh:mm A"); 
+               // this.weekendBreakData.breakfrom = moment(this.availData[index].breakfrom).format("hh:mm A");
+               // this.weekendBreakData.breakto =  moment(this.availData[index].breakto).format("hh:mm A"); 
+
+
+                this.weekendBreakData.breakfrom = this.availData[index].breakfrom;
+                this.weekendBreakData.breakto =  this.availData[index].breakto; 
               }
             } else if(this.availData[index].days == "specificDate") {     
               this.dateAvail = 1;  
               this.specificData[i] = [];   
               this.specificData[i].id = this.availData[index].id;
               this.specificData[i].date = moment(this.availData[index].date).format("DD/MM/YYYY");       
-              this.specificData[i].hoursfrom = moment(this.availData[index].hoursfrom).format("hh:mm A");
-              this.specificData[i].hoursto =  moment(this.availData[index].hoursto).format("hh:mm A"); 
+             // this.specificData[i].hoursfrom = moment(this.availData[index].hoursfrom).format("hh:mm A");
+             // this.specificData[i].hoursto =  moment(this.availData[index].hoursto).format("hh:mm A"); 
+
+
+              this.specificData[i].hoursfrom = this.availData[index].hoursfrom;
+              this.specificData[i].hoursto =  this.availData[index].hoursto; 
 
               i=i+1;
             }   

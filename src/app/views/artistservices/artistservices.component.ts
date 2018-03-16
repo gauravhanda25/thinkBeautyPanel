@@ -10,6 +10,7 @@ import { NgxPermissionsService, NgxRolesService } from 'ngx-permissions';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { NgModule } from '@angular/core';
+import * as moment from 'moment';
 
 // Tabs Component
 import { TabsModule } from 'ngx-bootstrap/tabs';
@@ -47,9 +48,9 @@ export class ArtistservicesComponent {
   	private editparam: any;
 
 
-	private coursesData:any;
+	private coursesData:any = [];
 	private course: any;
-	private coursedetail:any;
+	private coursedetaildata:any = [];
   public bsStartValue = new Date();
   public bsEndValue = new Date();
 	private nocourses:any = 0;
@@ -138,12 +139,12 @@ export class ArtistservicesComponent {
         location: '',
         startfrom: '',
         endon: '',
-    		timeslotFrom: this.mytime,
-    		timeslotTo: this.mytime,
+    		timeslotFrom: '',
+    		timeslotTo: '',
     		artistId: localStorage.getItem('currentUserId')
     	}
 
-    	this.coursedetail = { 
+    	this.coursedetaildata = { 
     		name: '',   		
     		price:'',
     		description: '' ,
@@ -173,6 +174,11 @@ export class ArtistservicesComponent {
         .subscribe(r => {
         	if(r.json().length != 0){
         		this.coursesData = r.json();
+            for(let index in this.coursesData) {
+              this.coursedetaildata[this.coursesData[index].id] = [];
+              this.coursedetaildata[this.coursesData[index].id].startfrom = moment(this.coursesData[index].startfrom ).format('DD/MM/YYYY');
+              this.coursedetaildata[this.coursesData[index].id].endon = moment(this.coursesData[index].endon ).format('DD/MM/YYYY');
+            }
         		this.nocourses = 1;
         	} else {
         		this.coursesData = '';
@@ -333,7 +339,7 @@ export class ArtistservicesComponent {
         options.headers.append('Content-Type', 'application/json');
         options.headers.append('Accept', 'application/json');
 
-        this.coursedetail = { 
+        this.coursedetaildata = { 
     		name: course.name,   		
     		price: course.price,
     		description: course.description ,
@@ -346,11 +352,11 @@ export class ArtistservicesComponent {
     		artistId: localStorage.getItem('currentUserId')
     	}
 
-    	this.http.post(API_URL+'/Artistcourses/update?where=%7B%22id%22%3A%22'+course.id+'%22%7D&access_token='+ localStorage.getItem('currentUserToken'), this.coursedetail, options)
+    	this.http.post(API_URL+'/Artistcourses/update?where=%7B%22id%22%3A%22'+course.id+'%22%7D&access_token='+ localStorage.getItem('currentUserToken'), this.coursedetaildata, options)
         .subscribe(response => {
         	console.log(response.json());
 
-	    	this.coursedetail = { 
+	    	this.coursedetaildata = { 
 	    		name: '',   		
 	    		price:'',
 	    		description: '' ,

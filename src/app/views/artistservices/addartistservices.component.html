@@ -382,15 +382,6 @@
               		<tab heading = "Courses" >
               			<div class="form-group row"><div class="col-md-12"><button type="button" class="btn btn-sm btn-primary pull-right" data-toggle="modal" (click)="courseModal.show()"><span class="fa fa-plus"></span> Add New Course</button></div></div>
 
-
- 							<div class="row mb-3">
-					            <div class="col-md-4 offset-md-8">
-					              <div class="input-group">
-					                <span class="input-group-addon"></span>
-					                <input type="text" class="form-control" [(ngModel)]="filterQuery" placeholder="Search by name"/>
-					              </div>
-					            </div>
-					          </div>
 					          <table class="table table-striped" [mfData]="coursesData | dataFilter : filterQuery" #mf="mfDataTable" [mfRowsOnPage]="10" style="    margin: 0 -1.7rem;">
 					            <thead >
 					              <tr>
@@ -400,7 +391,6 @@
 					                <th><mfDefaultSorter by="startfrom">Start From</mfDefaultSorter></th>
 					                <th><mfDefaultSorter by="endon">End On</mfDefaultSorter></th>
 					                <th><mfDefaultSorter by="location">Location</mfDefaultSorter></th>
-					                <th><mfDefaultSorter by="duration">Duration(in days)</mfDefaultSorter></th>
 					                <th><mfDefaultSorter by="timeslotFrom">Timeslot From</mfDefaultSorter></th>
 					                <th><mfDefaultSorter by="timeslotTo">Timeslot To</mfDefaultSorter></th>
 					                <th>Action</th>
@@ -410,19 +400,284 @@
 					              <tr *ngIf = "nousers == 0">
 					                <td colspan="10">No Courses Records</td>
 					              </tr>
-					              <tr *ngFor="let course of mf.data" >
-					                <td>{{course.name}}</td>
-					                <td>{{course.price}}</td>
-					                <td>{{course.description}}</td>
-					                <td>{{course.startfrom}}</td>
-					                <td>{{course.endon}}</td>
-					                <td>{{course.location}}</td>
-					                <td>{{course.duration}}</td>
-					                <td>{{course.timeslotFrom}}</td>
-					                <td>{{course.timeslotTo}}</td>
+					              <tr *ngFor="let coursedetail of mf.data" >
+					                <td>{{coursedetail.name}}</td>
+					                <td>{{coursedetail.price}}</td>
+					                <td>{{coursedetail.description}}</td>
+					                <td>{{coursedetaildata[coursedetail.id].startfrom}}</td>
+					                <td>{{coursedetaildata[coursedetail.id].endon}}</td>
+					                <td>{{coursedetail.location}}</td>
+					                <td>{{coursedetail.timeslotFrom}}</td>
+					                <td>{{coursedetail.timeslotTo}}</td>
 					                <td>
 					                  <button class="btn btn-sm btn-outline-primary" type="button"  data-toggle="modal" (click)="updateCourseModal.show()"  ><span class="fa fa-pencil"></span></button>
 		                       			<button class="btn btn-sm btn-outline-primary" type="button" (click)="delcoursedata(coursedetail.id)" ><span class="fa fa-trash"></span></button>
+
+
+		                       			<div bsModal #updateCourseModal="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+				                          <div class="modal-dialog modal-primary" role="document">
+				                            <div class="modal-content">
+				                              <div class="modal-body">
+				                              	<h5>Update Course Details</h5>
+				                                <button type="button" class="btn btn-default pull-right closeModalButton" (click)="updateCourseModal.hide()" style="margin-right:5px;">Cancel</button>
+					                            <button class="btn btn-primary pull-right" type="button" (click)="updatecoursedata(coursedetail)" style="margin-right:5px;" [disabled] = "!courseServiceForm.form.valid" >Update</button>	
+				                              </div>
+				                              <div class="card-body" style="border-top:1px solid #c2cfd6;">
+				                              <form class="form-horizontal ng-untouched ng-pristine ng-valid" novalidate="" #courseServiceForm="ngForm"> 
+				                              	<div class="form-group row" >
+					                                <div class="col-md-6">
+					                                  <label>Name </label>	  
+					                                  <input class="form-control" name="coursename" type="text"  [(ngModel)]="coursedetail.name" required value="{{coursedetail.name}}" placeholder="Course Name">
+					                                </div>
+					                                <div class="col-md-6">
+					                                  <label>Price </label>
+					                                  <div class="input-group">
+										                  <div class="input-group-prepend">
+										                    <span class="input-group-text">BHD</span>
+										                  </div>
+					                                  	  <input class="form-control" name="courseprice" type="text"  [(ngModel)]="coursedetail.price"  value="{{coursedetail.price}}" required placeholder="e.g. 1200" >
+					                                  	</div>
+					                                </div>
+					                            </div>
+								                <div class="form-group row" >
+					                                <div class="col-md-12">	                                	
+					                                  <label>Description </label>
+					                                  <input class="form-control" name="coursedescription" type="text"  [(ngModel)]="coursedetail.description"  value="{{coursedetail.description}}" required placeholder="Course Description" >
+								                    </div>
+								                </div>	
+					                            <div class="form-group row" >
+					                                <div class="col-md-6">	                                	
+					                                  <label>Start From </label>
+					                                  <input class="form-control" name="coursestartfrom" type="text"  [(ngModel)]="coursedetail.startfrom" value="{{coursedetail.startfrom}}"  placeholder="Start From" required readonly #sdp="bsDatepicker" bsDatepicker >
+								                    </div>				                    
+					                                <div class="col-md-6">	                                	
+					                                  <label>End On </label>
+					                                  <input class="form-control" name="courseendon" type="text"  [(ngModel)]="coursedetail.endon" value="{{coursedetail.endon}}" placeholder="End On" required readonly #edp="bsDatepicker" bsDatepicker >
+								                    </div>
+								                </div>
+					                            <div class="form-group row" >
+					                                <div class="col-md-6">	                                	
+					                                  <label>Location </label>
+					                                  <input class="form-control" name="courselocation" type="text"  [(ngModel)]="coursedetail.location" value="{{coursedetail.location}}"  required placeholder="Course Location" >
+								                    </div>				                    
+					                                <div class="col-md-6">	                                	
+					                                  <label>No. of Guests </label>
+					                                  <input class="form-control" name="courseguestno" type="text"  [(ngModel)]="coursedetail.guestno"  value="{{coursedetail.guestno}}" required placeholder="No. of guests" >
+								                    </div>
+								                </div>			
+								                <div class="form-group row" >	                              
+					                                <div class="col-md-6">	                                	
+					                                  <label>Time From </label> 
+
+					                                   <!-- <timepicker [(ngModel)]="coursedetail.timeslotFrom" (change)="changed()" [hourStep]="hstep" [minuteStep]="mstep" required [showMeridian]="ismeridian" [readonlyInput]="!isEnabled"></timepicker> -->
+					                                   <select class="form-control" name="coursetimeslotFrom" [(ngModel)]="coursedetail.timeslotFrom" required >
+										        			<option value=''>Select From Time</option>
+										        			<option value="12:00am">12:00am</option>
+										        			<option value="12:15am">12:15am</option>
+										        			<option  value="12:30am">12:30am</option>
+										        			<option  value="12:45am">12:45am</option>
+										        			<option  value="1:00am">1:00am</option>
+										        			<option  value="1:15am">1:15am</option>
+										        			<option  value="1:30am">1:30am</option>
+										        			<option  value="1:45am">1:45am</option>
+										        			<option  value="2:00am">2:00am</option>
+										        			<option value="2:15am">2:15am</option>
+										        			<option  value="2:30am">2:30am</option>
+										        			<option  value="2:45am">2:45am</option>
+										        			<option  value="3:00am">3:00am</option>
+										        			<option  value="3:15am">3:15am</option>
+										        			<option  value="3:30am">3:30am</option>
+										        			<option  value="3:45am">3:45am</option>
+										        			<option  value="4:00am">4:00am</option>
+										        			<option  value="4:15am">4:15am</option>
+										        			<option  value="4:30am">4:30am</option>
+										        			<option  value="4:45am">4:45am</option>
+										        			<option  value="5:00am">5:00am</option>
+										        			<option  value="5:15am">5:15am</option>
+										        			<option  value="5:30am">5:30am</option>
+										        			<option  value="5:45am">5:45am</option>
+										        			<option  value="6:00am">6:00am</option>
+										        			<option  value="6:15am">6:15am</option>
+										        			<option  value="6:30am">6:30am</option>
+										        			<option  value="6:45am">6:45am</option>
+										        			<option  value="7:00am">7:00am</option>
+										        			<option  value="7:15am">7:15am</option>
+										        			<option  value="7:30am">7:30am</option>
+										        			<option  value="7:45am">7:45am</option>
+										        			<option  value="8:00am">8:00am</option>
+										        			<option  value="8:15am">8:15am</option>
+										        			<option  value="8:30am">8:30am</option>
+										        			<option  value="8:45am">8:45am</option>
+										        			<option  value="9:00am">9:00am</option>
+										        			<option  value="9:15am">9:15am</option>
+										        			<option  value="9:30am">9:30am</option>
+										        			<option  value="9:45am">9:45am</option>
+										        			<option  value="10:00am">10:00am</option>
+										        			<option  value="10:15am">10:15am</option>
+										        			<option  value="10:30am">10:30am</option>
+										        			<option value="10:45am">10:45am</option>
+										        			<option  value="11:00am">11:00am</option>
+										        			<option  value="11:15am">11:15am</option>
+										        			<option  value="11:30am">11:30am</option>
+										        			<option  value="11:45am">11:45am</option>
+										        			<option value="12:00pm">12:00pm</option>
+										        			<option value="12:15pm">12:15pm</option>
+										        			<option  value="12:30pm">12:30pm</option>
+										        			<option  value="12:45pm">12:45pm</option>
+										        			<option  value="1:00pm">1:00pm</option>
+										        			<option  value="1:15pm">1:15pm</option>
+										        			<option  value="1:30pm">1:30pm</option>
+										        			<option  value="1:45pm">1:45pm</option>
+										        			<option  value="2:00pm">2:00pm</option>
+										        			<option value="2:15pm">2:15pm</option>
+										        			<option  value="2:30pm">2:30pm</option>
+										        			<option  value="2:45pm">2:45pm</option>
+										        			<option  value="3:00pm">3:00pm</option>
+										        			<option  value="3:15pm">3:15pm</option>
+										        			<option  value="3:30pm">3:30pm</option>
+										        			<option  value="3:45pm">3:45pm</option>
+										        			<option  value="4:00pm">4:00pm</option>
+										        			<option  value="4:15pm">4:15pm</option>
+										        			<option  value="4:30pm">4:30pm</option>
+										        			<option  value="4:45pm">4:45pm</option>
+										        			<option  value="5:00pm">5:00pm</option>
+										        			<option  value="5:15pm">5:15pm</option>
+										        			<option  value="5:30pm">5:30pm</option>
+										        			<option  value="5:45pm">5:45pm</option>
+										        			<option  value="6:00pm">6:00pm</option>
+										        			<option  value="6:15pm">6:15pm</option>
+										        			<option  value="6:30pm">6:30pm</option>
+										        			<option  value="6:45pm">6:45pm</option>
+										        			<option  value="7:00pm">7:00pm</option>
+										        			<option  value="7:15pm">7:15pm</option>
+										        			<option  value="7:30pm">7:30pm</option>
+										        			<option  value="7:45pm">7:45pm</option>
+										        			<option  value="8:00pm">8:00pm</option>
+										        			<option  value="8:15pm">8:15pm</option>
+										        			<option  value="8:30pm">8:30pm</option>
+										        			<option  value="8:45pm">8:45pm</option>
+										        			<option  value="9:00pm">9:00pm</option>
+										        			<option  value="9:15pm">9:15pm</option>
+										        			<option  value="9:30pm">9:30pm</option>
+										        			<option  value="9:45pm">9:45pm</option>
+										        			<option  value="10:00pm">10:00pm</option>
+										        			<option  value="10:15pm">10:15pm</option>
+										        			<option  value="10:30pm">10:30pm</option>
+										        			<option value="10:45pm">10:45pm</option>
+										        			<option  value="11:00pm">11:00pm</option>
+										        			<option  value="11:15pm">11:15pm</option>
+										        			<option  value="11:30pm">11:30pm</option>
+										        			<option  value="11:45pm">11:45pm</option>
+										        		</select>
+					                                 </div>
+					                                 <div class="col-md-6">
+					                                 	<label>Time Slot To</label>
+					                                  <!-- <timepicker [(ngModel)]="coursedetail.timeslotTo" (change)="changed()" [hourStep]="hstep" [minuteStep]="mstep" [showMeridian]="ismeridian" required [readonlyInput]="!isEnabled"></timepicker> -->
+					                                  <select class="form-control" name="oursetimeslotTo" [(ngModel)]="coursedetail.timeslotTo" required >
+										        			<option value=''>Select From Time</option>
+										        			<option value="12:00am">12:00am</option>
+										        			<option value="12:15am">12:15am</option>
+										        			<option  value="12:30am">12:30am</option>
+										        			<option  value="12:45am">12:45am</option>
+										        			<option  value="1:00am">1:00am</option>
+										        			<option  value="1:15am">1:15am</option>
+										        			<option  value="1:30am">1:30am</option>
+										        			<option  value="1:45am">1:45am</option>
+										        			<option  value="2:00am">2:00am</option>
+										        			<option value="2:15am">2:15am</option>
+										        			<option  value="2:30am">2:30am</option>
+										        			<option  value="2:45am">2:45am</option>
+										        			<option  value="3:00am">3:00am</option>
+										        			<option  value="3:15am">3:15am</option>
+										        			<option  value="3:30am">3:30am</option>
+										        			<option  value="3:45am">3:45am</option>
+										        			<option  value="4:00am">4:00am</option>
+										        			<option  value="4:15am">4:15am</option>
+										        			<option  value="4:30am">4:30am</option>
+										        			<option  value="4:45am">4:45am</option>
+										        			<option  value="5:00am">5:00am</option>
+										        			<option  value="5:15am">5:15am</option>
+										        			<option  value="5:30am">5:30am</option>
+										        			<option  value="5:45am">5:45am</option>
+										        			<option  value="6:00am">6:00am</option>
+										        			<option  value="6:15am">6:15am</option>
+										        			<option  value="6:30am">6:30am</option>
+										        			<option  value="6:45am">6:45am</option>
+										        			<option  value="7:00am">7:00am</option>
+										        			<option  value="7:15am">7:15am</option>
+										        			<option  value="7:30am">7:30am</option>
+										        			<option  value="7:45am">7:45am</option>
+										        			<option  value="8:00am">8:00am</option>
+										        			<option  value="8:15am">8:15am</option>
+										        			<option  value="8:30am">8:30am</option>
+										        			<option  value="8:45am">8:45am</option>
+										        			<option  value="9:00am">9:00am</option>
+										        			<option  value="9:15am">9:15am</option>
+										        			<option  value="9:30am">9:30am</option>
+										        			<option  value="9:45am">9:45am</option>
+										        			<option  value="10:00am">10:00am</option>
+										        			<option  value="10:15am">10:15am</option>
+										        			<option  value="10:30am">10:30am</option>
+										        			<option value="10:45am">10:45am</option>
+										        			<option  value="11:00am">11:00am</option>
+										        			<option  value="11:15am">11:15am</option>
+										        			<option  value="11:30am">11:30am</option>
+										        			<option  value="11:45am">11:45am</option>
+										        			<option value="12:00pm">12:00pm</option>
+										        			<option value="12:15pm">12:15pm</option>
+										        			<option  value="12:30pm">12:30pm</option>
+										        			<option  value="12:45pm">12:45pm</option>
+										        			<option  value="1:00pm">1:00pm</option>
+										        			<option  value="1:15pm">1:15pm</option>
+										        			<option  value="1:30pm">1:30pm</option>
+										        			<option  value="1:45pm">1:45pm</option>
+										        			<option  value="2:00pm">2:00pm</option>
+										        			<option value="2:15pm">2:15pm</option>
+										        			<option  value="2:30pm">2:30pm</option>
+										        			<option  value="2:45pm">2:45pm</option>
+										        			<option  value="3:00pm">3:00pm</option>
+										        			<option  value="3:15pm">3:15pm</option>
+										        			<option  value="3:30pm">3:30pm</option>
+										        			<option  value="3:45pm">3:45pm</option>
+										        			<option  value="4:00pm">4:00pm</option>
+										        			<option  value="4:15pm">4:15pm</option>
+										        			<option  value="4:30pm">4:30pm</option>
+										        			<option  value="4:45pm">4:45pm</option>
+										        			<option  value="5:00pm">5:00pm</option>
+										        			<option  value="5:15pm">5:15pm</option>
+										        			<option  value="5:30pm">5:30pm</option>
+										        			<option  value="5:45pm">5:45pm</option>
+										        			<option  value="6:00pm">6:00pm</option>
+										        			<option  value="6:15pm">6:15pm</option>
+										        			<option  value="6:30pm">6:30pm</option>
+										        			<option  value="6:45pm">6:45pm</option>
+										        			<option  value="7:00pm">7:00pm</option>
+										        			<option  value="7:15pm">7:15pm</option>
+										        			<option  value="7:30pm">7:30pm</option>
+										        			<option  value="7:45pm">7:45pm</option>
+										        			<option  value="8:00pm">8:00pm</option>
+										        			<option  value="8:15pm">8:15pm</option>
+										        			<option  value="8:30pm">8:30pm</option>
+										        			<option  value="8:45pm">8:45pm</option>
+										        			<option  value="9:00pm">9:00pm</option>
+										        			<option  value="9:15pm">9:15pm</option>
+										        			<option  value="9:30pm">9:30pm</option>
+										        			<option  value="9:45pm">9:45pm</option>
+										        			<option  value="10:00pm">10:00pm</option>
+										        			<option  value="10:15pm">10:15pm</option>
+										        			<option  value="10:30pm">10:30pm</option>
+										        			<option value="10:45pm">10:45pm</option>
+										        			<option  value="11:00pm">11:00pm</option>
+										        			<option  value="11:15pm">11:15pm</option>
+										        			<option  value="11:30pm">11:30pm</option>
+										        			<option  value="11:45pm">11:45pm</option>
+										        		</select>
+								                    </div>
+				                                </div></form>
+				                              </div>
+				                            </div>
+				                          </div>
+				                        </div>
 					                </td>
 					              </tr>
 					            </tbody>            
@@ -438,92 +693,9 @@
 
 
 
-              			 <div class="form-group row" *ngFor = "let coursedetail of coursesData">
-		                    <!-- <div class="col-md-4 service-card card-body" >
-		                       <h6>{{coursedetail.name}}</h6>
-
-		                       <span class="pull-right">
-		                       		<button class="btn btn-sm btn-outline-primary" type="button"  data-toggle="modal" (click)="updateCourseModal.show()"  ><span class="fa fa-pencil"></span></button>
-		                       		<button class="btn btn-sm btn-outline-primary" type="button" (click)="delcoursedata(coursedetail.id)" ><span class="fa fa-trash"></span></button>	                       		
-		                       </span>
-
-		                       <div class="clearfix"></div>
-		                       <span >BHD {{coursedetail.price}} for</span>
-		                       <span >{{coursedetail.duration}}</span>
-		                    </div>
- -->
-
-
-		                    <div bsModal #updateCourseModal="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-	                          <div class="modal-dialog modal-primary" role="document">
-	                            <div class="modal-content">
-	                              <div class="modal-body">
-	                              	<h5>Update Course Details</h5>
-	                                <button type="button" class="btn btn-default pull-right closeModalButton" (click)="updateCourseModal.hide()" style="margin-right:5px;">Cancel</button>
-		                            <button class="btn btn-primary pull-right" type="button" (click)="updatecoursedata(coursedetail)" style="margin-right:5px;" [disabled] = "!courseServiceForm.form.valid" >Update</button>	
-	                              </div>
-	                              <div class="card-body" style="border-top:1px solid #c2cfd6;">
-	                              <form class="form-horizontal ng-untouched ng-pristine ng-valid" novalidate="" #courseServiceForm="ngForm"> 
-	                              	<div class="form-group row" >
-		                                <div class="col-md-6">
-		                                  <label>Name </label>	  
-		                                  <input class="form-control" name="coursename" type="text"  [(ngModel)]="coursedetail.name" required value="{{coursedetail.name}}" placeholder="Course Name">
-		                                </div>
-		                                <div class="col-md-6">
-		                                  <label>Price </label>
-		                                  <div class="input-group">
-							                  <div class="input-group-prepend">
-							                    <span class="input-group-text">BHD</span>
-							                  </div>
-		                                  	  <input class="form-control" name="courseprice" type="text"  [(ngModel)]="coursedetail.price"  value="{{coursedetail.price}}" required placeholder="e.g. 1200" >
-		                                  	</div>
-		                                </div>
-		                            </div>
-					                <div class="form-group row" >
-		                                <div class="col-md-12">	                                	
-		                                  <label>Description </label>
-		                                  <input class="form-control" name="coursedescription" type="text"  [(ngModel)]="coursedetail.description"  value="{{coursedetail.description}}" required placeholder="Course Description" >
-					                    </div>
-					                </div>	
-		                            <div class="form-group row" >
-		                                <div class="col-md-6">	                                	
-		                                  <label>Start From </label>
-		                                  <input class="form-control" name="coursestartfrom" type="text"  [(ngModel)]="coursedetail.startfrom" value="{{coursedetail.startfrom}}"  placeholder="Start From" required readonly #sdp="bsDatepicker" bsDatepicker [(bsValue)]="bsStartValue">
-					                    </div>				                    
-		                                <div class="col-md-6">	                                	
-		                                  <label>End On </label>
-		                                  <input class="form-control" name="courseendon" type="text"  [(ngModel)]="coursedetail.endon" value="{{coursedetail.endon}}" placeholder="End On" required readonly #edp="bsDatepicker" bsDatepicker [(bsValue)]="bsEndValue">
-					                    </div>
-					                </div>
-		                            <div class="form-group row" >
-		                                <div class="col-md-6">	                                	
-		                                  <label>Location </label>
-		                                  <input class="form-control" name="courselocation" type="text"  [(ngModel)]="coursedetail.location" value="{{coursedetail.location}}"  required placeholder="Course Location" >
-					                    </div>				                    
-		                                <div class="col-md-6">	                                	
-		                                  <label>No. of Guests </label>
-		                                  <input class="form-control" name="courseguestno" type="text"  [(ngModel)]="coursedetail.guestno"  value="{{coursedetail.guestno}}" required placeholder="No. of guests" >
-					                    </div>
-					                </div>			
-					                <div class="form-group row" >	                              
-		                                <div class="col-md-6">	                                	
-		                                  <label>Time Slot From </label>                                  
-		                                  <!-- <input class="form-control" name="coursetimeslotFrom" type="text"  [(ngModel)]="coursedetail.timeslotFrom"  value="{{coursedetail.timeslotFrom}}" placeholder="From" > -->
-
-		                                   <timepicker [(ngModel)]="coursedetail.timeslotFrom" (change)="changed()" [hourStep]="hstep" [minuteStep]="mstep" required [showMeridian]="ismeridian" [readonlyInput]="!isEnabled"></timepicker>
-		                                 </div>
-		                                 <div class="col-md-6">
-		                                 	<label>Time Slot To</label>
-		                                  <!-- <input class="form-control " name="coursetimeslotTo" type="text"  [(ngModel)]="coursedetail.timeslotTo"  value="{{coursedetail.timeslotTo}}" placeholder="To" > -->
-
-		                                  <timepicker [(ngModel)]="coursedetail.timeslotTo" (change)="changed()" [hourStep]="hstep" [minuteStep]="mstep" [showMeridian]="ismeridian" required [readonlyInput]="!isEnabled"></timepicker>
-					                    </div>
-	                                </div></form>
-	                              </div>
-	                            </div><!-- /.modal-content -->
-	                          </div><!-- /.modal-dialog -->
-	                        </div><!-- /.modal -->
-		                </div>
+              			 <!-- <div class="form-group row" *ngFor = "let coursedetail of coursesData"> -->
+		                    
+		                <!-- </div> -->
 
 
 
@@ -583,16 +755,216 @@
 				                </div>				                
 				                <div class="form-group row" >			                    
 	                                <div class="col-md-6">	                                	
-	                                  <label>Time Slot From </label>	                                  
+	                                  <label>Time: From </label>	                                  
 	                                  <!-- <input class="form-control" name="timeslotFrom" type="text"  [(ngModel)]="course.timeslotFrom"  value="" placeholder="From" > -->
 
-	                                  <timepicker [(ngModel)]="course.timeslotFrom" (change)="changed()" [hourStep]="hstep" [minuteStep]="mstep" [showMeridian]="ismeridian" required [readonlyInput]="!isEnabled"></timepicker>
+	                                  <!-- <timepicker [(ngModel)]="course.timeslotFrom" (change)="changed()" [hourStep]="hstep" [minuteStep]="mstep" [showMeridian]="ismeridian" required [readonlyInput]="!isEnabled"></timepicker> -->
+
+	                                  <select class="form-control" name="timeslotFrom" [(ngModel)]="course.timeslotFrom" required >
+						        			<option value=''>Select From Time</option>
+						        			<option value="12:00am">12:00am</option>
+						        			<option value="12:15am">12:15am</option>
+						        			<option  value="12:30am">12:30am</option>
+						        			<option  value="12:45am">12:45am</option>
+						        			<option  value="1:00am">1:00am</option>
+						        			<option  value="1:15am">1:15am</option>
+						        			<option  value="1:30am">1:30am</option>
+						        			<option  value="1:45am">1:45am</option>
+						        			<option  value="2:00am">2:00am</option>
+						        			<option value="2:15am">2:15am</option>
+						        			<option  value="2:30am">2:30am</option>
+						        			<option  value="2:45am">2:45am</option>
+						        			<option  value="3:00am">3:00am</option>
+						        			<option  value="3:15am">3:15am</option>
+						        			<option  value="3:30am">3:30am</option>
+						        			<option  value="3:45am">3:45am</option>
+						        			<option  value="4:00am">4:00am</option>
+						        			<option  value="4:15am">4:15am</option>
+						        			<option  value="4:30am">4:30am</option>
+						        			<option  value="4:45am">4:45am</option>
+						        			<option  value="5:00am">5:00am</option>
+						        			<option  value="5:15am">5:15am</option>
+						        			<option  value="5:30am">5:30am</option>
+						        			<option  value="5:45am">5:45am</option>
+						        			<option  value="6:00am">6:00am</option>
+						        			<option  value="6:15am">6:15am</option>
+						        			<option  value="6:30am">6:30am</option>
+						        			<option  value="6:45am">6:45am</option>
+						        			<option  value="7:00am">7:00am</option>
+						        			<option  value="7:15am">7:15am</option>
+						        			<option  value="7:30am">7:30am</option>
+						        			<option  value="7:45am">7:45am</option>
+						        			<option  value="8:00am">8:00am</option>
+						        			<option  value="8:15am">8:15am</option>
+						        			<option  value="8:30am">8:30am</option>
+						        			<option  value="8:45am">8:45am</option>
+						        			<option  value="9:00am">9:00am</option>
+						        			<option  value="9:15am">9:15am</option>
+						        			<option  value="9:30am">9:30am</option>
+						        			<option  value="9:45am">9:45am</option>
+						        			<option  value="10:00am">10:00am</option>
+						        			<option  value="10:15am">10:15am</option>
+						        			<option  value="10:30am">10:30am</option>
+						        			<option value="10:45am">10:45am</option>
+						        			<option  value="11:00am">11:00am</option>
+						        			<option  value="11:15am">11:15am</option>
+						        			<option  value="11:30am">11:30am</option>
+						        			<option  value="11:45am">11:45am</option>
+						        			<option value="12:00pm">12:00pm</option>
+						        			<option value="12:15pm">12:15pm</option>
+						        			<option  value="12:30pm">12:30pm</option>
+						        			<option  value="12:45pm">12:45pm</option>
+						        			<option  value="1:00pm">1:00pm</option>
+						        			<option  value="1:15pm">1:15pm</option>
+						        			<option  value="1:30pm">1:30pm</option>
+						        			<option  value="1:45pm">1:45pm</option>
+						        			<option  value="2:00pm">2:00pm</option>
+						        			<option value="2:15pm">2:15pm</option>
+						        			<option  value="2:30pm">2:30pm</option>
+						        			<option  value="2:45pm">2:45pm</option>
+						        			<option  value="3:00pm">3:00pm</option>
+						        			<option  value="3:15pm">3:15pm</option>
+						        			<option  value="3:30pm">3:30pm</option>
+						        			<option  value="3:45pm">3:45pm</option>
+						        			<option  value="4:00pm">4:00pm</option>
+						        			<option  value="4:15pm">4:15pm</option>
+						        			<option  value="4:30pm">4:30pm</option>
+						        			<option  value="4:45pm">4:45pm</option>
+						        			<option  value="5:00pm">5:00pm</option>
+						        			<option  value="5:15pm">5:15pm</option>
+						        			<option  value="5:30pm">5:30pm</option>
+						        			<option  value="5:45pm">5:45pm</option>
+						        			<option  value="6:00pm">6:00pm</option>
+						        			<option  value="6:15pm">6:15pm</option>
+						        			<option  value="6:30pm">6:30pm</option>
+						        			<option  value="6:45pm">6:45pm</option>
+						        			<option  value="7:00pm">7:00pm</option>
+						        			<option  value="7:15pm">7:15pm</option>
+						        			<option  value="7:30pm">7:30pm</option>
+						        			<option  value="7:45pm">7:45pm</option>
+						        			<option  value="8:00pm">8:00pm</option>
+						        			<option  value="8:15pm">8:15pm</option>
+						        			<option  value="8:30pm">8:30pm</option>
+						        			<option  value="8:45pm">8:45pm</option>
+						        			<option  value="9:00pm">9:00pm</option>
+						        			<option  value="9:15pm">9:15pm</option>
+						        			<option  value="9:30pm">9:30pm</option>
+						        			<option  value="9:45pm">9:45pm</option>
+						        			<option  value="10:00pm">10:00pm</option>
+						        			<option  value="10:15pm">10:15pm</option>
+						        			<option  value="10:30pm">10:30pm</option>
+						        			<option value="10:45pm">10:45pm</option>
+						        			<option  value="11:00pm">11:00pm</option>
+						        			<option  value="11:15pm">11:15pm</option>
+						        			<option  value="11:30pm">11:30pm</option>
+						        			<option  value="11:45pm">11:45pm</option>
+						        		</select>
 	                                </div>
 	                                <div class="col-md-6">
-	                                  <label>Time Slot To</label>
+	                                  <label>Time: To</label>
 	                                 <!--  <input class="form-control" name="timeslotTo" type="text"  [(ngModel)]="course.timeslotTo"  value="" placeholder="To" > -->
 
-										<timepicker [(ngModel)]="course.timeslotTo" (change)="changed()" [hourStep]="hstep" [minuteStep]="mstep" [showMeridian]="ismeridian" required [readonlyInput]="!isEnabled"></timepicker>
+										<!-- <timepicker [(ngModel)]="course.timeslotTo" (change)="changed()" [hourStep]="hstep" [minuteStep]="mstep" [showMeridian]="ismeridian" required [readonlyInput]="!isEnabled"></timepicker> -->
+
+										<select class="form-control" name="timeslotTo" [(ngModel)]="course.timeslotTo" required >
+						        			<option value=''>Select From Time</option>
+						        			<option value="12:00am">12:00am</option>
+						        			<option value="12:15am">12:15am</option>
+						        			<option  value="12:30am">12:30am</option>
+						        			<option  value="12:45am">12:45am</option>
+						        			<option  value="1:00am">1:00am</option>
+						        			<option  value="1:15am">1:15am</option>
+						        			<option  value="1:30am">1:30am</option>
+						        			<option  value="1:45am">1:45am</option>
+						        			<option  value="2:00am">2:00am</option>
+						        			<option value="2:15am">2:15am</option>
+						        			<option  value="2:30am">2:30am</option>
+						        			<option  value="2:45am">2:45am</option>
+						        			<option  value="3:00am">3:00am</option>
+						        			<option  value="3:15am">3:15am</option>
+						        			<option  value="3:30am">3:30am</option>
+						        			<option  value="3:45am">3:45am</option>
+						        			<option  value="4:00am">4:00am</option>
+						        			<option  value="4:15am">4:15am</option>
+						        			<option  value="4:30am">4:30am</option>
+						        			<option  value="4:45am">4:45am</option>
+						        			<option  value="5:00am">5:00am</option>
+						        			<option  value="5:15am">5:15am</option>
+						        			<option  value="5:30am">5:30am</option>
+						        			<option  value="5:45am">5:45am</option>
+						        			<option  value="6:00am">6:00am</option>
+						        			<option  value="6:15am">6:15am</option>
+						        			<option  value="6:30am">6:30am</option>
+						        			<option  value="6:45am">6:45am</option>
+						        			<option  value="7:00am">7:00am</option>
+						        			<option  value="7:15am">7:15am</option>
+						        			<option  value="7:30am">7:30am</option>
+						        			<option  value="7:45am">7:45am</option>
+						        			<option  value="8:00am">8:00am</option>
+						        			<option  value="8:15am">8:15am</option>
+						        			<option  value="8:30am">8:30am</option>
+						        			<option  value="8:45am">8:45am</option>
+						        			<option  value="9:00am">9:00am</option>
+						        			<option  value="9:15am">9:15am</option>
+						        			<option  value="9:30am">9:30am</option>
+						        			<option  value="9:45am">9:45am</option>
+						        			<option  value="10:00am">10:00am</option>
+						        			<option  value="10:15am">10:15am</option>
+						        			<option  value="10:30am">10:30am</option>
+						        			<option value="10:45am">10:45am</option>
+						        			<option  value="11:00am">11:00am</option>
+						        			<option  value="11:15am">11:15am</option>
+						        			<option  value="11:30am">11:30am</option>
+						        			<option  value="11:45am">11:45am</option>
+						        			<option value="12:00pm">12:00pm</option>
+						        			<option value="12:15pm">12:15pm</option>
+						        			<option  value="12:30pm">12:30pm</option>
+						        			<option  value="12:45pm">12:45pm</option>
+						        			<option  value="1:00pm">1:00pm</option>
+						        			<option  value="1:15pm">1:15pm</option>
+						        			<option  value="1:30pm">1:30pm</option>
+						        			<option  value="1:45pm">1:45pm</option>
+						        			<option  value="2:00pm">2:00pm</option>
+						        			<option value="2:15pm">2:15pm</option>
+						        			<option  value="2:30pm">2:30pm</option>
+						        			<option  value="2:45pm">2:45pm</option>
+						        			<option  value="3:00pm">3:00pm</option>
+						        			<option  value="3:15pm">3:15pm</option>
+						        			<option  value="3:30pm">3:30pm</option>
+						        			<option  value="3:45pm">3:45pm</option>
+						        			<option  value="4:00pm">4:00pm</option>
+						        			<option  value="4:15pm">4:15pm</option>
+						        			<option  value="4:30pm">4:30pm</option>
+						        			<option  value="4:45pm">4:45pm</option>
+						        			<option  value="5:00pm">5:00pm</option>
+						        			<option  value="5:15pm">5:15pm</option>
+						        			<option  value="5:30pm">5:30pm</option>
+						        			<option  value="5:45pm">5:45pm</option>
+						        			<option  value="6:00pm">6:00pm</option>
+						        			<option  value="6:15pm">6:15pm</option>
+						        			<option  value="6:30pm">6:30pm</option>
+						        			<option  value="6:45pm">6:45pm</option>
+						        			<option  value="7:00pm">7:00pm</option>
+						        			<option  value="7:15pm">7:15pm</option>
+						        			<option  value="7:30pm">7:30pm</option>
+						        			<option  value="7:45pm">7:45pm</option>
+						        			<option  value="8:00pm">8:00pm</option>
+						        			<option  value="8:15pm">8:15pm</option>
+						        			<option  value="8:30pm">8:30pm</option>
+						        			<option  value="8:45pm">8:45pm</option>
+						        			<option  value="9:00pm">9:00pm</option>
+						        			<option  value="9:15pm">9:15pm</option>
+						        			<option  value="9:30pm">9:30pm</option>
+						        			<option  value="9:45pm">9:45pm</option>
+						        			<option  value="10:00pm">10:00pm</option>
+						        			<option  value="10:15pm">10:15pm</option>
+						        			<option  value="10:30pm">10:30pm</option>
+						        			<option value="10:45pm">10:45pm</option>
+						        			<option  value="11:00pm">11:00pm</option>
+						        			<option  value="11:15pm">11:15pm</option>
+						        			<option  value="11:30pm">11:30pm</option>
+						        			<option  value="11:45pm">11:45pm</option>
+						        		</select>
 				                    </div>
                                 </div></form>
                               </div>
