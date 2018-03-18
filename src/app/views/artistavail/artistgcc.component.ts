@@ -112,12 +112,16 @@ export class ArtistgccComponent {
       options.headers = new Headers();
       options.headers.append('Content-Type', 'application/json');
       options.headers.append('Accept', 'application/json');
-      this.http.delete(API_URL+'/Artistgcc/'+id+'?access_token='+ localStorage.getItem('currentUserToken'), options)
-      .subscribe(response => {
-        this.getAllgccData();
-      }, error => {
-          console.log(JSON.stringify(error.json()));
-      });
+
+      if(confirm("Are you sure?")){
+        this.http.delete(API_URL+'/Artistgcc/'+id+'?access_token='+ localStorage.getItem('currentUserToken'), options)
+        .subscribe(response => {
+          this.getAllgccData();
+        }, error => {
+            console.log(JSON.stringify(error.json()));
+        });
+      }
+      
 
     }
 }

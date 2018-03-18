@@ -4,18 +4,20 @@
   		<div class="card">         
             <div class="card-header">
 
-              <span >Add/Edit <span *ngIf="breakadd == 1">Break</span> Availability</span>
-              <button (click)="onSave()" class="btn btn-primary pull-right" *ngIf="editparam.action == 'add'">Save</button>
-              <button (click)="onUpdate()" class="btn btn-primary pull-right" *ngIf="editparam.action == 'edit'">Update</button>
+              <span *ngIf="editparam.action == 'add'">Add Availability</span>
+              <span *ngIf="editparam.action == 'edit'">Edit Availability</span>
+              <button (click)="onSave()" class="btn btn-primary pull-right" [disabled] = "!availForm.form.valid"  *ngIf="editparam.action == 'add'">Save</button>
+              <button (click)="onUpdate()" class="btn btn-primary pull-right" [disabled] = "!availForm.form.valid"  *ngIf="editparam.action == 'edit'">Update</button>
 			</div>
         	<div class="card-body col-md-6">  
+        		<form class="form-horizontal ng-untouched ng-pristine ng-valid" novalidate="" #availForm="ngForm" >
 		      	<table class="table " >
-			        <tr *ngIf='data.days == "specificDate" && breakadd == 0'>
+			        <tr *ngIf='data.days == "specificDate"'>
 			        	<td style="border-bottom:3px solid #a4b7c1" >Date
-			        		<input class="col-md-7 form-control pull-right" name="date" type="text"  [(ngModel)]="data.date"  placeholder="Specific Date" required readonly #sdp="bsDatepicker" bsDatepicker [(bsValue)]="bsStartValue">
+			        		<input class="col-md-7 form-control pull-right" name="date" type="text"  [(ngModel)]="data.date"  [minDate]="today" placeholder="Specific Date" required readonly #sdp="bsDatepicker" bsDatepicker [(bsValue)]="bsStartValue">
 			        	</td>
 			        </tr>
-			       	<tr *ngIf='breakadd == 0'>
+			       	<tr>
 			        	<td style="border-bottom:3px solid #a4b7c1" >From
 			        		<!-- <timepicker [(ngModel)]="data.hoursfrom" (change)="changed()" [hourStep]="hstep" [minuteStep]="mstep" [showMeridian]="ismeridian" [readonlyInput]="!isEnabled"></timepicker> 
 			        		-->
@@ -120,7 +122,7 @@
 			        		</select>
 			        	</td>
 			        </tr>
-			       	<tr *ngIf='breakadd == 0'>			        
+			       	<tr>			        
 			        	<td style="border-bottom:3px solid #a4b7c1" >To
 			        		<select class="col-md-7 form-control pull-right" name="hoursto" [(ngModel)]="data.hoursto" required >
 			        			<option value=''>Select From Time</option>
@@ -224,7 +226,7 @@
 			        		<!-- <timepicker [(ngModel)]="data.hoursto" (change)="changed()" [hourStep]="hstep" [minuteStep]="mstep" [showMeridian]="ismeridian" [readonlyInput]="!isEnabled"></timepicker> -->
 			        	</td>
 			        </tr>
-			        <tr  *ngIf='breakadd == 1'>
+			        <tr>
 			        	<td style="border-bottom:3px solid #a4b7c1" >From
 			        		<select class="col-md-7 form-control pull-right" name="breakfrom" [(ngModel)]="data.breakfrom" required >
 			        			<option value=''>Select From Time</option>
@@ -328,7 +330,7 @@
 			        		<!-- <timepicker [(ngModel)]="data.breakfrom" (change)="changed()" [hourStep]="hstep" [minuteStep]="mstep" [showMeridian]="ismeridian" [readonlyInput]="!isEnabled"></timepicker> -->
 			        	</td>
 			        </tr>
-			       	<tr *ngIf='breakadd == 1'>
+			       	<tr>
 			        	<td style="border-bottom:3px solid #a4b7c1" >To
 			        		<select class="col-md-7 form-control pull-right" name="breakto" [(ngModel)]="data.breakto" required >
 			        			<option value=''>Select From Time</option>
@@ -432,7 +434,7 @@
 			        		<!-- <timepicker [(ngModel)]="data.breakto" (change)="changed()" [hourStep]="hstep" [minuteStep]="mstep" [showMeridian]="ismeridian" [readonlyInput]="!isEnabled"></timepicker> -->
 			        	</td>
 			        </tr>
-			    </table>
+			    </table></form>
 		    </div>
 		</div>
     </div>    

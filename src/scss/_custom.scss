@@ -76,3 +76,8 @@ input:-webkit-autofill:active {
 .form-control:disabled, .form-control[readonly], ng-select > div.disabled   {
     background-color: transparent !important;
  }
+
+ .dashboardBox .card-body{
+ 	max-height: 150px;
+ 	min-height: 150px;
+ }

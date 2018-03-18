@@ -4,16 +4,18 @@
   		<div class="card">         
             <div class="card-header">
 
-              <span >Add/Edit Vacation Time</span>
-              <button (click)="onSave()" class="btn btn-primary pull-right" *ngIf="editparam.action == 'add'">Save</button>
-              <button (click)="onUpdate()" class="btn btn-primary pull-right" *ngIf="editparam.action == 'edit'">Update</button>
+              <span *ngIf="editparam.action == 'add'">Add Vacation Time</span>
+              <span *ngIf="editparam.action == 'edit'">Edit Vacation Time</span>
+              <button (click)="onSave()" class="btn btn-primary pull-right" [disabled] = "!vacationForm.form.valid" *ngIf="editparam.action == 'add'">Save</button>
+              <button (click)="onUpdate()" class="btn btn-primary pull-right" [disabled] = "!vacationForm.form.valid" *ngIf="editparam.action == 'edit'">Update</button>
 			</div>
         	<div class="card-body col-md-6">  
+        		<form class="form-horizontal ng-untouched ng-pristine ng-valid" novalidate="" #vacationForm="ngForm" >
 		      	<table class="table" >
 			        <tr >
 			        	<td style="border-bottom:3px solid #a4b7c1" >Start On
 
-			        		<input class="col-md-7 form-control pull-right" name="starton" type="text"  [(ngModel)]="data.starton"  placeholder="Start On" required readonly #sdp="bsDatepicker" bsDatepicker [(bsValue)]="bsStartValue">
+			        		<input class="col-md-7 form-control pull-right" name="starton" type="text"  [(ngModel)]="data.starton" [minDate]="today" placeholder="Start On" required readonly #sdp="bsDatepicker" bsDatepicker [(bsValue)]="bsStartValue">
 			        	</td>
 			        </tr>
 			        <!-- <tr *ngIf = " day == 0" >
@@ -24,7 +26,7 @@
 			        <tr >
 			        	<td style="border-bottom:3px solid #a4b7c1" >End On
 
-			        		<input class="col-md-7 form-control pull-right" name="endon" type="text"  [(ngModel)]="data.endon"  placeholder="End On" required readonly #edp="bsDatepicker" bsDatepicker [(bsValue)]="bsEndValue">
+			        		<input class="col-md-7 form-control pull-right" name="endon" type="text"  [(ngModel)]="data.endon" [minDate]="today" placeholder="End On" required readonly #edp="bsDatepicker" bsDatepicker [(bsValue)]="bsEndValue">
 			        	</td>
 			        </tr>
 			        <!-- <tr *ngIf = " day == 0" >
@@ -42,7 +44,7 @@
 			            	</label>
 			        	</td>
 			        </tr> -->
-			    </table>
+			    </table></form>
 		    </div>
 		</div>
     </div>    

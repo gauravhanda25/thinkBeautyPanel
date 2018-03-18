@@ -27,6 +27,7 @@ export class AddartistgccComponent {
 	  private data: any;
   	private editparam: any;
     private gcclocations:any;
+    private today = new Date();
 
   	//private day: any = 1;
 
@@ -82,6 +83,11 @@ export class AddartistgccComponent {
     		action: 'add'
     	}    	
 
+      this.activatedRoute.params.subscribe((params) => {
+            let id = params['id'];
+            this.editparam.id = id;
+        });
+
       let options = new RequestOptions();
       options.headers = new Headers();
       options.headers.append('Content-Type', 'application/json');
@@ -95,6 +101,18 @@ export class AddartistgccComponent {
           console.log(JSON.stringify(error.json()));
       });
 
+      if(this.editparam.id != undefined){
+        this.http.get(API_URL+'/Artistgcc?filter={"where":{"and":[{"id":"'+this.editparam.id+'"}]}}&access_token='+ localStorage.getItem('currentUserToken'), options)
+        .subscribe(gccres => {
+           this.data = gccres.json()[0];
+           this.editparam.action = "edit";
+
+        }, error => {
+            console.log(JSON.stringify(error.json()));
+        });
+
+      }
+      
   	}
 
 
@@ -114,5 +132,20 @@ export class AddartistgccComponent {
 		    });
   	}
 
+    onUpdate() {
+      let options = new RequestOptions();
+      options.headers = new Headers();
+        options.headers.append('Content-Type', 'application/json');
+        options.headers.append('Accept', 'application/json');
+
+        this.http.post(API_URL+'/Artistgcc/update?where={"id":"'+this.editparam.id+'"}&access_token='+ localStorage.getItem('currentUserToken'), this.data, options)
+        .subscribe(response => {
+            this.toasterService.pop('success', 'Success', "GCC Availability updated successfully"); 
+            this.router.navigate(['schedule/gcc']);
+
+        }, error => {
+            console.log(JSON.stringify(error.json()));
+        });
+    }
   	
 }

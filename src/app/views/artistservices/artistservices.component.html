@@ -21,15 +21,29 @@
                          </h6>
                          <div class="clearfix"></div>
 
-                         <div class="" *ngIf="makeupservicesData[subservice.id]">
-                            <div class="col-sm-12" *ngFor="let service of makeupservicesData[subservice.id].servicetype">
-                            <span><strong>{{service}}</strong></span>:
-                             <span >BHD {{makeupservicesData[subservice.id].price[service]}} for</span>
-                             <span >{{makeupservicesData[subservice.id].duration[service]}}</span>
-                             <!-- <span *ngIf="makeupservicesData[subservice.id]">{{makeupservicesData[subservice.id].servicetype}}
-                             </span> -->
-                          </div>
-                       </div>
+                          <div class="" *ngIf="makeupservicesData[subservice.id]">
+                            <div class="col-sm-12" *ngIf="makeupservicesData[subservice.id].homeprice">
+                              <span><strong>Home</strong></span>:
+                               <span >BHD {{makeupservicesData[subservice.id].price['Home']}} for</span>
+                               <span >{{makeupservicesData[subservice.id].duration['Home']}}</span>
+                               <!-- <span *ngIf="makeupservicesData[subservice.id]">{{makeupservicesData[subservice.id].servicetype}}
+                               </span> -->
+                            </div>
+                            <div class="col-sm-12" *ngIf="makeupservicesData[subservice.id].salonprice">
+                              <span><strong>Salon</strong></span>:
+                               <span >BHD {{makeupservicesData[subservice.id].price['Salon']}} for</span>
+                               <span >{{makeupservicesData[subservice.id].duration['Salon']}}</span>
+                               <!-- <span *ngIf="makeupservicesData[subservice.id]">{{makeupservicesData[subservice.id].servicetype}}
+                               </span> -->
+                            </div>
+                            <div class="col-sm-12" *ngIf="makeupservicesData[subservice.id].gccprice">
+                              <span><strong>GCC</strong></span>:
+                               <span >BHD {{makeupservicesData[subservice.id].price['GCC']}} for</span>
+                               <span >{{makeupservicesData[subservice.id].duration['GCC']}}</span>
+                               <!-- <span *ngIf="makeupservicesData[subservice.id]">{{makeupservicesData[subservice.id].servicetype}}
+                               </span> -->
+                            </div>
+                         </div>
                       </div>                                        
                     </div>
                   </tab>
@@ -54,14 +68,29 @@
                          </h6>
                          <div class="clearfix"></div>
                          <div class="" *ngIf="hairservicesData[subservice.id]">
-                            <div class="col-sm-12" *ngFor="let service of hairservicesData[subservice.id].servicetype">
-                            <span><strong>{{service}}</strong></span>:
-                             <span >BHD {{hairservicesData[subservice.id].price[service]}} for</span>
-                             <span >{{hairservicesData[subservice.id].duration[service]}}</span>
-                             <!-- <span *ngIf="hairservicesData[subservice.id]">{{hairservicesData[subservice.id].servicetype}}
-                             </span> -->
-                          </div>
-                       </div>                                              
+                            <div class="col-sm-12" *ngIf="hairservicesData[subservice.id].homeprice">
+                              <span><strong>Home</strong></span>:
+                               <span >BHD {{hairservicesData[subservice.id].price['Home']}} for</span>
+                               <span >{{hairservicesData[subservice.id].duration['Home']}}</span>
+                               <!-- <span *ngIf="hairservicesData[subservice.id]">{{hairservicesData[subservice.id].servicetype}}
+                               </span> -->
+                            </div>
+                            <div class="col-sm-12" *ngIf="hairservicesData[subservice.id].salonprice">
+                              <span><strong>Salon</strong></span>:
+                               <span >BHD {{hairservicesData[subservice.id].price['Salon']}} for</span>
+                               <span >{{hairservicesData[subservice.id].duration['Salon']}}</span>
+                               <!-- <span *ngIf="hairservicesData[subservice.id]">{{hairservicesData[subservice.id].servicetype}}
+                               </span> -->
+                            </div>
+                            <div class="col-sm-12" *ngIf="hairservicesData[subservice.id].gccprice" >
+                              <span><strong>GCC</strong></span>:
+                               <span >BHD {{hairservicesData[subservice.id].price['GCC']}} for</span>
+                               <span >{{hairservicesData[subservice.id].duration['GCC']}}</span>
+                               <!-- <span *ngIf="hairservicesData[subservice.id]">{{hairservicesData[subservice.id].servicetype}}
+                               </span> -->
+                            </div>
+                         </div>
+                                             
                       </div>                                        
                     </div>
                   </tab>
@@ -95,8 +124,8 @@
                           <th><mfDefaultSorter by="startfrom">Start From</mfDefaultSorter></th>
                           <th><mfDefaultSorter by="endon">End On</mfDefaultSorter></th>
                           <th><mfDefaultSorter by="location">Location</mfDefaultSorter></th>
-                          <th><mfDefaultSorter by="timeslotFrom">Timeslot From</mfDefaultSorter></th>
-                          <th><mfDefaultSorter by="timeslotTo">Timeslot To</mfDefaultSorter></th>
+                          <th><mfDefaultSorter by="timeslotFrom">Time</mfDefaultSorter></th>
+                          <th><mfDefaultSorter by="timeslotTo">Guests No.</mfDefaultSorter></th>
                           <th>Action</th>
                         </tr>
                       </thead>
@@ -111,8 +140,8 @@
                           <td>{{coursedetaildata[coursedetail.id].startfrom}}</td>
                           <td>{{coursedetaildata[coursedetail.id].endon}}</td>
                           <td>{{coursedetail.location}}</td>
-                          <td>{{coursedetail.timeslotFrom}}</td>
-                          <td>{{coursedetail.timeslotTo}}</td>
+                          <td>{{coursedetail.timeslotFrom}} - {{coursedetail.timeslotTo}}</td>
+                          <td>{{coursedetail.guestno}}</td>
                           <td>
                             <button class="btn btn-sm btn-outline-primary" type="button"  data-toggle="modal" (click)="updateCourseModal.show()"  ><span class="fa fa-pencil"></span></button>
                                 <button class="btn btn-sm btn-outline-primary" type="button" (click)="delcoursedata(coursedetail.id)" ><span class="fa fa-trash"></span></button>
@@ -139,7 +168,7 @@
                                       <div class="input-group-prepend">
                                         <span class="input-group-text">BHD</span>
                                       </div>
-                                                <input class="form-control" name="courseprice" type="text"  [(ngModel)]="coursedetail.price"  value="{{coursedetail.price}}" required placeholder="e.g. 1200" >
+                                                <input class="form-control" name="courseprice" type="text"  [(ngModel)]="coursedetail.price" pattern="^(0|[1-9][0-9]*)$"  value="{{coursedetail.price}}" required placeholder="e.g. 1200" >
                                               </div>
                                           </div>
                                       </div>
@@ -152,11 +181,11 @@
                                       <div class="form-group row" >
                                           <div class="col-md-6">                                    
                                             <label>Start From </label>
-                                            <input class="form-control" name="coursestartfrom" type="text"  [(ngModel)]="coursedetail.startfrom" value="{{coursedetail.startfrom}}"  placeholder="Start From" required readonly #sdp="bsDatepicker" bsDatepicker >
+                                            <input class="form-control" name="coursestartfrom" type="text"  [(ngModel)]="coursedetail.startfrom" [minDate]="today"  value="{{coursedetail.startfrom}}"  placeholder="Start From" required readonly #sdp="bsDatepicker" bsDatepicker >
                                     </div>                            
                                           <div class="col-md-6">                                    
                                             <label>End On </label>
-                                            <input class="form-control" name="courseendon" type="text"  [(ngModel)]="coursedetail.endon" value="{{coursedetail.endon}}" placeholder="End On" required readonly #edp="bsDatepicker" bsDatepicker >
+                                            <input class="form-control" name="courseendon" type="text"  [(ngModel)]="coursedetail.endon" [minDate]="today"  value="{{coursedetail.endon}}" placeholder="End On" required readonly #edp="bsDatepicker" bsDatepicker >
                                     </div>
                                 </div>
                                       <div class="form-group row" >
@@ -166,12 +195,12 @@
                                     </div>                            
                                           <div class="col-md-6">                                    
                                             <label>No. of Guests </label>
-                                            <input class="form-control" name="courseguestno" type="text"  [(ngModel)]="coursedetail.guestno"  value="{{coursedetail.guestno}}" required placeholder="No. of guests" >
+                                            <input class="form-control" name="courseguestno" type="text"  [(ngModel)]="coursedetail.guestno" pattern="^(0|[1-9][0-9]*)$" value="{{coursedetail.guestno}}" required placeholder="No. of guests" >
                                     </div>
                                 </div>      
                                 <div class="form-group row" >                               
                                           <div class="col-md-6">                                    
-                                            <label>Time From </label> 
+                                            <label>Time</label> 
 
                                              <!-- <timepicker [(ngModel)]="coursedetail.timeslotFrom" (change)="changed()" [hourStep]="hstep" [minuteStep]="mstep" required [showMeridian]="ismeridian" [readonlyInput]="!isEnabled"></timepicker> -->
                                              <select class="form-control" name="coursetimeslotFrom" [(ngModel)]="coursedetail.timeslotFrom" required >
@@ -275,7 +304,7 @@
                                 </select>
                                            </div>
                                            <div class="col-md-6">
-                                            <label>Time Slot To</label>
+                                            <label>&nbsp;</label>
                                             <!-- <timepicker [(ngModel)]="coursedetail.timeslotTo" (change)="changed()" [hourStep]="hstep" [minuteStep]="mstep" [showMeridian]="ismeridian" required [readonlyInput]="!isEnabled"></timepicker> -->
                                             <select class="form-control" name="oursetimeslotTo" [(ngModel)]="coursedetail.timeslotTo" required >
                                   <option value=''>Select From Time</option>
@@ -427,7 +456,7 @@
                               <div class="input-group-prepend">
                                 <span class="input-group-text">BHD</span>
                               </div>
-                                        <input class="form-control" name="price" type="text"  [(ngModel)]="course.price" required  placeholder="e.g. 1200" >
+                                        <input class="form-control" name="price" pattern="^(0|[1-9][0-9]*)$" type="text"  [(ngModel)]="course.price" required  placeholder="e.g. 1200" >
                                       </div>
                                   </div>
                               </div>
@@ -440,11 +469,11 @@
                               <div class="form-group row" >
                                   <div class="col-md-6">                                    
                                     <label>Start From </label>
-                                    <input class="form-control" name="startfrom" type="text"  [(ngModel)]="course.startfrom"  placeholder="Start From" required readonly #sdp="bsDatepicker" bsDatepicker [(bsValue)]="bsStartValue">
+                                    <input class="form-control" name="startfrom" type="text"  [(ngModel)]="course.startfrom" [minDate]="today"   placeholder="Start From" required readonly #sdp="bsDatepicker" bsDatepicker [(bsValue)]="bsStartValue">
                             </div>                            
                                   <div class="col-md-6">                                    
                                     <label>End On </label>
-                                    <input class="form-control" name="endon" type="text"  [(ngModel)]="course.endon"  placeholder="End On" required readonly #edp="bsDatepicker" bsDatepicker [(bsValue)]="bsEndValue">
+                                    <input class="form-control" [minDate]="today"  name="endon" type="text"  [(ngModel)]="course.endon"  placeholder="End On" required readonly #edp="bsDatepicker" bsDatepicker [(bsValue)]="bsEndValue">
                             </div>
                         </div>
                               <div class="form-group row" >
@@ -454,12 +483,12 @@
                             </div>                            
                                   <div class="col-md-6">                                    
                                     <label>No. of Guests </label>
-                                    <input class="form-control" name="courseguestno" type="text"  [(ngModel)]="course.guestno"  required placeholder="No. of guests" >
+                                    <input class="form-control" name="courseguestno" type="text"  [(ngModel)]="course.guestno" pattern="^(0|[1-9][0-9]*)$" required placeholder="No. of guests" >
                             </div>
                         </div>                        
                         <div class="form-group row" >                         
                                   <div class="col-md-6">                                    
-                                    <label>Time: From </label>                                    
+                                    <label>Time</label>                                    
                                     <!-- <input class="form-control" name="timeslotFrom" type="text"  [(ngModel)]="course.timeslotFrom"  value="" placeholder="From" > -->
 
                                     <!-- <timepicker [(ngModel)]="course.timeslotFrom" (change)="changed()" [hourStep]="hstep" [minuteStep]="mstep" [showMeridian]="ismeridian" required [readonlyInput]="!isEnabled"></timepicker> -->
@@ -565,7 +594,7 @@
                         </select>
                                   </div>
                                   <div class="col-md-6">
-                                    <label>Time: To</label>
+                                    <label>&nbsp;</label>
                                    <!--  <input class="form-control" name="timeslotTo" type="text"  [(ngModel)]="course.timeslotTo"  value="" placeholder="To" > -->
 
                     <!-- <timepicker [(ngModel)]="course.timeslotTo" (change)="changed()" [hourStep]="hstep" [minuteStep]="mstep" [showMeridian]="ismeridian" required [readonlyInput]="!isEnabled"></timepicker> -->

@@ -29,28 +29,49 @@ const routes: Routes = [
 			path: 'work/addartistworking',
 			component: AddartistavailComponent,
 			data: {
-			  title: "Add/Edit Working Availability"
+			  title: "Add Working Availability"
+			}
+		},
+		{
+			path: 'work/editartistworking/:id',
+			component: AddartistavailComponent,
+			data: {
+			  title: "Edit Working Availability"
 			}
 		},
 		{
 			path: 'work/addartistweekend',
 			component: AddartistavailComponent,
 			data: {
-			  title: "Add/Edit Weekend Availability"
+			  title: "Add Weekend Availability"
+			}
+		},
+		{
+			path: 'work/editartistweekend/:id',
+			component: AddartistavailComponent,
+			data: {
+			  title: "Edit Weekend Availability"
 			}
 		},
 		{
 			path: 'work/addartistspecificdate',
 			component: AddartistavailComponent,
 			data: {
-			  title: "Add/Edit Availability on Specific Date"
+			  title: "Add Availability on Specific Date"
+			}
+		},
+		{
+			path: 'work/editartistspecificdate/:id',
+			component: AddartistavailComponent,
+			data: {
+			  title: "Edit Availability on Specific Date"
 			}
 		},
 		{
 			path: 'work/addartistbreak/:scheduletype',
 			component: AddartistavailComponent,
 			data: {
-			  title: "Add/Edit Break"
+			  title: "Add Break"
 			}
 		},
 		{
@@ -64,7 +85,14 @@ const routes: Routes = [
 			path: 'vacation/addartistvacation',
 			component: AddartistvacationComponent,
 			data: {
-			  title: "Add/Edit Vacation Time"
+			  title: "Add Vacation Time"
+			}
+		},
+		{
+			 path: 'vacation/editartistvacation/:id',
+			component: AddartistvacationComponent,
+			data: {
+			  title: "Edit Vacation Time"
 			}
 		},
 		{
@@ -78,7 +106,14 @@ const routes: Routes = [
 			path: 'gcc/addartistgcc',
 			component: AddartistgccComponent,
 			data: {
-			  title: "Add/Edit GCC Availability"
+			  title: "Add GCC Availability"
+			}
+		},
+		{
+			 path: 'gcc/editartistgcc/:id',
+			component: AddartistgccComponent,
+			data: {
+			  title: "Edit GCC Availability"
 			}
 		},
 		{

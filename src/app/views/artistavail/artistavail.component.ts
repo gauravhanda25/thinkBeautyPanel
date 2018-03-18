@@ -101,10 +101,6 @@ export class ArtistavailComponent {
           this.workingAvail = 0;
           this.weekendAvail = 0;
           this.dateAvail = 0; 
-          this.workingBreakData = [];
-          this.weekendBreakData = [];
-          this.workingBreakAvail = 0;
-          this.weekendBreakAvail = 0;
 
           for(let index in this.availData){ 
             if(this.availData[index].days == "working") {
@@ -116,15 +112,12 @@ export class ArtistavailComponent {
               this.workingData.hoursfrom = this.availData[index].hoursfrom;
               this.workingData.hoursto =  this.availData[index].hoursto; 
 
-              if(this.availData[index].breakfrom != '' && this.availData[index].breakto != '') {
-                this.workingBreakAvail = 1; 
-                this.workingBreakData.id = this.availData[index].id;
-               // this.workingBreakData.breakfrom = moment(this.availData[index].breakfrom).format("hh:mm A");
-               // this.workingBreakData.breakto =  moment(this.availData[index].breakto).format("hh:mm A"); 
+               // this.workingData.breakfrom = moment(this.availData[index].breakfrom).format("hh:mm A");
+               // this.workingData.breakto =  moment(this.availData[index].breakto).format("hh:mm A"); 
 
-                this.workingBreakData.breakfrom = this.availData[index].breakfrom;
-                this.workingBreakData.breakto =  this.availData[index].breakto; 
-                }
+                this.workingData.breakfrom = this.availData[index].breakfrom;
+                this.workingData.breakto =  this.availData[index].breakto; 
+
             } else if(this.availData[index].days == "weekend") {
               this.weekendAvail = 1;                  
               this.weekendData.id = this.availData[index].id;
@@ -134,16 +127,14 @@ export class ArtistavailComponent {
               this.weekendData.hoursfrom = this.availData[index].hoursfrom;
               this.weekendData.hoursto =  this.availData[index].hoursto; 
 
-              if(this.availData[index].breakfrom != '' && this.availData[index].breakto != '') {
-                this.weekendBreakAvail = 1; 
-                this.weekendBreakData.id = this.availData[index].id;
-               // this.weekendBreakData.breakfrom = moment(this.availData[index].breakfrom).format("hh:mm A");
-               // this.weekendBreakData.breakto =  moment(this.availData[index].breakto).format("hh:mm A"); 
+              
+               // this.weekendData.breakfrom = moment(this.availData[index].breakfrom).format("hh:mm A");
+               // this.weekendData.breakto =  moment(this.availData[index].breakto).format("hh:mm A"); 
 
 
-                this.weekendBreakData.breakfrom = this.availData[index].breakfrom;
-                this.weekendBreakData.breakto =  this.availData[index].breakto; 
-              }
+                this.weekendData.breakfrom = this.availData[index].breakfrom;
+                this.weekendData.breakto =  this.availData[index].breakto; 
+                
             } else if(this.availData[index].days == "specificDate") {     
               this.dateAvail = 1;  
               this.specificData[i] = [];   
@@ -155,6 +146,8 @@ export class ArtistavailComponent {
 
               this.specificData[i].hoursfrom = this.availData[index].hoursfrom;
               this.specificData[i].hoursto =  this.availData[index].hoursto; 
+              this.specificData[i].breakfrom = this.availData[index].breakfrom;
+              this.specificData[i].breakto =  this.availData[index].breakto; 
 
               i=i+1;
             }   
@@ -175,12 +168,15 @@ export class ArtistavailComponent {
       options.headers = new Headers();
       options.headers.append('Content-Type', 'application/json');
       options.headers.append('Accept', 'application/json');
-      this.http.delete(API_URL+'/Artistavailabilities/'+id+'?access_token='+ localStorage.getItem('currentUserToken'), options)
-      .subscribe(response => {
-        this.getAllAvailData();
-      }, error => {
-          console.log(JSON.stringify(error.json()));
-      });
+
+      if(confirm("Are you sure?")) {
+        this.http.delete(API_URL+'/Artistavailabilities/'+id+'?access_token='+ localStorage.getItem('currentUserToken'), options)
+        .subscribe(response => {
+          this.getAllAvailData();
+        }, error => {
+            console.log(JSON.stringify(error.json()));
+        });
+      }
 
     }
 }

@@ -22,7 +22,9 @@
                      </select>
                   </td>
                     <td>{{data.starton}} - {{data.endon}} </td>
-                    <td><button class="btn btn-sm btn-primary" href="#" (click)="resetAvail(data.id)" style="margin-bottom:5px">Reset GCC Availability</button></td>
+                    <td>
+                      <a class="btn btn-sm btn-outline-primary" href="#" routerLink="editartistgcc/{{data.id}}" style="margin-bottom:5px"><span class="fa fa-pencil"></span></a>
+                      <button class="btn btn-sm btn-outline-primary"  (click)="resetAvail(data.id)" style="margin-bottom:5px"><span class="fa fa-trash"></span></button></td>
                 </tr>
             </table>
           </div>
