@@ -79,7 +79,7 @@ export class LoginComponent {
        }
       
       console.log(this.data);
-
+      const toast = this.toasterService.pop('success', 'Please wait', "Logging you in...")
 	    let options = new RequestOptions();
         options.headers = new Headers();
         options.headers.append('Content-Type', 'application/json');
@@ -114,12 +114,14 @@ export class LoginComponent {
               this.router.navigate(['dashboard']);
   				} else {
              	 //this.error = 1;
+               this.toasterService.clear(toast.toastId, toast.toastContainerId);
                this.toasterService.pop('error', 'Login Error ', "Username or password doesn't match!");
             		//console.log(this.error);
              	}
 			       
           }, error => {
               //this.error = 1;
+              this.toasterService.clear(toast.toastId, toast.toastContainerId);
               console.log(JSON.stringify(error.json()));
               if(error.json().isTrusted){
                 this.toasterService.pop('error', 'Login Error ', "API not working.");
