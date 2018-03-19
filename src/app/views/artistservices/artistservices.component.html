@@ -19,6 +19,13 @@
                       <div class=" col-md-4 service-card card-body">
                          <h6>{{subservice.name}}
                          </h6>
+
+
+                         <span class="pull-right">
+                            <button class="btn btn-sm btn-outline-primary" type="button" data-toggle="modal" (click)="makeupModal.show()" *ngIf="makeupservicesData[subservice.id] == ''"><span class="fa fa-plus"></span></button>
+                            <button class="btn btn-sm btn-outline-primary" type="button"  *ngIf="makeupservicesData[subservice.id] != ''" data-toggle="modal" (click)="makeupModal.show()"  ><span class="fa fa-pencil"></span></button>
+                            <button class="btn btn-sm btn-outline-primary" type="button"  *ngIf="makeupservicesData[subservice.id] != ''" (click)="delsubservicedata(makeupservicesData[subservice.id].id)" ><span class="fa fa-trash"></span></button>
+                         </span>
                          <div class="clearfix"></div>
 
                           <div class="" *ngIf="makeupservicesData[subservice.id]">
@@ -44,7 +51,328 @@
                                </span> -->
                             </div>
                          </div>
-                      </div>                                        
+                      </div> 
+                      <div bsModal #makeupModal="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                            <div class="modal-dialog modal-primary" role="document">
+                              <div class="modal-content">
+                                <div class="modal-body">
+                                  <h5>{{subservice.name}}</h5>  
+                                  <button type="button" class="btn btn-default pull-right closeModalButton" (click)="makeupModal.hide()" style="margin-right:5px;" >Cancel</button>                       
+                                </div>
+                                <div class="card-body" style="border-top:1px solid #c2cfd6;"> 
+                                  <tabset>
+                            <tab heading="Home"> 
+                                      <form class="form-horizontal ng-untouched ng-pristine ng-valid" novalidate="" #homeServiceForm="ngForm">
+                                      <!-- <div class="form-group row" *ngIf="makeupservicesData[subservice.id] == ''">
+                                        <div class="col-md-6">
+                                    <label>Service type<span class="text-danger">*</span></label> 
+                                    <ng-select class="bootstrap"  name="servicetype"  placeholder="Select Service Type"
+                                     [options]="servicetypes" [multiple]="true" 
+                                     [(ngModel)]="data.servicetype" required></ng-select>
+                                  </div>
+                                    </div> -->
+                                    <div *ngIf="makeupservicesData[subservice.id] == ''"><div class="form-group row" >
+
+                                        <div class="col-md-6" >
+                                          <label>DURATION</label>
+                                          <select class="form-control" name="homeduration" [(ngModel)]="data.homeduration" required>
+                                            <option value="">Duration</option>
+                                            <option value="15 mins">15 mins</option>
+                                            <option value="30 mins">30 mins</option>
+                                            <option value="45 mins">45 mins</option>
+                                            <option value="1 hr">1 hr</option>
+                                            <option value="1 hr 15 mins">1 hr 15 mins</option>
+                                            <option value="1 hr 30 mins">1 hr 30 mins</option>
+                                            <option value="1 hr 45 mins">1 hr 45 mins</option>
+                                            <option value="2 hrs">2 hrs</option>
+                                            <option value="2 hrs 15 mins">2 hrs 15 mins</option>
+                                            <option value="2 hrs 30 mins">2 hrs 30 mins</option>
+                                            <option value="2 hrs 45 mins">2 hrs 45 mins</option>
+                                            <option value="3 hrs">3 hrs</option>
+                                            <option value="3 hrs 15 mins">3 hrs 15 mins</option>
+                                            <option value="3 hrs 30 mins">3 hrs 30 mins</option>
+                                            <option value="3 hrs 45 mins">3 hrs 45 mins</option>
+                                            <option value="4 hrs">4 hrs</option>
+                                            <option value="5 hrs">5 hrs</option>
+                                            <option value="6 hrs">6 hrs</option>
+                                            <option value="7 hrs">7 hrs</option>
+                                            <option value="8 hrs">8 hrs</option>
+                                          </select>
+                                          <!-- <input class="form-control" name="duration" type="text"  [(ngModel)]="data.duration" placeholder="e.g. 12 mins OR 1 hrs"  > -->
+                                        </div>
+                                        <div class="col-md-6" >
+                                            <label>PRICE</label>
+                                            <div class="input-group">
+                                    <div class="input-group-prepend">
+                                      <span class="input-group-text">BHD</span>
+                                    </div>
+                                            <input class="form-control" name="homeprice" type="text"  [(ngModel)]="data.homeprice"  placeholder="e.g. 1200" pattern="^(0|[1-9][0-9]*)$" required>
+                                          </div>
+                                        </div>
+                              </div> </div>
+                                       <!-- <div class="form-group row" *ngIf="makeupservicesData[subservice.id] != ''">
+                                        <div class="col-md-6">
+                                    <label>Service type<span class="text-danger">*</span></label> 
+                                    <ng-select class="bootstrap"  name="servicetype"  placeholder="Select Service Type"  [options]="servicetypes" [multiple]="true" 
+                                     [(ngModel)]="makeupservicesData[subservice.id].servicetype"  required></ng-select>
+                                  </div>
+                                    </div> -->
+                                   <div *ngIf="makeupservicesData[subservice.id] != ''"> <div class="form-group row" >
+                                        <div class="col-md-6">
+                                          <label>DURATION</label>
+                                          <select class="form-control" name="homeduration"  [(ngModel)]="makeupservicesData[subservice.id].homeduration" required>
+                                            <option value="">Duration</option>
+                                            <option value="15 mins">15 mins</option>
+                                            <option value="30 mins">30 mins</option>
+                                            <option value="45 mins">45 mins</option>
+                                            <option value="1 hr">1 hr</option>
+                                            <option value="1 hr 15 mins">1 hr 15 mins</option>
+                                            <option value="1 hr 30 mins">1 hr 30 mins</option>
+                                            <option value="1 hr 45 mins">1 hr 45 mins</option>
+                                            <option value="2 hrs">2 hrs</option>
+                                            <option value="2 hrs 15 mins">2 hrs 15 mins</option>
+                                            <option value="2 hrs 30 mins">2 hrs 30 mins</option>
+                                            <option value="2 hrs 45 mins">2 hrs 45 mins</option>
+                                            <option value="3 hrs">3 hrs</option>
+                                            <option value="3 hrs 15 mins">3 hrs 15 mins</option>
+                                            <option value="3 hrs 30 mins">3 hrs 30 mins</option>
+                                            <option value="3 hrs 45 mins">3 hrs 45 mins</option>
+                                            <option value="4 hrs">4 hrs</option>
+                                            <option value="5 hrs">5 hrs</option>
+                                            <option value="6 hrs">6 hrs</option>
+                                            <option value="7 hrs">7 hrs</option>
+                                            <option value="8 hrs">8 hrs</option>
+                                          </select>
+                                         <!--  <input class="form-control" name="duration" type="text"  [(ngModel)]="makeupservicesData[subservice.id].duration" placeholder="e.g. 12 mins OR 1 hrs" value="{{makeupservicesData[subservice.id].duration}}" > -->
+                                        </div>
+                                        <div class="col-md-6">
+                                          <label>PRICE</label>
+                                            <div class="input-group">
+                                    <div class="input-group-prepend">
+                                      <span class="input-group-text">BHD</span>
+                                    </div>
+                                              <input class="form-control" name="homeprice" type="text"  [(ngModel)]="makeupservicesData[subservice.id].homeprice"  value="{{makeupservicesData[subservice.id].homeprice}}" placeholder="e.g. 1200" pattern="^(0|[1-9][0-9]*)$" required>
+                                            </div>
+                                        </div>
+                                      </div> </div>
+                                      <div class="form-group row">
+                                        <div class="col-md-12">     
+                                          <button class="btn btn-primary pull-right" type="button" (click)="savesubservicedata(subservice.id,1,'home')" [disabled] = "!homeServiceForm.form.valid" style="margin-right:5px;" *ngIf="makeupservicesData[subservice.id]== ''" >Save</button> 
+                                          <button class="btn btn-primary pull-right" type="button" (click)="updatesubservicedata(makeupservicesData[subservice.id],'home')" style="margin-right:5px;" *ngIf="makeupservicesData[subservice.id] != ''" [disabled] = "!homeServiceForm.form.valid" >Update</button>       
+                                        </div>
+                                      </div>
+                                  </form>
+                              </tab>
+                              <tab heading="Salon"> 
+                                      <form class="form-horizontal ng-untouched ng-pristine ng-valid" novalidate="" #salonServiceForm="ngForm">
+                                      <!-- <div class="form-group row" *ngIf="makeupservicesData[subservice.id] == ''">
+                                        <div class="col-md-6">
+                                    <label>Service type<span class="text-danger">*</span></label> 
+                                    <ng-select class="bootstrap"  name="servicetype"  placeholder="Select Service Type"
+                                     [options]="servicetypes" [multiple]="true" 
+                                     [(ngModel)]="data.servicetype" required></ng-select>
+                                  </div>
+                                    </div> -->
+                                    <div *ngIf="makeupservicesData[subservice.id] == ''"><div class="form-group row">
+
+                                        <div class="col-md-6" >
+                                          <label>DURATION</label>
+                                          <select class="form-control" name="salonduration" [(ngModel)]="data.salonduration" required>
+                                            <option value="">Duration</option>
+                                            <option value="15 mins">15 mins</option>
+                                            <option value="30 mins">30 mins</option>
+                                            <option value="45 mins">45 mins</option>
+                                            <option value="1 hr">1 hr</option>
+                                            <option value="1 hr 15 mins">1 hr 15 mins</option>
+                                            <option value="1 hr 30 mins">1 hr 30 mins</option>
+                                            <option value="1 hr 45 mins">1 hr 45 mins</option>
+                                            <option value="2 hrs">2 hrs</option>
+                                            <option value="2 hrs 15 mins">2 hrs 15 mins</option>
+                                            <option value="2 hrs 30 mins">2 hrs 30 mins</option>
+                                            <option value="2 hrs 45 mins">2 hrs 45 mins</option>
+                                            <option value="3 hrs">3 hrs</option>
+                                            <option value="3 hrs 15 mins">3 hrs 15 mins</option>
+                                            <option value="3 hrs 30 mins">3 hrs 30 mins</option>
+                                            <option value="3 hrs 45 mins">3 hrs 45 mins</option>
+                                            <option value="4 hrs">4 hrs</option>
+                                            <option value="5 hrs">5 hrs</option>
+                                            <option value="6 hrs">6 hrs</option>
+                                            <option value="7 hrs">7 hrs</option>
+                                            <option value="8 hrs">8 hrs</option>
+                                          </select>
+                                          <!-- <input class="form-control" name="duration" type="text"  [(ngModel)]="data.duration" placeholder="e.g. 12 mins OR 1 hrs"  > -->
+                                        </div>
+                                        <div class="col-md-6" >
+                                            <label>PRICE </label>
+                                            <div class="input-group">
+                                    <div class="input-group-prepend">
+                                      <span class="input-group-text">BHD</span>
+                                    </div>
+                                            <input class="form-control" name="salonprice" type="text"  [(ngModel)]="data.salonprice"  placeholder="e.g. 1200" pattern="^(0|[1-9][0-9]*)$" required>
+                                          </div>
+                                        </div>
+                              </div> </div>
+                                       <!-- <div class="form-group row" *ngIf="makeupservicesData[subservice.id] != ''">
+                                        <div class="col-md-6">
+                                    <label>Service type<span class="text-danger">*</span></label> 
+                                    <ng-select class="bootstrap"  name="servicetype"  placeholder="Select Service Type"  [options]="servicetypes" [multiple]="true" 
+                                     [(ngModel)]="makeupservicesData[subservice.id].servicetype"  required></ng-select>
+                                  </div>
+                                    </div> -->
+                                   <div *ngIf="makeupservicesData[subservice.id] != ''"> <div class="form-group row" >
+                                        <div class="col-md-6">
+                                          <label>DURATION</label>
+                                          <select class="form-control" name="salonduration"  [(ngModel)]="makeupservicesData[subservice.id].salonduration" required>
+                                            <option value="">Duration</option>
+                                            <option value="15 mins">15 mins</option>
+                                            <option value="30 mins">30 mins</option>
+                                            <option value="45 mins">45 mins</option>
+                                            <option value="1 hr">1 hr</option>
+                                            <option value="1 hr 15 mins">1 hr 15 mins</option>
+                                            <option value="1 hr 30 mins">1 hr 30 mins</option>
+                                            <option value="1 hr 45 mins">1 hr 45 mins</option>
+                                            <option value="2 hrs">2 hrs</option>
+                                            <option value="2 hrs 15 mins">2 hrs 15 mins</option>
+                                            <option value="2 hrs 30 mins">2 hrs 30 mins</option>
+                                            <option value="2 hrs 45 mins">2 hrs 45 mins</option>
+                                            <option value="3 hrs">3 hrs</option>
+                                            <option value="3 hrs 15 mins">3 hrs 15 mins</option>
+                                            <option value="3 hrs 30 mins">3 hrs 30 mins</option>
+                                            <option value="3 hrs 45 mins">3 hrs 45 mins</option>
+                                            <option value="4 hrs">4 hrs</option>
+                                            <option value="5 hrs">5 hrs</option>
+                                            <option value="6 hrs">6 hrs</option>
+                                            <option value="7 hrs">7 hrs</option>
+                                            <option value="8 hrs">8 hrs</option>
+                                          </select>
+                                         <!--  <input class="form-control" name="duration" type="text"  [(ngModel)]="makeupservicesData[subservice.id].duration" placeholder="e.g. 12 mins OR 1 hrs" value="{{makeupservicesData[subservice.id].duration}}" > -->
+                                        </div>
+                                        <div class="col-md-6">
+                                          <label>PRICE</label>
+                                            <div class="input-group">
+                                    <div class="input-group-prepend">
+                                      <span class="input-group-text">BHD</span>
+                                    </div>
+                                              <input class="form-control" name="salonprice" type="text"  [(ngModel)]="makeupservicesData[subservice.id].salonprice"  value="{{makeupservicesData[subservice.id].salonprice}}" placeholder="e.g. 1200" pattern="^(0|[1-9][0-9]*)$" required>
+                                            </div>
+                                        </div>
+                                      </div> </div>
+
+                                      <div class="form-group row">
+                                        <div class="col-md-12">     
+                                          <button class="btn btn-primary pull-right" type="button" (click)="savesubservicedata(subservice.id,1,'salon')" [disabled] = "!salonServiceForm.form.valid" style="margin-right:5px;" *ngIf="makeupservicesData[subservice.id]== ''" >Save</button> 
+                                          <button class="btn btn-primary pull-right" type="button" (click)="updatesubservicedata(makeupservicesData[subservice.id],'salon')" style="margin-right:5px;" *ngIf="makeupservicesData[subservice.id] != ''" [disabled] = "!salonServiceForm.form.valid" >Update</button>       
+                                        </div>
+                                      </div>
+                                  </form>
+                              </tab>
+                              <tab heading="GCC"> 
+                                      <form class="form-horizontal ng-untouched ng-pristine ng-valid" novalidate="" #gccServiceForm="ngForm">
+                                      <!-- <div class="form-group row" *ngIf="makeupservicesData[subservice.id] == ''">
+                                        <div class="col-md-6">
+                                    <label>Service type<span class="text-danger">*</span></label> 
+                                    <ng-select class="bootstrap"  name="servicetype"  placeholder="Select Service Type"
+                                     [options]="servicetypes" [multiple]="true" 
+                                     [(ngModel)]="data.servicetype" required></ng-select>
+                                  </div>
+                                    </div> -->
+                                    <div *ngIf="makeupservicesData[subservice.id] == ''"><div class="form-group row">
+
+                                        <div class="col-md-6" >
+                                          <label>DURATION</label>
+                                          <select class="form-control" name="gccduration" [(ngModel)]="data.gccduration" required>
+                                            <option value="">Duration</option>
+                                            <option value="15 mins">15 mins</option>
+                                            <option value="30 mins">30 mins</option>
+                                            <option value="45 mins">45 mins</option>
+                                            <option value="1 hr">1 hr</option>
+                                            <option value="1 hr 15 mins">1 hr 15 mins</option>
+                                            <option value="1 hr 30 mins">1 hr 30 mins</option>
+                                            <option value="1 hr 45 mins">1 hr 45 mins</option>
+                                            <option value="2 hrs">2 hrs</option>
+                                            <option value="2 hrs 15 mins">2 hrs 15 mins</option>
+                                            <option value="2 hrs 30 mins">2 hrs 30 mins</option>
+                                            <option value="2 hrs 45 mins">2 hrs 45 mins</option>
+                                            <option value="3 hrs">3 hrs</option>
+                                            <option value="3 hrs 15 mins">3 hrs 15 mins</option>
+                                            <option value="3 hrs 30 mins">3 hrs 30 mins</option>
+                                            <option value="3 hrs 45 mins">3 hrs 45 mins</option>
+                                            <option value="4 hrs">4 hrs</option>
+                                            <option value="5 hrs">5 hrs</option>
+                                            <option value="6 hrs">6 hrs</option>
+                                            <option value="7 hrs">7 hrs</option>
+                                            <option value="8 hrs">8 hrs</option>
+                                          </select>
+                                          <!-- <input class="form-control" name="duration" type="text"  [(ngModel)]="data.duration" placeholder="e.g. 12 mins OR 1 hrs"  > -->
+                                        </div>
+                                        <div class="col-md-6" >
+                                            <label>PRICE</label>
+                                            <div class="input-group">
+                                    <div class="input-group-prepend">
+                                      <span class="input-group-text">BHD</span>
+                                    </div>
+                                            <input class="form-control" name="gccprice" type="text"  [(ngModel)]="data.gccprice" pattern="^(0|[1-9][0-9]*)$" placeholder="e.g. 1200" required>
+                                          </div>
+                                        </div>
+                              </div> </div>
+                                       <!-- <div class="form-group row" *ngIf="makeupservicesData[subservice.id] != ''">
+                                        <div class="col-md-6">
+                                    <label>Service type<span class="text-danger">*</span></label> 
+                                    <ng-select class="bootstrap"  name="servicetype"  placeholder="Select Service Type"  [options]="servicetypes" [multiple]="true" 
+                                     [(ngModel)]="makeupservicesData[subservice.id].servicetype"  required></ng-select>
+                                  </div>
+                                    </div> -->
+                                   <div *ngIf="makeupservicesData[subservice.id] != ''"> <div class="form-group row" >
+                                        <div class="col-md-6">
+                                          <label>DURATION </label>
+                                          <select class="form-control" name="gccduration"  [(ngModel)]="makeupservicesData[subservice.id].gccduration" required>
+                                            <option value="">Duration</option>
+                                            <option value="15 mins">15 mins</option>
+                                            <option value="30 mins">30 mins</option>
+                                            <option value="45 mins">45 mins</option>
+                                            <option value="1 hr">1 hr</option>
+                                            <option value="1 hr 15 mins">1 hr 15 mins</option>
+                                            <option value="1 hr 30 mins">1 hr 30 mins</option>
+                                            <option value="1 hr 45 mins">1 hr 45 mins</option>
+                                            <option value="2 hrs">2 hrs</option>
+                                            <option value="2 hrs 15 mins">2 hrs 15 mins</option>
+                                            <option value="2 hrs 30 mins">2 hrs 30 mins</option>
+                                            <option value="2 hrs 45 mins">2 hrs 45 mins</option>
+                                            <option value="3 hrs">3 hrs</option>
+                                            <option value="3 hrs 15 mins">3 hrs 15 mins</option>
+                                            <option value="3 hrs 30 mins">3 hrs 30 mins</option>
+                                            <option value="3 hrs 45 mins">3 hrs 45 mins</option>
+                                            <option value="4 hrs">4 hrs</option>
+                                            <option value="5 hrs">5 hrs</option>
+                                            <option value="6 hrs">6 hrs</option>
+                                            <option value="7 hrs">7 hrs</option>
+                                            <option value="8 hrs">8 hrs</option>
+                                          </select>
+                                         <!--  <input class="form-control" name="duration" type="text"  [(ngModel)]="makeupservicesData[subservice.id].duration" placeholder="e.g. 12 mins OR 1 hrs" value="{{makeupservicesData[subservice.id].duration}}" > -->
+                                        </div>
+                                        <div class="col-md-6">
+                                          <label>PRICE </label>
+                                            <div class="input-group">
+                                    <div class="input-group-prepend">
+                                      <span class="input-group-text">BHD</span>
+                                    </div>
+                                              <input class="form-control" name="gccprice" type="text"  [(ngModel)]="makeupservicesData[subservice.id].gccprice"  value="{{makeupservicesData[subservice.id].gccprice}}" placeholder="e.g. 1200" pattern="^(0|[1-9][0-9]*)$" required>
+                                            </div>
+                                        </div>
+                                      </div></div> 
+                                      <div class="form-group row">
+                                        <div class="col-md-12">     
+                                          <button class="btn btn-primary pull-right" type="button" (click)="savesubservicedata(subservice.id,1,'gcc')" [disabled] = "!gccServiceForm.form.valid" style="margin-right:5px;" *ngIf="makeupservicesData[subservice.id]== ''" >Save</button> 
+                                          <button class="btn btn-primary pull-right" type="button" (click)="updatesubservicedata(makeupservicesData[subservice.id],'gcc')" style="margin-right:5px;" *ngIf="makeupservicesData[subservice.id] != ''" [disabled] = "!gccServiceForm.form.valid" >Update</button>    
+                                        </div>
+                                      </div>
+                                  </form>
+                              </tab>
+                          </tabset>
+                                </div>
+                              </div><!-- /.modal-content -->
+                            </div><!-- /.modal-dialog -->
+                          </div><!-- /.modal -->                                       
                     </div>
                   </tab>
                   <!-- <tab heading="Nails"> 
@@ -66,6 +394,13 @@
                       <div class=" col-md-4 service-card card-body"  >
                          <h6>{{subservice.name}} 
                          </h6>
+
+                         <span class="pull-right">
+                            <button class="btn btn-sm btn-outline-primary" type="button" data-toggle="modal" (click)="hairModal.show()" *ngIf="hairservicesData[subservice.id] == ''"><span class="fa fa-plus"></span></button>
+                            <button class="btn btn-sm btn-outline-primary" type="button"  *ngIf="hairservicesData[subservice.id] != ''" data-toggle="modal" (click)="hairModal.show()"  ><span class="fa fa-pencil"></span></button>
+                            <button class="btn btn-sm btn-outline-primary" type="button"  *ngIf="hairservicesData[subservice.id] != ''"  (click)="delsubservicedata(hairservicesData[subservice.id].id)" ><span class="fa fa-trash"></span></button>                            
+                         </span>
+
                          <div class="clearfix"></div>
                          <div class="" *ngIf="hairservicesData[subservice.id]">
                             <div class="col-sm-12" *ngIf="hairservicesData[subservice.id].homeprice">
@@ -89,9 +424,278 @@
                                <!-- <span *ngIf="hairservicesData[subservice.id]">{{hairservicesData[subservice.id].servicetype}}
                                </span> -->
                             </div>
-                         </div>
-                                             
-                      </div>                                        
+                         </div>                                             
+                      </div>  
+                      <div bsModal #hairModal="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                            <div class="modal-dialog modal-primary" role="document">
+                              <div class="modal-content">
+                                <div class="modal-body">
+                                  <h5>{{subservice.name}}</h5>
+                                  <button type="button" class="btn btn-default pull-right closeModalButton" (click)="hairModal.hide()" style="margin-right:5px;" >Cancel</button>                       
+                                </div>
+                                <div class="card-body" style="border-top:1px solid #c2cfd6;"> 
+                                  <tabset>
+                            <tab heading="Home"> 
+                                      <form class="form-horizontal ng-untouched ng-pristine ng-valid" novalidate="" #homeServiceForm="ngForm">
+                                    <div *ngIf="hairservicesData[subservice.id] == ''"><div class="form-group row" >
+
+                                        <div class="col-md-6" >
+                                          <label>DURATION</label>
+                                          <select class="form-control" name="homeduration" [(ngModel)]="data.homeduration" required>
+                                            <option value="">Duration</option>
+                                            <option value="15 mins">15 mins</option>
+                                            <option value="30 mins">30 mins</option>
+                                            <option value="45 mins">45 mins</option>
+                                            <option value="1 hr">1 hr</option>
+                                            <option value="1 hr 15 mins">1 hr 15 mins</option>
+                                            <option value="1 hr 30 mins">1 hr 30 mins</option>
+                                            <option value="1 hr 45 mins">1 hr 45 mins</option>
+                                            <option value="2 hrs">2 hrs</option>
+                                            <option value="2 hrs 15 mins">2 hrs 15 mins</option>
+                                            <option value="2 hrs 30 mins">2 hrs 30 mins</option>
+                                            <option value="2 hrs 45 mins">2 hrs 45 mins</option>
+                                            <option value="3 hrs">3 hrs</option>
+                                            <option value="3 hrs 15 mins">3 hrs 15 mins</option>
+                                            <option value="3 hrs 30 mins">3 hrs 30 mins</option>
+                                            <option value="3 hrs 45 mins">3 hrs 45 mins</option>
+                                            <option value="4 hrs">4 hrs</option>
+                                            <option value="5 hrs">5 hrs</option>
+                                            <option value="6 hrs">6 hrs</option>
+                                            <option value="7 hrs">7 hrs</option>
+                                            <option value="8 hrs">8 hrs</option>
+                                          </select>
+                                        </div>
+                                        <div class="col-md-6" >
+                                            <label>PRICE</label>
+                                            <div class="input-group">
+                                    <div class="input-group-prepend">
+                                      <span class="input-group-text">BHD</span>
+                                    </div>
+                                            <input class="form-control" name="homeprice" type="text"  [(ngModel)]="data.homeprice"  placeholder="e.g. 1200" pattern="^(0|[1-9][0-9]*)$" required>
+                                          </div>
+                                        </div>
+                              </div> </div>
+                                   <div *ngIf="hairservicesData[subservice.id] != ''"> <div class="form-group row" >
+                                        <div class="col-md-6">
+                                          <label>DURATION</label>
+                                          <select class="form-control" name="homeduration"  [(ngModel)]="hairservicesData[subservice.id].homeduration" required>
+                                            <option value="">Duration</option>
+                                            <option value="15 mins">15 mins</option>
+                                            <option value="30 mins">30 mins</option>
+                                            <option value="45 mins">45 mins</option>
+                                            <option value="1 hr">1 hr</option>
+                                            <option value="1 hr 15 mins">1 hr 15 mins</option>
+                                            <option value="1 hr 30 mins">1 hr 30 mins</option>
+                                            <option value="1 hr 45 mins">1 hr 45 mins</option>
+                                            <option value="2 hrs">2 hrs</option>
+                                            <option value="2 hrs 15 mins">2 hrs 15 mins</option>
+                                            <option value="2 hrs 30 mins">2 hrs 30 mins</option>
+                                            <option value="2 hrs 45 mins">2 hrs 45 mins</option>
+                                            <option value="3 hrs">3 hrs</option>
+                                            <option value="3 hrs 15 mins">3 hrs 15 mins</option>
+                                            <option value="3 hrs 30 mins">3 hrs 30 mins</option>
+                                            <option value="3 hrs 45 mins">3 hrs 45 mins</option>
+                                            <option value="4 hrs">4 hrs</option>
+                                            <option value="5 hrs">5 hrs</option>
+                                            <option value="6 hrs">6 hrs</option>
+                                            <option value="7 hrs">7 hrs</option>
+                                            <option value="8 hrs">8 hrs</option>
+                                          </select>
+                                        </div>
+                                        <div class="col-md-6">
+                                          <label>PRICE</label>
+                                            <div class="input-group">
+                                    <div class="input-group-prepend">
+                                      <span class="input-group-text">BHD</span>
+                                    </div>
+                                              <input class="form-control" name="homeprice" type="text"  [(ngModel)]="hairservicesData[subservice.id].homeprice"  value="{{hairservicesData[subservice.id].homeprice}}" placeholder="e.g. 1200" pattern="^(0|[1-9][0-9]*)$" required>
+                                            </div>
+                                        </div>
+                                      </div> </div>
+                                      <div class="form-group row">
+                                        <div class="col-md-12">     
+                                          <button class="btn btn-primary pull-right" type="button" (click)="savesubservicedata(subservice.id,1,'home')" [disabled] = "!homeServiceForm.form.valid" style="margin-right:5px;" *ngIf="hairservicesData[subservice.id]== ''" >Save</button> 
+                                          <button class="btn btn-primary pull-right" type="button" (click)="updatesubservicedata(hairservicesData[subservice.id],'home')" style="margin-right:5px;" *ngIf="hairservicesData[subservice.id] != ''" [disabled] = "!homeServiceForm.form.valid" >Update</button>       
+                                        </div>
+                                      </div>
+                                  </form>
+                              </tab>
+                              <tab heading="Salon"> 
+                                      <form class="form-horizontal ng-untouched ng-pristine ng-valid" novalidate="" #salonServiceForm="ngForm">
+                                    <div *ngIf="hairservicesData[subservice.id] == ''"><div class="form-group row">
+
+                                        <div class="col-md-6" >
+                                          <label>DURATION</label>
+                                          <select class="form-control" name="salonduration" [(ngModel)]="data.salonduration" required>
+                                            <option value="">Duration</option>
+                                            <option value="15 mins">15 mins</option>
+                                            <option value="30 mins">30 mins</option>
+                                            <option value="45 mins">45 mins</option>
+                                            <option value="1 hr">1 hr</option>
+                                            <option value="1 hr 15 mins">1 hr 15 mins</option>
+                                            <option value="1 hr 30 mins">1 hr 30 mins</option>
+                                            <option value="1 hr 45 mins">1 hr 45 mins</option>
+                                            <option value="2 hrs">2 hrs</option>
+                                            <option value="2 hrs 15 mins">2 hrs 15 mins</option>
+                                            <option value="2 hrs 30 mins">2 hrs 30 mins</option>
+                                            <option value="2 hrs 45 mins">2 hrs 45 mins</option>
+                                            <option value="3 hrs">3 hrs</option>
+                                            <option value="3 hrs 15 mins">3 hrs 15 mins</option>
+                                            <option value="3 hrs 30 mins">3 hrs 30 mins</option>
+                                            <option value="3 hrs 45 mins">3 hrs 45 mins</option>
+                                            <option value="4 hrs">4 hrs</option>
+                                            <option value="5 hrs">5 hrs</option>
+                                            <option value="6 hrs">6 hrs</option>
+                                            <option value="7 hrs">7 hrs</option>
+                                            <option value="8 hrs">8 hrs</option>
+                                          </select>
+                                        </div>
+                                        <div class="col-md-6" >
+                                            <label>PRICE </label>
+                                            <div class="input-group">
+                                    <div class="input-group-prepend">
+                                      <span class="input-group-text">BHD</span>
+                                    </div>
+                                            <input class="form-control" name="salonprice" type="text"  [(ngModel)]="data.salonprice"  placeholder="e.g. 1200" pattern="^(0|[1-9][0-9]*)$" required>
+                                          </div>
+                                        </div>
+                              </div> </div>
+                                   <div *ngIf="hairservicesData[subservice.id] != ''"> <div class="form-group row" >
+                                        <div class="col-md-6">
+                                          <label>DURATION</label>
+                                          <select class="form-control" name="salonduration"  [(ngModel)]="hairservicesData[subservice.id].salonduration" required>
+                                            <option value="">Duration</option>
+                                            <option value="15 mins">15 mins</option>
+                                            <option value="30 mins">30 mins</option>
+                                            <option value="45 mins">45 mins</option>
+                                            <option value="1 hr">1 hr</option>
+                                            <option value="1 hr 15 mins">1 hr 15 mins</option>
+                                            <option value="1 hr 30 mins">1 hr 30 mins</option>
+                                            <option value="1 hr 45 mins">1 hr 45 mins</option>
+                                            <option value="2 hrs">2 hrs</option>
+                                            <option value="2 hrs 15 mins">2 hrs 15 mins</option>
+                                            <option value="2 hrs 30 mins">2 hrs 30 mins</option>
+                                            <option value="2 hrs 45 mins">2 hrs 45 mins</option>
+                                            <option value="3 hrs">3 hrs</option>
+                                            <option value="3 hrs 15 mins">3 hrs 15 mins</option>
+                                            <option value="3 hrs 30 mins">3 hrs 30 mins</option>
+                                            <option value="3 hrs 45 mins">3 hrs 45 mins</option>
+                                            <option value="4 hrs">4 hrs</option>
+                                            <option value="5 hrs">5 hrs</option>
+                                            <option value="6 hrs">6 hrs</option>
+                                            <option value="7 hrs">7 hrs</option>
+                                            <option value="8 hrs">8 hrs</option>
+                                          </select>
+                                        </div>
+                                        <div class="col-md-6">
+                                          <label>PRICE</label>
+                                            <div class="input-group">
+                                    <div class="input-group-prepend">
+                                      <span class="input-group-text">BHD</span>
+                                    </div>
+                                              <input class="form-control" name="salonprice" type="text"  [(ngModel)]="hairservicesData[subservice.id].salonprice"  value="{{hairservicesData[subservice.id].salonprice}}" placeholder="e.g. 1200" pattern="^(0|[1-9][0-9]*)$" required>
+                                            </div>
+                                        </div>
+                                      </div> </div>
+
+                                      <div class="form-group row">
+                                        <div class="col-md-12">     
+                                          <button class="btn btn-primary pull-right" type="button" (click)="savesubservicedata(subservice.id,1,'salon')" [disabled] = "!salonServiceForm.form.valid" style="margin-right:5px;" *ngIf="hairservicesData[subservice.id]== ''" >Save</button> 
+                                          <button class="btn btn-primary pull-right" type="button" (click)="updatesubservicedata(hairservicesData[subservice.id],'salon')" style="margin-right:5px;" *ngIf="hairservicesData[subservice.id] != ''" [disabled] = "!salonServiceForm.form.valid" >Update</button>       
+                                        </div>
+                                      </div>
+                                  </form>
+                              </tab>
+                              <tab heading="GCC"> 
+                                      <form class="form-horizontal ng-untouched ng-pristine ng-valid" novalidate="" #gccServiceForm="ngForm">
+                                    <div *ngIf="hairservicesData[subservice.id] == ''"><div class="form-group row">
+
+                                        <div class="col-md-6" >
+                                          <label>DURATION</label>
+                                          <select class="form-control" name="gccduration" [(ngModel)]="data.gccduration" required>
+                                            <option value="">Duration</option>
+                                            <option value="15 mins">15 mins</option>
+                                            <option value="30 mins">30 mins</option>
+                                            <option value="45 mins">45 mins</option>
+                                            <option value="1 hr">1 hr</option>
+                                            <option value="1 hr 15 mins">1 hr 15 mins</option>
+                                            <option value="1 hr 30 mins">1 hr 30 mins</option>
+                                            <option value="1 hr 45 mins">1 hr 45 mins</option>
+                                            <option value="2 hrs">2 hrs</option>
+                                            <option value="2 hrs 15 mins">2 hrs 15 mins</option>
+                                            <option value="2 hrs 30 mins">2 hrs 30 mins</option>
+                                            <option value="2 hrs 45 mins">2 hrs 45 mins</option>
+                                            <option value="3 hrs">3 hrs</option>
+                                            <option value="3 hrs 15 mins">3 hrs 15 mins</option>
+                                            <option value="3 hrs 30 mins">3 hrs 30 mins</option>
+                                            <option value="3 hrs 45 mins">3 hrs 45 mins</option>
+                                            <option value="4 hrs">4 hrs</option>
+                                            <option value="5 hrs">5 hrs</option>
+                                            <option value="6 hrs">6 hrs</option>
+                                            <option value="7 hrs">7 hrs</option>
+                                            <option value="8 hrs">8 hrs</option>
+                                          </select>
+                                        </div>
+                                        <div class="col-md-6" >
+                                            <label>PRICE</label>
+                                            <div class="input-group">
+                                    <div class="input-group-prepend">
+                                      <span class="input-group-text">BHD</span>
+                                    </div>
+                                            <input class="form-control" name="gccprice" type="text"  [(ngModel)]="data.gccprice" pattern="^(0|[1-9][0-9]*)$"  placeholder="e.g. 1200" required>
+                                          </div>
+                                        </div>
+                              </div> </div>
+                                   <div *ngIf="hairservicesData[subservice.id] != ''"> <div class="form-group row" >
+                                        <div class="col-md-6">
+                                          <label>DURATION </label>
+                                          <select class="form-control" name="gccduration"  [(ngModel)]="hairservicesData[subservice.id].gccduration" required>
+                                            <option value="">Duration</option>
+                                            <option value="15 mins">15 mins</option>
+                                            <option value="30 mins">30 mins</option>
+                                            <option value="45 mins">45 mins</option>
+                                            <option value="1 hr">1 hr</option>
+                                            <option value="1 hr 15 mins">1 hr 15 mins</option>
+                                            <option value="1 hr 30 mins">1 hr 30 mins</option>
+                                            <option value="1 hr 45 mins">1 hr 45 mins</option>
+                                            <option value="2 hrs">2 hrs</option>
+                                            <option value="2 hrs 15 mins">2 hrs 15 mins</option>
+                                            <option value="2 hrs 30 mins">2 hrs 30 mins</option>
+                                            <option value="2 hrs 45 mins">2 hrs 45 mins</option>
+                                            <option value="3 hrs">3 hrs</option>
+                                            <option value="3 hrs 15 mins">3 hrs 15 mins</option>
+                                            <option value="3 hrs 30 mins">3 hrs 30 mins</option>
+                                            <option value="3 hrs 45 mins">3 hrs 45 mins</option>
+                                            <option value="4 hrs">4 hrs</option>
+                                            <option value="5 hrs">5 hrs</option>
+                                            <option value="6 hrs">6 hrs</option>
+                                            <option value="7 hrs">7 hrs</option>
+                                            <option value="8 hrs">8 hrs</option>
+                                          </select>
+                                        </div>
+                                        <div class="col-md-6">
+                                          <label>PRICE </label>
+                                            <div class="input-group">
+                                    <div class="input-group-prepend">
+                                      <span class="input-group-text">BHD</span>
+                                    </div>
+                                              <input class="form-control" name="gccprice" type="text"  [(ngModel)]="hairservicesData[subservice.id].gccprice" pattern="^(0|[1-9][0-9]*)$" value="{{hairservicesData[subservice.id].gccprice}}" placeholder="e.g. 1200" required>
+                                            </div>
+                                        </div>
+                                      </div></div> 
+                                      <div class="form-group row">
+                                        <div class="col-md-12">     
+                                          <button class="btn btn-primary pull-right" type="button" (click)="savesubservicedata(subservice.id,1,'gcc')" [disabled] = "!gccServiceForm.form.valid" style="margin-right:5px;" *ngIf="hairservicesData[subservice.id]== ''" >Save</button> 
+                                          <button class="btn btn-primary pull-right" type="button" (click)="updatesubservicedata(hairservicesData[subservice.id],'gcc')" style="margin-right:5px;" *ngIf="hairservicesData[subservice.id] != ''" [disabled] = "!gccServiceForm.form.valid" >Update</button>       
+                                        </div>
+                                      </div>
+                                  </form>
+                              </tab>
+                          </tabset>
+                                </div>
+                              </div><!-- /.modal-content -->
+                            </div><!-- /.modal-dialog -->
+                          </div><!-- /.modal -->                                      
                     </div>
                   </tab>
 
@@ -118,15 +722,15 @@
                     <table class="table table-striped" [mfData]="coursesData | dataFilter : filterQuery" #mf="mfDataTable" [mfRowsOnPage]="10" style="    margin: 0 -1.7rem;">
                       <thead >
                         <tr>
-                          <th><mfDefaultSorter by="name">Name</mfDefaultSorter></th>
+                          <th><mfDefaultSorter by="name">Course Name</mfDefaultSorter></th>
                           <th><mfDefaultSorter by="price">Price</mfDefaultSorter></th>
                           <th><mfDefaultSorter by="description">Description</mfDefaultSorter></th>
                           <th><mfDefaultSorter by="startfrom">Start From</mfDefaultSorter></th>
                           <th><mfDefaultSorter by="endon">End On</mfDefaultSorter></th>
                           <th><mfDefaultSorter by="location">Location</mfDefaultSorter></th>
-                          <th><mfDefaultSorter by="timeslotFrom">Time</mfDefaultSorter></th>
-                          <th><mfDefaultSorter by="timeslotTo">Guests No.</mfDefaultSorter></th>
-                          <th>Action</th>
+                          <th style="width:15%;"><mfDefaultSorter by="timeslotFrom">Time</mfDefaultSorter></th>
+                          <th ><mfDefaultSorter by="guestno">No. of Guests</mfDefaultSorter></th>
+                          <th  style="width:15%;">Action</th>
                         </tr>
                       </thead>
                       <tbody> 
@@ -135,7 +739,7 @@
                         </tr>
                         <tr *ngFor="let coursedetail of mf.data" >
                           <td>{{coursedetail.name}}</td>
-                          <td>{{coursedetail.price}}</td>
+                          <td>BHD {{coursedetail.price}}</td>
                           <td>{{coursedetail.description}}</td>
                           <td>{{coursedetaildata[coursedetail.id].startfrom}}</td>
                           <td>{{coursedetaildata[coursedetail.id].endon}}</td>
@@ -185,7 +789,7 @@
                                     </div>                            
                                           <div class="col-md-6">                                    
                                             <label>End On </label>
-                                            <input class="form-control" name="courseendon" type="text"  [(ngModel)]="coursedetail.endon" [minDate]="today"  value="{{coursedetail.endon}}" placeholder="End On" required readonly #edp="bsDatepicker" bsDatepicker >
+                                            <input class="form-control" name="courseendon" type="text"  [(ngModel)]="coursedetail.endon" [minDate]="coursedetail.startfrom"  value="{{coursedetail.endon}}" placeholder="End On" required readonly #edp="bsDatepicker" bsDatepicker >
                                     </div>
                                 </div>
                                       <div class="form-group row" >
@@ -204,7 +808,7 @@
 
                                              <!-- <timepicker [(ngModel)]="coursedetail.timeslotFrom" (change)="changed()" [hourStep]="hstep" [minuteStep]="mstep" required [showMeridian]="ismeridian" [readonlyInput]="!isEnabled"></timepicker> -->
                                              <select class="form-control" name="coursetimeslotFrom" [(ngModel)]="coursedetail.timeslotFrom" required >
-                                  <option value=''>Select From Time</option>
+                                  <option value=''>From</option>
                                   <option value="12:00am">12:00am</option>
                                   <option value="12:15am">12:15am</option>
                                   <option  value="12:30am">12:30am</option>
@@ -307,7 +911,7 @@
                                             <label>&nbsp;</label>
                                             <!-- <timepicker [(ngModel)]="coursedetail.timeslotTo" (change)="changed()" [hourStep]="hstep" [minuteStep]="mstep" [showMeridian]="ismeridian" required [readonlyInput]="!isEnabled"></timepicker> -->
                                             <select class="form-control" name="oursetimeslotTo" [(ngModel)]="coursedetail.timeslotTo" required >
-                                  <option value=''>Select From Time</option>
+                                  <option value=''>To</option>
                                   <option value="12:00am">12:00am</option>
                                   <option value="12:15am">12:15am</option>
                                   <option  value="12:30am">12:30am</option>
@@ -473,7 +1077,7 @@
                             </div>                            
                                   <div class="col-md-6">                                    
                                     <label>End On </label>
-                                    <input class="form-control" [minDate]="today"  name="endon" type="text"  [(ngModel)]="course.endon"  placeholder="End On" required readonly #edp="bsDatepicker" bsDatepicker [(bsValue)]="bsEndValue">
+                                    <input class="form-control" [minDate]="course.startfrom"  name="endon" type="text"  [(ngModel)]="course.endon"  placeholder="End On" required readonly #edp="bsDatepicker" bsDatepicker [(bsValue)]="bsEndValue">
                             </div>
                         </div>
                               <div class="form-group row" >
@@ -494,7 +1098,7 @@
                                     <!-- <timepicker [(ngModel)]="course.timeslotFrom" (change)="changed()" [hourStep]="hstep" [minuteStep]="mstep" [showMeridian]="ismeridian" required [readonlyInput]="!isEnabled"></timepicker> -->
 
                                     <select class="form-control" name="timeslotFrom" [(ngModel)]="course.timeslotFrom" required >
-                          <option value=''>Select From Time</option>
+                          <option value=''>From</option>
                           <option value="12:00am">12:00am</option>
                           <option value="12:15am">12:15am</option>
                           <option  value="12:30am">12:30am</option>
@@ -600,7 +1204,7 @@
                     <!-- <timepicker [(ngModel)]="course.timeslotTo" (change)="changed()" [hourStep]="hstep" [minuteStep]="mstep" [showMeridian]="ismeridian" required [readonlyInput]="!isEnabled"></timepicker> -->
 
                     <select class="form-control" name="timeslotTo" [(ngModel)]="course.timeslotTo" required >
-                          <option value=''>Select From Time</option>
+                          <option value=''>To</option>
                           <option value="12:00am">12:00am</option>
                           <option value="12:15am">12:15am</option>
                           <option  value="12:30am">12:30am</option>

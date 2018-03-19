@@ -75,7 +75,8 @@ export class AddartistgccComponent {
         endon: '',
        // endtime: '',
        gcclocation: '',
-    		artistId: localStorage.getItem('currentUserId')
+    		artistId: localStorage.getItem('currentUserId'),
+        createdon: new Date()
     	}
 
       this.editparam = {

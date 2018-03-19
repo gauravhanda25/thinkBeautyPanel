@@ -102,7 +102,8 @@ export class AddartistavailComponent {
         breakfrom: '',
         breakto: '',
         artistId: localStorage.getItem('currentUserId'),
-        date: ''
+        date: '',
+        createdon: new Date()
       }
 
 

@@ -7,10 +7,10 @@
         </div>
         <div class="card-body ">          
           <div class="col-md-6 pull-left">
-            <table class="table table-striped" >
+            <span  *ngIf = "noVacation == 1">No Vacation Scheduled.</span>
+            <table class="table table-striped" *ngIf = "noVacation == 0">
                 <tr>
                   <th>Vacation Period</th>
-                  <!-- <th>Break Time</th> -->
                   <th>Action</th>
                 </tr>
                 <tr *ngFor = "let data of vacationData">
@@ -22,7 +22,7 @@
             </table>
           </div>
           <div class="col-md-6 pull-right">
-             <a class="btn btn-large btn-primary pull-right" href="#" routerLink='addartistvacation' style="margin-bottom:5px"><i class="fa fa-user-plus"></i> Schedule Vacations</a>
+             <a class="btn btn-large btn-primary pull-right" href="#" routerLink='addartistvacation' style="margin-bottom:5px"><i class="fa fa-user-plus"></i> Add Vacation</a>
           </div>
         </div>
 

@@ -25,6 +25,7 @@ export class ArtistgccComponent {
 	private editparam: any;
   private gccData:any;
   private gcclocations:any;
+  private noGCC:any = 1;
 
   private serviceFor:any;
 
@@ -92,14 +93,19 @@ export class ArtistgccComponent {
       options.headers.append('Accept', 'application/json');
  
       this.gccData = [];
+      this.noGCC = 1;
 
-      this.http.get(API_URL+'/Artistgcc?filter={"where":{"and":[{"artistId":"'+localStorage.getItem('currentUserId')+'"}]}}&access_token='+ localStorage.getItem('currentUserToken'), options)
+      this.http.get(API_URL+'/Artistgcc?filter={"where":{"and":[{"artistId":"'+localStorage.getItem('currentUserId')+'"}]},"order":"createdon DESC"}&access_token='+ localStorage.getItem('currentUserToken'), options)
         .subscribe(response => {
           console.log(this.gccData = response.json());
 
-          for(let index in this.gccData){ 
-            this.gccData[index].starton = moment(this.gccData[index].starton).format("DD/MM/YYYY");
-            this.gccData[index].endon = moment(this.gccData[index].endon).format("DD/MM/YYYY");
+          if(response.json().length != 0) {
+            for(let index in this.gccData){ 
+              this.gccData[index].starton = moment(this.gccData[index].starton).format("DD/MM/YYYY");
+              this.gccData[index].endon = moment(this.gccData[index].endon).format("DD/MM/YYYY");
+            }
+
+            this.noGCC = 0;
           }
 
         }, error => {
@@ -113,7 +119,7 @@ export class ArtistgccComponent {
       options.headers.append('Content-Type', 'application/json');
       options.headers.append('Accept', 'application/json');
 
-      if(confirm("Are you sure?")){
+      if(confirm("Are you sure you want to remove this GCC availability?")){
         this.http.delete(API_URL+'/Artistgcc/'+id+'?access_token='+ localStorage.getItem('currentUserToken'), options)
         .subscribe(response => {
           this.getAllgccData();

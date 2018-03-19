@@ -91,7 +91,7 @@ export class ArtistavailComponent {
         options.headers.append('Content-Type', 'application/json');
         options.headers.append('Accept', 'application/json');
 
-    	   this.http.get(API_URL+'/Artistavailabilities?filter={"where":{"and":[{"artistId":"'+localStorage.getItem('currentUserId')+'"}]}}&access_token='+ localStorage.getItem('currentUserToken'), options)
+    	   this.http.get(API_URL+'/Artistavailabilities?filter={"where":{"and":[{"artistId":"'+localStorage.getItem('currentUserId')+'"}]},"order":"createdon DESC"}&access_token='+ localStorage.getItem('currentUserToken'), options)
         .subscribe(response => {
         	console.log(this.availData = response.json());
 
@@ -169,7 +169,7 @@ export class ArtistavailComponent {
       options.headers.append('Content-Type', 'application/json');
       options.headers.append('Accept', 'application/json');
 
-      if(confirm("Are you sure?")) {
+      if(confirm("Are you sure you want to remove this availability?")) {
         this.http.delete(API_URL+'/Artistavailabilities/'+id+'?access_token='+ localStorage.getItem('currentUserToken'), options)
         .subscribe(response => {
           this.getAllAvailData();

@@ -6,6 +6,7 @@
 
               <span *ngIf="editparam.action == 'add'">Add GCC Availability</span>
               <span *ngIf="editparam.action == 'edit'">Edit GCC Availability</span>
+              <a href="#" class="btn btn-primary pull-right" routerLink="/schedule/gcc" style="margin-left:5px;">Cancel</a>
               <button (click)="onSave()" class="btn btn-primary pull-right" [disabled] = "!gccForm.form.valid" *ngIf="editparam.action == 'add'">Save</button>
               <button (click)="onUpdate()" class="btn btn-primary pull-right" [disabled] = "!gccForm.form.valid" *ngIf="editparam.action == 'edit'">Update</button>
 			</div>
@@ -34,6 +35,7 @@
 			        		<select class="col-md-7 form-control pull-right" name="gcclocation"  [(ngModel)]="data.gcclocation" required>
 		                       <option value="">Select GCC Location</option>
 		                       <option *ngFor="let loc of gcclocations" value="{{loc.id}}">{{loc.name}}</option>
+		                       <option value="All Locations">All Locations</option>
 		                     </select>
 			        	</td>
 			        </tr>

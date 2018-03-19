@@ -100,7 +100,7 @@
 									                  <div class="input-group-prepend">
 									                    <span class="input-group-text">BHD</span>
 									                  </div>
-				                                 	  <input class="form-control" name="homeprice" type="text"  [(ngModel)]="data.homeprice"  placeholder="e.g. 1200" required>
+				                                 	  <input class="form-control" name="homeprice" type="text"  [(ngModel)]="data.homeprice"  placeholder="e.g. 1200" pattern="^(0|[1-9][0-9]*)$" required>
 				                                 	</div>
 				                                </div>
 							                </div> </div>
@@ -145,7 +145,7 @@
 									                  <div class="input-group-prepend">
 									                    <span class="input-group-text">BHD</span>
 									                  </div>
-				                                  	  <input class="form-control" name="homeprice" type="text"  [(ngModel)]="makeupservicesData[subservice.id].homeprice"  value="{{makeupservicesData[subservice.id].homeprice}}" placeholder="e.g. 1200" >
+				                                  	  <input class="form-control" name="homeprice" type="text"  [(ngModel)]="makeupservicesData[subservice.id].homeprice"  value="{{makeupservicesData[subservice.id].homeprice}}" placeholder="e.g. 1200" pattern="^(0|[1-9][0-9]*)$" required>
 				                                  	</div>
 				                                </div>
 			                                </div> </div>
@@ -202,7 +202,7 @@
 									                  <div class="input-group-prepend">
 									                    <span class="input-group-text">BHD</span>
 									                  </div>
-				                                 	  <input class="form-control" name="salonprice" type="text"  [(ngModel)]="data.salonprice"  placeholder="e.g. 1200" required>
+				                                 	  <input class="form-control" name="salonprice" type="text"  [(ngModel)]="data.salonprice"  placeholder="e.g. 1200" pattern="^(0|[1-9][0-9]*)$" required>
 				                                 	</div>
 				                                </div>
 							                </div> </div>
@@ -247,7 +247,7 @@
 									                  <div class="input-group-prepend">
 									                    <span class="input-group-text">BHD</span>
 									                  </div>
-				                                  	  <input class="form-control" name="salonprice" type="text"  [(ngModel)]="makeupservicesData[subservice.id].salonprice"  value="{{makeupservicesData[subservice.id].salonprice}}" placeholder="e.g. 1200" >
+				                                  	  <input class="form-control" name="salonprice" type="text"  [(ngModel)]="makeupservicesData[subservice.id].salonprice"  value="{{makeupservicesData[subservice.id].salonprice}}" placeholder="e.g. 1200" pattern="^(0|[1-9][0-9]*)$" required>
 				                                  	</div>
 				                                </div>
 			                                </div> </div>
@@ -305,7 +305,7 @@
 									                  <div class="input-group-prepend">
 									                    <span class="input-group-text">BHD</span>
 									                  </div>
-				                                 	  <input class="form-control" name="gccprice" type="text"  [(ngModel)]="data.gccprice"  placeholder="e.g. 1200" required>
+				                                 	  <input class="form-control" name="gccprice" type="text"  [(ngModel)]="data.gccprice" pattern="^(0|[1-9][0-9]*)$" placeholder="e.g. 1200" required>
 				                                 	</div>
 				                                </div>
 							                </div> </div>
@@ -350,14 +350,14 @@
 									                  <div class="input-group-prepend">
 									                    <span class="input-group-text">BHD</span>
 									                  </div>
-				                                  	  <input class="form-control" name="gccprice" type="text"  [(ngModel)]="makeupservicesData[subservice.id].gccprice"  value="{{makeupservicesData[subservice.id].gccprice}}" placeholder="e.g. 1200" >
+				                                  	  <input class="form-control" name="gccprice" type="text"  [(ngModel)]="makeupservicesData[subservice.id].gccprice"  value="{{makeupservicesData[subservice.id].gccprice}}" placeholder="e.g. 1200" pattern="^(0|[1-9][0-9]*)$" required>
 				                                  	</div>
 				                                </div>
 			                                </div></div> 
 			                                <div class="form-group row">
 			                                	<div class="col-md-12">			
 					                                <button class="btn btn-primary pull-right" type="button" (click)="savesubservicedata(subservice.id,1,'gcc')" [disabled] = "!gccServiceForm.form.valid" style="margin-right:5px;" *ngIf="makeupservicesData[subservice.id]== ''" >Save</button> 
-					                                <button class="btn btn-primary pull-right" type="button" (click)="updatesubservicedata(makeupservicesData[subservice.id],'gcc')" style="margin-right:5px;" *ngIf="makeupservicesData[subservice.id] != ''" [disabled] = "!gccServiceForm.form.valid" >Update</button>       
+					                                <button class="btn btn-primary pull-right" type="button" (click)="updatesubservicedata(makeupservicesData[subservice.id],'gcc')" style="margin-right:5px;" *ngIf="makeupservicesData[subservice.id] != ''" [disabled] = "!gccServiceForm.form.valid" >Update</button>    
 			                                	</div>
 			                                </div>
 			                            </form>
@@ -558,7 +558,7 @@
 									                  <div class="input-group-prepend">
 									                    <span class="input-group-text">BHD</span>
 									                  </div>
-				                                 	  <input class="form-control" name="homeprice" type="text"  [(ngModel)]="data.homeprice"  placeholder="e.g. 1200" required>
+				                                 	  <input class="form-control" name="homeprice" type="text"  [(ngModel)]="data.homeprice"  placeholder="e.g. 1200" pattern="^(0|[1-9][0-9]*)$" required>
 				                                 	</div>
 				                                </div>
 							                </div> </div>
@@ -595,7 +595,7 @@
 									                  <div class="input-group-prepend">
 									                    <span class="input-group-text">BHD</span>
 									                  </div>
-				                                  	  <input class="form-control" name="homeprice" type="text"  [(ngModel)]="hairservicesData[subservice.id].homeprice"  value="{{hairservicesData[subservice.id].homeprice}}" placeholder="e.g. 1200" >
+				                                  	  <input class="form-control" name="homeprice" type="text"  [(ngModel)]="hairservicesData[subservice.id].homeprice"  value="{{hairservicesData[subservice.id].homeprice}}" placeholder="e.g. 1200" pattern="^(0|[1-9][0-9]*)$" required>
 				                                  	</div>
 				                                </div>
 			                                </div> </div>
@@ -643,7 +643,7 @@
 									                  <div class="input-group-prepend">
 									                    <span class="input-group-text">BHD</span>
 									                  </div>
-				                                 	  <input class="form-control" name="salonprice" type="text"  [(ngModel)]="data.salonprice"  placeholder="e.g. 1200" required>
+				                                 	  <input class="form-control" name="salonprice" type="text"  [(ngModel)]="data.salonprice"  placeholder="e.g. 1200" pattern="^(0|[1-9][0-9]*)$" required>
 				                                 	</div>
 				                                </div>
 							                </div> </div>
@@ -680,7 +680,7 @@
 									                  <div class="input-group-prepend">
 									                    <span class="input-group-text">BHD</span>
 									                  </div>
-				                                  	  <input class="form-control" name="salonprice" type="text"  [(ngModel)]="hairservicesData[subservice.id].salonprice"  value="{{hairservicesData[subservice.id].salonprice}}" placeholder="e.g. 1200" >
+				                                  	  <input class="form-control" name="salonprice" type="text"  [(ngModel)]="hairservicesData[subservice.id].salonprice"  value="{{hairservicesData[subservice.id].salonprice}}" placeholder="e.g. 1200" pattern="^(0|[1-9][0-9]*)$" required>
 				                                  	</div>
 				                                </div>
 			                                </div> </div>
@@ -729,7 +729,7 @@
 									                  <div class="input-group-prepend">
 									                    <span class="input-group-text">BHD</span>
 									                  </div>
-				                                 	  <input class="form-control" name="gccprice" type="text"  [(ngModel)]="data.gccprice"  placeholder="e.g. 1200" required>
+				                                 	  <input class="form-control" name="gccprice" type="text"  [(ngModel)]="data.gccprice" pattern="^(0|[1-9][0-9]*)$"  placeholder="e.g. 1200" required>
 				                                 	</div>
 				                                </div>
 							                </div> </div>
@@ -766,7 +766,7 @@
 									                  <div class="input-group-prepend">
 									                    <span class="input-group-text">BHD</span>
 									                  </div>
-				                                  	  <input class="form-control" name="gccprice" type="text"  [(ngModel)]="hairservicesData[subservice.id].gccprice"  value="{{hairservicesData[subservice.id].gccprice}}" placeholder="e.g. 1200" >
+				                                  	  <input class="form-control" name="gccprice" type="text"  [(ngModel)]="hairservicesData[subservice.id].gccprice" pattern="^(0|[1-9][0-9]*)$" value="{{hairservicesData[subservice.id].gccprice}}" placeholder="e.g. 1200" required>
 				                                  	</div>
 				                                </div>
 			                                </div></div> 
@@ -791,14 +791,14 @@
 					          <table class="table table-striped" [mfData]="coursesData | dataFilter : filterQuery" #mf="mfDataTable" [mfRowsOnPage]="10" style="    margin: 0 -1.7rem;">
 					            <thead >
 			                        <tr>
-			                          <th><mfDefaultSorter by="name">Name</mfDefaultSorter></th>
+			                          <th><mfDefaultSorter by="name">Course Name</mfDefaultSorter></th>
 			                          <th><mfDefaultSorter by="price">Price</mfDefaultSorter></th>
 			                          <th><mfDefaultSorter by="description">Description</mfDefaultSorter></th>
 			                          <th><mfDefaultSorter by="startfrom">Start From</mfDefaultSorter></th>
 			                          <th><mfDefaultSorter by="endon">End On</mfDefaultSorter></th>
 			                          <th><mfDefaultSorter by="location">Location</mfDefaultSorter></th>
 			                          <th><mfDefaultSorter by="timeslotFrom">Time</mfDefaultSorter></th>
-			                          <th><mfDefaultSorter by="timeslotTo">Guests No.</mfDefaultSorter></th>
+			                          <th><mfDefaultSorter by="guestno">No. of Guests</mfDefaultSorter></th>
 			                          <th>Action</th>
 			                        </tr>
 			                      </thead>
@@ -808,7 +808,7 @@
 			                        </tr>
 			                        <tr *ngFor="let coursedetail of mf.data" >
 			                          <td>{{coursedetail.name}}</td>
-			                          <td>{{coursedetail.price}}</td>
+			                          <td>BHD {{coursedetail.price}}</td>
 			                          <td>{{coursedetail.description}}</td>
 			                          <td>{{coursedetaildata[coursedetail.id].startfrom}}</td>
 			                          <td>{{coursedetaildata[coursedetail.id].endon}}</td>
@@ -841,7 +841,7 @@
 										                  <div class="input-group-prepend">
 										                    <span class="input-group-text">BHD</span>
 										                  </div>
-					                                  	  <input class="form-control" name="courseprice" type="text"  [(ngModel)]="coursedetail.price" pattern="^(0|[1-9][0-9]*)$" value="{{coursedetail.price}}" required placeholder="e.g. 1200" >
+					                                  	  <input class="form-control" name="courseprice" type="text"  [(ngModel)]="coursedetail.price" pattern="^(0|[1-9][0-9]*)$" value="{{coursedetail.price}}"  required placeholder="e.g. 1200" >
 					                                  	</div>
 					                                </div>
 					                            </div>
@@ -858,7 +858,7 @@
 								                    </div>				                    
 					                                <div class="col-md-6">	                                	
 					                                  <label>End On </label>
-					                                  <input class="form-control" name="courseendon" type="text"  [(ngModel)]="coursedetail.endon" [minDate]="today" value="{{coursedetail.endon}}" placeholder="End On" required readonly #edp="bsDatepicker" bsDatepicker >
+					                                  <input class="form-control" name="courseendon" type="text"  [(ngModel)]="coursedetail.endon" [minDate]="coursedetail.startfrom" value="{{coursedetail.endon}}" placeholder="End On" required readonly #edp="bsDatepicker" bsDatepicker >
 								                    </div>
 								                </div>
 					                            <div class="form-group row" >
@@ -877,7 +877,7 @@
 
 					                                   <!-- <timepicker [(ngModel)]="coursedetail.timeslotFrom" (change)="changed()" [hourStep]="hstep" [minuteStep]="mstep" required [showMeridian]="ismeridian" [readonlyInput]="!isEnabled"></timepicker> -->
 					                                   <select class="form-control" name="coursetimeslotFrom" [(ngModel)]="coursedetail.timeslotFrom" required >
-										        			<option value=''>Select From Time</option>
+										        			<option value=''>From</option>
 										        			<option value="12:00am">12:00am</option>
 										        			<option value="12:15am">12:15am</option>
 										        			<option  value="12:30am">12:30am</option>
@@ -980,7 +980,7 @@
 					                                 	<label>&nbsp;</label>
 					                                  <!-- <timepicker [(ngModel)]="coursedetail.timeslotTo" (change)="changed()" [hourStep]="hstep" [minuteStep]="mstep" [showMeridian]="ismeridian" required [readonlyInput]="!isEnabled"></timepicker> -->
 					                                  <select class="form-control" name="oursetimeslotTo" [(ngModel)]="coursedetail.timeslotTo" required >
-										        			<option value=''>Select From Time</option>
+										        			<option value=''>To</option>
 										        			<option value="12:00am">12:00am</option>
 										        			<option value="12:15am">12:15am</option>
 										        			<option  value="12:30am">12:30am</option>
@@ -1146,7 +1146,7 @@
 				                    </div>				                    
 	                                <div class="col-md-6">	                                	
 	                                  <label>End On </label>
-	                                  <input class="form-control" name="endon" type="text"  [(ngModel)]="course.endon"  placeholder="End On" [minDate]="today"  required readonly #edp="bsDatepicker" bsDatepicker [(bsValue)]="bsEndValue">
+	                                  <input class="form-control" name="endon" type="text"  [(ngModel)]="course.endon"  placeholder="End On" [minDate]="course.startfrom"  required readonly #edp="bsDatepicker" bsDatepicker [(bsValue)]="bsEndValue">
 				                    </div>
 				                </div>
 	                            <div class="form-group row" >
@@ -1167,7 +1167,7 @@
 	                                  <!-- <timepicker [(ngModel)]="course.timeslotFrom" (change)="changed()" [hourStep]="hstep" [minuteStep]="mstep" [showMeridian]="ismeridian" required [readonlyInput]="!isEnabled"></timepicker> -->
 
 	                                  <select class="form-control" name="timeslotFrom" [(ngModel)]="course.timeslotFrom" required >
-						        			<option value=''>Select From Time</option>
+						        			<option value=''>From</option>
 						        			<option value="12:00am">12:00am</option>
 						        			<option value="12:15am">12:15am</option>
 						        			<option  value="12:30am">12:30am</option>
@@ -1273,7 +1273,7 @@
 										<!-- <timepicker [(ngModel)]="course.timeslotTo" (change)="changed()" [hourStep]="hstep" [minuteStep]="mstep" [showMeridian]="ismeridian" required [readonlyInput]="!isEnabled"></timepicker> -->
 
 										<select class="form-control" name="timeslotTo" [(ngModel)]="course.timeslotTo" required >
-						        			<option value=''>Select From Time</option>
+						        			<option value=''>To</option>
 						        			<option value="12:00am">12:00am</option>
 						        			<option value="12:15am">12:15am</option>
 						        			<option  value="12:30am">12:30am</option>

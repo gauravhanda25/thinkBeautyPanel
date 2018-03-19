@@ -73,7 +73,8 @@ export class AddartistvacationComponent {
        // starttime: '',
         endon: '',
        // endtime: '',
-    		artistId: localStorage.getItem('currentUserId')
+    		artistId: localStorage.getItem('currentUserId'),
+        createdon: new Date()
     	}
 
       this.editparam = {

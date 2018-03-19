@@ -24,6 +24,7 @@ export class ArtistvacationComponent {
 	private data: any;
 	private editparam: any;
   private vacationData:any;
+  private noVacation:any = 1;
 
 	private toasterService: ToasterService;
 	public toasterconfig : ToasterConfig =
@@ -75,14 +76,22 @@ export class ArtistvacationComponent {
       options.headers.append('Accept', 'application/json');
 
       this.vacationData = [];
+      this.noVacation = 1;
 
-      this.http.get(API_URL+'/Artistvacations?filter={"where":{"and":[{"artistId":"'+localStorage.getItem('currentUserId')+'"}]}}&access_token='+ localStorage.getItem('currentUserToken'), options)
+      this.http.get(API_URL+'/Artistvacations?filter={"where":{"and":[{"artistId":"'+localStorage.getItem('currentUserId')+'"}]},"order":"createdon DESC"}&access_token='+ localStorage.getItem('currentUserToken'), options)
         .subscribe(response => {
           console.log(this.vacationData = response.json());
-          for(let index in this.vacationData){ 
-            this.vacationData[index].starton = moment(this.vacationData[index].starton).format("DD/MM/YYYY");
-            this.vacationData[index].endon = moment(this.vacationData[index].endon).format("DD/MM/YYYY");
+
+          if(response.json().length != 0) {
+            for(let index in this.vacationData){ 
+              this.vacationData[index].starton = moment(this.vacationData[index].starton).format("DD/MM/YYYY");
+              this.vacationData[index].endon = moment(this.vacationData[index].endon).format("DD/MM/YYYY");
+            }
+
+            this.noVacation = 0;
           }
+
+          
 
         }, error => {
           console.log(JSON.stringify(error.json()));
@@ -96,7 +105,7 @@ export class ArtistvacationComponent {
       options.headers.append('Accept', 'application/json');
 
       
-      if(confirm("Are you sure?")){
+      if(confirm("Are you sure you want to remove this vacation?")){
           this.http.delete(API_URL+'/Artistvacations/'+id+'?access_token='+ localStorage.getItem('currentUserToken'), options)
           .subscribe(response => {
             this.getAllVacationData();

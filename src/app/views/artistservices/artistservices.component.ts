@@ -10,6 +10,7 @@ import { NgxPermissionsService, NgxRolesService } from 'ngx-permissions';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { NgModule } from '@angular/core';
+import {IOption} from 'ng-select';
 import * as moment from 'moment';
 
 // Tabs Component
@@ -20,9 +21,12 @@ import { ModalDirective } from 'ngx-bootstrap/modal';
 // Toastr
 import { ToasterModule, ToasterService, ToasterConfig, Toast }  from 'angular2-toaster/angular2-toaster';
 
+// Ng2-file-upload
+import { FileSelectDirective, FileDropDirective, FileUploadModule, FileUploader } from 'ng2-file-upload';
+
 @Component({
 	templateUrl: 'artistservices.component.html',
-	styleUrls: ['../../../scss/vendors/toastr/toastr.scss',  '../../../scss/vendors/bs-datepicker/bs-datepicker.scss'],
+	styleUrls: ['../../../scss/vendors/toastr/toastr.scss', '../../../scss/vendors/ng-select/ng-select.scss',  '../../../scss/vendors/bs-datepicker/bs-datepicker.scss'],
 	encapsulation: ViewEncapsulation.None
 })
 
@@ -46,6 +50,8 @@ export class ArtistservicesComponent {
 
 	private data: any;
   	private editparam: any;
+
+  public servicetypes: Array<IOption> = [];
 
 
 	private coursesData:any = [];
@@ -207,6 +213,8 @@ export class ArtistservicesComponent {
         	this.makeupservices = response.json();
         	console.log(response.json());
         	this.makeupservicesData = [];
+          this.makeup = [];
+          this.nomakeup = 0;
 
         	let removedata:any = 0;
 
@@ -214,20 +222,22 @@ export class ArtistservicesComponent {
 	        	this.http.get(API_URL+'/Artistservices?filter={"where":{"and":[{"subserviceId":"'+response.json()[parseInt(ser)-removedata].id+'"},{"artistId":"'+localStorage.getItem('currentUserId')+'"}]}}&access_token='+ localStorage.getItem('currentUserToken'), options)
 		        .subscribe(r => {
 		        	if(r.json().length != 0) {
-		        		this.makeupservicesData[response.json()[parseInt(ser)-removedata].id] = r.json()[0];
-                this.makeupservicesData[this.makeupservices[ser].id].price = [];
-                this.makeupservicesData[this.makeupservices[ser].id].duration = [];
-                this.makeupservicesData[this.makeupservices[ser].id].price['Home'] = r.json()[0].homeprice;
-                this.makeupservicesData[this.makeupservices[ser].id].price['Salon'] = r.json()[0].salonprice;
-                this.makeupservicesData[this.makeupservices[ser].id].price['GCC'] = r.json()[0].gccprice;
-                this.makeupservicesData[this.makeupservices[ser].id].duration['Home'] = r.json()[0].homeduration;
-                this.makeupservicesData[this.makeupservices[ser].id].duration['Salon'] = r.json()[0].salonduration;
-                this.makeupservicesData[this.makeupservices[ser].id].duration['GCC'] = r.json()[0].gccduration;
-		        		this.makeup.push(this.makeupservices[parseInt(ser)-removedata]);
+		        		this.makeupservicesData[response.json()[ser].id] = r.json()[0];
+                this.makeupservicesData[response.json()[ser].id].price = [];
+                this.makeupservicesData[response.json()[ser].id].duration = [];
+                this.makeupservicesData[response.json()[ser].id].price['Home'] = r.json()[0].homeprice;
+                this.makeupservicesData[response.json()[ser].id].price['Salon'] = r.json()[0].salonprice;
+                this.makeupservicesData[response.json()[ser].id].price['GCC'] = r.json()[0].gccprice;
+                this.makeupservicesData[response.json()[ser].id].duration['Home'] = r.json()[0].homeduration;
+                this.makeupservicesData[response.json()[ser].id].duration['Salon'] = r.json()[0].salonduration;
+                this.makeupservicesData[response.json()[ser].id].duration['GCC'] = r.json()[0].gccduration;
+		        		this.makeup.push(response.json()[ser]);
 		        		this.nomakeup = 1;
+
+                console.log(this.makeupservicesData);
 		        	} else if(r.json().length == 0){
-		        		this.makeupservicesData[response.json()[parseInt(ser)-removedata].id] = '';
-		        		delete this.makeupservices[parseInt(ser)-removedata];
+		        		this.makeupservicesData[response.json()[ser].id] = '';
+		        		delete this.makeupservices[ser];
 		        	}
 
 			    }, error => {
@@ -278,6 +288,8 @@ export class ArtistservicesComponent {
         	this.hairservices = response.json();
 
         	this.hairservicesData = [];
+          this.hair = [];
+          this.nohair = 0;
 
         	let removedata:any = 0;
 
@@ -285,20 +297,20 @@ export class ArtistservicesComponent {
 	        	this.http.get(API_URL+'/Artistservices?filter={"where":{"and":[{"subserviceId":"'+response.json()[parseInt(ser)-removedata].id+ '"},{"artistId":"'+localStorage.getItem('currentUserId')+'"}]}}&access_token='+ localStorage.getItem('currentUserToken'), options)
 		        .subscribe(r => {
 		        	if(r.json().length != 0){
-		        		this.hairservicesData[response.json()[parseInt(ser)-removedata].id] = r.json()[0];
-                this.hairservicesData[this.hairservices[ser].id].price = [];
-                this.hairservicesData[this.hairservices[ser].id].duration = [];
-                this.hairservicesData[this.hairservices[ser].id].price['Home'] = r.json()[0].homeprice;
-                this.hairservicesData[this.hairservices[ser].id].price['Salon'] = r.json()[0].salonprice;
-                this.hairservicesData[this.hairservices[ser].id].price['GCC'] = r.json()[0].gccprice;
-                this.hairservicesData[this.hairservices[ser].id].duration['Home'] = r.json()[0].homeduration;
-                this.hairservicesData[this.hairservices[ser].id].duration['Salon'] = r.json()[0].salonduration;
-                this.hairservicesData[this.hairservices[ser].id].duration['GCC'] = r.json()[0].gccduration;
-		        		this.hair.push(this.hairservices[parseInt(ser)-removedata]);
+		        		this.hairservicesData[response.json()[ser].id] = r.json()[0];
+                this.hairservicesData[response.json()[ser].id].price = [];
+                this.hairservicesData[response.json()[ser].id].duration = [];
+                this.hairservicesData[response.json()[ser].id].price['Home'] = r.json()[0].homeprice;
+                this.hairservicesData[response.json()[ser].id].price['Salon'] = r.json()[0].salonprice;
+                this.hairservicesData[response.json()[ser].id].price['GCC'] = r.json()[0].gccprice;
+                this.hairservicesData[response.json()[ser].id].duration['Home'] = r.json()[0].homeduration;
+                this.hairservicesData[response.json()[ser].id].duration['Salon'] = r.json()[0].salonduration;
+                this.hairservicesData[response.json()[ser].id].duration['GCC'] = r.json()[0].gccduration;
+		        		this.hair.push(response.json()[ser]);
 		        		this.nohair = 1;
 		        	} else if(r.json().length == 0){
-		        		this.hairservicesData[response.json()[parseInt(ser)-removedata].id] = '';
-		        		delete this.hairservices[parseInt(ser)-removedata];
+		        		this.hairservicesData[response.json()[ser].id] = '';
+		        		delete this.hairservices[ser];
 		        	}
 			    }, error => {
 			        console.log(JSON.stringify(error.json()));
@@ -309,6 +321,131 @@ export class ArtistservicesComponent {
 	    });
 
   	}
+
+
+    savesubservicedata(subserviceId, serviceId, serviceType) {
+      this.data.serviceId = serviceId;
+      this.data.subserviceId = subserviceId;
+
+      let options = new RequestOptions();
+      options.headers = new Headers();
+        options.headers.append('Content-Type', 'application/json');
+        options.headers.append('Accept', 'application/json');
+
+        this.data.servicetype = serviceType;
+        delete this.data.duration;
+        delete this.data.price;
+
+        console.log(this.data);
+       // return;
+
+
+      this.http.post(API_URL+'/Artistservices/upsertWithWhere?where={"and":[{"artistId":"'+localStorage.getItem('currentUserId')+'"},{"subserviceId":"'+this.data.subserviceId+'"}]}&access_token='+ localStorage.getItem('currentUserToken'), this.data, options)
+        .subscribe(response => {
+
+        this.data = {   
+          homeprice:'',
+          salonprice:'',
+          gccprice:'',
+          homeduration:'',
+          salonduration:'',
+          gccduration:'',
+          artistId: localStorage.getItem('currentUserId'),
+          serviceId: '',
+          subserviceId: '',
+          servicetype: ''
+        }
+      this.toasterService.pop('success', 'Success', "Service saved successfully");
+        
+        this.getAllArtistData();
+
+      }, error => {
+          console.log(JSON.stringify(error.json()));
+      });
+
+    }
+
+    updatesubservicedata(artistSubserviceId,serviceType) {
+
+      let options = new RequestOptions();
+      options.headers = new Headers();
+        options.headers.append('Content-Type', 'application/json');
+        options.headers.append('Accept', 'application/json');
+
+        if(serviceType == "home") {
+          this.data = { 
+            homeprice: artistSubserviceId.homeprice,
+            homeduration: artistSubserviceId.homeduration,
+            servicetype: 'home'
+          }
+        } else if(serviceType == "salon") {
+          this.data = { 
+            salonprice:  artistSubserviceId.salonprice,
+            salonduration: artistSubserviceId.salonduration,
+            servicetype: 'salon'
+          }
+        } else if(serviceType == "gcc") {
+          this.data = { 
+            gccprice: artistSubserviceId.gccprice,
+            gccduration: artistSubserviceId.gccduration,
+            servicetype: 'gcc'
+          }
+        }
+
+
+        console.log(this.data);
+
+        delete this.data.duration;
+        delete this.data.price;
+        
+
+      this.http.post(API_URL+'/Artistservices/upsertWithWhere?where=%7B%22id%22%3A%22'+artistSubserviceId.id+'%22%7D&access_token='+ localStorage.getItem('currentUserToken'), this.data, options)
+        .subscribe(response => {
+          console.log(response.json());
+
+        this.data = { 
+          homeprice:'',
+          salonprice:'',
+          gccprice:'',
+          homeduration:'',
+          salonduration:'',
+          gccduration:'',
+          artistId: localStorage.getItem('currentUserId'),
+          serviceId: '',
+          subserviceId: '',
+          servicetype: ''
+        }
+      this.toasterService.pop('success', 'Success', "Service updated successfully");
+        
+        this.getAllArtistData();
+
+      }, error => {
+          console.log(JSON.stringify(error.json()));
+      });
+
+    }
+
+    delsubservicedata(recordId) {
+      if(confirm("Are you sure you want to remove this service?")){
+        let options = new RequestOptions();
+        options.headers = new Headers();
+        options.headers.append('Content-Type', 'application/json');
+        options.headers.append('Accept', 'application/json');
+
+        this.http.delete(API_URL+'/Artistservices/'+recordId+'?access_token='+ localStorage.getItem('currentUserToken'), options)
+          .subscribe(response => {
+
+        this.toasterService.pop('success', 'Success', "Service removed successfully");
+
+          this.getAllArtistData();
+
+        }, error => {
+            console.log(JSON.stringify(error.json()));
+        });
+      }
+
+    }
+
 
   	savecoursedata() {
   		let options = new RequestOptions();

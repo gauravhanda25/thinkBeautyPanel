@@ -184,10 +184,13 @@ export class AddartistservicesComponent {
 
         this.http.get(API_URL+'/Artistcourses?filter={"where":{"and":[{"artistId":"'+localStorage.getItem('currentUserId')+'"}]}}&access_token='+ localStorage.getItem('currentUserToken'), options)
         .subscribe(r => {
+          this.coursesData = [];
+          this.coursedetaildata= [];
+          
         	if(r.json().length != 0){
         		this.coursesData = r.json();
             for(let index in this.coursesData) {
-            this.coursedetaildata[this.coursesData[index].id] = [];
+              this.coursedetaildata[this.coursesData[index].id] = [];
               this.coursedetaildata[this.coursesData[index].id].startfrom = moment(this.coursesData[index].startfrom ).format('DD/MM/YYYY');
               this.coursedetaildata[this.coursesData[index].id].endon = moment(this.coursesData[index].endon ).format('DD/MM/YYYY');
             }
@@ -357,7 +360,7 @@ export class AddartistservicesComponent {
         if(serviceType == "home") {
           this.data = { 
             homeprice: artistSubserviceId.homeprice,
-            homeduration: artistSubserviceId.homeduration
+            homeduration: artistSubserviceId.homeduration,
             servicetype: 'home'
           }
         } else if(serviceType == "salon") {
@@ -408,7 +411,7 @@ export class AddartistservicesComponent {
   	}
 
   	delsubservicedata(recordId) {
-  		if(confirm("Are you sure?")){
+  		if(confirm("Are you sure you want to remove this service?")){
         let options = new RequestOptions();
 	      options.headers = new Headers();
         options.headers.append('Content-Type', 'application/json');
@@ -508,7 +511,7 @@ export class AddartistservicesComponent {
   	}
 
   	delcoursedata(courseId) {
-      if(confirm("Are you sure?")){
+      if(confirm("Are you sure you want to remove this course?")){
     		let options = new RequestOptions();
   	    options.headers = new Headers();
         options.headers.append('Content-Type', 'application/json');

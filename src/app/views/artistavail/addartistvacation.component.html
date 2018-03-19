@@ -6,6 +6,7 @@
 
               <span *ngIf="editparam.action == 'add'">Add Vacation Time</span>
               <span *ngIf="editparam.action == 'edit'">Edit Vacation Time</span>
+              <a href="#" class="btn btn-primary pull-right" routerLink="/schedule/vacation" style="margin-left:5px;">Cancel</a>
               <button (click)="onSave()" class="btn btn-primary pull-right" [disabled] = "!vacationForm.form.valid" *ngIf="editparam.action == 'add'">Save</button>
               <button (click)="onUpdate()" class="btn btn-primary pull-right" [disabled] = "!vacationForm.form.valid" *ngIf="editparam.action == 'edit'">Update</button>
 			</div>
