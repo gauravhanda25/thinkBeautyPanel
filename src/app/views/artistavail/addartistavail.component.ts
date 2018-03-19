@@ -27,6 +27,7 @@ export class AddartistavailComponent {
   	private editparam: any; 
    public bsStartValue = new Date();
    private today = new Date();
+   private break: any = 0;
 
 	private toasterService: ToasterService;
 	public toasterconfig : ToasterConfig =
@@ -147,7 +148,12 @@ export class AddartistavailComponent {
         .subscribe(res => {
            this.data = res.json()[0];
            this.editparam.action = "edit";
-
+           
+           if(this.data.breakfrom != '' && this.data.breakto != ''){
+            this.break = 1;
+           } else {
+            this.break = 0;
+           }
         }, error => {
             console.log(JSON.stringify(error.json()));
         });
@@ -156,6 +162,16 @@ export class AddartistavailComponent {
 
 
   	}
+
+    showBreakSlots() {
+      this.break = 1;
+    }
+
+    removeBreakSlots() {
+      this.break = 0;
+      this.data.breakfrom = '';
+      this.data.breakto = '';
+    }
 
   	onSave() {
   		let options = new RequestOptions();

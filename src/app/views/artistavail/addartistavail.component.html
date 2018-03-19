@@ -18,6 +18,9 @@
 			        		<input class="col-md-7 form-control pull-right" name="date" type="text"  [(ngModel)]="data.date"  [minDate]="today" placeholder="Select Date" required readonly #sdp="bsDatepicker" bsDatepicker [(bsValue)]="bsStartValue">
 			        	</td>
 			        </tr>
+			        <tr>
+			        	<td colspan="2"><h4>Work Time</h4></td>
+			        </tr>
 			       	<tr>
 			        	<td style="border-bottom:3px solid #a4b7c1" >From
 			        		<!-- <timepicker [(ngModel)]="data.hoursfrom" (change)="changed()" [hourStep]="hstep" [minuteStep]="mstep" [showMeridian]="ismeridian" [readonlyInput]="!isEnabled"></timepicker> 
@@ -227,8 +230,11 @@
 			        		<!-- <timepicker [(ngModel)]="data.hoursto" (change)="changed()" [hourStep]="hstep" [minuteStep]="mstep" [showMeridian]="ismeridian" [readonlyInput]="!isEnabled"></timepicker> -->
 			        	</td>
 			        </tr>
-			        <tr>
-			        	<td style="border-bottom:3px solid #a4b7c1" >Break From
+			        <tr *ngIf = "break==1">
+			        	<td colspan="2"><h4>Break Time</h4></td>
+			        </tr>
+			        <tr *ngIf = "break==1">
+			        	<td style="border-bottom:3px solid #a4b7c1" >From
 			        		<select class="col-md-7 form-control pull-right" name="breakfrom" [(ngModel)]="data.breakfrom" required >
 			        			<option value=''>From</option>
 			        			<option value="12:00am">12:00am</option>
@@ -331,8 +337,8 @@
 			        		<!-- <timepicker [(ngModel)]="data.breakfrom" (change)="changed()" [hourStep]="hstep" [minuteStep]="mstep" [showMeridian]="ismeridian" [readonlyInput]="!isEnabled"></timepicker> -->
 			        	</td>
 			        </tr>
-			       	<tr>
-			        	<td style="border-bottom:3px solid #a4b7c1" >Break To
+			       	<tr *ngIf = "break==1">
+			        	<td style="border-bottom:3px solid #a4b7c1"> To
 			        		<select class="col-md-7 form-control pull-right" name="breakto" [(ngModel)]="data.breakto" required >
 			        			<option value=''>To</option>
 			        			<option value="12:00am">12:00am</option>
@@ -433,6 +439,17 @@
 			        			<option  value="11:45pm">11:45pm</option>
 			        		</select>
 			        		<!-- <timepicker [(ngModel)]="data.breakto" (change)="changed()" [hourStep]="hstep" [minuteStep]="mstep" [showMeridian]="ismeridian" [readonlyInput]="!isEnabled"></timepicker> -->
+			        	</td>
+			        </tr>
+			        <tr>
+			        	<td colspan="2">
+			        		<div class="col-md-12 p-0 text-center">
+			                  <a style="font-weight:bold; cursor:pointer;" class="text-info" *ngIf="break == 0" (click)="showBreakSlots()" >Add Break</a>
+			                </div>
+			                <div class="col-md-12 p-0 text-center">
+			                  <a style="font-weight:bold; cursor:pointer;" class="text-danger" *ngIf="break == 1" (click)="removeBreakSlots()" >Remove Break</a>
+			                </div>
+
 			        	</td>
 			        </tr>
 			    </table></form>
