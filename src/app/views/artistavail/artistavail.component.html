@@ -1667,10 +1667,10 @@
                                 <!-- <timepicker [(ngModel)]="dataweekend.hoursto" (change)="changed()" [hourStep]="hstep" [minuteStep]="mstep" [showMeridian]="ismeridian" [readonlyInput]="!isEnabled"></timepicker> -->
                               </td>
                             </tr>
-                            <tr *ngIf = "break==1">
+                            <tr *ngIf = "breakweekend==1">
                               <td colspan="2"><h4>Break Time</h4></td>
                             </tr>
-                            <tr *ngIf = "break==1">
+                            <tr *ngIf = "breakweekend==1">
                               <td style="border-bottom:3px solid #a4b7c1" >From
                                 <select class="col-md-7 form-control pull-right" name="breakfrom" [(ngModel)]="dataweekend.breakfrom" required >
                                   <option value=''>From</option>
@@ -1774,7 +1774,7 @@
                                 <!-- <timepicker [(ngModel)]="dataweekend.breakfrom" (change)="changed()" [hourStep]="hstep" [minuteStep]="mstep" [showMeridian]="ismeridian" [readonlyInput]="!isEnabled"></timepicker> -->
                               </td>
                             </tr>
-                            <tr *ngIf = "break==1">
+                            <tr *ngIf = "breakweekend==1">
                               <td style="border-bottom:3px solid #a4b7c1"> To
                                 <select class="col-md-7 form-control pull-right" name="breakto" [(ngModel)]="dataweekend.breakto" required >
                                   <option value=''>To</option>
