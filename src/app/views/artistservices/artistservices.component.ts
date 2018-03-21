@@ -13,6 +13,7 @@ import { NgModule } from '@angular/core';
 import {IOption} from 'ng-select';
 import * as moment from 'moment';
 import * as $ from 'jquery';
+import { Ng4GeoautocompleteModule } from 'ng4-geoautocomplete';
 
 
 import { AgmCoreModule, MapsAPILoader } from '@agm/core';
@@ -32,13 +33,16 @@ import { FileSelectDirective, FileDropDirective, FileUploadModule, FileUploader 
 @Component({
 	templateUrl: 'artistservices.component.html',
 	styleUrls: ['../../../scss/vendors/toastr/toastr.scss', '../../../scss/vendors/ng-select/ng-select.scss',  '../../../scss/vendors/bs-datepicker/bs-datepicker.scss'],
+  styles : ['#search_places{border: 1px solid #c2cfd6;padding: 0.375rem 0.75rem;font-size: 0.875rem;line-height: 1.5;color: #3e515b; height:auto} .custom-autocomplete__dropdown { height : 100px; overflow-y:scroll; top:8px;} .custom-autocomplete__dropdown li.active a {background-color:#ceb26f} '],
+  
 	encapsulation: ViewEncapsulation.None
 })
 
 @Injectable()
 export class ArtistservicesComponent {
 
-	private makeupservices: any;
+  private makeupservices: any;
+	private userSettings: any = {};
 	private makeupservicesData:any;
 	private makeup:any = [];
 	private nomakeup:any = 0;
@@ -117,10 +121,14 @@ export class ArtistservicesComponent {
 	  
     constructor(private NgxRolesService: NgxRolesService, private NgxPermissionsService: NgxPermissionsService, @Inject(Http) private http: Http, @Inject(Router)private router:Router, private activatedRoute: ActivatedRoute,toasterService: ToasterService) {
 		//console.log(localStorage.getItem('currentUserRoleId'));
-
+    console.log($('.preloader').length, 'here now');
 
     $('.preloader').show();
- 			
+ 		this.userSettings = {
+       showSearchButton: false,
+       showCurrentLocation: false,
+       locationIconUrl: ''
+     }
 	  if(localStorage.getItem('currentUserRoleId') == "1"){
         localStorage.setItem('currentUserRole', "ADMIN");
       } else if(localStorage.getItem('currentUserRoleId') == "2"){
@@ -186,7 +194,7 @@ export class ArtistservicesComponent {
 
     	this.getAllArtistData();
     	this.getAllArtistCourseData();
-      $('.preloader').hide();
+      
 
 
   //create search FormControl
@@ -216,6 +224,9 @@ export class ArtistservicesComponent {
 
   	}
 
+    autoCompleteCallback1(selectedData:any) {
+      //do any necessery stuff.
+    }
   	getAllArtistCourseData(){
   		let options = new RequestOptions();
         options.headers = new Headers();
@@ -235,7 +246,7 @@ export class ArtistservicesComponent {
         	} else {
         		this.coursesData = '';
         	}
-
+          $('.preloader').hide();
         	console.log(this.coursesData);
 	    }, error => {
 	        console.log(JSON.stringify(error.json()));

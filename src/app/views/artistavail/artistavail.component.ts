@@ -61,7 +61,7 @@ export class ArtistavailComponent {
 	  
     constructor(private NgxRolesService: NgxRolesService, private NgxPermissionsService: NgxPermissionsService, @Inject(Http) private http: Http, @Inject(Router)private router:Router, private activatedRoute: ActivatedRoute,toasterService: ToasterService) {
 		//console.log(localStorage.getItem('currentUserRoleId'));
- 			
+ 			$('.preloader').show();
 	  if(localStorage.getItem('currentUserRoleId') == "1"){
         localStorage.setItem('currentUserRole', "ADMIN");
       } else if(localStorage.getItem('currentUserRoleId') == "2"){
@@ -233,7 +233,7 @@ export class ArtistavailComponent {
             }   
                       
           }
-
+          $('.preloader').hide();
           console.log(this.workingData, this.weekendData,this.specificData);
         	if(response.json().length != 0) {
         	}

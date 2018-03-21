@@ -10,6 +10,7 @@ import { HttpModule } from '@angular/http';
 import * as moment from 'moment';
 
 import * as $ from 'jquery';
+import { Ng4GeoautocompleteModule } from 'ng4-geoautocomplete';
 
 import { ModalModule } from "ngx-bootstrap";
 
@@ -52,6 +53,7 @@ import { TimepickerModule } from 'ngx-bootstrap';
   TimepickerModule.forRoot(),
   ArtistservicesRoutingModule,
   ModalModule.forRoot(),
+  Ng4GeoautocompleteModule.forRoot()
  // AgmCoreModule.forRoot({libraries: ["places"]}),
   ],
   declarations: [

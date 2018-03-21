@@ -2,7 +2,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NgModule } from '@angular/core';
 import { LocationStrategy, HashLocationStrategy, CommonModule } from '@angular/common';
-
+import { Ng4GeoautocompleteModule } from 'ng4-geoautocomplete';
 // Import your library
 import { AppComponent } from './app.component';
 import * as $ from 'jquery';
@@ -90,6 +90,7 @@ import { NgxPermissionsModule } from 'ngx-permissions';
     BsDropdownModule.forRoot(),
     ModalModule.forRoot(),
     TabsModule.forRoot(),
+    Ng4GeoautocompleteModule.forRoot()
   ],
   declarations: [
     AppComponent,
