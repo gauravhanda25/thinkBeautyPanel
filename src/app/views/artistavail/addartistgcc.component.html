@@ -27,7 +27,7 @@
 			        <tr >
 			        	<td style="border-bottom:3px solid #a4b7c1" >End On
 
-			        		<input class="col-md-7 form-control pull-right" name="endon" type="text"  [(ngModel)]="data.endon"  [minDate]="today" placeholder="End On" required readonly #edp="bsDatepicker" bsDatepicker [(bsValue)]="bsEndValue">
+			        		<input class="col-md-7 form-control pull-right" name="endon" type="text"  [(ngModel)]="data.endon"  [minDate]="data.starton" placeholder="End On" required readonly #edp="bsDatepicker" bsDatepicker [(bsValue)]="bsEndValue">
 			        	</td>
 			        </tr>
 			        <tr >

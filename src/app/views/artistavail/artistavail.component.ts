@@ -11,6 +11,8 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { NgModule } from '@angular/core';
 import * as moment from 'moment';
+import * as $ from 'jquery';
+import { ModalDirective } from 'ngx-bootstrap/modal';
 
 // Toastr
 import { ToasterModule, ToasterService, ToasterConfig }  from 'angular2-toaster/angular2-toaster';
@@ -22,6 +24,8 @@ import { ToasterModule, ToasterService, ToasterConfig }  from 'angular2-toaster/
 export class ArtistavailComponent {
 
 	private data: any;
+  private dataweekend:any;
+
 	private editparam: any;
 	private workingdays :any = ['Sunday','Monday','Tuesday','Wednesday','Thursday'];
 	private workingdayno :any = [0,1,2,3,4];
@@ -40,6 +44,11 @@ export class ArtistavailComponent {
   private dateAvail:any = 0;
   private workingBreakAvail:any = 0;
   private weekendBreakAvail:any = 0;
+
+  public bsStartValue = new Date();
+   private today = new Date();
+   private break: any = 0;
+   private breakweekend: any = 0;
 
 
 	private toasterService: ToasterService;
@@ -75,15 +84,44 @@ export class ArtistavailComponent {
 	    })
 
 		this.toasterService = toasterService;
-		
-    	this.editparam = {
-    		id: '',
-    		action: 'add'
-    	}
+
+    this.data = { 
+        days: "working",      
+        hoursfrom: '',
+        hoursto: '',
+        breakfrom: '',
+        breakto: '',
+        artistId: localStorage.getItem('currentUserId'),
+        date: '',
+        createdon: new Date()
+      }
+      
+      this.dataweekend = { 
+        days: "weekend",      
+        hoursfrom: '',
+        hoursto: '',
+        breakfrom: '',
+        breakto: '',
+        artistId: localStorage.getItem('currentUserId'),
+        date: '',
+        createdon: new Date()
+      }
+
+
 
       this.getAllAvailData();
 
   	}
+
+    showBreakSlots() {
+      this.break = 1;
+    }
+
+    removeBreakSlots() {
+      this.break = 0;
+      this.data.breakfrom = '';
+      this.data.breakto = '';
+    }
 
   	getAllAvailData() {
   		let options = new RequestOptions();
@@ -102,6 +140,28 @@ export class ArtistavailComponent {
           this.weekendAvail = 0;
           this.dateAvail = 0; 
 
+          this.data = { 
+            days: "working",      
+            hoursfrom: '',
+            hoursto: '',
+            breakfrom: '',
+            breakto: '',
+            artistId: localStorage.getItem('currentUserId'),
+            date: '',
+            createdon: new Date()
+          }
+
+          this.dataweekend = { 
+            days: "weekend",      
+            hoursfrom: '',
+            hoursto: '',
+            breakfrom: '',
+            breakto: '',
+            artistId: localStorage.getItem('currentUserId'),
+            date: '',
+            createdon: new Date()
+          }
+
           for(let index in this.availData){ 
             if(this.availData[index].days == "working") {
               this.workingAvail = 1; 
@@ -117,6 +177,13 @@ export class ArtistavailComponent {
 
                 this.workingData.breakfrom = this.availData[index].breakfrom;
                 this.workingData.breakto =  this.availData[index].breakto; 
+
+                this.data = this.availData[index];
+                 if(this.data.breakfrom != '' && this.data.breakto != ''){
+                  this.break = 1;
+                 } else {
+                  this.break = 0;
+                 }
 
             } else if(this.availData[index].days == "weekend") {
               this.weekendAvail = 1;                  
@@ -134,6 +201,14 @@ export class ArtistavailComponent {
 
                 this.weekendData.breakfrom = this.availData[index].breakfrom;
                 this.weekendData.breakto =  this.availData[index].breakto; 
+
+                this.dataweekend = this.availData[index];
+                 if(this.dataweekend.breakfrom != '' && this.dataweekend.breakto != ''){
+                  this.breakweekend = 1;
+                 } else {
+                  this.breakweekend = 0;
+                 }
+
                 
             } else if(this.availData[index].days == "specificDate") {     
               this.dateAvail = 1;  
@@ -178,5 +253,41 @@ export class ArtistavailComponent {
         });
       }
 
+    }
+
+    onSave(data) {
+      let options = new RequestOptions();
+      options.headers = new Headers();
+      options.headers.append('Content-Type', 'application/json');
+      options.headers.append('Accept', 'application/json');
+
+      this.http.post(API_URL+'/Artistavailabilities?access_token='+ localStorage.getItem('currentUserToken'), data, options)
+      .subscribe(response => {
+          this.toasterService.pop('success', 'Success', "Availability saved successfully"); 
+          
+          $(".closeModalButton").click();
+          this.getAllAvailData();
+      }, error => {
+          console.log(JSON.stringify(error.json()));
+      });
+      
+    }
+
+    onUpdate(Id,data) {
+      let options = new RequestOptions();
+      options.headers = new Headers();
+      options.headers.append('Content-Type', 'application/json');
+      options.headers.append('Accept', 'application/json');
+
+      this.http.post(API_URL+'/Artistavailabilities/update?where={"id":"'+Id+'"}&access_token='+ localStorage.getItem('currentUserToken'), data, options)
+      .subscribe(response => {
+          this.toasterService.pop('success', 'Success', "Availability updated successfully"); 
+          
+          $(".closeModalButton").click();
+          this.getAllAvailData();
+      }, error => {
+          console.log(JSON.stringify(error.json()));
+      });
+      
     }
 }

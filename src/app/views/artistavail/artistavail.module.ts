@@ -12,6 +12,7 @@ import { DataFilterPipe } from './datafilterpipe';
 import { DataTableModule } from 'angular2-datatable';
 import { HttpModule } from '@angular/http';
 import * as moment from 'moment';
+import { ModalModule } from "ngx-bootstrap";
 
 // Tabs Component
 import { TabsModule } from 'ngx-bootstrap/tabs';
@@ -35,6 +36,7 @@ import { TimepickerModule } from 'ngx-bootstrap';
   CommonModule,
   DataTableModule,
   HttpModule,
+  ModalModule,
   TabsModule,
   FormsModule,
   ToasterModule,

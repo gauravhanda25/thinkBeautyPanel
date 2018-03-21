@@ -12,6 +12,8 @@ import { FormsModule } from '@angular/forms';
 import { NgModule } from '@angular/core';
 import {IOption} from 'ng-select';
 import * as moment from 'moment';
+import * as $ from 'jquery';
+
 
 // Tabs Component
 import { TabsModule } from 'ngx-bootstrap/tabs';
@@ -127,6 +129,8 @@ export class ArtistservicesComponent {
 	    NgxRolesService.roles$.subscribe((data) => {
 	        console.log(data);
 	    })
+
+      this.display = 1;
 
 		this.toasterService = toasterService;
 		
@@ -470,8 +474,9 @@ export class ArtistservicesComponent {
 	    	}
 
 			this.toasterService.pop('success', 'Success', "Course saved successfully");
-    		
-    		this.getAllArtistCourseData();
+
+          $(".closeModalButton").click();
+              		this.getAllArtistCourseData();
 
 	    }, error => {
 	        console.log(JSON.stringify(error.json()));
@@ -503,6 +508,7 @@ export class ArtistservicesComponent {
         .subscribe(response => {
         	console.log(response.json());
 
+          $(".closeModalButton").click();
 	    	this.coursedetaildata = { 
 	    		name: '',   		
 	    		price:'',

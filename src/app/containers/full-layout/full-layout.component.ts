@@ -10,6 +10,7 @@ import { NgxPermissionsService, NgxRolesService, NgxPermissionsDirective } from 
 })
 export class FullLayoutComponent { 
 
+	private display:any;
 	constructor(private NgxRolesService: NgxRolesService, private NgxPermissionsService: NgxPermissionsService) {
 
 	    if(localStorage.getItem('currentUserRoleId') == "1"){
@@ -32,6 +33,12 @@ export class FullLayoutComponent {
 	    NgxRolesService.roles$.subscribe((data) => {
 	        console.log(data);
 	    })
+
+	    if(localStorage.getItem('loader') == "true"){
+	    	this.display = 1;
+	    } else if(localStorage.getItem('loader') == "false"){
+	      this.display = 0;
+	    } 
   }
 
 

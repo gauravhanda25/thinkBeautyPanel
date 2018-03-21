@@ -19,6 +19,7 @@
                     <select class="form-control" style="-webkit-appearance: initial;background: transparent !important; border-color:transparent !important;    padding: 0 !important;    height: auto; width:auto;"  name="gcclocation" [disabled] = 1  [(ngModel)]="data.gcclocation">
                        <option value=""></option>
                        <option *ngFor="let loc of gcclocations" value="{{loc.id}}">{{loc.name}}</option>
+                       <option value="All Locations">All Locations</option>
                      </select>
                   </td>
                     <td>{{data.starton}} - {{data.endon}} </td>
