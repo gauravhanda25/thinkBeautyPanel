@@ -138,6 +138,7 @@ export class ArtistavailComponent {
           let i:any = 0;
           this.workingData = [];
           this.weekendData = [];
+          this.specificData = [];
           this.workingAvail = 0;
           this.weekendAvail = 0;
           this.dateAvail = 0; 

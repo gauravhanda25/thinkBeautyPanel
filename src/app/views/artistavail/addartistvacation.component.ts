@@ -10,6 +10,7 @@ import { NgxPermissionsService, NgxRolesService } from 'ngx-permissions';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { NgModule } from '@angular/core';
+import * as moment from 'moment';
 
 // Toastr
 import { ToasterModule, ToasterService, ToasterConfig, Toast }  from 'angular2-toaster/angular2-toaster';
@@ -113,33 +114,79 @@ export class AddartistvacationComponent {
   	onSave() {
   		let options = new RequestOptions();
 	    options.headers = new Headers();
-        options.headers.append('Content-Type', 'application/json');
-        options.headers.append('Accept', 'application/json');
+      options.headers.append('Content-Type', 'application/json');
+      options.headers.append('Accept', 'application/json');
 
-	    	this.http.post(API_URL+'/Artistvacations?access_token='+ localStorage.getItem('currentUserToken'), this.data, options)
-	      .subscribe(response => {
-				    this.toasterService.pop('success', 'Success', "Vacation Time saved successfully"); 
-            this.router.navigate(['schedule/vacation']);
+      this.data.starton = moment(this.data.starton).format('YYYY-MM-DD');
+      this.data.endon = moment(this.data.endon).format('YYYY-MM-DD');
 
-		    }, error => {
-		        console.log(JSON.stringify(error.json()));
-		    });
+      this.http.get(API_URL+'/Artistavailabilities?filter={"where":{"and":[{"artistId":"'+localStorage.getItem('currentUserId')+'"},{"date":{"between":["'+this.data.starton+'","'+this.data.endon+'"]}}]}}&access_token='+ localStorage.getItem('currentUserToken'), options)
+      .subscribe(response => {
+        console.log(response.json());
+        if(response.json().length != 0) {
+          if(confirm("Specific date already added. Do you still want to add a vacation?")){           
+
+            this.http.post(API_URL+'/Artistvacations?access_token='+ localStorage.getItem('currentUserToken'), this.data, options)
+            .subscribe(response => {
+                this.toasterService.pop('success', 'Success', "Vacation Time saved successfully"); 
+                this.router.navigate(['schedule/vacation']);
+
+            }, error => {
+                console.log(JSON.stringify(error.json()));
+            });
+          } 
+        } else {
+          this.http.post(API_URL+'/Artistvacations?access_token='+ localStorage.getItem('currentUserToken'), this.data, options)
+            .subscribe(response => {
+                this.toasterService.pop('success', 'Success', "Vacation Time saved successfully"); 
+                this.router.navigate(['schedule/vacation']);
+
+            }, error => {
+                console.log(JSON.stringify(error.json()));
+            });
+        }
+      }, error => {
+          console.log(JSON.stringify(error.json()));
+      });
   	}
 
-     onUpdate() {
+    onUpdate() {
       let options = new RequestOptions();
       options.headers = new Headers();
-        options.headers.append('Content-Type', 'application/json');
-        options.headers.append('Accept', 'application/json');
+      options.headers.append('Content-Type', 'application/json');
+      options.headers.append('Accept', 'application/json');
 
-        this.http.post(API_URL+'/Artistvacations/update?where={"id":"'+this.editparam.id+'"}&access_token='+ localStorage.getItem('currentUserToken'), this.data, options)
-        .subscribe(response => {
-            this.toasterService.pop('success', 'Success', "Vacation Time updated successfully"); 
-            this.router.navigate(['schedule/vacation']);
+      this.data.starton = moment(this.data.starton).format('YYYY-MM-DD');
+      this.data.endon = moment(this.data.endon).format('YYYY-MM-DD');
 
-        }, error => {
-            console.log(JSON.stringify(error.json()));
-        });
+      this.http.get(API_URL+'/Artistavailabilities?filter={"where":{"and":[{"artistId":"'+localStorage.getItem('currentUserId')+'"},{"date":{"between":["'+this.data.starton+'","'+this.data.endon+'"]}}]}}&access_token='+ localStorage.getItem('currentUserToken'), options)
+      .subscribe(response => {
+        console.log(response.json());
+        if(response.json().length != 0) {
+          if(confirm("Specific date already added. Do you still want to add a vacation?")){           
+
+            this.http.post(API_URL+'/Artistvacations/update?where={"id":"'+this.editparam.id+'"}&access_token='+ localStorage.getItem('currentUserToken'), this.data, options)
+            .subscribe(response => {
+                this.toasterService.pop('success', 'Success', "Vacation Time updated successfully"); 
+                this.router.navigate(['schedule/vacation']);
+
+            }, error => {
+                console.log(JSON.stringify(error.json()));
+            });
+          } 
+        } else {
+          this.http.post(API_URL+'/Artistvacations/update?where={"id":"'+this.editparam.id+'"}&access_token='+ localStorage.getItem('currentUserToken'), this.data, options)
+          .subscribe(response => {
+              this.toasterService.pop('success', 'Success', "Vacation Time updated successfully"); 
+              this.router.navigate(['schedule/vacation']);
+
+          }, error => {
+              console.log(JSON.stringify(error.json()));
+          });
+        }
+      }, error => {
+          console.log(JSON.stringify(error.json()));
+      });
     }
 
   	

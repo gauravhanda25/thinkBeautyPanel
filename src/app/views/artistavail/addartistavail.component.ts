@@ -10,6 +10,7 @@ import { NgxPermissionsService, NgxRolesService } from 'ngx-permissions';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { NgModule } from '@angular/core';
+import * as moment from 'moment';
 
 // Toastr
 import { ToasterModule, ToasterService, ToasterConfig, Toast }  from 'angular2-toaster/angular2-toaster';
@@ -179,27 +180,42 @@ export class AddartistavailComponent {
       options.headers.append('Content-Type', 'application/json');
       options.headers.append('Accept', 'application/json');
 
+      this.data.date = moment(this.data.date).format('YYYY-MM-DD');
 
-      
-      if(new Date(this.am_pm_to_hours(this.data.hoursfrom)) > new Date(this.am_pm_to_hours(this.data.hoursto)) && this.data.hoursfrom != '' && this.data.hoursto != '') {
-          this.toasterService.pop('error', 'Time invalid', "Work End Time is less than the Work Start Time"); 
-          return;        
-      }
-
-      if(new Date(this.am_pm_to_hours(this.data.breakfrom)) > new Date(this.am_pm_to_hours(this.data.breakto)) && this.data.breakfrom!= '' && this.data.breakto != '') {
-          this.toasterService.pop('error', 'Time invalid', "Break End Time is less than the Break Start Time"); 
-          return;        
-      }
-
-
-
-      this.http.post(API_URL+'/Artistavailabilities?access_token='+ localStorage.getItem('currentUserToken'), this.data, options)
+      this.http.get(API_URL+'/Artistavailabilities?filter={"where":{"and":[{"artistId":"'+localStorage.getItem('currentUserId')+'"},{"date":"'+this.data.date+'"}]}}&access_token='+ localStorage.getItem('currentUserToken'), options)
       .subscribe(response => {
-          this.toasterService.pop('success', 'Success', "Availability saved successfully"); 
-          this.router.navigate(['schedule/work']);
+          console.log(response.json());
+        if(response.json().length != 0) {
+          this.toasterService.pop('error', 'Date Invalid', "Availability for this date already added."); 
+          return; 
+        } 
+
+        if(new Date(this.am_pm_to_hours(this.data.hoursfrom)) > new Date(this.am_pm_to_hours(this.data.hoursto)) && this.data.hoursfrom != '' && this.data.hoursto != '') {
+          this.toasterService.pop('error', 'Time invalid', "Work End Time is less than the Work Start Time"); 
+            return;        
+        }
+
+        if(new Date(this.am_pm_to_hours(this.data.breakfrom)) > new Date(this.am_pm_to_hours(this.data.breakto)) && this.data.breakfrom!= '' && this.data.breakto != '') {
+            this.toasterService.pop('error', 'Time invalid', "Break End Time is less than the Break Start Time"); 
+            return;        
+        }
+
+
+        this.http.post(API_URL+'/Artistavailabilities?access_token='+ localStorage.getItem('currentUserToken'), this.data, options)
+        .subscribe(response => {
+            this.toasterService.pop('success', 'Success', "Availability saved successfully"); 
+            this.router.navigate(['schedule/work']);
+        }, error => {
+            console.log(JSON.stringify(error.json()));
+        });
+       
+
       }, error => {
           console.log(JSON.stringify(error.json()));
       });
+
+
+      
       
 
       /* } else {
@@ -224,23 +240,34 @@ export class AddartistavailComponent {
       options.headers.append('Accept', 'application/json');
 
 
+      this.data.date = moment(this.data.date).format('YYYY-MM-DD');
       
-      if(new Date(this.am_pm_to_hours(this.data.hoursfrom)) > new Date(this.am_pm_to_hours(this.data.hoursto)) && this.data.hoursfrom != '' && this.data.hoursto != '') {
-          this.toasterService.pop('error', 'Time invalid', "Work End Time is less than the Work Start Time"); 
-          return;        
-      }
-
-      if(new Date(this.am_pm_to_hours(this.data.breakfrom)) > new Date(this.am_pm_to_hours(this.data.breakto)) && this.data.breakfrom!= '' && this.data.breakto != '') {
-          this.toasterService.pop('error', 'Time invalid', "Break End Time is less than the Break Start Time"); 
-          return;        
-      }
-
-
-
-      this.http.post(API_URL+'/Artistavailabilities/update?where={"id":"'+this.editparam.id+'"}&access_token='+ localStorage.getItem('currentUserToken'), this.data, options)
+      this.http.get(API_URL+'/Artistavailabilities?filter={"where":{"and":[{"artistId":"'+localStorage.getItem('currentUserId')+'"},{"date":"'+this.data.date+'"}]}}&access_token='+ localStorage.getItem('currentUserToken'), options)
       .subscribe(response => {
-          this.toasterService.pop('success', 'Success', "Availability updated successfully"); 
-          this.router.navigate(['schedule/work']);
+        console.log(response.json());
+        if(response.json().length != 0) {
+          this.toasterService.pop('error', 'Date Invalid', "Availability for this date already added."); 
+          return; 
+        } 
+        if(new Date(this.am_pm_to_hours(this.data.hoursfrom)) > new Date(this.am_pm_to_hours(this.data.hoursto)) && this.data.hoursfrom != '' && this.data.hoursto != '') {
+            this.toasterService.pop('error', 'Time invalid', "Work End Time is less than the Work Start Time"); 
+            return;        
+        }
+
+        if(new Date(this.am_pm_to_hours(this.data.breakfrom)) > new Date(this.am_pm_to_hours(this.data.breakto)) && this.data.breakfrom!= '' && this.data.breakto != '') {
+            this.toasterService.pop('error', 'Time invalid', "Break End Time is less than the Break Start Time"); 
+            return;        
+        }
+
+
+
+        this.http.post(API_URL+'/Artistavailabilities/update?where={"id":"'+this.editparam.id+'"}&access_token='+ localStorage.getItem('currentUserToken'), this.data, options)
+        .subscribe(response => {
+            this.toasterService.pop('success', 'Success', "Availability updated successfully"); 
+            this.router.navigate(['schedule/work']);
+        }, error => {
+            console.log(JSON.stringify(error.json()));
+        });
       }, error => {
           console.log(JSON.stringify(error.json()));
       });

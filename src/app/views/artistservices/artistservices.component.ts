@@ -1,4 +1,4 @@
-import { Component, ViewEncapsulation } from '@angular/core';
+import { Component, ElementRef, NgZone, ViewChild, ViewEncapsulation } from '@angular/core';
 import { HttpModule } from '@angular/http';
 import {Injectable, Inject} from '@angular/core';
 import {Http, Response, Headers, RequestOptions} from '@angular/http';
@@ -13,6 +13,9 @@ import { NgModule } from '@angular/core';
 import {IOption} from 'ng-select';
 import * as moment from 'moment';
 import * as $ from 'jquery';
+
+
+import { AgmCoreModule, MapsAPILoader } from '@agm/core';
 
 
 // Tabs Component
@@ -72,6 +75,12 @@ export class ArtistservicesComponent {
 	  });
 	  
 
+  /*   public searchControl: FormControl;
+  @ViewChild("search"):any;
+  public searchElementRef: ElementRef;
+  private mapsAPILoader: MapsAPILoader;
+  private ngZone: NgZone;  */
+
 
   // Timepicker
 
@@ -108,6 +117,7 @@ export class ArtistservicesComponent {
 	  
     constructor(private NgxRolesService: NgxRolesService, private NgxPermissionsService: NgxPermissionsService, @Inject(Http) private http: Http, @Inject(Router)private router:Router, private activatedRoute: ActivatedRoute,toasterService: ToasterService) {
 		//console.log(localStorage.getItem('currentUserRoleId'));
+
  			
 	  if(localStorage.getItem('currentUserRoleId') == "1"){
         localStorage.setItem('currentUserRole', "ADMIN");
@@ -175,6 +185,31 @@ export class ArtistservicesComponent {
     	this.getAllArtistData();
     	this.getAllArtistCourseData();
 
+
+  //create search FormControl
+  /*  this.searchControl = new FormControl();
+    
+     this.mapsAPILoader.load().then(() => {
+      let autocomplete = new google.maps.places.Autocomplete(this.searchElementRef.nativeElement, {
+        types: ["address"]
+      });
+      autocomplete.addListener("place_changed", () => {
+        this.ngZone.run(() => {
+          //get the place result
+          let place: google.maps.places.PlaceResult = autocomplete.getPlace();
+  
+          //verify result
+          if (place.geometry === undefined || place.geometry === null) {
+            return;
+          }
+          
+          //set latitude, longitude and zoom
+          this.latitude = place.geometry.location.lat();
+          this.longitude = place.geometry.location.lng();
+          this.zoom = 12;
+        });
+      });
+    });   */
 
   	}
 

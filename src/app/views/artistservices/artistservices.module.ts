@@ -32,6 +32,8 @@ import { SelectModule } from 'ng-select';
 // Datepicker
 import { BsDatepickerModule } from 'ngx-bootstrap';
 
+// import { AgmCoreModule, MapsAPILoader } from '@agm/core';
+
 
 // Timepicker
 import { TimepickerModule } from 'ngx-bootstrap';
@@ -49,7 +51,8 @@ import { TimepickerModule } from 'ngx-bootstrap';
   BsDatepickerModule.forRoot(),
   TimepickerModule.forRoot(),
   ArtistservicesRoutingModule,
-  ModalModule.forRoot()
+  ModalModule.forRoot(),
+ // AgmCoreModule.forRoot({libraries: ["places"]}),
   ],
   declarations: [
     ArtistservicesComponent,
