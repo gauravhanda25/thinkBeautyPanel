@@ -4,8 +4,6 @@ import { NgModule } from '@angular/core';
 import { ArtistservicesComponent } from './artistservices.component';
 import { AddartistservicesComponent } from './addartistservices.component';
 
-import { FullLayoutComponent } from './fullLayout.component';
-
 import { DataFilterPipe } from './datafilterpipe';
 import { DataTableModule } from 'angular2-datatable';
 import { HttpModule } from '@angular/http';

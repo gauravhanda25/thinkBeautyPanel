@@ -179,6 +179,20 @@ export class AddartistavailComponent {
       options.headers.append('Content-Type', 'application/json');
       options.headers.append('Accept', 'application/json');
 
+
+      
+      if(new Date(this.am_pm_to_hours(this.data.hoursfrom)) > new Date(this.am_pm_to_hours(this.data.hoursto)) && this.data.hoursfrom != '' && this.data.hoursto != '') {
+          this.toasterService.pop('error', 'Time invalid', "Work End Time is less than the Work Start Time"); 
+          return;        
+      }
+
+      if(new Date(this.am_pm_to_hours(this.data.breakfrom)) > new Date(this.am_pm_to_hours(this.data.breakto)) && this.data.breakfrom!= '' && this.data.breakto != '') {
+          this.toasterService.pop('error', 'Time invalid', "Break End Time is less than the Break Start Time"); 
+          return;        
+      }
+
+
+
       this.http.post(API_URL+'/Artistavailabilities?access_token='+ localStorage.getItem('currentUserToken'), this.data, options)
       .subscribe(response => {
           this.toasterService.pop('success', 'Success', "Availability saved successfully"); 
@@ -209,6 +223,20 @@ export class AddartistavailComponent {
       options.headers.append('Content-Type', 'application/json');
       options.headers.append('Accept', 'application/json');
 
+
+      
+      if(new Date(this.am_pm_to_hours(this.data.hoursfrom)) > new Date(this.am_pm_to_hours(this.data.hoursto)) && this.data.hoursfrom != '' && this.data.hoursto != '') {
+          this.toasterService.pop('error', 'Time invalid', "Work End Time is less than the Work Start Time"); 
+          return;        
+      }
+
+      if(new Date(this.am_pm_to_hours(this.data.breakfrom)) > new Date(this.am_pm_to_hours(this.data.breakto)) && this.data.breakfrom!= '' && this.data.breakto != '') {
+          this.toasterService.pop('error', 'Time invalid', "Break End Time is less than the Break Start Time"); 
+          return;        
+      }
+
+
+
       this.http.post(API_URL+'/Artistavailabilities/update?where={"id":"'+this.editparam.id+'"}&access_token='+ localStorage.getItem('currentUserToken'), this.data, options)
       .subscribe(response => {
           this.toasterService.pop('success', 'Success', "Availability updated successfully"); 
@@ -217,5 +245,31 @@ export class AddartistavailComponent {
           console.log(JSON.stringify(error.json()));
       });
       
+    }
+
+
+
+    am_pm_to_hours(time) {
+        console.log(time);
+        if(time == ''){
+          return time;
+        }
+        let hours = Number(time.match(/^(\d+)/)[1]);
+      //  alert(hours);
+        let minutes = Number(time.match(/:(\d+)/)[1]);
+      //  alert(minutes);
+        let AMPM = time.slice(-2);
+      //  alert(AMPM);
+        if (AMPM == "pm" && hours < 12) hours = hours + 12;
+        if (AMPM == "am" && hours == 12) hours = hours - 12;
+        let sHours = hours.toString();
+        let sMinutes = minutes.toString();
+        if (hours < 10) sHours = "0" + sHours;
+        if (minutes < 10) sMinutes = "0" + sMinutes;
+
+        let d = new Date();    
+        d.setHours(parseInt(sHours));
+        d.setMinutes(parseInt(sMinutes));
+        return d;
     }
 }

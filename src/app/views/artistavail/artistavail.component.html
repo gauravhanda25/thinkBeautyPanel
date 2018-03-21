@@ -44,7 +44,7 @@
                     </div>
                     <div class="card-body" style="border-top:1px solid #c2cfd6;"> 
                         <form class="form-horizontal ng-untouched ng-pristine ng-valid" novalidate="" #availForm="ngForm" >
-                          <input name="days" type="text"  [(ngModel)]="data.days" required readonly value="{
+                          <input name="days" type="hidden"  [(ngModel)]="data.days" required readonly value="{
                           {data.days}}">
                           <table class="table " >
                             <tr *ngIf='data.days == "specificDate"'>
@@ -989,7 +989,7 @@
                     </div>
                     <div class="card-body" style="border-top:1px solid #c2cfd6;"> 
                         <form class="form-horizontal ng-untouched ng-pristine ng-valid" novalidate="" #availweekendForm="ngForm" >
-                          <input name="days" type="text"  [(ngModel)]="dataweekend.days" required readonly value="{
+                          <input name="days" type="hidden"  [(ngModel)]="dataweekend.days" required readonly value="{
                           {dataweekend.days}}">
                           <table class="table " >
                             <tr *ngIf='dataweekend.days == "specificDate"'>

@@ -439,6 +439,15 @@ export class AddartistservicesComponent {
         options.headers.append('Content-Type', 'application/json');
         options.headers.append('Accept', 'application/json');
 
+
+      
+      if(new Date(this.am_pm_to_hours(this.course.timeslotFrom)) > new Date(this.am_pm_to_hours(this.course.timeslotTo)) && this.course.timeslotFrom != '' && this.course.timeslotTo != '') {
+          this.toasterService.pop('error', 'Time invalid', "Course End Time is less than the Start Time"); 
+          return;        
+      }
+
+
+
     	this.http.post(API_URL+'/Artistcourses?access_token='+ localStorage.getItem('currentUserToken'), this.course, options)
         .subscribe(response => {
 
@@ -473,6 +482,14 @@ export class AddartistservicesComponent {
         options.headers.append('Content-Type', 'application/json');
         options.headers.append('Accept', 'application/json');
 
+           
+      if(new Date(this.am_pm_to_hours(this.course.timeslotFrom)) > new Date(this.am_pm_to_hours(this.course.timeslotTo)) && this.course.timeslotFrom != '' && this.course.timeslotTo != '') {
+          this.toasterService.pop('error', 'Time invalid', "Course End Time is less than the Start Time"); 
+          return;        
+      }
+
+
+
         this.coursedetaildata = { 
       		name: course.name,   		
       		price: course.price,
@@ -485,6 +502,7 @@ export class AddartistservicesComponent {
       		timeslotTo: course.timeslotTo,
       		artistId: localStorage.getItem('currentUserId')
       	}
+
 
     	this.http.post(API_URL+'/Artistcourses/update?where=%7B%22id%22%3A%22'+course.id+'%22%7D&access_token='+ localStorage.getItem('currentUserToken'), this.coursedetaildata, options)
         .subscribe(response => {
@@ -534,6 +552,31 @@ export class AddartistservicesComponent {
       }
 
   	}
+
+
+    am_pm_to_hours(time) {
+        console.log(time);
+        if(time == ''){
+          return time;
+        }
+        let hours = Number(time.match(/^(\d+)/)[1]);
+      //  alert(hours);
+        let minutes = Number(time.match(/:(\d+)/)[1]);
+      //  alert(minutes);
+        let AMPM = time.slice(-2);
+      //  alert(AMPM);
+        if (AMPM == "pm" && hours < 12) hours = hours + 12;
+        if (AMPM == "am" && hours == 12) hours = hours - 12;
+        let sHours = hours.toString();
+        let sMinutes = minutes.toString();
+        if (hours < 10) sHours = "0" + sHours;
+        if (minutes < 10) sMinutes = "0" + sMinutes;
+
+        let d = new Date();    
+        d.setHours(parseInt(sHours));
+        d.setMinutes(parseInt(sMinutes));
+        return d;
+    }
 
 
 }

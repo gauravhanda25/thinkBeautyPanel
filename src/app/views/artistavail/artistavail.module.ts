@@ -12,6 +12,7 @@ import { DataFilterPipe } from './datafilterpipe';
 import { DataTableModule } from 'angular2-datatable';
 import { HttpModule } from '@angular/http';
 import * as moment from 'moment';
+import * as $ from 'jquery';
 import { ModalModule } from "ngx-bootstrap";
 
 // Tabs Component
