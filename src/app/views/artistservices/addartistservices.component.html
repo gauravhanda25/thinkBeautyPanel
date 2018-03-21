@@ -4,6 +4,7 @@
       	<div class="card">         
             <div class="card-header">                                    
               <span *ngIf="editparam.action == 'add'">Add/Edit Services</span>
+              <a href="#" routerLink="/myservices" class="btn btn-sm btn-primary pull-right">Cancel</a>
 			</div>
           	<div class="card-body">  
             	<!-- Nav tabs -->
@@ -24,24 +25,24 @@
 	                       <div class="clearfix"></div>
 	                       
 	                       <div class="" *ngIf="makeupservicesData[subservice.id]">
-	                       		<div class="col-sm-12" *ngIf="makeupservicesData[subservice.id].homeprice">
-				                    <span><strong>Home</strong></span>:
-			                       <span >BHD {{makeupservicesData[subservice.id].price['Home']}} for</span>
-			                       <span >{{makeupservicesData[subservice.id].duration['Home']}}</span>
+	                       		<div class="col-sm-12 row" *ngIf="makeupservicesData[subservice.id].homeprice">
+				                   <div class="col-sm-3"><span><strong>Home</strong></span>:</div>
+			                       <div class="col-sm-9"><span >BHD {{makeupservicesData[subservice.id].price['Home']}} for</span>
+			                       <span >{{makeupservicesData[subservice.id].duration['Home']}}</span></div>
 			                       <!-- <span *ngIf="makeupservicesData[subservice.id]">{{makeupservicesData[subservice.id].servicetype}}
 			                       </span> -->
 			                    </div>
-			                    <div class="col-sm-12" *ngIf="makeupservicesData[subservice.id].salonprice">
-				                    <span><strong>Salon</strong></span>:
-			                       <span >BHD {{makeupservicesData[subservice.id].price['Salon']}} for</span>
-			                       <span >{{makeupservicesData[subservice.id].duration['Salon']}}</span>
+			                    <div class="col-sm-12 row" *ngIf="makeupservicesData[subservice.id].salonprice">
+				                   <div class="col-sm-3"> <span><strong>Salon</strong></span>:</div>
+			                       <div class="col-sm-9"><span >BHD {{makeupservicesData[subservice.id].price['Salon']}} for</span>
+			                       <span >{{makeupservicesData[subservice.id].duration['Salon']}}</span></div>
 			                       <!-- <span *ngIf="makeupservicesData[subservice.id]">{{makeupservicesData[subservice.id].servicetype}}
 			                       </span> -->
 			                    </div>
-			                    <div class="col-sm-12" *ngIf="makeupservicesData[subservice.id].gccprice">
-				                    <span><strong>GCC</strong></span>:
-			                       <span >BHD {{makeupservicesData[subservice.id].price['GCC']}} for</span>
-			                       <span >{{makeupservicesData[subservice.id].duration['GCC']}}</span>
+			                    <div class="col-sm-12 row" *ngIf="makeupservicesData[subservice.id].gccprice">
+				                   <div class="col-sm-3"> <span><strong>GCC</strong></span>:</div>
+			                       <div class="col-sm-9"><span >BHD {{makeupservicesData[subservice.id].price['GCC']}} for</span>
+			                       <span >{{makeupservicesData[subservice.id].duration['GCC']}}</span></div>
 			                       <!-- <span *ngIf="makeupservicesData[subservice.id]">{{makeupservicesData[subservice.id].servicetype}}
 			                       </span> -->
 			                    </div>
@@ -489,24 +490,24 @@
 
 	                       <div class="clearfix"></div>
 	                       <div class="" *ngIf="hairservicesData[subservice.id]">
-	                       		<div class="col-sm-12" *ngIf="hairservicesData[subservice.id].homeprice">
-				                    <span><strong>Home</strong></span>:
-			                       <span >BHD {{hairservicesData[subservice.id].price['Home']}} for</span>
-			                       <span >{{hairservicesData[subservice.id].duration['Home']}}</span>
+	                       		<div class="col-sm-12 row" *ngIf="hairservicesData[subservice.id].homeprice">
+				                   <div class="col-sm-3"> <span><strong>Home</strong></span>:</div>
+			                       <div class="col-sm-9"><span >BHD {{hairservicesData[subservice.id].price['Home']}} for</span>
+			                       <span >{{hairservicesData[subservice.id].duration['Home']}}</span></div>
 			                       <!-- <span *ngIf="hairservicesData[subservice.id]">{{hairservicesData[subservice.id].servicetype}}
 			                       </span> -->
 			                    </div>
-			                    <div class="col-sm-12" *ngIf="hairservicesData[subservice.id].salonprice">
-				                    <span><strong>Salon</strong></span>:
-			                       <span >BHD {{hairservicesData[subservice.id].price['Salon']}} for</span>
-			                       <span >{{hairservicesData[subservice.id].duration['Salon']}}</span>
+			                    <div class="col-sm-12 row" *ngIf="hairservicesData[subservice.id].salonprice">
+				                  <div class="col-sm-3">   <span><strong>Salon</strong></span>:</div>
+			                      <div class="col-sm-9">  <span >BHD {{hairservicesData[subservice.id].price['Salon']}} for</span>
+			                       <span >{{hairservicesData[subservice.id].duration['Salon']}}</span></div>
 			                       <!-- <span *ngIf="hairservicesData[subservice.id]">{{hairservicesData[subservice.id].servicetype}}
 			                       </span> -->
 			                    </div>
-			                    <div class="col-sm-12" *ngIf="hairservicesData[subservice.id].gccprice" >
-				                    <span><strong>GCC</strong></span>:
-			                       <span >BHD {{hairservicesData[subservice.id].price['GCC']}} for</span>
-			                       <span >{{hairservicesData[subservice.id].duration['GCC']}}</span>
+			                    <div class="col-sm-12 row" *ngIf="hairservicesData[subservice.id].gccprice" >
+				                   <div class="col-sm-3">  <span><strong>GCC</strong></span>: </div>
+			                       <div class="col-sm-9"> <span >BHD {{hairservicesData[subservice.id].price['GCC']}} for</span>
+			                       <span >{{hairservicesData[subservice.id].duration['GCC']}}</span></div>
 			                       <!-- <span *ngIf="hairservicesData[subservice.id]">{{hairservicesData[subservice.id].servicetype}}
 			                       </span> -->
 			                    </div>
@@ -779,10 +780,10 @@
 			                            </form>
 			                        </tab>
 			                    </tabset></div>
-	                              </div>
 	                            </div><!-- /.modal-content -->
 	                          </div><!-- /.modal-dialog -->
 	                        </div><!-- /.modal -->
+	                    </div>
 	                    </div>		  
               		</tab>
               		<tab heading = "Courses" >

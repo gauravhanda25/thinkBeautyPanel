@@ -5,6 +5,7 @@ import { LocationStrategy, HashLocationStrategy, CommonModule } from '@angular/c
 
 // Import your library
 import { AppComponent } from './app.component';
+import * as $ from 'jquery';
 
 
 // Import containers

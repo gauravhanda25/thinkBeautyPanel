@@ -6,6 +6,7 @@ import {Http, Response, Headers, RequestOptions} from '@angular/http';
 import { FormsModule }   from '@angular/forms';
 // Import your library
 import { NgxPermissionsModule, NgxPermissionsGuard  } from 'ngx-permissions';
+import * as $ from 'jquery';
 
 // Import Containers
 import {

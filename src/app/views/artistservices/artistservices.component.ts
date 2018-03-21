@@ -118,6 +118,8 @@ export class ArtistservicesComponent {
     constructor(private NgxRolesService: NgxRolesService, private NgxPermissionsService: NgxPermissionsService, @Inject(Http) private http: Http, @Inject(Router)private router:Router, private activatedRoute: ActivatedRoute,toasterService: ToasterService) {
 		//console.log(localStorage.getItem('currentUserRoleId'));
 
+
+    $('.preloader').show();
  			
 	  if(localStorage.getItem('currentUserRoleId') == "1"){
         localStorage.setItem('currentUserRole', "ADMIN");
@@ -184,6 +186,7 @@ export class ArtistservicesComponent {
 
     	this.getAllArtistData();
     	this.getAllArtistCourseData();
+      $('.preloader').hide();
 
 
   //create search FormControl
