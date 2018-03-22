@@ -11,6 +11,7 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { NgModule } from '@angular/core';
 import * as moment from 'moment';
+import * as $ from 'jquery';
 
 // Toastr
 import { ToasterModule, ToasterService, ToasterConfig, Toast }  from 'angular2-toaster/angular2-toaster';
@@ -26,12 +27,13 @@ export class AddartistavailComponent {
 	
 	  private data: any;
   	private editparam: any; 
-   public bsStartValue = new Date();
-   private today = new Date();
-   private break: any = 0;
+    public bsStartValue = new Date();
+    private today = new Date();
+    private break: any = 0;
+    private currency:any = localStorage.getItem('currentUserCurrency');
 
-	private toasterService: ToasterService;
-	public toasterconfig : ToasterConfig =
+	 private toasterService: ToasterService;
+	 public toasterconfig : ToasterConfig =
 	  new ToasterConfig({
 		tapToDismiss: true,
 		timeout: 1000
@@ -74,6 +76,7 @@ export class AddartistavailComponent {
     constructor(private NgxRolesService: NgxRolesService, private NgxPermissionsService: NgxPermissionsService, @Inject(Http) private http: Http, @Inject(Router)private router:Router, private activatedRoute: ActivatedRoute,toasterService: ToasterService) {
 		//console.log(localStorage.getItem('currentUserRoleId'));
  			
+        $('.preloader').show(); 
 	  if(localStorage.getItem('currentUserRoleId') == "1"){
         localStorage.setItem('currentUserRole', "ADMIN");
       } else if(localStorage.getItem('currentUserRoleId') == "2"){
@@ -145,6 +148,7 @@ export class AddartistavailComponent {
 
 
       if(this.editparam.id != undefined){
+        $('.preloader').show(); 
         this.http.get(API_URL+'/Artistavailabilities?filter={"where":{"and":[{"id":"'+this.editparam.id+'"}]}}&access_token='+ localStorage.getItem('currentUserToken'), options)
         .subscribe(res => {
            this.data = res.json()[0];
@@ -155,11 +159,13 @@ export class AddartistavailComponent {
            } else {
             this.break = 0;
            }
+           $('.preloader').hide(); 
         }, error => {
             console.log(JSON.stringify(error.json()));
         });
 
       }
+        $('.preloader').hide(); 
 
 
   	}
@@ -175,6 +181,7 @@ export class AddartistavailComponent {
     }
 
   	onSave() {
+        $('.preloader').show(); 
   		let options = new RequestOptions();
 	    options.headers = new Headers();
       options.headers.append('Content-Type', 'application/json');
@@ -185,17 +192,20 @@ export class AddartistavailComponent {
       this.http.get(API_URL+'/Artistavailabilities?filter={"where":{"and":[{"artistId":"'+localStorage.getItem('currentUserId')+'"},{"date":"'+this.data.date+'"}]}}&access_token='+ localStorage.getItem('currentUserToken'), options)
       .subscribe(response => {
           console.log(response.json());
-        if(response.json().length != 0) {
+        if(response.json().length != 0) { 
+          $('.preloader').hide(); 
           this.toasterService.pop('error', 'Date Invalid', "Availability for this date already added."); 
           return; 
         } 
 
         if(new Date(this.am_pm_to_hours(this.data.hoursfrom)) > new Date(this.am_pm_to_hours(this.data.hoursto)) && this.data.hoursfrom != '' && this.data.hoursto != '') {
+          $('.preloader').hide(); 
           this.toasterService.pop('error', 'Time invalid', "Work End Time is less than the Work Start Time"); 
             return;        
         }
 
         if(new Date(this.am_pm_to_hours(this.data.breakfrom)) > new Date(this.am_pm_to_hours(this.data.breakto)) && this.data.breakfrom!= '' && this.data.breakto != '') {
+          $('.preloader').hide(); 
             this.toasterService.pop('error', 'Time invalid', "Break End Time is less than the Break Start Time"); 
             return;        
         }
@@ -234,6 +244,7 @@ export class AddartistavailComponent {
 	  }
 
     onUpdate() {
+        $('.preloader').show(); 
       let options = new RequestOptions();
       options.headers = new Headers();
       options.headers.append('Content-Type', 'application/json');
@@ -246,15 +257,18 @@ export class AddartistavailComponent {
       .subscribe(response => {
         console.log(response.json());
         if(response.json().length != 0) {
+          $('.preloader').hide(); 
           this.toasterService.pop('error', 'Date Invalid', "Availability for this date already added."); 
           return; 
         } 
         if(new Date(this.am_pm_to_hours(this.data.hoursfrom)) > new Date(this.am_pm_to_hours(this.data.hoursto)) && this.data.hoursfrom != '' && this.data.hoursto != '') {
+          $('.preloader').hide(); 
             this.toasterService.pop('error', 'Time invalid', "Work End Time is less than the Work Start Time"); 
             return;        
         }
 
         if(new Date(this.am_pm_to_hours(this.data.breakfrom)) > new Date(this.am_pm_to_hours(this.data.breakto)) && this.data.breakfrom!= '' && this.data.breakto != '') {
+          $('.preloader').hide(); 
             this.toasterService.pop('error', 'Time invalid', "Break End Time is less than the Break Start Time"); 
             return;        
         }

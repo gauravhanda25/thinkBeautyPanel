@@ -11,6 +11,7 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { NgModule } from '@angular/core';
 import * as moment from 'moment';
+import * as $ from 'jquery';
 
 // Toastr
 import { ToasterModule, ToasterService, ToasterConfig }  from 'angular2-toaster/angular2-toaster';
@@ -25,6 +26,7 @@ export class ArtistvacationComponent {
 	private editparam: any;
   private vacationData:any;
   private noVacation:any = 1;
+  private currency:any = localStorage.getItem('currentUserCurrency');
 
 	private toasterService: ToasterService;
 	public toasterconfig : ToasterConfig =
@@ -37,6 +39,7 @@ export class ArtistvacationComponent {
     constructor(private NgxRolesService: NgxRolesService, private NgxPermissionsService: NgxPermissionsService, @Inject(Http) private http: Http, @Inject(Router)private router:Router, private activatedRoute: ActivatedRoute,toasterService: ToasterService) {
 		//console.log(localStorage.getItem('currentUserRoleId'));
  			
+        $('.preloader').show(); 
 	  if(localStorage.getItem('currentUserRoleId') == "1"){
         localStorage.setItem('currentUserRole', "ADMIN");
       } else if(localStorage.getItem('currentUserRoleId') == "2"){
@@ -88,6 +91,7 @@ export class ArtistvacationComponent {
               this.vacationData[index].endon = moment(this.vacationData[index].endon).format("DD/MM/YYYY");
             }
 
+            $('.preloader').hide(); 
             this.noVacation = 0;
           }
 
@@ -98,7 +102,7 @@ export class ArtistvacationComponent {
       });
     }
 
-    resetAvail(id){
+    resetAvail(id){ 
       let options = new RequestOptions();
       options.headers = new Headers();
       options.headers.append('Content-Type', 'application/json');
@@ -106,6 +110,7 @@ export class ArtistvacationComponent {
 
       
       if(confirm("Are you sure you want to remove this vacation?")){
+        $('.preloader').show();
           this.http.delete(API_URL+'/Artistvacations/'+id+'?access_token='+ localStorage.getItem('currentUserToken'), options)
           .subscribe(response => {
             this.getAllVacationData();

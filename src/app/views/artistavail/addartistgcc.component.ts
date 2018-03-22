@@ -10,6 +10,7 @@ import { NgxPermissionsService, NgxRolesService } from 'ngx-permissions';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { NgModule } from '@angular/core';
+import * as $ from 'jquery';
 
 // Toastr
 import { ToasterModule, ToasterService, ToasterConfig, Toast }  from 'angular2-toaster/angular2-toaster';
@@ -28,6 +29,7 @@ export class AddartistgccComponent {
   	private editparam: any;
     private gcclocations:any;
     private today = new Date();
+    private currency:any = localStorage.getItem('currentUserCurrency');
 
   	//private day: any = 1;
 
@@ -45,6 +47,8 @@ export class AddartistgccComponent {
     constructor(private NgxRolesService: NgxRolesService, private NgxPermissionsService: NgxPermissionsService, @Inject(Http) private http: Http, @Inject(Router)private router:Router, private activatedRoute: ActivatedRoute,toasterService: ToasterService) {
 		//console.log(localStorage.getItem('currentUserRoleId'));
  			
+    
+        $('.preloader').show(); 
 	  if(localStorage.getItem('currentUserRoleId') == "1"){
         localStorage.setItem('currentUserRole', "ADMIN");
       } else if(localStorage.getItem('currentUserRoleId') == "2"){
@@ -103,21 +107,30 @@ export class AddartistgccComponent {
       });
 
       if(this.editparam.id != undefined){
+
+    
+        $('.preloader').show(); 
         this.http.get(API_URL+'/Artistgcc?filter={"where":{"and":[{"id":"'+this.editparam.id+'"}]}}&access_token='+ localStorage.getItem('currentUserToken'), options)
         .subscribe(gccres => {
            this.data = gccres.json()[0];
            this.editparam.action = "edit";
 
+    
+        $('.preloader').hide(); 
         }, error => {
             console.log(JSON.stringify(error.json()));
         });
 
       }
+    
+        $('.preloader').hide(); 
       
   	}
 
 
   	onSave() {
+    
+        $('.preloader').show(); 
   		let options = new RequestOptions();
 	    options.headers = new Headers();
         options.headers.append('Content-Type', 'application/json');
@@ -134,6 +147,8 @@ export class AddartistgccComponent {
   	}
 
     onUpdate() {
+    
+        $('.preloader').show(); 
       let options = new RequestOptions();
       options.headers = new Headers();
         options.headers.append('Content-Type', 'application/json');

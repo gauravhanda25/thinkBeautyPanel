@@ -33,7 +33,6 @@ import { SelectModule } from 'ng-select';
 // Datepicker
 import { BsDatepickerModule } from 'ngx-bootstrap';
 
-// import { AgmCoreModule, MapsAPILoader } from '@agm/core';
 
 
 // Timepicker

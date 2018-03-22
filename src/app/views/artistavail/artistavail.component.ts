@@ -31,6 +31,7 @@ export class ArtistavailComponent {
 	private workingdayno :any = [0,1,2,3,4];
   private weekenddays :any = ['Friday','Saturday'];
   private weekenddayno :any = [0,1];
+  private currency:any = localStorage.getItem('currentUserCurrency');
 	
 	private workingData:any = [];
   private weekendData:any = [];
@@ -249,6 +250,7 @@ export class ArtistavailComponent {
       options.headers.append('Accept', 'application/json');
 
       if(confirm("Are you sure you want to remove this availability?")) {
+        $('.preloader').show(); 
         this.http.delete(API_URL+'/Artistavailabilities/'+id+'?access_token='+ localStorage.getItem('currentUserToken'), options)
         .subscribe(response => {
           this.getAllAvailData();
@@ -260,6 +262,7 @@ export class ArtistavailComponent {
     }
 
     onSave(data) {
+        $('.preloader').show(); 
       let options = new RequestOptions();
       options.headers = new Headers();
       options.headers.append('Content-Type', 'application/json');
@@ -267,11 +270,13 @@ export class ArtistavailComponent {
 
     
       if(new Date(this.am_pm_to_hours(data.hoursfrom)) > new Date(this.am_pm_to_hours(data.hoursto)) && data.hoursfrom != '' && data.hoursto != '') {
+          $('.preloader').hide(); 
           this.toasterService.pop('error', 'Time invalid', "Work End Time is less than the Work Start Time"); 
           return;        
       }
 
       if(new Date(this.am_pm_to_hours(data.breakfrom)) > new Date(this.am_pm_to_hours(data.breakto)) && data.breakfrom!= '' && data.breakto != '') {
+          $('.preloader').hide(); 
           this.toasterService.pop('error', 'Time invalid', "Break End Time is less than the Break Start Time"); 
           return;        
       }
@@ -290,17 +295,20 @@ export class ArtistavailComponent {
     }
 
     onUpdate(Id,data) {
+        $('.preloader').show(); 
       let options = new RequestOptions();
       options.headers = new Headers();
       options.headers.append('Content-Type', 'application/json');
       options.headers.append('Accept', 'application/json');
 
       if(new Date(this.am_pm_to_hours(data.hoursfrom)) > new Date(this.am_pm_to_hours(data.hoursto)) && data.hoursfrom != '' && data.hoursto != '') {
+          $('.preloader').hide(); 
           this.toasterService.pop('error', 'Time invalid', "Work End Time is less than the Work Start Time"); 
           return;        
       }
 
       if(new Date(this.am_pm_to_hours(data.breakfrom)) > new Date(this.am_pm_to_hours(data.breakto)) && data.breakfrom!= '' && data.breakto != '') {
+          $('.preloader').hide(); 
           this.toasterService.pop('error', 'Time invalid', "Break End Time is less than the Break Start Time"); 
           return;        
       }

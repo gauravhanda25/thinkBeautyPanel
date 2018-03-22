@@ -14,6 +14,8 @@ import {IOption} from 'ng-select';
 import * as moment from 'moment';
 import * as $ from 'jquery';
 
+// Datepicker
+import { BsDatepickerModule } from 'ngx-bootstrap';
 
 // Tabs Component
 import { TabsModule } from 'ngx-bootstrap/tabs';
@@ -42,6 +44,7 @@ export class AddartistservicesComponent {
 	private hairservices: any;
 	private hairservicesData:any;
 
+  private currency:any = localStorage.getItem('currentUserCurrency');
 	private coursesData:any = [];
 
 	public servicetypes: Array<IOption> = [];
@@ -99,6 +102,7 @@ export class AddartistservicesComponent {
 
     constructor(private NgxRolesService: NgxRolesService, private NgxPermissionsService: NgxPermissionsService, @Inject(Http) private http: Http, @Inject(Router)private router:Router, private activatedRoute: ActivatedRoute,toasterService: ToasterService) {
 		//console.log(localStorage.getItem('currentUserRoleId'));
+        $('.preloader').show();
  			
 	  if(localStorage.getItem('currentUserRoleId') == "1"){
         localStorage.setItem('currentUserRole', "ADMIN");
@@ -178,6 +182,16 @@ export class AddartistservicesComponent {
         this.servicetypes = [...this.servicetypes];
   	}
 
+
+    numericOnly(event: any) {
+      const pattern = /[0-9\+\-\ ]/;
+      let inputChar = String.fromCharCode(event.charCode);
+      if (!pattern.test(inputChar)) {
+        // invalid character, prevent input
+        event.preventDefault();
+      }
+    }
+
   	getAllArtistCourseData(){
   		let options = new RequestOptions();
         options.headers = new Headers();
@@ -201,6 +215,7 @@ export class AddartistservicesComponent {
         	}
 
         	console.log(this.coursesData,this.coursedetaildata);
+        $('.preloader').hide();
 	    }, error => {
 	        console.log(JSON.stringify(error.json()));
 	    });
@@ -306,11 +321,13 @@ export class AddartistservicesComponent {
 	    }, error => {
 	        console.log(JSON.stringify(error.json()));
 	    });
+        $('.preloader').hide();
 
   	}
 
 
   	savesubservicedata(subserviceId, serviceId, serviceType) {
+        $('.preloader').show();
   		this.data.serviceId = serviceId;
   		this.data.subserviceId = subserviceId;
 
@@ -353,6 +370,7 @@ export class AddartistservicesComponent {
   	}
 
   	updatesubservicedata(artistSubserviceId,serviceType) {
+        $('.preloader').show();
 
   		let options = new RequestOptions();
 	    options.headers = new Headers();
@@ -414,6 +432,7 @@ export class AddartistservicesComponent {
 
   	delsubservicedata(recordId) {
   		if(confirm("Are you sure you want to remove this service?")){
+        $('.preloader').show();
         let options = new RequestOptions();
 	      options.headers = new Headers();
         options.headers.append('Content-Type', 'application/json');
@@ -434,6 +453,7 @@ export class AddartistservicesComponent {
   	}
 
   	savecoursedata() {
+        $('.preloader').show();
   		let options = new RequestOptions();
 	    options.headers = new Headers();
         options.headers.append('Content-Type', 'application/json');
@@ -442,8 +462,21 @@ export class AddartistservicesComponent {
 
       
       if(new Date(this.am_pm_to_hours(this.course.timeslotFrom)) > new Date(this.am_pm_to_hours(this.course.timeslotTo)) && this.course.timeslotFrom != '' && this.course.timeslotTo != '') {
+          $('.preloader').hide(); 
           this.toasterService.pop('error', 'Time invalid', "Course End Time is less than the Start Time"); 
           return;        
+      }
+
+      for(let i=0; i<this.coursesData.length; i++) {
+      
+        if((moment(this.course.startfrom).format('DD/MM/YYYY') < moment(this.coursesData[i].startfrom).format('DD/MM/YYYY') && moment(this.course.endon).format('DD/MM/YYYY') <  moment(this.coursesData[i].startfrom).format('DD/MM/YYYY')) || (moment(this.course.endon).format('DD/MM/YYYY') > moment(this.coursesData[i].startfrom).format('DD/MM/YYYY') && moment(this.course.startfrom).format('DD/MM/YYYY') >  moment(this.coursesData[i].endon).format('DD/MM/YYYY'))) {
+
+        } else {
+          $('.preloader').hide(); 
+          this.toasterService.pop('error', 'Error', "Course already added for same date and time."); 
+          return;        
+        }
+
       }
 
 
@@ -477,6 +510,7 @@ export class AddartistservicesComponent {
 
   	updatecoursedata(course) {
 
+        $('.preloader').show();
   		let options = new RequestOptions();
 	    options.headers = new Headers();
         options.headers.append('Content-Type', 'application/json');
@@ -484,10 +518,22 @@ export class AddartistservicesComponent {
 
            
       if(new Date(this.am_pm_to_hours(this.course.timeslotFrom)) > new Date(this.am_pm_to_hours(this.course.timeslotTo)) && this.course.timeslotFrom != '' && this.course.timeslotTo != '') {
+          $('.preloader').hide(); 
           this.toasterService.pop('error', 'Time invalid', "Course End Time is less than the Start Time"); 
           return;        
       }
 
+      for(let i=0; i<this.coursesData.length; i++) {
+      
+         if((((moment(course.startfrom).format('DD/MM/YYYY') < moment(this.coursesData[i].startfrom).format('DD/MM/YYYY') && moment(course.endon).format('DD/MM/YYYY') <  moment(this.coursesData[i].startfrom).format('DD/MM/YYYY')) || (moment(course.endon).format('DD/MM/YYYY') > moment(this.coursesData[i].startfrom).format('DD/MM/YYYY') && moment(course.startfrom).format('DD/MM/YYYY') >  moment(this.coursesData[i].endon).format('DD/MM/YYYY'))) && course.id != this.coursesData[i].id) || course.id == this.coursesData[i].id) {
+
+        } else {
+          $('.preloader').hide(); 
+          this.toasterService.pop('error', 'Error', "Course already added for same date and time."); 
+          return;        
+        }
+
+      }
 
 
         this.coursedetaildata = { 
@@ -534,6 +580,7 @@ export class AddartistservicesComponent {
 
   	delcoursedata(courseId) {
       if(confirm("Are you sure you want to remove this course?")){
+        $('.preloader').show();
     		let options = new RequestOptions();
   	    options.headers = new Headers();
         options.headers.append('Content-Type', 'application/json');

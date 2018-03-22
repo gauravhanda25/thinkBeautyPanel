@@ -5,6 +5,9 @@ import { NgxPermissionsService, NgxRolesService, NgxPermissionsDirective } from 
 import {Http, Response, Headers, RequestOptions} from '@angular/http';
 import { RouterModule, Routes, Router } from '@angular/router';
 import { API_URL } from '../../globals';
+
+import * as $ from 'jquery';
+
 @Component({
   templateUrl: 'dashboard.component.html'
 })
@@ -21,7 +24,7 @@ export class DashboardComponent {
   private where_condition : any;
   private role:any;
   constructor(private NgxRolesService: NgxRolesService, private NgxPermissionsService: NgxPermissionsService, private router:Router, private http: Http) {
-
+    $('.preloader').show();
 
     console.log(localStorage.getItem('currentUserRoleId'));
     if(localStorage.getItem('currentUserRoleId') == "1"){
@@ -106,6 +109,8 @@ export class DashboardComponent {
             console.log(JSON.stringify(error.json()));
         });
 
+
+    $('.preloader').hide();
       }
   }
 

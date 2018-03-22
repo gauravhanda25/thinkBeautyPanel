@@ -27,21 +27,21 @@
 	                       <div class="" *ngIf="makeupservicesData[subservice.id]">
 	                       		<div class="col-sm-12 row" *ngIf="makeupservicesData[subservice.id].homeprice">
 				                   <div class="col-sm-3"><span><strong>Home</strong></span>:</div>
-			                       <div class="col-sm-9"><span >BHD {{makeupservicesData[subservice.id].price['Home']}} for</span>
+			                       <div class="col-sm-9"><span >{{currency}} {{makeupservicesData[subservice.id].price['Home']}} for</span>
 			                       <span >{{makeupservicesData[subservice.id].duration['Home']}}</span></div>
 			                       <!-- <span *ngIf="makeupservicesData[subservice.id]">{{makeupservicesData[subservice.id].servicetype}}
 			                       </span> -->
 			                    </div>
 			                    <div class="col-sm-12 row" *ngIf="makeupservicesData[subservice.id].salonprice">
 				                   <div class="col-sm-3"> <span><strong>Salon</strong></span>:</div>
-			                       <div class="col-sm-9"><span >BHD {{makeupservicesData[subservice.id].price['Salon']}} for</span>
+			                       <div class="col-sm-9"><span >{{currency}} {{makeupservicesData[subservice.id].price['Salon']}} for</span>
 			                       <span >{{makeupservicesData[subservice.id].duration['Salon']}}</span></div>
 			                       <!-- <span *ngIf="makeupservicesData[subservice.id]">{{makeupservicesData[subservice.id].servicetype}}
 			                       </span> -->
 			                    </div>
 			                    <div class="col-sm-12 row" *ngIf="makeupservicesData[subservice.id].gccprice">
 				                   <div class="col-sm-3"> <span><strong>GCC</strong></span>:</div>
-			                       <div class="col-sm-9"><span >BHD {{makeupservicesData[subservice.id].price['GCC']}} for</span>
+			                       <div class="col-sm-9"><span >{{currency}} {{makeupservicesData[subservice.id].price['GCC']}} for</span>
 			                       <span >{{makeupservicesData[subservice.id].duration['GCC']}}</span></div>
 			                       <!-- <span *ngIf="makeupservicesData[subservice.id]">{{makeupservicesData[subservice.id].servicetype}}
 			                       </span> -->
@@ -99,9 +99,9 @@
 				                                  	<label>PRICE</label>
 				                                  	<div class="input-group">
 									                  <div class="input-group-prepend">
-									                    <span class="input-group-text">BHD</span>
+									                    <span class="input-group-text">{{currency}}</span>
 									                  </div>
-				                                 	  <input class="form-control" name="homeprice" type="text"  [(ngModel)]="data.homeprice"  placeholder="e.g. 1200" pattern="^(0|[1-9][0-9]*)$" required>
+				                                 	  <input class="form-control" name="homeprice" type="number" (keypress) = "numericOnly($event)"   [(ngModel)]="data.homeprice"  placeholder="e.g. 1200" pattern="^(0|[1-9][0-9]*)$" required>
 				                                 	</div>
 				                                </div>
 							                </div> </div>
@@ -144,9 +144,9 @@
 				                                 	<label>PRICE</label>
 				                                  	<div class="input-group">
 									                  <div class="input-group-prepend">
-									                    <span class="input-group-text">BHD</span>
+									                    <span class="input-group-text">{{currency}}</span>
 									                  </div>
-				                                  	  <input class="form-control" name="homeprice" type="text"  [(ngModel)]="makeupservicesData[subservice.id].homeprice"  value="{{makeupservicesData[subservice.id].homeprice}}" placeholder="e.g. 1200" pattern="^(0|[1-9][0-9]*)$" required>
+				                                  	  <input class="form-control" name="homeprice"  type="number" (keypress) = "numericOnly($event)"    [(ngModel)]="makeupservicesData[subservice.id].homeprice"  value="{{makeupservicesData[subservice.id].homeprice}}" placeholder="e.g. 1200" pattern="^(0|[1-9][0-9]*)$" required>
 				                                  	</div>
 				                                </div>
 			                                </div> </div>
@@ -201,9 +201,9 @@
 				                                  	<label>PRICE </label>
 				                                  	<div class="input-group">
 									                  <div class="input-group-prepend">
-									                    <span class="input-group-text">BHD</span>
+									                    <span class="input-group-text">{{currency}}</span>
 									                  </div>
-				                                 	  <input class="form-control" name="salonprice" type="text"  [(ngModel)]="data.salonprice"  placeholder="e.g. 1200" pattern="^(0|[1-9][0-9]*)$" required>
+				                                 	  <input class="form-control" name="salonprice"  type="number" (keypress) = "numericOnly($event)"    [(ngModel)]="data.salonprice"  placeholder="e.g. 1200" pattern="^(0|[1-9][0-9]*)$" required>
 				                                 	</div>
 				                                </div>
 							                </div> </div>
@@ -246,9 +246,9 @@
 				                                 	<label>PRICE</label>
 				                                  	<div class="input-group">
 									                  <div class="input-group-prepend">
-									                    <span class="input-group-text">BHD</span>
+									                    <span class="input-group-text">{{currency}}</span>
 									                  </div>
-				                                  	  <input class="form-control" name="salonprice" type="text"  [(ngModel)]="makeupservicesData[subservice.id].salonprice"  value="{{makeupservicesData[subservice.id].salonprice}}" placeholder="e.g. 1200" pattern="^(0|[1-9][0-9]*)$" required>
+				                                  	  <input class="form-control" name="salonprice"  type="number" (keypress) = "numericOnly($event)"    [(ngModel)]="makeupservicesData[subservice.id].salonprice"  value="{{makeupservicesData[subservice.id].salonprice}}" placeholder="e.g. 1200" pattern="^(0|[1-9][0-9]*)$" required>
 				                                  	</div>
 				                                </div>
 			                                </div> </div>
@@ -304,9 +304,9 @@
 				                                  	<label>PRICE</label>
 				                                  	<div class="input-group">
 									                  <div class="input-group-prepend">
-									                    <span class="input-group-text">BHD</span>
+									                    <span class="input-group-text">{{currency}}</span>
 									                  </div>
-				                                 	  <input class="form-control" name="gccprice" type="text"  [(ngModel)]="data.gccprice" pattern="^(0|[1-9][0-9]*)$" placeholder="e.g. 1200" required>
+				                                 	  <input class="form-control" name="gccprice"  type="number" (keypress) = "numericOnly($event)"    [(ngModel)]="data.gccprice" pattern="^(0|[1-9][0-9]*)$" placeholder="e.g. 1200" required>
 				                                 	</div>
 				                                </div>
 							                </div> </div>
@@ -349,9 +349,9 @@
 				                                 	<label>PRICE </label>
 				                                  	<div class="input-group">
 									                  <div class="input-group-prepend">
-									                    <span class="input-group-text">BHD</span>
+									                    <span class="input-group-text">{{currency}}</span>
 									                  </div>
-				                                  	  <input class="form-control" name="gccprice" type="text"  [(ngModel)]="makeupservicesData[subservice.id].gccprice"  value="{{makeupservicesData[subservice.id].gccprice}}" placeholder="e.g. 1200" pattern="^(0|[1-9][0-9]*)$" required>
+				                                  	  <input class="form-control" name="gccprice"  type="number" (keypress) = "numericOnly($event)"    [(ngModel)]="makeupservicesData[subservice.id].gccprice"  value="{{makeupservicesData[subservice.id].gccprice}}" placeholder="e.g. 1200" pattern="^(0|[1-9][0-9]*)$" required>
 				                                  	</div>
 				                                </div>
 			                                </div></div> 
@@ -382,7 +382,7 @@
 	                       </span>
 
 	                       <div class="clearfix"></div>
-	                       <span *ngIf="nailservicesData[subservice.id] != ''">Price: BHD{{nailservicesData[subservice.id].price}}</span>
+	                       <span *ngIf="nailservicesData[subservice.id] != ''">Price: {{currency}}{{nailservicesData[subservice.id].price}}</span>
 	                       <span *ngIf="nailservicesData[subservice.id] != ''">Duration: {{nailservicesData[subservice.id].duration}}</span>
 
 	                       <div bsModal #nailsModal="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
@@ -400,7 +400,7 @@
 		                                  <label>PRICE </label>
 		                                  <div class="input-group">
 							                  <div class="input-group-prepend">
-							                    <span class="input-group-text">BHD</span>
+							                    <span class="input-group-text">{{currency}}</span>
 							                  </div>
 		                                	  <input class="form-control" name="price" type="text"  [(ngModel)]="data.price"  value="{{nailservicesData[subservice.id].price}}" placeholder="e.g. 1200" >
 		                                	</div>
@@ -437,7 +437,7 @@
 		                                  <label>PRICE </label>
 		                                  <div class="input-group">
 							                  <div class="input-group-prepend">
-							                    <span class="input-group-text">BHD</span>
+							                    <span class="input-group-text">{{currency}}</span>
 							                  </div>
 		                                  	  <input class="form-control" name="price" type="text"  [(ngModel)]="nailservicesData[subservice.id].price"  value="{{nailservicesData[subservice.id].price}}" placeholder="e.g. 1200" >
 		                                  	</div>
@@ -492,21 +492,21 @@
 	                       <div class="" *ngIf="hairservicesData[subservice.id]">
 	                       		<div class="col-sm-12 row" *ngIf="hairservicesData[subservice.id].homeprice">
 				                   <div class="col-sm-3"> <span><strong>Home</strong></span>:</div>
-			                       <div class="col-sm-9"><span >BHD {{hairservicesData[subservice.id].price['Home']}} for</span>
+			                       <div class="col-sm-9"><span >{{currency}} {{hairservicesData[subservice.id].price['Home']}} for</span>
 			                       <span >{{hairservicesData[subservice.id].duration['Home']}}</span></div>
 			                       <!-- <span *ngIf="hairservicesData[subservice.id]">{{hairservicesData[subservice.id].servicetype}}
 			                       </span> -->
 			                    </div>
 			                    <div class="col-sm-12 row" *ngIf="hairservicesData[subservice.id].salonprice">
 				                  <div class="col-sm-3">   <span><strong>Salon</strong></span>:</div>
-			                      <div class="col-sm-9">  <span >BHD {{hairservicesData[subservice.id].price['Salon']}} for</span>
+			                      <div class="col-sm-9">  <span >{{currency}} {{hairservicesData[subservice.id].price['Salon']}} for</span>
 			                       <span >{{hairservicesData[subservice.id].duration['Salon']}}</span></div>
 			                       <!-- <span *ngIf="hairservicesData[subservice.id]">{{hairservicesData[subservice.id].servicetype}}
 			                       </span> -->
 			                    </div>
 			                    <div class="col-sm-12 row" *ngIf="hairservicesData[subservice.id].gccprice" >
 				                   <div class="col-sm-3">  <span><strong>GCC</strong></span>: </div>
-			                       <div class="col-sm-9"> <span >BHD {{hairservicesData[subservice.id].price['GCC']}} for</span>
+			                       <div class="col-sm-9"> <span >{{currency}} {{hairservicesData[subservice.id].price['GCC']}} for</span>
 			                       <span >{{hairservicesData[subservice.id].duration['GCC']}}</span></div>
 			                       <!-- <span *ngIf="hairservicesData[subservice.id]">{{hairservicesData[subservice.id].servicetype}}
 			                       </span> -->
@@ -557,9 +557,9 @@
 				                                  	<label>PRICE</label>
 				                                  	<div class="input-group">
 									                  <div class="input-group-prepend">
-									                    <span class="input-group-text">BHD</span>
+									                    <span class="input-group-text">{{currency}}</span>
 									                  </div>
-				                                 	  <input class="form-control" name="homeprice" type="text"  [(ngModel)]="data.homeprice"  placeholder="e.g. 1200" pattern="^(0|[1-9][0-9]*)$" required>
+				                                 	  <input class="form-control" name="homeprice"  type="number" (keypress) = "numericOnly($event)"    [(ngModel)]="data.homeprice"  placeholder="e.g. 1200" pattern="^(0|[1-9][0-9]*)$" required>
 				                                 	</div>
 				                                </div>
 							                </div> </div>
@@ -594,9 +594,9 @@
 				                                 	<label>PRICE</label>
 				                                  	<div class="input-group">
 									                  <div class="input-group-prepend">
-									                    <span class="input-group-text">BHD</span>
+									                    <span class="input-group-text">{{currency}}</span>
 									                  </div>
-				                                  	  <input class="form-control" name="homeprice" type="text"  [(ngModel)]="hairservicesData[subservice.id].homeprice"  value="{{hairservicesData[subservice.id].homeprice}}" placeholder="e.g. 1200" pattern="^(0|[1-9][0-9]*)$" required>
+				                                  	  <input class="form-control" name="homeprice"  type="number" (keypress) = "numericOnly($event)"    [(ngModel)]="hairservicesData[subservice.id].homeprice"  value="{{hairservicesData[subservice.id].homeprice}}" placeholder="e.g. 1200" pattern="^(0|[1-9][0-9]*)$" required>
 				                                  	</div>
 				                                </div>
 			                                </div> </div>
@@ -642,9 +642,9 @@
 				                                  	<label>PRICE </label>
 				                                  	<div class="input-group">
 									                  <div class="input-group-prepend">
-									                    <span class="input-group-text">BHD</span>
+									                    <span class="input-group-text">{{currency}}</span>
 									                  </div>
-				                                 	  <input class="form-control" name="salonprice" type="text"  [(ngModel)]="data.salonprice"  placeholder="e.g. 1200" pattern="^(0|[1-9][0-9]*)$" required>
+				                                 	  <input class="form-control" name="salonprice"  type="number" (keypress) = "numericOnly($event)"    [(ngModel)]="data.salonprice"  placeholder="e.g. 1200" pattern="^(0|[1-9][0-9]*)$" required>
 				                                 	</div>
 				                                </div>
 							                </div> </div>
@@ -679,9 +679,9 @@
 				                                 	<label>PRICE</label>
 				                                  	<div class="input-group">
 									                  <div class="input-group-prepend">
-									                    <span class="input-group-text">BHD</span>
+									                    <span class="input-group-text">{{currency}}</span>
 									                  </div>
-				                                  	  <input class="form-control" name="salonprice" type="text"  [(ngModel)]="hairservicesData[subservice.id].salonprice"  value="{{hairservicesData[subservice.id].salonprice}}" placeholder="e.g. 1200" pattern="^(0|[1-9][0-9]*)$" required>
+				                                  	  <input class="form-control" name="salonprice"  type="number" (keypress) = "numericOnly($event)"    [(ngModel)]="hairservicesData[subservice.id].salonprice"  value="{{hairservicesData[subservice.id].salonprice}}" placeholder="e.g. 1200" pattern="^(0|[1-9][0-9]*)$" required>
 				                                  	</div>
 				                                </div>
 			                                </div> </div>
@@ -728,9 +728,9 @@
 				                                  	<label>PRICE</label>
 				                                  	<div class="input-group">
 									                  <div class="input-group-prepend">
-									                    <span class="input-group-text">BHD</span>
+									                    <span class="input-group-text">{{currency}}</span>
 									                  </div>
-				                                 	  <input class="form-control" name="gccprice" type="text"  [(ngModel)]="data.gccprice" pattern="^(0|[1-9][0-9]*)$"  placeholder="e.g. 1200" required>
+				                                 	  <input class="form-control" name="gccprice"  type="number" (keypress) = "numericOnly($event)"    [(ngModel)]="data.gccprice" pattern="^(0|[1-9][0-9]*)$"  placeholder="e.g. 1200" required>
 				                                 	</div>
 				                                </div>
 							                </div> </div>
@@ -765,9 +765,9 @@
 				                                 	<label>PRICE </label>
 				                                  	<div class="input-group">
 									                  <div class="input-group-prepend">
-									                    <span class="input-group-text">BHD</span>
+									                    <span class="input-group-text">{{currency}}</span>
 									                  </div>
-				                                  	  <input class="form-control" name="gccprice" type="text"  [(ngModel)]="hairservicesData[subservice.id].gccprice" pattern="^(0|[1-9][0-9]*)$" value="{{hairservicesData[subservice.id].gccprice}}" placeholder="e.g. 1200" required>
+				                                  	  <input class="form-control" name="gccprice"  type="number" (keypress) = "numericOnly($event)"    [(ngModel)]="hairservicesData[subservice.id].gccprice" pattern="^(0|[1-9][0-9]*)$" value="{{hairservicesData[subservice.id].gccprice}}" placeholder="e.g. 1200" required>
 				                                  	</div>
 				                                </div>
 			                                </div></div> 
@@ -809,7 +809,7 @@
 			                        </tr>
 			                        <tr *ngFor="let coursedetail of mf.data" >
 			                          <td>{{coursedetail.name}}</td>
-			                          <td>BHD {{coursedetail.price}}</td>
+			                          <td>{{currency}} {{coursedetail.price}}</td>
 			                          <td>{{coursedetail.description}}</td>
 			                          <td>{{coursedetaildata[coursedetail.id].startfrom}}</td>
 			                          <td>{{coursedetaildata[coursedetail.id].endon}}</td>
@@ -840,9 +840,9 @@
 					                                  <label>Price </label>
 					                                  <div class="input-group">
 										                  <div class="input-group-prepend">
-										                    <span class="input-group-text">BHD</span>
+										                    <span class="input-group-text">{{currency}}</span>
 										                  </div>
-					                                  	  <input class="form-control" name="courseprice" type="text"  [(ngModel)]="coursedetail.price" pattern="^(0|[1-9][0-9]*)$" value="{{coursedetail.price}}"  required placeholder="e.g. 1200" >
+					                                  	  <input class="form-control" name="courseprice" type="number" (keypress) = "numericOnly($event)"  [(ngModel)]="coursedetail.price" pattern="^(0|[1-9][0-9]*)$" value="{{coursedetail.price}}"  required placeholder="e.g. 1200" >
 					                                  	</div>
 					                                </div>
 					                            </div>
@@ -869,7 +869,7 @@
 								                    </div>				                    
 					                                <div class="col-md-6">	                                	
 					                                  <label>No. of Guests </label>
-					                                  <input class="form-control" name="courseguestno" type="text"  [(ngModel)]="coursedetail.guestno" pattern="^(0|[1-9][0-9]*)$"  value="{{coursedetail.guestno}}" required placeholder="No. of guests" >
+					                                  <input class="form-control" name="courseguestno" type="number" (keypress) = "numericOnly($event)"  [(ngModel)]="coursedetail.guestno" pattern="^(0|[1-9][0-9]*)$"  value="{{coursedetail.guestno}}" required placeholder="No. of guests" >
 								                    </div>
 								                </div>			
 								                <div class="form-group row" >	                              
@@ -1128,9 +1128,9 @@
 	                                  <label>Price </label>
 	                                  <div class="input-group">
 						                  <div class="input-group-prepend">
-						                    <span class="input-group-text">BHD</span>
+						                    <span class="input-group-text">{{currency}}</span>
 						                  </div>
-	                                  	  <input class="form-control" name="price" type="text"  [(ngModel)]="course.price" pattern="^(0|[1-9][0-9]*)$" required  placeholder="e.g. 1200" >
+	                                  	  <input class="form-control" name="price" type="number" (keypress) = "numericOnly($event)"  [(ngModel)]="course.price" pattern="^(0|[1-9][0-9]*)$" required  placeholder="e.g. 1200" >
 	                                  	</div>
 	                                </div>
 	                            </div>
@@ -1157,7 +1157,7 @@
 				                    </div>				                    
 	                                <div class="col-md-6">	                                	
 	                                  <label>No. of Guests </label>
-	                                  <input class="form-control" name="courseguestno" type="text"  [(ngModel)]="course.guestno" pattern="^(0|[1-9][0-9]*)$" required placeholder="No. of guests" >
+	                                  <input class="form-control" name="courseguestno" type="number" (keypress) = "numericOnly($event)"   [(ngModel)]="course.guestno" pattern="^(0|[1-9][0-9]*)$" required placeholder="No. of guests" >
 				                    </div>
 				                </div>				                
 				                <div class="form-group row" >			                    

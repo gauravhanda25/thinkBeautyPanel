@@ -16,8 +16,8 @@ import * as $ from 'jquery';
 import { Ng4GeoautocompleteModule } from 'ng4-geoautocomplete';
 
 
-import { AgmCoreModule, MapsAPILoader } from '@agm/core';
-
+// Datepicker
+import { BsDatepickerModule } from 'ngx-bootstrap';
 
 // Tabs Component
 import { TabsModule } from 'ngx-bootstrap/tabs';
@@ -56,9 +56,11 @@ export class ArtistservicesComponent {
 	private hairservicesData:any;
 	private hair:any = [];
 	private nohair:any = 0;
+  private currency:any = localStorage.getItem('currentUserCurrency');
 
 	private data: any;
-  	private editparam: any;
+	private editparam: any;
+  private locationSelected:any = '';
 
   public servicetypes: Array<IOption> = [];
 
@@ -77,14 +79,7 @@ export class ArtistservicesComponent {
 		tapToDismiss: true,
 		timeout: 1000
 	  });
-	  
-
-  /*   public searchControl: FormControl;
-  @ViewChild("search"):any;
-  public searchElementRef: ElementRef;
-  private mapsAPILoader: MapsAPILoader;
-  private ngZone: NgZone;  */
-
+	   
 
   // Timepicker
 
@@ -119,7 +114,7 @@ export class ArtistservicesComponent {
   };
 
 	  
-    constructor(private NgxRolesService: NgxRolesService, private NgxPermissionsService: NgxPermissionsService, @Inject(Http) private http: Http, @Inject(Router)private router:Router, private activatedRoute: ActivatedRoute,toasterService: ToasterService) {
+  constructor(private NgxRolesService: NgxRolesService, private NgxPermissionsService: NgxPermissionsService, @Inject(Http) private http: Http, @Inject(Router)private router:Router, private activatedRoute: ActivatedRoute,toasterService: ToasterService) {
 		//console.log(localStorage.getItem('currentUserRoleId'));
     console.log($('.preloader').length, 'here now');
 
@@ -127,7 +122,9 @@ export class ArtistservicesComponent {
  		this.userSettings = {
        showSearchButton: false,
        showCurrentLocation: false,
-       locationIconUrl: ''
+       locationIconUrl: '',
+       inputPlaceholderText: 'Course Location',
+       inputString: ''
      }
 	  if(localStorage.getItem('currentUserRoleId') == "1"){
         localStorage.setItem('currentUserRole', "ADMIN");
@@ -191,182 +188,166 @@ export class ArtistservicesComponent {
     		artistId: localStorage.getItem('currentUserId')
     	}
 
-
     	this.getAllArtistData();
     	this.getAllArtistCourseData();
-      
-
-
-  //create search FormControl
-  /*  this.searchControl = new FormControl();
-    
-     this.mapsAPILoader.load().then(() => {
-      let autocomplete = new google.maps.places.Autocomplete(this.searchElementRef.nativeElement, {
-        types: ["address"]
-      });
-      autocomplete.addListener("place_changed", () => {
-        this.ngZone.run(() => {
-          //get the place result
-          let place: google.maps.places.PlaceResult = autocomplete.getPlace();
-  
-          //verify result
-          if (place.geometry === undefined || place.geometry === null) {
-            return;
-          }
-          
-          //set latitude, longitude and zoom
-          this.latitude = place.geometry.location.lat();
-          this.longitude = place.geometry.location.lng();
-          this.zoom = 12;
-        });
-      });
-    });   */
-
   	}
 
     autoCompleteCallback1(selectedData:any) {
-      //do any necessery stuff.
+     // alert(this.userSettings.inputString);
+      if(selectedData.data != undefined) {
+       // alert(selectedData.data.formatted_address);
+        this.locationSelected = selectedData.data.formatted_address;
+      } else {
+        this.locationSelected = '';
+      }
     }
+
+    numericOnly(event: any) {
+      const pattern = /[0-9\+\-\ ]/;
+      let inputChar = String.fromCharCode(event.charCode);
+      if (!pattern.test(inputChar)) {
+        // invalid character, prevent input
+        event.preventDefault();
+      }
+    }
+
   	getAllArtistCourseData(){
   		let options = new RequestOptions();
-        options.headers = new Headers();
-        options.headers.append('Content-Type', 'application/json');
-        options.headers.append('Accept', 'application/json');
-        
-        this.http.get(API_URL+'/Artistcourses?filter={"where":{"and":[{"artistId":"'+localStorage.getItem('currentUserId')+'"}]}}&access_token='+ localStorage.getItem('currentUserToken'), options)
-        .subscribe(r => {
-        	if(r.json().length != 0){
-        		this.coursesData = r.json();
-            for(let index in this.coursesData) {
-              this.coursedetaildata[this.coursesData[index].id] = [];
-              this.coursedetaildata[this.coursesData[index].id].startfrom = moment(this.coursesData[index].startfrom ).format('DD/MM/YYYY');
-              this.coursedetaildata[this.coursesData[index].id].endon = moment(this.coursesData[index].endon ).format('DD/MM/YYYY');
-            }
-        		this.nocourses = 1;
-        	} else {
-        		this.coursesData = '';
-        	}
-          $('.preloader').hide();
-        	console.log(this.coursesData);
+      options.headers = new Headers();
+      options.headers.append('Content-Type', 'application/json');
+      options.headers.append('Accept', 'application/json');
+      
+      this.http.get(API_URL+'/Artistcourses?filter={"where":{"and":[{"artistId":"'+localStorage.getItem('currentUserId')+'"}]}}&access_token='+ localStorage.getItem('currentUserToken'), options)
+      .subscribe(r => {
+      	if(r.json().length != 0){
+      		this.coursesData = r.json();
+
+          for(let index in this.coursesData) {
+            this.coursedetaildata[this.coursesData[index].id] = [];
+            this.coursedetaildata[this.coursesData[index].id].startfrom = moment(this.coursesData[index].startfrom ).format('DD/MM/YYYY');
+            this.coursedetaildata[this.coursesData[index].id].endon = moment(this.coursesData[index].endon ).format('DD/MM/YYYY');
+          }
+      		this.nocourses = 1;
+      	} else {
+      		this.coursesData = '';
+      	}
+        $('.preloader').hide();
+      	console.log(this.coursesData);
 	    }, error => {
-	        console.log(JSON.stringify(error.json()));
+        console.log(JSON.stringify(error.json()));
 	    });
   	}
 
   	getAllArtistData(){
   		let options = new RequestOptions();
-        options.headers = new Headers();
-        options.headers.append('Content-Type', 'application/json');
-        options.headers.append('Accept', 'application/json');
+      options.headers = new Headers();
+      options.headers.append('Content-Type', 'application/json');
+      options.headers.append('Accept', 'application/json');
 
     	this.http.get(API_URL+'/Makeups?access_token='+ localStorage.getItem('currentUserToken'), options)
-        .subscribe(response => {
-        	this.makeupservices = response.json();
-        	console.log(response.json());
-        	this.makeupservicesData = [];
-          this.makeup = [];
-          this.nomakeup = 0;
+      .subscribe(response => {
+      	this.makeupservices = response.json();
+      	console.log(response.json());
+      	this.makeupservicesData = [];
+        this.makeup = [];
+        this.nomakeup = 0;
 
-        	let removedata:any = 0;
+      	let removedata:any = 0;
 
-        	for(let ser in response.json()) {
-	        	this.http.get(API_URL+'/Artistservices?filter={"where":{"and":[{"subserviceId":"'+response.json()[parseInt(ser)-removedata].id+'"},{"artistId":"'+localStorage.getItem('currentUserId')+'"}]}}&access_token='+ localStorage.getItem('currentUserToken'), options)
-		        .subscribe(r => {
-		        	if(r.json().length != 0) {
-		        		this.makeupservicesData[response.json()[ser].id] = r.json()[0];
-                this.makeupservicesData[response.json()[ser].id].price = [];
-                this.makeupservicesData[response.json()[ser].id].duration = [];
-                this.makeupservicesData[response.json()[ser].id].price['Home'] = r.json()[0].homeprice;
-                this.makeupservicesData[response.json()[ser].id].price['Salon'] = r.json()[0].salonprice;
-                this.makeupservicesData[response.json()[ser].id].price['GCC'] = r.json()[0].gccprice;
-                this.makeupservicesData[response.json()[ser].id].duration['Home'] = r.json()[0].homeduration;
-                this.makeupservicesData[response.json()[ser].id].duration['Salon'] = r.json()[0].salonduration;
-                this.makeupservicesData[response.json()[ser].id].duration['GCC'] = r.json()[0].gccduration;
-		        		this.makeup.push(response.json()[ser]);
-		        		this.nomakeup = 1;
+      	for(let ser in response.json()) {
+        	this.http.get(API_URL+'/Artistservices?filter={"where":{"and":[{"subserviceId":"'+response.json()[parseInt(ser)-removedata].id+'"},{"artistId":"'+localStorage.getItem('currentUserId')+'"}]}}&access_token='+ localStorage.getItem('currentUserToken'), options)
+	        .subscribe(r => {
+	        	if(r.json().length != 0) {
+	        		this.makeupservicesData[response.json()[ser].id] = r.json()[0];
+              this.makeupservicesData[response.json()[ser].id].price = [];
+              this.makeupservicesData[response.json()[ser].id].duration = [];
+              this.makeupservicesData[response.json()[ser].id].price['Home'] = r.json()[0].homeprice;
+              this.makeupservicesData[response.json()[ser].id].price['Salon'] = r.json()[0].salonprice;
+              this.makeupservicesData[response.json()[ser].id].price['GCC'] = r.json()[0].gccprice;
+              this.makeupservicesData[response.json()[ser].id].duration['Home'] = r.json()[0].homeduration;
+              this.makeupservicesData[response.json()[ser].id].duration['Salon'] = r.json()[0].salonduration;
+              this.makeupservicesData[response.json()[ser].id].duration['GCC'] = r.json()[0].gccduration;
+	        		this.makeup.push(response.json()[ser]);
+	        		this.nomakeup = 1;
 
-                console.log(this.makeupservicesData);
-		        	} else if(r.json().length == 0){
-		        		this.makeupservicesData[response.json()[ser].id] = '';
-		        		delete this.makeupservices[ser];
-		        	}
+              console.log(this.makeupservicesData);
+	        	} else if(r.json().length == 0){
+	        		this.makeupservicesData[response.json()[ser].id] = '';
+	        		delete this.makeupservices[ser];
+	        	}
 
 			    }, error => {
 			        console.log(JSON.stringify(error.json()));
 			    });
-			}
-
-
+			  }
 	    }, error => {
 	        console.log(JSON.stringify(error.json()));
 	    });
 
 	    this.http.get(API_URL+'/Nails?access_token='+ localStorage.getItem('currentUserToken'), options)
-        .subscribe(response => {
-        	//console.log(response.json());	
-        	this.nailservices = response.json();
+      .subscribe(response => {
+      	//console.log(response.json());	
+      	this.nailservices = response.json();
 
-        	this.nailservicesData = [];
+      	this.nailservicesData = [];
 
 
-        	let removedata:any = 0;
+      	let removedata:any = 0;
 
-        	for(let ser in response.json()) {
-	        	this.http.get(API_URL+'/Artistservices?filter={"where":{"and":[{"subserviceId":"'+response.json()[parseInt(ser)-removedata].id+ '"},{"artistId":"'+localStorage.getItem('currentUserId')+'"}]}}&access_token='+ localStorage.getItem('currentUserToken'), options)
-		        .subscribe(r => {
-		        	if(r.json().length != 0){
-		        		this.nailservicesData[response.json()[parseInt(ser)-removedata].id] = r.json()[0];        		
-		        		this.nails.push(this.nailservices[parseInt(ser)-removedata]);
-		        		this.nonail = 1;
-		        	} else if(r.json().length == 0){
-		        		this.nailservicesData[response.json()[parseInt(ser)-removedata].id] = '';
-		        		delete this.nailservices[parseInt(ser)-removedata];
-		        	}
+      	for(let ser in response.json()) {
+        	this.http.get(API_URL+'/Artistservices?filter={"where":{"and":[{"subserviceId":"'+response.json()[parseInt(ser)-removedata].id+ '"},{"artistId":"'+localStorage.getItem('currentUserId')+'"}]}}&access_token='+ localStorage.getItem('currentUserToken'), options)
+	        .subscribe(r => {
+	        	if(r.json().length != 0){
+	        		this.nailservicesData[response.json()[parseInt(ser)-removedata].id] = r.json()[0];        		
+	        		this.nails.push(this.nailservices[parseInt(ser)-removedata]);
+	        		this.nonail = 1;
+	        	} else if(r.json().length == 0){
+	        		this.nailservicesData[response.json()[parseInt(ser)-removedata].id] = '';
+	        		delete this.nailservices[parseInt(ser)-removedata];
+	        	}
 			    }, error => {
 			        console.log(JSON.stringify(error.json()));
 
 			    });
-			}
-
-
+			  }
 	    }, error => {
 	        console.log(JSON.stringify(error.json()));
 	    });
 
 	    this.http.get(API_URL+'/Hairs?access_token='+ localStorage.getItem('currentUserToken'), options)
-        .subscribe(response => {
-        	//console.log(response.json());	
-        	this.hairservices = response.json();
+      .subscribe(response => {
+      	//console.log(response.json());	
+      	this.hairservices = response.json();
 
-        	this.hairservicesData = [];
-          this.hair = [];
-          this.nohair = 0;
+      	this.hairservicesData = [];
+        this.hair = [];
+        this.nohair = 0;
 
-        	let removedata:any = 0;
+      	let removedata:any = 0;
 
-        	for(let ser in response.json()) {
-	        	this.http.get(API_URL+'/Artistservices?filter={"where":{"and":[{"subserviceId":"'+response.json()[parseInt(ser)-removedata].id+ '"},{"artistId":"'+localStorage.getItem('currentUserId')+'"}]}}&access_token='+ localStorage.getItem('currentUserToken'), options)
-		        .subscribe(r => {
-		        	if(r.json().length != 0){
-		        		this.hairservicesData[response.json()[ser].id] = r.json()[0];
-                this.hairservicesData[response.json()[ser].id].price = [];
-                this.hairservicesData[response.json()[ser].id].duration = [];
-                this.hairservicesData[response.json()[ser].id].price['Home'] = r.json()[0].homeprice;
-                this.hairservicesData[response.json()[ser].id].price['Salon'] = r.json()[0].salonprice;
-                this.hairservicesData[response.json()[ser].id].price['GCC'] = r.json()[0].gccprice;
-                this.hairservicesData[response.json()[ser].id].duration['Home'] = r.json()[0].homeduration;
-                this.hairservicesData[response.json()[ser].id].duration['Salon'] = r.json()[0].salonduration;
-                this.hairservicesData[response.json()[ser].id].duration['GCC'] = r.json()[0].gccduration;
-		        		this.hair.push(response.json()[ser]);
-		        		this.nohair = 1;
-		        	} else if(r.json().length == 0){
-		        		this.hairservicesData[response.json()[ser].id] = '';
-		        		delete this.hairservices[ser];
-		        	}
+      	for(let ser in response.json()) {
+        	this.http.get(API_URL+'/Artistservices?filter={"where":{"and":[{"subserviceId":"'+response.json()[parseInt(ser)-removedata].id+ '"},{"artistId":"'+localStorage.getItem('currentUserId')+'"}]}}&access_token='+ localStorage.getItem('currentUserToken'), options)
+	        .subscribe(r => {
+	        	if(r.json().length != 0){
+	        		this.hairservicesData[response.json()[ser].id] = r.json()[0];
+              this.hairservicesData[response.json()[ser].id].price = [];
+              this.hairservicesData[response.json()[ser].id].duration = [];
+              this.hairservicesData[response.json()[ser].id].price['Home'] = r.json()[0].homeprice;
+              this.hairservicesData[response.json()[ser].id].price['Salon'] = r.json()[0].salonprice;
+              this.hairservicesData[response.json()[ser].id].price['GCC'] = r.json()[0].gccprice;
+              this.hairservicesData[response.json()[ser].id].duration['Home'] = r.json()[0].homeduration;
+              this.hairservicesData[response.json()[ser].id].duration['Salon'] = r.json()[0].salonduration;
+              this.hairservicesData[response.json()[ser].id].duration['GCC'] = r.json()[0].gccduration;
+	        		this.hair.push(response.json()[ser]);
+	        		this.nohair = 1;
+	        	} else if(r.json().length == 0){
+	        		this.hairservicesData[response.json()[ser].id] = '';
+	        		delete this.hairservices[ser];
+	        	}
 			    }, error => {
 			        console.log(JSON.stringify(error.json()));
 			    });
-			}
+			  }
 	    }, error => {
 	        console.log(JSON.stringify(error.json()));
 	    });
@@ -375,6 +356,7 @@ export class ArtistservicesComponent {
 
 
     savesubservicedata(subserviceId, serviceId, serviceType) {
+      $('.preloader').show();
       this.data.serviceId = serviceId;
       this.data.subserviceId = subserviceId;
 
@@ -406,10 +388,9 @@ export class ArtistservicesComponent {
           subserviceId: '',
           servicetype: ''
         }
-      this.toasterService.pop('success', 'Success', "Service saved successfully");
-        
-        this.getAllArtistData();
-
+      this.toasterService.pop('success', 'Success', "Service saved successfully");        
+      this.getAllArtistData();
+        $('.preloader').hide(); 
       }, error => {
           console.log(JSON.stringify(error.json()));
       });
@@ -417,6 +398,7 @@ export class ArtistservicesComponent {
     }
 
     updatesubservicedata(artistSubserviceId,serviceType) {
+      $('.preloader').show();
 
       let options = new RequestOptions();
       options.headers = new Headers();
@@ -469,6 +451,7 @@ export class ArtistservicesComponent {
       this.toasterService.pop('success', 'Success', "Service updated successfully");
         
         this.getAllArtistData();
+        $('.preloader').hide(); 
 
       }, error => {
           console.log(JSON.stringify(error.json()));
@@ -478,6 +461,7 @@ export class ArtistservicesComponent {
 
     delsubservicedata(recordId) {
       if(confirm("Are you sure you want to remove this service?")){
+        $('.preloader').show();
         let options = new RequestOptions();
         options.headers = new Headers();
         options.headers.append('Content-Type', 'application/json');
@@ -489,6 +473,7 @@ export class ArtistservicesComponent {
         this.toasterService.pop('success', 'Success', "Service removed successfully");
 
           this.getAllArtistData();
+        $('.preloader').hide(); 
 
         }, error => {
             console.log(JSON.stringify(error.json()));
@@ -499,15 +484,30 @@ export class ArtistservicesComponent {
 
 
   	savecoursedata() {
+      $('.preloader').show();
   		let options = new RequestOptions();
 	    options.headers = new Headers();
         options.headers.append('Content-Type', 'application/json');
         options.headers.append('Accept', 'application/json');
    
       if(new Date(this.am_pm_to_hours(this.course.timeslotFrom)) > new Date(this.am_pm_to_hours(this.course.timeslotTo)) && this.course.timeslotFrom != '' && this.course.timeslotTo != '') {
+          $('.preloader').hide(); 
           this.toasterService.pop('error', 'Time invalid', "Course End Time is less than the Start Time"); 
           return;        
       }
+
+      for(let i=0; i<this.coursesData.length; i++) {
+      
+        if((moment(this.course.startfrom).format('DD/MM/YYYY') < moment(this.coursesData[i].startfrom).format('DD/MM/YYYY') && moment(this.course.endon).format('DD/MM/YYYY') <  moment(this.coursesData[i].startfrom).format('DD/MM/YYYY')) || (moment(this.course.endon).format('DD/MM/YYYY') > moment(this.coursesData[i].startfrom).format('DD/MM/YYYY') && moment(this.course.startfrom).format('DD/MM/YYYY') >  moment(this.coursesData[i].endon).format('DD/MM/YYYY'))) {
+
+        } else {
+          $('.preloader').hide(); 
+          this.toasterService.pop('error', 'Error', "Course already added for same date and time."); 
+          return;        
+        }
+
+      }
+
 
 
     	this.http.post(API_URL+'/Artistcourses?access_token='+ localStorage.getItem('currentUserToken'), this.course, options)
@@ -526,10 +526,10 @@ export class ArtistservicesComponent {
 	    		artistId: localStorage.getItem('currentUserId')
 	    	}
 
-			this.toasterService.pop('success', 'Success', "Course saved successfully");
+			   this.toasterService.pop('success', 'Success', "Course saved successfully");
 
-          $(".closeModalButton").click();
-              		this.getAllArtistCourseData();
+        $(".closeModalButton").click();
+       this.getAllArtistCourseData();
 
 	    }, error => {
 	        console.log(JSON.stringify(error.json()));
@@ -538,24 +538,39 @@ export class ArtistservicesComponent {
   	}
 
   	updatecoursedata(course) {
+      $('.preloader').show();
 
   		let options = new RequestOptions();
 	    options.headers = new Headers();
-        options.headers.append('Content-Type', 'application/json');
-        options.headers.append('Accept', 'application/json');
+      options.headers.append('Content-Type', 'application/json');
+      options.headers.append('Accept', 'application/json');
    
-      if(new Date(this.am_pm_to_hours(this.course.timeslotFrom)) > new Date(this.am_pm_to_hours(this.course.timeslotTo)) && this.course.timeslotFrom != '' && this.course.timeslotTo != '') {
-          this.toasterService.pop('error', 'Time invalid', "Course End Time is less than the Start Time"); 
-          return;        
+      if(new Date(this.am_pm_to_hours(course.timeslotFrom)) > new Date(this.am_pm_to_hours(course.timeslotTo)) && course.timeslotFrom != '' && course.timeslotTo != '') {
+        $('.preloader').hide(); 
+        this.toasterService.pop('error', 'Time invalid', "Course End Time is less than the Start Time"); 
+        return;        
       }
 
+      for(let i=0; i<this.coursesData.length; i++) {
 
-        this.coursedetaildata = { 
+        if((((moment(course.startfrom).format('DD/MM/YYYY') < moment(this.coursesData[i].startfrom).format('DD/MM/YYYY') && moment(course.endon).format('DD/MM/YYYY') <  moment(this.coursesData[i].startfrom).format('DD/MM/YYYY')) || (moment(course.endon).format('DD/MM/YYYY') > moment(this.coursesData[i].startfrom).format('DD/MM/YYYY') && moment(course.startfrom).format('DD/MM/YYYY') >  moment(this.coursesData[i].endon).format('DD/MM/YYYY'))) && course.id != this.coursesData[i].id) || course.id == this.coursesData[i].id) {
+
+        } else {
+          $('.preloader').hide(); 
+          this.toasterService.pop('error', 'Error', "Course already added for same date and time."); 
+          return;        
+        }
+
+      }
+
+      alert(this.locationSelected);
+      
+      this.coursedetaildata = { 
     		name: course.name,   		
     		price: course.price,
     		description: course.description ,
     		guestno: course.guestno,
-        location:  course.location,
+        location:  this.locationSelected,
         startfrom:  course.startfrom,
         endon:  course.endon,
     		timeslotFrom: course.timeslotFrom,
@@ -563,11 +578,13 @@ export class ArtistservicesComponent {
     		artistId: localStorage.getItem('currentUserId')
     	}
 
-    	this.http.post(API_URL+'/Artistcourses/update?where=%7B%22id%22%3A%22'+course.id+'%22%7D&access_token='+ localStorage.getItem('currentUserToken'), this.coursedetaildata, options)
-        .subscribe(response => {
-        	console.log(response.json());
+      this.locationSelected = '';
 
-          $(".closeModalButton").click();
+    	this.http.post(API_URL+'/Artistcourses/update?where=%7B%22id%22%3A%22'+course.id+'%22%7D&access_token='+ localStorage.getItem('currentUserToken'), this.coursedetaildata, options)
+      .subscribe(response => {
+      	console.log(response.json());
+
+        $(".closeModalButton").click();
 	    	this.coursedetaildata = { 
 	    		name: '',   		
 	    		price:'',
@@ -581,9 +598,9 @@ export class ArtistservicesComponent {
 	    		artistId: localStorage.getItem('currentUserId')
 	    	}
 
-			this.toasterService.pop('success', 'Success', "Course updated successfully");
-    		
-    		this.getAllArtistCourseData();
+		    this.toasterService.pop('success', 'Success', "Course updated successfully");
+  		
+  		  this.getAllArtistCourseData();
 
 	    }, error => {
 	        console.log(JSON.stringify(error.json()));
@@ -592,7 +609,8 @@ export class ArtistservicesComponent {
   	}
 
   	delcoursedata(courseId) {
-      if(confirm("Are you sure?")){
+      if(confirm("Are you sure you want to remove this course?")){
+        $('.preloader').show();
     		let options = new RequestOptions();
   	    options.headers = new Headers();
         options.headers.append('Content-Type', 'application/json');

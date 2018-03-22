@@ -89,10 +89,30 @@ export class LoginComponent {
 	        .subscribe(response => {
 	        	console.log(response.json().id);
     			console.log(response.json().user.role_id);
+
+          this.http.get(API_URL+'/Countries?filter={"where":{"and":[{"id":"'+response.json().user.country+'"}]}}&access_token='+ localStorage.getItem('currentUserToken'), options)
+          .subscribe(cres => {
+            // alert(cres.json()[0].name);
+            localStorage.setItem('currentUserCountry', cres.json()[0].name);
+              
+            if(localStorage.getItem('currentUserCountry') == "Bahrain") {
+              localStorage.setItem('currentUserCurrency', "BHD");
+            } else {
+              localStorage.setItem('currentUserCurrency', "KD");
+            }
+
+          }, error => {
+              console.log(JSON.stringify(error.json()));
+          });
+
+
     			localStorage.setItem('currentUserToken', response.json().id);
     			localStorage.setItem('currentUserRoleId', response.json().user.role_id);
           localStorage.setItem('currentUserId', response.json().user.id);
     			localStorage.setItem('currentUser', response.json());
+
+
+
 
           if(this.data.role_id == localStorage.getItem('currentUserRoleId')){
       			if(localStorage.getItem('currentUserRoleId') == "1"){
