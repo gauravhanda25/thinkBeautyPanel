@@ -1,5 +1,8 @@
-export const navigation = [
-  {
+'use strict';
+export default new Promise(async $export => {
+  let navigation :any;
+if(localStorage.getItem('currentUserRoleId') == "1"){
+  navigation = [{
     name: 'Dashboard',
     url: '/dashboard',
     icon: 'icon-speedometer',
@@ -80,11 +83,9 @@ export const navigation = [
         icon: 'icon-list',
       }
     ]
-  }
-];
-
-export const artistnavigation = [
-  {
+  }]
+} else {
+  navigation = [{
     name: 'Dashboard',
     url: '/dashboard',
     icon: 'icon-speedometer',
@@ -95,12 +96,12 @@ export const artistnavigation = [
     icon: 'icon-list',
   },
 
- /* {
+  {
     name: 'Schedule',
     url: '/schedule',
     icon: 'icon-clock',
     children: [
-  */
+  
       {
         name: 'Work Availability',
         url: '/schedule/work',
@@ -116,8 +117,11 @@ export const artistnavigation = [
         url: '/schedule/gcc',
         icon: 'icon-clock',
       }
-  /*  ]
-  }
-  */
-  
-];
+    ]
+  }]
+
+}
+$export(
+    {"navigation" : navigation}
+    );
+});

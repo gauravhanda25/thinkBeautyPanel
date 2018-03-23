@@ -1,14 +1,14 @@
 import { Component, ElementRef, Input, OnInit, Renderer2 } from '@angular/core';
 
 // Import navigation elements
-import { artistnavigation } from './../../_nav';
+import { navigation } from './../../_nav';
 
 @Component({
   selector: 'app-artistsidebar-nav',
   template: `
     <nav class="sidebar-nav">
       <ul class="nav">
-        <ng-template ngFor let-navitem [ngForOf]="artistnavigation">
+        <ng-template ngFor let-navitem [ngForOf]="navigation">
           <li *ngIf="isDivider(navitem)" class="nav-divider"></li>
           <ng-template [ngIf]="isTitle(navitem)">
             <app-artistsidebar-nav-title [title]='navitem'></app-artistsidebar-nav-title>
@@ -22,7 +22,7 @@ import { artistnavigation } from './../../_nav';
 })
 export class AppStaffsidebarNavComponent {
 
-  public artistnavigation = artistnavigation;
+  public navigation = navigation;
 
   public isDivider(item) {
     return item.divider ? true : false

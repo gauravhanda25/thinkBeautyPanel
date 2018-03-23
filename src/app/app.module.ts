@@ -28,13 +28,11 @@ import {
   AppFooterComponent,
   AppHeaderComponent,
   AppSidebarComponent,
-  AppStaffsidebarComponent,
   AppSidebarFooterComponent,
   AppSidebarFormComponent,
   AppSidebarHeaderComponent,
   AppSidebarMinimizerComponent,
   APP_SIDEBAR_NAV,
-  APP_STAFFSIDEBAR_NAV
 } from './components';
 
 const APP_COMPONENTS = [
@@ -43,13 +41,11 @@ const APP_COMPONENTS = [
   AppFooterComponent,
   AppHeaderComponent,
   AppSidebarComponent,
-  AppStaffsidebarComponent,
   AppSidebarFooterComponent,
   AppSidebarFormComponent,
   AppSidebarHeaderComponent,
   AppSidebarMinimizerComponent,
   APP_SIDEBAR_NAV,
-  APP_STAFFSIDEBAR_NAV
 ]
 
 // Import directives
