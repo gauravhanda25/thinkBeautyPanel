@@ -1,12 +1,12 @@
 import { Component, ElementRef, Input, OnInit, Renderer2 } from '@angular/core';
 
 // Import navigation elements
-import { navigation } from './../../_nav';
+import { navigation,Navmenu } from './../../_nav';
 
 @Component({
   selector: 'app-sidebar-nav',
   template: `
-    <nav class="sidebar-nav">
+    <nav class="sidebar-nav">bfgnh
       <ul class="nav">
         <ng-template ngFor let-navitem [ngForOf]="navigation">
           <li *ngIf="isDivider(navitem)" class="nav-divider"></li>

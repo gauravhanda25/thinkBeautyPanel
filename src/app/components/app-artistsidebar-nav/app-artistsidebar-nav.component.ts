@@ -1,14 +1,14 @@
 import { Component, ElementRef, Input, OnInit, Renderer2 } from '@angular/core';
 
 // Import navigation elements
-import { navigation } from './../../_nav';
+// import { navigation } from './../../_nav';
 
 @Component({
   selector: 'app-artistsidebar-nav',
   template: `
     <nav class="sidebar-nav">
       <ul class="nav">
-        <ng-template ngFor let-navitem [ngForOf]="navigation">
+       <!-- <ng-template ngFor let-navitem [ngForOf]="navigation">
           <li *ngIf="isDivider(navitem)" class="nav-divider"></li>
           <ng-template [ngIf]="isTitle(navitem)">
             <app-artistsidebar-nav-title [title]='navitem'></app-artistsidebar-nav-title>
@@ -16,13 +16,13 @@ import { navigation } from './../../_nav';
           <ng-template [ngIf]="!isDivider(navitem)&&!isTitle(navitem)">
             <app-artistsidebar-nav-item [item]='navitem'></app-artistsidebar-nav-item>
           </ng-template>
-        </ng-template>
+        </ng-template> -->
       </ul>
     </nav>`
 })
 export class AppStaffsidebarNavComponent {
 
-  public navigation = navigation;
+  //public navigation = navigation;
 
   public isDivider(item) {
     return item.divider ? true : false

@@ -1,9 +1,7 @@
 'use strict';
-export let navigation:any;
-
-export class Navmenu {
-constructor() { 
-  if(localStorage.getItem('currentUserRoleId') == "1"){
+export default new Promise(async $export => {
+  let navigation :any;
+if(localStorage.getItem('currentUserRoleId') == "1"){
   navigation = [{
     name: 'Dashboard',
     url: '/dashboard',
@@ -87,7 +85,7 @@ constructor() {
     ]
   }]
 } else {
-    navigation = [{
+  navigation = [{
     name: 'Dashboard',
     url: '/dashboard',
     icon: 'icon-speedometer',
@@ -121,6 +119,9 @@ constructor() {
       }
     ]
   }]
+
 }
-}
-}
+$export(
+    {"navigation" : navigation}
+    );
+});
