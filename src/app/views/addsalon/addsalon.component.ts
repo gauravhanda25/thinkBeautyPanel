@@ -31,7 +31,7 @@ export class AddsalonComponent {
   	private editparam: any;
   	private countries: any;
   	private provinces: any;
-  	public mask = ['(', /[1-9]/, /\d/, /\d/, ')', ' ', /\d/, /\d/, /\d/, '-', /\d/, /\d/, /\d/, /\d/];
+  	public mask = [/[1-9]/, /\d/, /\d/, ' ',/\d/, /\d/, /\d/, /\d/, /\d/, /\d/, /\d/, /\d/];
   	public emailmask = emailMask;
 
   	private toasterService: ToasterService;

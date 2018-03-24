@@ -22,6 +22,7 @@ export class AppHeaderComponent {
 	private where_condition : any;
 	private notification_number : number;
 	private showNotification : boolean;
+    private admin:any = 0;
 	constructor(private NgxRolesService: NgxRolesService, private NgxPermissionsService: NgxPermissionsService, private router:Router, private http: Http) {
 		this.showNotification = true;
 		this.data = {};
@@ -77,6 +78,10 @@ export class AppHeaderComponent {
 
         if(this.notification_number) {
         	this.showNotification = true;
+        }
+
+        if(localStorage.getItem('currentUserRoleId') == "1") {
+            this.admin = 1;
         }
 	}
 

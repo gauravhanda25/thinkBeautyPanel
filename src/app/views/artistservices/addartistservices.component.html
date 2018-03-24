@@ -865,7 +865,7 @@
 					                            <div class="form-group row" >
 					                                <div class="col-md-6">	                                	
 					                                  <label>Location </label>
-					                                  <input class="form-control" name="courselocation" type="text"  [(ngModel)]="coursedetail.location" value="{{coursedetail.location}}"  required placeholder="Course Location" >
+					                                 <ng4geo-autocomplete [userSettings]="userSettings" (componentCallback)="autoCompleteCallback1($event)"  required  ></ng4geo-autocomplete>
 								                    </div>				                    
 					                                <div class="col-md-6">	                                	
 					                                  <label>No. of Guests </label>
@@ -1153,7 +1153,7 @@
 	                            <div class="form-group row" >
 	                                <div class="col-md-6">	                                	
 	                                  <label>Location </label>
-	                                  <input class="form-control" name="location" type="text"  [(ngModel)]="course.location"  required placeholder="Course Location" >
+	                                  <ng4geo-autocomplete [userSettings]="userSettings" (componentCallback)="autoCompleteCallback1($event)"  required></ng4geo-autocomplete>
 				                    </div>				                    
 	                                <div class="col-md-6">	                                	
 	                                  <label>No. of Guests </label>

@@ -28,9 +28,14 @@ import { ToasterModule, ToasterService, ToasterConfig, Toast }  from 'angular2-t
 // Ng2-file-upload
 import { FileSelectDirective, FileDropDirective, FileUploadModule, FileUploader } from 'ng2-file-upload';
 
+import { Ng4GeoautocompleteModule } from 'ng4-geoautocomplete';
+
 @Component({
 	templateUrl: 'addartistservices.component.html',
 	styleUrls: ['../../../scss/vendors/toastr/toastr.scss', '../../../scss/vendors/ng-select/ng-select.scss',  '../../../scss/vendors/bs-datepicker/bs-datepicker.scss'],
+
+  // styles : ['#search_places{border: 1px solid #c2cfd6;padding: 0.375rem 0.75rem;font-size: 0.875rem;line-height: 1.5;color: #3e515b; height:auto} .custom-autocomplete__dropdown { height : 100px; overflow-y:scroll; top:8px;} .custom-autocomplete__dropdown li.active a {background-color:#ceb26f} '],
+
 	encapsulation: ViewEncapsulation.None
 })
 
@@ -56,6 +61,9 @@ export class AddartistservicesComponent {
   public bsEndValue = new Date();
   private editparam: any;  
   private today: any = new Date();
+
+  private locationSelected:any = '';
+  private userSettings: any = {};
 
 	private toasterService: ToasterService;
 	public toasterconfig : ToasterConfig =
@@ -103,6 +111,14 @@ export class AddartistservicesComponent {
     constructor(private NgxRolesService: NgxRolesService, private NgxPermissionsService: NgxPermissionsService, @Inject(Http) private http: Http, @Inject(Router)private router:Router, private activatedRoute: ActivatedRoute,toasterService: ToasterService) {
 		//console.log(localStorage.getItem('currentUserRoleId'));
         $('.preloader').show();
+
+        this.userSettings = {
+           showSearchButton: false,
+           showCurrentLocation: false,
+           locationIconUrl: '',
+           inputPlaceholderText: 'Course Location',
+           inputString: ''
+         }
  			
 	  if(localStorage.getItem('currentUserRoleId') == "1"){
         localStorage.setItem('currentUserRole', "ADMIN");
@@ -182,6 +198,16 @@ export class AddartistservicesComponent {
         this.servicetypes = [...this.servicetypes];
   	}
 
+    autoCompleteCallback1(selectedData:any) {
+     // alert(this.userSettings.inputString);
+      if(selectedData.data != undefined) {
+       // alert(selectedData.data.formatted_address);
+        this.locationSelected = selectedData.data.formatted_address;
+      } else {
+        this.locationSelected = '';
+      }
+    }
+
 
     numericOnly(event: any) {
       const pattern = /[0-9\+\-\ ]/;
@@ -209,6 +235,11 @@ export class AddartistservicesComponent {
               this.coursedetaildata[this.coursesData[index].id] = [];
               this.coursedetaildata[this.coursesData[index].id].startfrom = moment(this.coursesData[index].startfrom ).format('DD/MM/YYYY');
               this.coursedetaildata[this.coursesData[index].id].endon = moment(this.coursesData[index].endon ).format('DD/MM/YYYY');
+
+            // this.userSettings.inputString = this.coursesData[index].location;
+            // console.log(this.userSettings.inputString);
+            // this.userSettings.inputString = Object.assign({},this.userSettings.inputString);
+
             }
         	} else {
         		this.coursesData = '';
