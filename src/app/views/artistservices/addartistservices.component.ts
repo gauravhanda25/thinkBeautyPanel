@@ -204,7 +204,7 @@ export class AddartistservicesComponent {
        // alert(selectedData.data.formatted_address);
         this.locationSelected = selectedData.data.formatted_address;
       } else {
-        this.locationSelected = '';
+        this.locationSelected = '';     
       }
     }
 
@@ -512,6 +512,15 @@ export class AddartistservicesComponent {
 
 
 
+      if(this.locationSelected == '') {
+          $('.preloader').hide(); 
+          this.toasterService.pop('error', 'Error', "Please select the location"); 
+          return;        
+      }
+
+      this.course.location =  this.locationSelected;
+      this.locationSelected = '';
+
     	this.http.post(API_URL+'/Artistcourses?access_token='+ localStorage.getItem('currentUserToken'), this.course, options)
         .subscribe(response => {
 
@@ -566,19 +575,29 @@ export class AddartistservicesComponent {
 
       }
 
+      
+
+      if(this.locationSelected == '') {
+          $('.preloader').hide(); 
+          this.toasterService.pop('error', 'Error', "Please select the location"); 
+          return;        
+      }
+
 
         this.coursedetaildata = { 
       		name: course.name,   		
       		price: course.price,
       		description: course.description ,
       		guestno: course.guestno,
-          location: course.location,
+          location: this.locationSelected,
           startfrom: course.startfrom,
           endon: course.endon,
       		timeslotFrom: course.timeslotFrom,
       		timeslotTo: course.timeslotTo,
       		artistId: localStorage.getItem('currentUserId')
       	}
+      
+      this.locationSelected = '';
 
 
     	this.http.post(API_URL+'/Artistcourses/update?where=%7B%22id%22%3A%22'+course.id+'%22%7D&access_token='+ localStorage.getItem('currentUserToken'), this.coursedetaildata, options)

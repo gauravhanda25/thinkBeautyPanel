@@ -513,6 +513,17 @@ export class ArtistservicesComponent {
       }
 
 
+      if(this.locationSelected == '') {
+          $('.preloader').hide(); 
+          this.toasterService.pop('error', 'Error', "Please select the location"); 
+          return;        
+      }
+
+
+      this.course.location =  this.locationSelected;
+
+      this.locationSelected = '';
+
 
     	this.http.post(API_URL+'/Artistcourses?access_token='+ localStorage.getItem('currentUserToken'), this.course, options)
         .subscribe(response => {
@@ -567,6 +578,13 @@ export class ArtistservicesComponent {
         } */
 
       }
+
+      if(this.locationSelected == '') {
+          $('.preloader').hide(); 
+          this.toasterService.pop('error', 'Error', "Please select the location"); 
+          return;        
+      }
+
 
       alert(this.locationSelected);
       
