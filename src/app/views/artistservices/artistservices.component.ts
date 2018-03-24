@@ -225,9 +225,9 @@ export class ArtistservicesComponent {
             this.coursedetaildata[this.coursesData[index].id].startfrom = moment(this.coursesData[index].startfrom ).format('DD/MM/YYYY');
             this.coursedetaildata[this.coursesData[index].id].endon = moment(this.coursesData[index].endon ).format('DD/MM/YYYY');
 
-          //  this.userSettings.inputString = this.coursesData[index].location;
-          //  console.log(this.userSettings.inputString);
-          //  this.userSettings.inputString = Object.assign({},this.userSettings.inputString);
+           this.userSettings.inputString = this.coursesData[index].location;
+           console.log(this.userSettings.inputString);
+           this.userSettings.inputString = Object.assign({},this.userSettings.inputString);
 
           }
       		this.nocourses = 1;
