@@ -747,7 +747,7 @@
                           <td>{{coursedetail.timeslotFrom}} - {{coursedetail.timeslotTo}}</td>
                           <td>{{coursedetail.guestno}}</td>
                           <td>
-                            <button class="btn btn-sm btn-outline-primary" type="button"  data-toggle="modal" (click)="updateCourseModal.show()"  ><span class="fa fa-pencil"></span></button>
+                            <button class="btn btn-sm btn-outline-primary" type="button"  data-toggle="modal" (click)="prefillLocation(coursedetail.id, updateCourseModal)"  ><span class="fa fa-pencil"></span></button>
                                 <button class="btn btn-sm btn-outline-primary" type="button" (click)="delcoursedata(coursedetail.id)" ><span class="fa fa-trash"></span></button>
 
 
