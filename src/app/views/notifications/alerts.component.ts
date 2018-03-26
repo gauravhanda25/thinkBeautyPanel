@@ -84,7 +84,7 @@ export class AlertsComponent {
     this.alertsDismiss.push({
       type: 'info',
       msg: `This alert will be closed in 5 seconds (added: ${new Date().toLocaleTimeString()})`,
-      timeout: 1000
+      timeout: 5000
     });
   }
 }

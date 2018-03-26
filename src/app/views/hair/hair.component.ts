@@ -27,7 +27,7 @@ export class HairComponent {
     public toasterconfig : ToasterConfig =
       new ToasterConfig({
         tapToDismiss: true,
-        timeout: 1000
+        timeout: 5000
       });
 	public filterQuery = '';
     constructor(private router:Router, private http: Http, private activatedRoute: ActivatedRoute, toasterService: ToasterService ) { 

@@ -34,7 +34,7 @@ export class SalonComponent {
     public toasterconfig : ToasterConfig =
       new ToasterConfig({
         tapToDismiss: true,
-        timeout: 1000
+        timeout: 5000
       });
 
     public filterQuery = '';

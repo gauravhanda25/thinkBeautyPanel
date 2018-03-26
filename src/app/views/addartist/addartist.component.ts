@@ -40,7 +40,7 @@ export class AddartistComponent {
     public toasterconfig : ToasterConfig =
       new ToasterConfig({
         tapToDismiss: true,
-        timeout: 1000
+        timeout: 5000
       });
 
     constructor(private NgxRolesService: NgxRolesService, private NgxPermissionsService: NgxPermissionsService, @Inject(Http) private http: Http, @Inject(Router)private router:Router, private activatedRoute: ActivatedRoute, toasterService: ToasterService ) {

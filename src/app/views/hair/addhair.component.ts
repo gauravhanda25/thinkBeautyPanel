@@ -29,7 +29,7 @@ export class AddhairComponent {
 	public toasterconfig : ToasterConfig =
 	  new ToasterConfig({
 		tapToDismiss: true,
-		timeout: 1000
+		timeout: 5000
 	  });
 	  
 	  
