@@ -225,9 +225,9 @@ export class ArtistservicesComponent {
             this.coursedetaildata[this.coursesData[index].id].startfrom = moment(this.coursesData[index].startfrom ).format('DD/MM/YYYY');
             this.coursedetaildata[this.coursesData[index].id].endon = moment(this.coursesData[index].endon ).format('DD/MM/YYYY');
 
-           this.userSettings.inputString = this.coursesData[index].location;
+           /*this.userSettings.inputString = this.coursesData[index].location;
            console.log(this.userSettings.inputString);
-           this.userSettings.inputString = Object.assign({},this.userSettings.inputString);
+           this.userSettings.inputString = Object.assign({},this.userSettings.inputString);*/
 
           }
       		this.nocourses = 1;
@@ -240,6 +240,16 @@ export class ArtistservicesComponent {
         console.log(JSON.stringify(error.json()));
 	    });
   	}
+
+    prefillLocation(courseId, modal){
+      let location = this.coursesData.filter(
+          function(data){ return data.id == courseId }
+      );
+      console.log(typeof location[0].location, location[0].location)
+      this.userSettings.inputString = location[0].location;
+      this.userSettings = Object.assign({},this.userSettings)
+      modal.show()
+    }
 
   	getAllArtistData(){
   		let options = new RequestOptions();
@@ -586,7 +596,7 @@ export class ArtistservicesComponent {
       }
 
 
-      alert(this.locationSelected);
+      //alert(this.locationSelected);
       
       this.coursedetaildata = { 
     		name: course.name,   		

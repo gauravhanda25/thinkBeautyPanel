@@ -551,8 +551,8 @@ export class AddartistservicesComponent {
   	updatecoursedata(course) {
 
         $('.preloader').show();
-  		let options = new RequestOptions();
-	    options.headers = new Headers();
+  		  let options = new RequestOptions();
+	      options.headers = new Headers();
         options.headers.append('Content-Type', 'application/json');
         options.headers.append('Accept', 'application/json');
 
