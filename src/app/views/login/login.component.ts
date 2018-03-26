@@ -51,8 +51,8 @@ export class LoginComponent {
             this.loginType = "artist"
           } else if(event.url == "/admin"){
             this.loginType = "admin"
-          } else {
-
+          } else if(event.url == "/salon") {
+            this.loginType = "salon"
           }
         }
       });
@@ -74,8 +74,10 @@ export class LoginComponent {
 
        if(this.loginType == "admin"){
         this.data.role_id = 1;
-       } else {
+       } else if(this.loginType == "artist"){
         this.data.role_id = 2;
+       } else if(this.loginType == "salon"){
+        this.data.role_id = 3;
        }
       
       console.log(this.data);
@@ -93,7 +95,10 @@ export class LoginComponent {
           this.http.get(API_URL+'/Countries?filter={"where":{"and":[{"id":"'+response.json().user.country+'"}]}}&access_token='+ localStorage.getItem('currentUserToken'), options)
           .subscribe(cres => {
             // alert(cres.json()[0].name);
-            localStorage.setItem('currentUserCountry', cres.json()[0].name);
+
+            if(cres.json().length != 0) {
+              localStorage.setItem('currentUserCountry', cres.json()[0].name);
+            }
               
             if(localStorage.getItem('currentUserCountry') == "Bahrain") {
               localStorage.setItem('currentUserCurrency', "BHD");

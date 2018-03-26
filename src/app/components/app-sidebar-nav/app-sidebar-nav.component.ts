@@ -6,7 +6,7 @@ import { navigation } from './../../_nav';
 @Component({
   selector: 'app-sidebar-nav',
   template: `
-    <nav class="sidebar-nav">bfgnh
+    <nav class="sidebar-nav">
       <ul class="nav">
         <ng-template ngFor let-navitem [ngForOf]="navigation">
           <li *ngIf="isDivider(navitem)" class="nav-divider"></li>

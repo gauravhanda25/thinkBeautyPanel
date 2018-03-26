@@ -13,133 +13,179 @@ export class FullLayoutComponent {
 	private display:any;
 	private navigation:any = [];
 	constructor(private NgxRolesService: NgxRolesService, private NgxPermissionsService: NgxPermissionsService) {
-
 	    if(localStorage.getItem('currentUserRoleId') == "1"){
 	      localStorage.setItem('currentUserRole', "ADMIN");
 	      this.navigation = [{
-    name: 'Dashboard',
-    url: '/dashboard',
-    icon: 'icon-speedometer',
-  },
-  {
-    name: 'Manage Artists',
-    url: '/manageartist',
-    icon: 'icon-people',
-    children: [
-      {
-        name: 'New Artist Requests',
-        url: '/manageartist/newrequests',
-        icon: 'icon-people',
-      },
-      {
-        name: 'Registered Artists',
-        url: '/manageartist/registered',
-        icon: 'icon-people',
-      },
-      {
-        name: 'Rejected Artists',
-        url: '/manageartist/rejected',
-        icon: 'icon-people',
-      },
-      {
-        name: 'Add New Artist',
-        url: '/manageartist/addartist',
-        icon: 'icon-people',
-      },
-    ]
-  }, 
-    {
-    name: 'Manage Salons',
-    url: '/managesalon',
-    icon: 'icon-list',
+          name: 'Dashboard',
+          url: '/dashboard',
+          icon: 'icon-speedometer',
+        },
+        {
+          name: 'Manage Artists',
+          url: '/manageartist',
+          icon: 'icon-people',
           children: [
-      {
-    name: 'New Salon Requests',
-    url: '/managesalon/newrequests',
-    icon: 'icon-list',
-  },
-    {
-    name: 'Registered Salon',
-    url: '/managesalon/registered',
-    icon: 'icon-list',
-  },
-    {
-    name: 'Rejected Salon',
-    url: '/managesalon/rejected',
-    icon: 'icon-list',
-  },
-      {
-    name: 'Add New Salon',
-    url: '/managesalon/addsalon',
-    icon: 'icon-list',
-  },
-      ]
-  }, 
+            {
+              name: 'New Artist Requests',
+              url: '/manageartist/newrequests',
+              icon: 'icon-people',
+            },
+            {
+              name: 'Registered Artists',
+              url: '/manageartist/registered',
+              icon: 'icon-people',
+            },
+            {
+              name: 'Rejected Artists',
+              url: '/manageartist/rejected',
+              icon: 'icon-people',
+            },
+            {
+              name: 'Add New Artist',
+              url: '/manageartist/addartist',
+              icon: 'icon-people',
+            },
+          ]
+        }, 
+          {
+          name: 'Manage Salons',
+          url: '/managesalon',
+          icon: 'icon-list',
+                children: [
+            {
+          name: 'New Salon Requests',
+          url: '/managesalon/newrequests',
+          icon: 'icon-list',
+        },
+          {
+          name: 'Registered Salon',
+          url: '/managesalon/registered',
+          icon: 'icon-list',
+        },
+          {
+          name: 'Rejected Salon',
+          url: '/managesalon/rejected',
+          icon: 'icon-list',
+        },
+            {
+          name: 'Add New Salon',
+          url: '/managesalon/addsalon',
+          icon: 'icon-list',
+        },
+            ]
+        }, 
 
-  {
-    name: 'Services',
-    url: '/',
-    icon: 'icon-settings',
-    children: [
-      {
-        name: 'Makeup',
-        url: '/makeup',
-        icon: 'icon-list',
-      },
-      {
-        name: 'Hair',
-        url: '/hair',
-        icon: 'icon-list',
-      },
-      {
-        name: 'Nails',
-        url: '/nails',
-        icon: 'icon-list',
-      }
-    ]
-  }];
-	    } else if(localStorage.getItem('currentUserRoleId') == "2"){
-	      localStorage.setItem('currentUserRole', "ARTIST");
-	      this.navigation = [{
-		    name: 'Dashboard',
-		    url: '/dashboard',
-		    icon: 'icon-speedometer',
-		  },
-		  {
-		    name: 'My Services',
-		    url: '/myservices',
-		    icon: 'icon-list',
-		  },
-		  {
-		    name: 'Schedule',
-		    url: '/schedule',
-		    icon: 'icon-clock',
-		    children: [
-		  
-		      {
-		        name: 'Work Availability',
-		        url: '/schedule/work',
-		        icon: 'icon-clock',
-		      },
-		      {
-		        name: 'Vacations',
-		        url: '/schedule/vacation',
-		        icon: 'icon-clock',
-		      },
-		      {
-		        name: 'GCC Availability',
-		        url: '/schedule/gcc',
-		        icon: 'icon-clock',
-		      }
-		    ]
-		  }];
-	    } else if(localStorage.getItem('currentUserRoleId') == "3"){
-	      localStorage.setItem('currentUserRole', "SALON");
-	    } 
+        {
+          name: 'Services',
+          url: '/',
+          icon: 'icon-settings',
+          children: [
+            {
+              name: 'Makeup',
+              url: '/makeup',
+              icon: 'icon-list',
+            },
+            {
+              name: 'Hair',
+              url: '/hair',
+              icon: 'icon-list',
+            },
+            {
+              name: 'Nails',
+              url: '/nails',
+              icon: 'icon-list',
+            }
+          ]
+        }];
+      	    } else if(localStorage.getItem('currentUserRoleId') == "2"){
+      	      localStorage.setItem('currentUserRole', "ARTIST");
+      	      this.navigation = [{
+      		    name: 'Dashboard',
+      		    url: '/dashboard',
+      		    icon: 'icon-speedometer',
+      		  },
+      		  {
+      		    name: 'My Services',
+      		    url: '/myservices',
+      		    icon: 'icon-list',
+      		  },
+      		  {
+      		    name: 'Schedule',
+      		    url: '/schedule',
+      		    icon: 'icon-clock',
+      		    children: [
+      		  
+      		      {
+      		        name: 'Work Availability',
+      		        url: '/schedule/work',
+      		        icon: 'icon-clock',
+      		      },
+      		      {
+      		        name: 'Vacations',
+      		        url: '/schedule/vacation',
+      		        icon: 'icon-clock',
+      		      },
+      		      {
+      		        name: 'GCC Availability',
+      		        url: '/schedule/gcc',
+      		        icon: 'icon-clock',
+      		      }
+      		    ]
+      		  }];
+      	    } else if(localStorage.getItem('currentUserRoleId') == "3"){
+              localStorage.setItem('currentUserRole', "SALON");
+              this.navigation = [{
+              name: 'Dashboard',
+              url: '/dashboard',
+              icon: 'icon-speedometer',
+            },
+            {
+              name: 'My Services',
+              url: '/myservices',
+              icon: 'icon-list',
+            },
+            {
+              name: 'Schedule',
+              url: '/schedule',
+              icon: 'icon-clock',
+              children: [
+            
+                {
+                  name: 'Work Availability',
+                  url: '/schedule/work',
+                  icon: 'icon-clock',
+                },
+                {
+                  name: 'Vacations',
+                  url: '/schedule/vacation',
+                  icon: 'icon-clock',
+                }
+              ]
+            },
+            {
+              name: 'Media',
+              url: '/media',
+              icon: 'icon-photo',
+              children: [
+            
+                {
+                  name: 'Gallery',
+                  url: '/media/gallery',
+                  icon: 'icon-photo',
+                },
+                {
+                  name: 'Main Images',
+                  url: '/media/main',
+                  icon: 'icon-photo',
+                }
+              ]
+            }
+          ];
+      	} 
 
-		this.NgxRolesService.flushRoles();
+		  this.NgxRolesService.flushRoles();
 
-	    if(localStorage.getItem('currentUserRole') != null) { 
+	   if(localStorage.getItem('currentUserRole') != null) { 
 	   	this.NgxRolesService.addRole(localStorage.getItem('currentUserRole'), ['A'] );
 	   } else {
 	   	this.NgxRolesService.addRole("GUEST", ['A'] );	   

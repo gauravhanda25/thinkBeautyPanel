@@ -104,6 +104,8 @@ export class AppHeaderComponent {
             routenavigate = "admin"
         } else if(localStorage.getItem('currentUserRoleId') == "2") {
             routenavigate = "artist"
+        } else if(localStorage.getItem('currentUserRoleId') == "3") {
+            routenavigate = "salon"
         }
 
 		localStorage.clear();

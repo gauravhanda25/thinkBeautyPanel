@@ -37,6 +37,10 @@ export const routes: Routes = [
         loadChildren: './views/login/login.module#LoginModule'
       },
       {
+        path: 'salon',
+        loadChildren: './views/login/login.module#LoginModule'
+      },
+      {
         path: 'forgot',
         loadChildren: './views/forgot/forgot.module#ForgotModule'
       },
@@ -273,7 +277,7 @@ export const routes: Routes = [
         canActivate: [NgxPermissionsGuard],
         data: {
           permissions: {
-            only: ['ADMIN','ARTIST'],
+            only: ['ADMIN','ARTIST','SALON'],
             except: 'GUEST'
           }
         },
@@ -322,7 +326,7 @@ export const routes: Routes = [
         canActivate: [NgxPermissionsGuard],
         data: {
           permissions: {
-            only: ['ARTIST'],
+            only: ['ARTIST','SALON'],
             except: ['ADMIN','GUEST']
           }
         },
@@ -335,7 +339,7 @@ export const routes: Routes = [
         canActivate: [NgxPermissionsGuard],
         data: {
           permissions: {
-            only: ['ARTIST'],
+            only: ['ARTIST','SALON'],
             except: ['ADMIN','GUEST']
           }
         },
