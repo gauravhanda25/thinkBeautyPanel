@@ -1,9 +1,41 @@
 'use strict';
-export let navigation:any;
+export const navigation = [{
+    name: 'Dashboard',
+    url: '/dashboard',
+    icon: 'icon-speedometer',
+  },
+  {
+    name: 'My Services',
+    url: '/myservices',
+    icon: 'icon-list',
+  },
 
-export class Navmenu {
-constructor() { 
-  if(localStorage.getItem('currentUserRoleId') == "1"){
+  {
+    name: 'Schedule',
+    url: '/schedule',
+    icon: 'icon-clock',
+    children: [
+  
+      {
+        name: 'Work Availability',
+        url: '/schedule/work',
+        icon: 'icon-clock',
+      },
+      {
+        name: 'Vacations',
+        url: '/schedule/vacation',
+        icon: 'icon-clock',
+      },
+      {
+        name: 'GCC Availability',
+        url: '/schedule/gcc',
+        icon: 'icon-clock',
+      }
+    ]
+  }];
+/*export default new Promise(async $export => {
+  let navigation :any;
+if(localStorage.getItem('currentUserRoleId') == "1"){
   navigation = [{
     name: 'Dashboard',
     url: '/dashboard',
@@ -87,7 +119,7 @@ constructor() {
     ]
   }]
 } else {
-    navigation = [{
+  navigation = [{
     name: 'Dashboard',
     url: '/dashboard',
     icon: 'icon-speedometer',
@@ -121,6 +153,9 @@ constructor() {
       }
     ]
   }]
+
 }
-}
-}
+$export(
+    {"navigation" : navigation}
+    );
+});*/

@@ -10,7 +10,6 @@ import { HttpModule } from '@angular/http';
 import * as moment from 'moment';
 
 import * as $ from 'jquery';
-import { Ng4GeoautocompleteModule } from 'ng4-geoautocomplete';
 
 import { ModalModule } from "ngx-bootstrap";
 
@@ -33,10 +32,11 @@ import { SelectModule } from 'ng-select';
 // Datepicker
 import { BsDatepickerModule } from 'ngx-bootstrap';
 
-
-
 // Timepicker
 import { TimepickerModule } from 'ngx-bootstrap';
+
+
+import { Ng4GeoautocompleteModule } from 'ng4-geoautocomplete';
 
 @NgModule({
   imports: [

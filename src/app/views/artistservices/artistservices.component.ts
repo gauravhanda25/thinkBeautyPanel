@@ -13,7 +13,6 @@ import { NgModule } from '@angular/core';
 import {IOption} from 'ng-select';
 import * as moment from 'moment';
 import * as $ from 'jquery';
-import { Ng4GeoautocompleteModule } from 'ng4-geoautocomplete';
 
 
 // Datepicker
@@ -30,10 +29,12 @@ import { ToasterModule, ToasterService, ToasterConfig, Toast }  from 'angular2-t
 // Ng2-file-upload
 import { FileSelectDirective, FileDropDirective, FileUploadModule, FileUploader } from 'ng2-file-upload';
 
+import { Ng4GeoautocompleteModule } from 'ng4-geoautocomplete';
+
 @Component({
 	templateUrl: 'artistservices.component.html',
 	styleUrls: ['../../../scss/vendors/toastr/toastr.scss', '../../../scss/vendors/ng-select/ng-select.scss',  '../../../scss/vendors/bs-datepicker/bs-datepicker.scss'],
-  styles : ['#search_places{border: 1px solid #c2cfd6;padding: 0.375rem 0.75rem;font-size: 0.875rem;line-height: 1.5;color: #3e515b; height:auto} .custom-autocomplete__dropdown { height : 100px; overflow-y:scroll; top:8px;} .custom-autocomplete__dropdown li.active a {background-color:#ceb26f} '],
+ // styles : ['#search_places{border: 1px solid #c2cfd6;padding: 0.375rem 0.75rem;font-size: 0.875rem;line-height: 1.5;color: #3e515b; height:auto} .custom-autocomplete__dropdown { height : 100px; overflow-y:scroll; top:8px;} .custom-autocomplete__dropdown li.active a {background-color:#ceb26f} '],
   
 	encapsulation: ViewEncapsulation.None
 })
@@ -123,8 +124,7 @@ export class ArtistservicesComponent {
        showSearchButton: false,
        showCurrentLocation: false,
        locationIconUrl: '',
-       inputPlaceholderText: 'Course Location',
-       inputString: ''
+       inputPlaceholderText: 'Course Location'
      }
 	  if(localStorage.getItem('currentUserRoleId') == "1"){
         localStorage.setItem('currentUserRole', "ADMIN");
@@ -193,9 +193,7 @@ export class ArtistservicesComponent {
   	}
 
     autoCompleteCallback1(selectedData:any) {
-     // alert(this.userSettings.inputString);
       if(selectedData.data != undefined) {
-       // alert(selectedData.data.formatted_address);
         this.locationSelected = selectedData.data.formatted_address;
       } else {
         this.locationSelected = '';
@@ -226,6 +224,11 @@ export class ArtistservicesComponent {
             this.coursedetaildata[this.coursesData[index].id] = [];
             this.coursedetaildata[this.coursesData[index].id].startfrom = moment(this.coursesData[index].startfrom ).format('DD/MM/YYYY');
             this.coursedetaildata[this.coursesData[index].id].endon = moment(this.coursesData[index].endon ).format('DD/MM/YYYY');
+
+           this.userSettings.inputString = this.coursesData[index].location;
+           console.log(this.userSettings.inputString);
+           this.userSettings.inputString = Object.assign({},this.userSettings.inputString);
+
           }
       		this.nocourses = 1;
       	} else {
@@ -497,7 +500,7 @@ export class ArtistservicesComponent {
       }
 
       for(let i=0; i<this.coursesData.length; i++) {
-      
+      /*
         if((moment(this.course.startfrom).format('DD/MM/YYYY') < moment(this.coursesData[i].startfrom).format('DD/MM/YYYY') && moment(this.course.endon).format('DD/MM/YYYY') <  moment(this.coursesData[i].startfrom).format('DD/MM/YYYY')) || (moment(this.course.endon).format('DD/MM/YYYY') > moment(this.coursesData[i].startfrom).format('DD/MM/YYYY') && moment(this.course.startfrom).format('DD/MM/YYYY') >  moment(this.coursesData[i].endon).format('DD/MM/YYYY'))) {
 
         } else {
@@ -505,9 +508,21 @@ export class ArtistservicesComponent {
           this.toasterService.pop('error', 'Error', "Course already added for same date and time."); 
           return;        
         }
+        */
 
       }
 
+
+      if(this.locationSelected == '') {
+          $('.preloader').hide(); 
+          this.toasterService.pop('error', 'Error', "Please select the location"); 
+          return;        
+      }
+
+
+      this.course.location =  this.locationSelected;
+
+      this.locationSelected = '';
 
 
     	this.http.post(API_URL+'/Artistcourses?access_token='+ localStorage.getItem('currentUserToken'), this.course, options)
@@ -553,15 +568,23 @@ export class ArtistservicesComponent {
 
       for(let i=0; i<this.coursesData.length; i++) {
 
+       /* 
         if((((moment(course.startfrom).format('DD/MM/YYYY') < moment(this.coursesData[i].startfrom).format('DD/MM/YYYY') && moment(course.endon).format('DD/MM/YYYY') <  moment(this.coursesData[i].startfrom).format('DD/MM/YYYY')) || (moment(course.endon).format('DD/MM/YYYY') > moment(this.coursesData[i].startfrom).format('DD/MM/YYYY') && moment(course.startfrom).format('DD/MM/YYYY') >  moment(this.coursesData[i].endon).format('DD/MM/YYYY'))) && course.id != this.coursesData[i].id) || course.id == this.coursesData[i].id) {
 
         } else {
           $('.preloader').hide(); 
           this.toasterService.pop('error', 'Error', "Course already added for same date and time."); 
           return;        
-        }
+        } */
 
       }
+
+      if(this.locationSelected == '') {
+          $('.preloader').hide(); 
+          this.toasterService.pop('error', 'Error', "Please select the location"); 
+          return;        
+      }
+
 
       alert(this.locationSelected);
       

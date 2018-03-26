@@ -1,7 +1,7 @@
 import { Component, ElementRef, Input, OnInit, Renderer2 } from '@angular/core';
 
 // Import navigation elements
-// import { navigation } from './../../_nav';
+ import { navigation } from './../../_nav';
 
 @Component({
   selector: 'app-artistsidebar-nav',
@@ -22,7 +22,40 @@ import { Component, ElementRef, Input, OnInit, Renderer2 } from '@angular/core';
 })
 export class AppStaffsidebarNavComponent {
 
-  //public navigation = navigation;
+  public navigation: any = [{
+    name: 'Dashboard',
+    url: '/dashboard',
+    icon: 'icon-speedometer',
+  },
+  {
+    name: 'My Services',
+    url: '/myservices',
+    icon: 'icon-list',
+  },
+
+  {
+    name: 'Schedule',
+    url: '/schedule',
+    icon: 'icon-clock',
+    children: [
+  
+      {
+        name: 'Work Availability',
+        url: '/schedule/work',
+        icon: 'icon-clock',
+      },
+      {
+        name: 'Vacations',
+        url: '/schedule/vacation',
+        icon: 'icon-clock',
+      },
+      {
+        name: 'GCC Availability',
+        url: '/schedule/gcc',
+        icon: 'icon-clock',
+      }
+    ]
+  }];
 
   public isDivider(item) {
     return item.divider ? true : false

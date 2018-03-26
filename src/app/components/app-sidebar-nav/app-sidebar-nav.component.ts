@@ -1,7 +1,7 @@
 import { Component, ElementRef, Input, OnInit, Renderer2 } from '@angular/core';
 
 // Import navigation elements
-import { navigation,Navmenu } from './../../_nav';
+import { navigation } from './../../_nav';
 
 @Component({
   selector: 'app-sidebar-nav',
@@ -22,7 +22,88 @@ import { navigation,Navmenu } from './../../_nav';
 })
 export class AppSidebarNavComponent {
 
-  public navigation = navigation;
+  public navigation = [{
+    name: 'Dashboard',
+    url: '/dashboard',
+    icon: 'icon-speedometer',
+  },
+  {
+    name: 'Manage Artists',
+    url: '/manageartist',
+    icon: 'icon-people',
+    children: [
+      {
+        name: 'New Artist Requests',
+        url: '/manageartist/newrequests',
+        icon: 'icon-people',
+      },
+      {
+        name: 'Registered Artists',
+        url: '/manageartist/registered',
+        icon: 'icon-people',
+      },
+      {
+        name: 'Rejected Artists',
+        url: '/manageartist/rejected',
+        icon: 'icon-people',
+      },
+      {
+        name: 'Add New Artist',
+        url: '/manageartist/addartist',
+        icon: 'icon-people',
+      },
+    ]
+  }, 
+    {
+    name: 'Manage Salons',
+    url: '/managesalon',
+    icon: 'icon-list',
+          children: [
+      {
+    name: 'New Salon Requests',
+    url: '/managesalon/newrequests',
+    icon: 'icon-list',
+  },
+    {
+    name: 'Registered Salon',
+    url: '/managesalon/registered',
+    icon: 'icon-list',
+  },
+    {
+    name: 'Rejected Salon',
+    url: '/managesalon/rejected',
+    icon: 'icon-list',
+  },
+      {
+    name: 'Add New Salon',
+    url: '/managesalon/addsalon',
+    icon: 'icon-list',
+  },
+      ]
+  }, 
+
+  {
+    name: 'Services',
+    url: '/',
+    icon: 'icon-settings',
+    children: [
+      {
+        name: 'Makeup',
+        url: '/makeup',
+        icon: 'icon-list',
+      },
+      {
+        name: 'Hair',
+        url: '/hair',
+        icon: 'icon-list',
+      },
+      {
+        name: 'Nails',
+        url: '/nails',
+        icon: 'icon-list',
+      }
+    ]
+  }];
 
   public isDivider(item) {
     return item.divider ? true : false

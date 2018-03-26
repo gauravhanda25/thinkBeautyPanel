@@ -1,6 +1,21 @@
 <app-header></app-header>
 <div class="app-body">
   <app-sidebar *ngxPermissionsOnly="['ADMIN']"></app-sidebar>  
+  <div class="sidebar">
+    <nav class="sidebar-nav">
+      <ul class="nav">
+        <ng-template ngFor let-navitem [ngForOf]="navigation">
+          <li *ngIf="isDivider(navitem)" class="nav-divider"></li>
+          <ng-template [ngIf]="isTitle(navitem)">
+            <app-sidebar-nav-title [title]='navitem'></app-sidebar-nav-title>
+          </ng-template>
+          <ng-template [ngIf]="!isDivider(navitem)&&!isTitle(navitem)">
+            <app-sidebar-nav-item [item]='navitem'></app-sidebar-nav-item>
+          </ng-template>
+        </ng-template>        
+      </ul>
+    </nav>
+  </div>
 
   <!-- Main content -->
   <main class="main">
