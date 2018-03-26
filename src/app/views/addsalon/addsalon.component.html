@@ -39,7 +39,7 @@
                         </div> -->
                         <div class="col-md-6">
                           <label>Phone<span class="text-danger">*</span></label>
-                          <input class="form-control" name="phone" placeholder="Phone" type="text"  [(ngModel)]="data.phone" required >
+                          <input class="form-control" name="phone" placeholder="999 99999999" type="text"  [(ngModel)]="data.phone" required [textMask]="{mask: mask}">
                         </div>
                     </div> 
                     <div class="form-group row">
@@ -49,7 +49,7 @@
                         </div>
                         <div class="col-md-6">
                           <label>Contact Mobile<span class="text-danger">*</span></label>
-                          <input class="form-control" name="contact_person_mobile" placeholder="Mobile Number" type="text"  [(ngModel)]="data.contact_person_mobile" required  > 
+                          <input class="form-control" name="contact_person_mobile" placeholder="999 99999999" type="text"  [(ngModel)]="data.contact_person_mobile" required [textMask]="{mask: mask}" > 
                         </div>
                     </div> 
                     <div class="form-group row" >
