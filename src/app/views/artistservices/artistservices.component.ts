@@ -616,6 +616,7 @@ export class ArtistservicesComponent {
     		timeslotTo: course.timeslotTo,
         memberId: localStorage.getItem('currentUserId'),
         memberType: (localStorage.getItem('currentUserRole') == 'SALON' ? 'salon' : 'artist')
+        }
 
       this.locationSelected = '';
 
