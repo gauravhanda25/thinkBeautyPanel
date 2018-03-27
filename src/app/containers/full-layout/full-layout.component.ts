@@ -145,6 +145,11 @@ export class FullLayoutComponent {
               icon: 'icon-list',
             },
             {
+              name: 'Manage Employees',
+              url: '/nailartists',
+              icon: 'icon-list',
+            },
+            {
               name: 'Schedule',
               url: '/schedule',
               icon: 'icon-clock',

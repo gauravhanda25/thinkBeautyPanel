@@ -77,7 +77,8 @@ export class AddartistvacationComponent {
        // starttime: '',
         endon: '',
        // endtime: '',
-    		artistId: localStorage.getItem('currentUserId'),
+    		memberId: localStorage.getItem('currentUserId'),
+        memberType: (localStorage.getItem('currentUserRole') == 'SALON' ? 'salon' : 'artist'),
         createdon: new Date()
     	}
 
@@ -130,7 +131,7 @@ export class AddartistvacationComponent {
       this.data.starton = moment(this.data.starton).format('YYYY-MM-DD');
       this.data.endon = moment(this.data.endon).format('YYYY-MM-DD');
 
-      this.http.get(API_URL+'/Artistavailabilities?filter={"where":{"and":[{"artistId":"'+localStorage.getItem('currentUserId')+'"},{"date":{"between":["'+this.data.starton+'","'+this.data.endon+'"]}}]}}&access_token='+ localStorage.getItem('currentUserToken'), options)
+      this.http.get(API_URL+'/Artistavailabilities?filter={"where":{"and":[{"memberId":"'+localStorage.getItem('currentUserId')+'"},{"date":{"between":["'+this.data.starton+'","'+this.data.endon+'"]}}]}}&access_token='+ localStorage.getItem('currentUserToken'), options)
       .subscribe(response => {
         console.log(response.json());
         if(response.json().length != 0) {
@@ -173,7 +174,7 @@ export class AddartistvacationComponent {
       this.data.starton = moment(this.data.starton).format('YYYY-MM-DD');
       this.data.endon = moment(this.data.endon).format('YYYY-MM-DD');
 
-      this.http.get(API_URL+'/Artistavailabilities?filter={"where":{"and":[{"artistId":"'+localStorage.getItem('currentUserId')+'"},{"date":{"between":["'+this.data.starton+'","'+this.data.endon+'"]}}]}}&access_token='+ localStorage.getItem('currentUserToken'), options)
+      this.http.get(API_URL+'/Artistavailabilities?filter={"where":{"and":[{"memberId":"'+localStorage.getItem('currentUserId')+'"},{"date":{"between":["'+this.data.starton+'","'+this.data.endon+'"]}}]}}&access_token='+ localStorage.getItem('currentUserToken'), options)
       .subscribe(response => {
         console.log(response.json());
         if(response.json().length != 0) {

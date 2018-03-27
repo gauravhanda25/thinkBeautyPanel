@@ -40,7 +40,7 @@ export class ArtistvacationComponent {
 		//console.log(localStorage.getItem('currentUserRoleId'));
  			
         $('.preloader').show(); 
-	  if(localStorage.getItem('currentUserRoleId') == "1"){
+	     if(localStorage.getItem('currentUserRoleId') == "1"){
         localStorage.setItem('currentUserRole', "ADMIN");
       } else if(localStorage.getItem('currentUserRoleId') == "2"){
         localStorage.setItem('currentUserRole', "ARTIST");
@@ -81,7 +81,7 @@ export class ArtistvacationComponent {
       this.vacationData = [];
       this.noVacation = 1;
 
-      this.http.get(API_URL+'/Artistvacations?filter={"where":{"and":[{"artistId":"'+localStorage.getItem('currentUserId')+'"}]},"order":"createdon DESC"}&access_token='+ localStorage.getItem('currentUserToken'), options)
+      this.http.get(API_URL+'/Artistvacations?filter={"where":{"and":[{"memberId":"'+localStorage.getItem('currentUserId')+'"}]},"order":"createdon DESC"}&access_token='+ localStorage.getItem('currentUserToken'), options)
         .subscribe(response => {
           console.log(this.vacationData = response.json());
 
@@ -91,9 +91,9 @@ export class ArtistvacationComponent {
               this.vacationData[index].endon = moment(this.vacationData[index].endon).format("DD/MM/YYYY");
             }
 
-            $('.preloader').hide(); 
             this.noVacation = 0;
           }
+            $('.preloader').hide(); 
 
           
 
