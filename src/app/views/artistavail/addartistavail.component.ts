@@ -106,7 +106,8 @@ export class AddartistavailComponent {
         hoursto: '',
         breakfrom: '',
         breakto: '',
-        artistId: localStorage.getItem('currentUserId'),
+        memberId: localStorage.getItem('currentUserId'),
+        memberType: (localStorage.getItem('currentUserRole') == 'SALON' ? 'salon' : 'artist'),
         date: '',
         createdon: new Date()
       }
@@ -189,7 +190,7 @@ export class AddartistavailComponent {
 
       this.data.date = moment(this.data.date).format('YYYY-MM-DD');
 
-      this.http.get(API_URL+'/Artistavailabilities?filter={"where":{"and":[{"artistId":"'+localStorage.getItem('currentUserId')+'"},{"date":"'+this.data.date+'"}]}}&access_token='+ localStorage.getItem('currentUserToken'), options)
+      this.http.get(API_URL+'/Artistavailabilities?filter={"where":{"and":[{"memberId":"'+localStorage.getItem('currentUserId')+'"},{"date":"'+this.data.date+'"}]}}&access_token='+ localStorage.getItem('currentUserToken'), options)
       .subscribe(response => {
           console.log(response.json());
         if(response.json().length != 0) { 
@@ -232,7 +233,7 @@ export class AddartistavailComponent {
         delete this.data.hoursfrom;
         delete this.data.hoursto;
 
-        this.http.post(API_URL+'/Artistavailabilities/update?where={"and":[{"artistId":"'+localStorage.getItem('currentUserId')+'"},{"days":"'+this.data.days+'"}]}&access_token='+ localStorage.getItem('currentUserToken'), this.data, options)
+        this.http.post(API_URL+'/Artistavailabilities/update?where={"and":[{"memberId":"'+localStorage.getItem('currentUserId')+'"},{"days":"'+this.data.days+'"}]}&access_token='+ localStorage.getItem('currentUserToken'), this.data, options)
         .subscribe(response => {
             this.toasterService.pop('success', 'Success', "Break saved successfully"); 
             this.router.navigate(['schedule/work']);
@@ -253,7 +254,7 @@ export class AddartistavailComponent {
 
       this.data.date = moment(this.data.date).format('YYYY-MM-DD');
       
-      this.http.get(API_URL+'/Artistavailabilities?filter={"where":{"and":[{"artistId":"'+localStorage.getItem('currentUserId')+'"},{"date":"'+this.data.date+'"}]}}&access_token='+ localStorage.getItem('currentUserToken'), options)
+      this.http.get(API_URL+'/Artistavailabilities?filter={"where":{"and":[{"memberId":"'+localStorage.getItem('currentUserId')+'"},{"date":"'+this.data.date+'"}]}}&access_token='+ localStorage.getItem('currentUserToken'), options)
       .subscribe(response => {
         console.log(response.json());
         if(response.json().length != 0) {

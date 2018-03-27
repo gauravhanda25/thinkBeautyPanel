@@ -92,7 +92,8 @@ export class ArtistavailComponent {
         hoursto: '',
         breakfrom: '',
         breakto: '',
-        artistId: localStorage.getItem('currentUserId'),
+        memberId: localStorage.getItem('currentUserId'),
+        memberType: (localStorage.getItem('currentUserRole') == 'SALON' ? 'salon' : 'artist'),
         date: '',
         createdon: new Date()
       }
@@ -103,7 +104,8 @@ export class ArtistavailComponent {
         hoursto: '',
         breakfrom: '',
         breakto: '',
-        artistId: localStorage.getItem('currentUserId'),
+        memberId: localStorage.getItem('currentUserId'),
+        memberType: (localStorage.getItem('currentUserRole') == 'SALON' ? 'salon' : 'artist'),
         date: '',
         createdon: new Date()
       }
@@ -122,6 +124,14 @@ export class ArtistavailComponent {
       this.break = 0;
       this.data.breakfrom = '';
       this.data.breakto = '';
+    }
+
+    showWeekendBreakSlots() {
+      this.breakweekend = 1;
+    }
+
+    removeWeekendBreakSlots() {
+      this.breakweekend = 0;
       this.dataweekend.breakfrom = '';
       this.dataweekend.breakto = '';
     }
@@ -132,7 +142,7 @@ export class ArtistavailComponent {
         options.headers.append('Content-Type', 'application/json');
         options.headers.append('Accept', 'application/json');
 
-    	   this.http.get(API_URL+'/Artistavailabilities?filter={"where":{"and":[{"artistId":"'+localStorage.getItem('currentUserId')+'"}]},"order":"createdon DESC"}&access_token='+ localStorage.getItem('currentUserToken'), options)
+    	   this.http.get(API_URL+'/Artistavailabilities?filter={"where":{"and":[{"memberId":"'+localStorage.getItem('currentUserId')+'"}]},"order":"createdon DESC"}&access_token='+ localStorage.getItem('currentUserToken'), options)
         .subscribe(response => {
         	console.log(this.availData = response.json());
 
@@ -152,7 +162,8 @@ export class ArtistavailComponent {
             hoursto: '',
             breakfrom: '',
             breakto: '',
-            artistId: localStorage.getItem('currentUserId'),
+            memberId: localStorage.getItem('currentUserId'),
+            memberType: (localStorage.getItem('currentUserRole') == 'SALON' ? 'salon' : 'artist'),
             date: '',
             createdon: new Date()
           }
@@ -163,7 +174,8 @@ export class ArtistavailComponent {
             hoursto: '',
             breakfrom: '',
             breakto: '',
-            artistId: localStorage.getItem('currentUserId'),
+            memberId: localStorage.getItem('currentUserId'),
+            memberType: (localStorage.getItem('currentUserRole') == 'SALON' ? 'salon' : 'artist'),
             date: '',
             createdon: new Date()
           }
