@@ -116,8 +116,7 @@ export class AddartistservicesComponent {
            showSearchButton: false,
            showCurrentLocation: false,
            locationIconUrl: '',
-           inputPlaceholderText: 'Course Location',
-           inputString: ''
+           inputPlaceholderText: 'Course Location'
          }
  			
 	  if(localStorage.getItem('currentUserRoleId') == "1"){
@@ -199,9 +198,7 @@ export class AddartistservicesComponent {
   	}
 
     autoCompleteCallback1(selectedData:any) {
-     // alert(this.userSettings.inputString);
       if(selectedData.data != undefined) {
-       // alert(selectedData.data.formatted_address);
         this.locationSelected = selectedData.data.formatted_address;
       } else {
         this.locationSelected = '';     
@@ -236,9 +233,9 @@ export class AddartistservicesComponent {
               this.coursedetaildata[this.coursesData[index].id].startfrom = moment(this.coursesData[index].startfrom ).format('DD/MM/YYYY');
               this.coursedetaildata[this.coursesData[index].id].endon = moment(this.coursesData[index].endon ).format('DD/MM/YYYY');
 
-            this.userSettings.inputString = this.coursesData[index].location;
+            /*   this.userSettings.inputString = this.coursesData[index].location;
             console.log(this.userSettings.inputString);
-            this.userSettings.inputString = Object.assign({},this.userSettings.inputString);
+            this.userSettings.inputString = Object.assign({},this.userSettings.inputString);  */
 
             }
         	} else {
@@ -252,6 +249,16 @@ export class AddartistservicesComponent {
 	    });
   	}
 
+    
+    prefillLocation(courseId, modal){
+      let location = this.coursesData.filter(
+          function(data){ return data.id == courseId }
+      );
+      console.log(typeof location[0].location, location[0].location)
+      this.userSettings.inputString = location[0].location;
+      this.userSettings = Object.assign({},this.userSettings)
+      modal.show()
+    }
   		
   	getAllArtistData(){
   		let options = new RequestOptions();
