@@ -156,7 +156,8 @@ export class ArtistservicesComponent {
         homeduration:'',
         salonduration:'',
         gccduration:'',
-        artistId: localStorage.getItem('currentUserId'),
+        memberId: localStorage.getItem('currentUserId'),
+        memberType: (localStorage.getItem('currentUserRole') == 'SALON' ? 'salon' : 'artist'),
         serviceId: '',
         subserviceId: '',
         servicetype: ''
@@ -172,7 +173,8 @@ export class ArtistservicesComponent {
         endon: '',
     		timeslotFrom: '',
     		timeslotTo: '',
-    		artistId: localStorage.getItem('currentUserId')
+        memberId: localStorage.getItem('currentUserId'),
+        memberType: (localStorage.getItem('currentUserRole') == 'SALON' ? 'salon' : 'artist')
     	}
 
     	this.coursedetaildata = { 
@@ -185,7 +187,8 @@ export class ArtistservicesComponent {
         endon: '',
     		timeslotFrom: '',
     		timeslotTo: '',
-    		artistId: localStorage.getItem('currentUserId')
+        memberId: localStorage.getItem('currentUserId'),
+        memberType: (localStorage.getItem('currentUserRole') == 'SALON' ? 'salon' : 'artist')
     	}
 
     	this.getAllArtistData();
@@ -215,7 +218,7 @@ export class ArtistservicesComponent {
       options.headers.append('Content-Type', 'application/json');
       options.headers.append('Accept', 'application/json');
       
-      this.http.get(API_URL+'/Artistcourses?filter={"where":{"and":[{"artistId":"'+localStorage.getItem('currentUserId')+'"}]}}&access_token='+ localStorage.getItem('currentUserToken'), options)
+      this.http.get(API_URL+'/Artistcourses?filter={"where":{"and":[{"memberId":"'+localStorage.getItem('currentUserId')+'"}]}}&access_token='+ localStorage.getItem('currentUserToken'), options)
       .subscribe(r => {
       	if(r.json().length != 0){
       		this.coursesData = r.json();
@@ -268,7 +271,7 @@ export class ArtistservicesComponent {
       	let removedata:any = 0;
 
       	for(let ser in response.json()) {
-        	this.http.get(API_URL+'/Artistservices?filter={"where":{"and":[{"subserviceId":"'+response.json()[parseInt(ser)-removedata].id+'"},{"artistId":"'+localStorage.getItem('currentUserId')+'"}]}}&access_token='+ localStorage.getItem('currentUserToken'), options)
+        	this.http.get(API_URL+'/Artistservices?filter={"where":{"and":[{"subserviceId":"'+response.json()[parseInt(ser)-removedata].id+'"},{"memberId":"'+localStorage.getItem('currentUserId')+'"}]}}&access_token='+ localStorage.getItem('currentUserToken'), options)
 	        .subscribe(r => {
 	        	if(r.json().length != 0) {
 	        		this.makeupservicesData[response.json()[ser].id] = r.json()[0];
@@ -308,7 +311,7 @@ export class ArtistservicesComponent {
       	let removedata:any = 0;
 
       	for(let ser in response.json()) {
-        	this.http.get(API_URL+'/Artistservices?filter={"where":{"and":[{"subserviceId":"'+response.json()[parseInt(ser)-removedata].id+ '"},{"artistId":"'+localStorage.getItem('currentUserId')+'"}]}}&access_token='+ localStorage.getItem('currentUserToken'), options)
+        	this.http.get(API_URL+'/Artistservices?filter={"where":{"and":[{"subserviceId":"'+response.json()[parseInt(ser)-removedata].id+ '"},{"memberId":"'+localStorage.getItem('currentUserId')+'"}]}}&access_token='+ localStorage.getItem('currentUserToken'), options)
 	        .subscribe(r => {
 	        	if(r.json().length != 0){
 	        		this.nailservicesData[response.json()[parseInt(ser)-removedata].id] = r.json()[0];        		
@@ -339,7 +342,7 @@ export class ArtistservicesComponent {
       	let removedata:any = 0;
 
       	for(let ser in response.json()) {
-        	this.http.get(API_URL+'/Artistservices?filter={"where":{"and":[{"subserviceId":"'+response.json()[parseInt(ser)-removedata].id+ '"},{"artistId":"'+localStorage.getItem('currentUserId')+'"}]}}&access_token='+ localStorage.getItem('currentUserToken'), options)
+        	this.http.get(API_URL+'/Artistservices?filter={"where":{"and":[{"subserviceId":"'+response.json()[parseInt(ser)-removedata].id+ '"},{"memberId":"'+localStorage.getItem('currentUserId')+'"}]}}&access_token='+ localStorage.getItem('currentUserToken'), options)
 	        .subscribe(r => {
 	        	if(r.json().length != 0){
 	        		this.hairservicesData[response.json()[ser].id] = r.json()[0];
@@ -386,7 +389,7 @@ export class ArtistservicesComponent {
        // return;
 
 
-      this.http.post(API_URL+'/Artistservices/upsertWithWhere?where={"and":[{"artistId":"'+localStorage.getItem('currentUserId')+'"},{"subserviceId":"'+this.data.subserviceId+'"}]}&access_token='+ localStorage.getItem('currentUserToken'), this.data, options)
+      this.http.post(API_URL+'/Artistservices/upsertWithWhere?where={"and":[{"memberId":"'+localStorage.getItem('currentUserId')+'"},{"subserviceId":"'+this.data.subserviceId+'"}]}&access_token='+ localStorage.getItem('currentUserToken'), this.data, options)
         .subscribe(response => {
 
         this.data = {   
@@ -396,7 +399,8 @@ export class ArtistservicesComponent {
           homeduration:'',
           salonduration:'',
           gccduration:'',
-          artistId: localStorage.getItem('currentUserId'),
+          memberId: localStorage.getItem('currentUserId'),
+          memberType: (localStorage.getItem('currentUserRole') == 'SALON' ? 'salon' : 'artist'),
           serviceId: '',
           subserviceId: '',
           servicetype: ''
@@ -456,7 +460,8 @@ export class ArtistservicesComponent {
           homeduration:'',
           salonduration:'',
           gccduration:'',
-          artistId: localStorage.getItem('currentUserId'),
+          memberId: localStorage.getItem('currentUserId'),
+          memberType: (localStorage.getItem('currentUserRole') == 'SALON' ? 'salon' : 'artist'),
           serviceId: '',
           subserviceId: '',
           servicetype: ''
@@ -548,7 +553,8 @@ export class ArtistservicesComponent {
           endon: '',
 	    		timeslotFrom: '',
 	    		timeslotTo: '',
-	    		artistId: localStorage.getItem('currentUserId')
+          memberId: localStorage.getItem('currentUserId'),
+          memberType: (localStorage.getItem('currentUserRole') == 'SALON' ? 'salon' : 'artist')
 	    	}
 
 			   this.toasterService.pop('success', 'Success', "Course saved successfully");
@@ -608,8 +614,8 @@ export class ArtistservicesComponent {
         endon:  course.endon,
     		timeslotFrom: course.timeslotFrom,
     		timeslotTo: course.timeslotTo,
-    		artistId: localStorage.getItem('currentUserId')
-    	}
+        memberId: localStorage.getItem('currentUserId'),
+        memberType: (localStorage.getItem('currentUserRole') == 'SALON' ? 'salon' : 'artist')
 
       this.locationSelected = '';
 
@@ -628,7 +634,8 @@ export class ArtistservicesComponent {
           endon: '',
 	    		timeslotFrom: '',
 	    		timeslotTo: '',
-	    		artistId: localStorage.getItem('currentUserId')
+          memberId: localStorage.getItem('currentUserId'),
+          memberType: (localStorage.getItem('currentUserRole') == 'SALON' ? 'salon' : 'artist')
 	    	}
 
 		    this.toasterService.pop('success', 'Success', "Course updated successfully");

@@ -149,7 +149,8 @@ export class AddartistservicesComponent {
     		homeduration:'',
         salonduration:'',
         gccduration:'',
-    		artistId: localStorage.getItem('currentUserId'),
+        memberId: localStorage.getItem('currentUserId'),
+        memberType: (localStorage.getItem('currentUserRole') == 'SALON' ? 'salon' : 'artist'),
     		serviceId: '',
     		subserviceId: '',
     		servicetype: ''
@@ -165,7 +166,8 @@ export class AddartistservicesComponent {
         endon: '',
     		timeslotFrom: '',
     		timeslotTo: '',
-    		artistId: localStorage.getItem('currentUserId')
+        memberId: localStorage.getItem('currentUserId'),
+        memberType: (localStorage.getItem('currentUserRole') == 'SALON' ? 'salon' : 'artist')
     	}
 
     	this.coursedetaildata = { 
@@ -178,7 +180,8 @@ export class AddartistservicesComponent {
         endon: '',
     		timeslotFrom: '',
     		timeslotTo: '',
-    		artistId: localStorage.getItem('currentUserId')
+        memberId: localStorage.getItem('currentUserId'),
+        memberType: (localStorage.getItem('currentUserRole') == 'SALON' ? 'salon' : 'artist')
     	}
 
 
@@ -221,7 +224,7 @@ export class AddartistservicesComponent {
         options.headers.append('Content-Type', 'application/json');
         options.headers.append('Accept', 'application/json');
 
-        this.http.get(API_URL+'/Artistcourses?filter={"where":{"and":[{"artistId":"'+localStorage.getItem('currentUserId')+'"}]}}&access_token='+ localStorage.getItem('currentUserToken'), options)
+        this.http.get(API_URL+'/Artistcourses?filter={"where":{"and":[{"memberId":"'+localStorage.getItem('currentUserId')+'"}]}}&access_token='+ localStorage.getItem('currentUserToken'), options)
         .subscribe(r => {
           this.coursesData = [];
           this.coursedetaildata= [];
@@ -274,7 +277,7 @@ export class AddartistservicesComponent {
         	this.makeupservicesData = [];
 
         	for(let ser in this.makeupservices) {
-	        	this.http.get(API_URL+'/Artistservices?filter={"where":{"and":[{"subserviceId":"'+this.makeupservices[ser].id+'"},{"artistId":"'+localStorage.getItem('currentUserId')+'"}]}}&access_token='+ localStorage.getItem('currentUserToken'), options)
+	        	this.http.get(API_URL+'/Artistservices?filter={"where":{"and":[{"subserviceId":"'+this.makeupservices[ser].id+'"},{"memberId":"'+localStorage.getItem('currentUserId')+'"}]}}&access_token='+ localStorage.getItem('currentUserToken'), options)
 		        .subscribe(r => {
 
               console.log(r.json());
@@ -312,7 +315,7 @@ export class AddartistservicesComponent {
         	this.nailservicesData = [];
 
         	for(let ser in this.nailservices) {
-	        	this.http.get(API_URL+'/Artistservices?filter={"where":{"and":[{"subserviceId":"'+this.nailservices[ser].id+'"},{"artistId":"'+localStorage.getItem('currentUserId')+'"}]}}&access_token='+ localStorage.getItem('currentUserToken'), options)
+	        	this.http.get(API_URL+'/Artistservices?filter={"where":{"and":[{"subserviceId":"'+this.nailservices[ser].id+'"},{"memberId":"'+localStorage.getItem('currentUserId')+'"}]}}&access_token='+ localStorage.getItem('currentUserToken'), options)
 		        .subscribe(r => {
 		        	if(r.json().length != 0){
 		        		this.nailservicesData[this.nailservices[ser].id] = r.json()[0];
@@ -336,7 +339,7 @@ export class AddartistservicesComponent {
         	this.hairservicesData = [];
 
         	for(let ser in this.hairservices) {
-	        	this.http.get(API_URL+'/Artistservices?filter={"where":{"and":[{"subserviceId":"'+this.hairservices[ser].id+'"},{"artistId":"'+localStorage.getItem('currentUserId')+'"}]}}&access_token='+ localStorage.getItem('currentUserToken'), options)
+	        	this.http.get(API_URL+'/Artistservices?filter={"where":{"and":[{"subserviceId":"'+this.hairservices[ser].id+'"},{"memberId":"'+localStorage.getItem('currentUserId')+'"}]}}&access_token='+ localStorage.getItem('currentUserToken'), options)
 		        .subscribe(r => {
 		        	if(r.json().length != 0){
 		        		this.hairservicesData[this.hairservices[ser].id] = r.json()[0];
@@ -382,7 +385,7 @@ export class AddartistservicesComponent {
        // return;
 
 
-    	this.http.post(API_URL+'/Artistservices/upsertWithWhere?where={"and":[{"artistId":"'+localStorage.getItem('currentUserId')+'"},{"subserviceId":"'+this.data.subserviceId+'"}]}&access_token='+ localStorage.getItem('currentUserToken'), this.data, options)
+    	this.http.post(API_URL+'/Artistservices/upsertWithWhere?where={"and":[{"memberId":"'+localStorage.getItem('currentUserId')+'"},{"subserviceId":"'+this.data.subserviceId+'"}]}&access_token='+ localStorage.getItem('currentUserToken'), this.data, options)
         .subscribe(response => {
 
 	    	this.data = {   
@@ -392,7 +395,8 @@ export class AddartistservicesComponent {
           homeduration:'',
           salonduration:'',
           gccduration:'',
-	    		artistId: localStorage.getItem('currentUserId'),
+          memberId: localStorage.getItem('currentUserId'),
+          memberType: (localStorage.getItem('currentUserRole') == 'SALON' ? 'salon' : 'artist'),
 	    		serviceId: '',
 	    		subserviceId: '',
 	    		servicetype: ''
@@ -453,7 +457,8 @@ export class AddartistservicesComponent {
           homeduration:'',
           salonduration:'',
           gccduration:'',
-	    		artistId: localStorage.getItem('currentUserId'),
+          memberId: localStorage.getItem('currentUserId'),
+          memberType: (localStorage.getItem('currentUserRole') == 'SALON' ? 'salon' : 'artist'),
 	    		serviceId: '',
 	    		subserviceId: '',
 	    		servicetype: ''
@@ -541,7 +546,8 @@ export class AddartistservicesComponent {
           endon: '',
 	    		timeslotFrom: '',
 	    		timeslotTo: '',
-	    		artistId: localStorage.getItem('currentUserId')
+          memberId: localStorage.getItem('currentUserId'),
+          memberType: (localStorage.getItem('currentUserRole') == 'SALON' ? 'salon' : 'artist')
 	    	}
 
 			this.toasterService.pop('success', 'Success', "Course saved successfully");
@@ -601,7 +607,8 @@ export class AddartistservicesComponent {
           endon: course.endon,
       		timeslotFrom: course.timeslotFrom,
       		timeslotTo: course.timeslotTo,
-      		artistId: localStorage.getItem('currentUserId')
+          memberId: localStorage.getItem('currentUserId'),
+          memberType: (localStorage.getItem('currentUserRole') == 'SALON' ? 'salon' : 'artist')
       	}
       
       this.locationSelected = '';
@@ -622,7 +629,8 @@ export class AddartistservicesComponent {
           endon: '',
 	    		timeslotFrom: '',
 	    		timeslotTo: '',
-	    		artistId: localStorage.getItem('currentUserId')
+          memberId: localStorage.getItem('currentUserId'),
+          memberType: (localStorage.getItem('currentUserRole') == 'SALON' ? 'salon' : 'artist'),
 	    	}
 
 			this.toasterService.pop('success', 'Success', "Course updated successfully");
