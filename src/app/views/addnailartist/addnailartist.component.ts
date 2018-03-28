@@ -189,7 +189,7 @@ export class AddnailartistComponent {
 	        .subscribe(response => {
 	        	console.log(response.json());   
     			localStorage.setItem('noticemessage', 'artistadd');
-		   		this.router.navigate(['manageartist/registered']);  			
+		   		this.router.navigate(['nailartists/manage']);  			
 			       
 		    }, error => {
                 if(error.json().error.statusCode == "422") {
@@ -214,7 +214,7 @@ export class AddnailartistComponent {
 	        .subscribe(response => {
 	        	console.log(response.json());	
     			localStorage.setItem('noticemessage', 'artistupdate');
-    			this.router.navigate(['manageartist/registered']);  
+    			this.router.navigate(['nailartists/manage']);  
                	
 		    }, error => {
 		    	if(error.json().error.statusCode == "422") {

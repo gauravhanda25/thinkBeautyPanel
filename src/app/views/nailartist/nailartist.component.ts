@@ -59,20 +59,22 @@ export class NailartistComponent {
         // alert(this.router.url);
 
 
-        this.http.get(API_URL+'/Members?filter={"where":{"role_id":2, "status" : "active"}}&access_token='+localStorage.getItem('currentUserToken'), options)
+        this.http.get(API_URL+'/Members?filter={"where":{"created_by":"'+localStorage.getItem('currentUserId')+'", "status" : "active"}}&access_token='+localStorage.getItem('currentUserToken'), options)
         .subscribe(response => {
             console.log(response.json());       
             this.users = response.json();    
 
             if(this.users.length !=0) {
                 for(let i=0; i< this.users.length; i++ ) {
-                    this.http.get(API_URL+'/Members/'+this.users[i].id+'/roles?access_token='+ localStorage.getItem('currentUserToken'), options)
+                   /* this.http.get(API_URL+'/Members/'+this.users[i].id+'/roles?access_token='+ localStorage.getItem('currentUserToken'), options)
                     .subscribe(response => {
                         console.log(response.json());       
                         this.users[i].role = response.json()[0].name;  
                     }, error => {
                         console.log(JSON.stringify(error.json()));
                     });  
+
+                    */
 
                     this.http.get(API_URL+'/Countries/'+this.users[i].country+'?access_token='+ localStorage.getItem('currentUserToken'), options)
                     .subscribe(response => {
@@ -91,11 +93,11 @@ export class NailartistComponent {
                 console.log(localStorage.getItem('noticemessage'));
 
                 if(localStorage.getItem('noticemessage') == "artistadd") {
-                    this.toasterService.pop('success', 'Success ', "Artist Record added successfully."); 
+                    this.toasterService.pop('success', 'Success ', "Nail Artist Record added successfully."); 
                 } else if(localStorage.getItem('noticemessage') == "artistupdate") {
-                    this.toasterService.pop('success', 'Success ', "Artist Record updated successfully.");
+                    this.toasterService.pop('success', 'Success ', "Nail Artist Record updated successfully.");
                 }  else if(localStorage.getItem('noticemessage') == "artistdelete") {
-                    this.toasterService.pop('success', 'Success ', "Artist Record deleted successfully.");
+                    this.toasterService.pop('success', 'Success ', "Nail Artist Record deleted successfully.");
                 }
 
                 localStorage.setItem('noticemessage', null);
@@ -107,88 +109,21 @@ export class NailartistComponent {
 
  	}
 
-    changeStatus(artist, status, action) {
-        let options = new RequestOptions();
-        options.headers = new Headers();
-        options.headers.append('Content-Type', 'application/json');
-        options.headers.append('Accept', 'application/json');
-
-        let msg:any = "Are you sure you want to "+action+" the selected Artist?";
-
-        if(confirm(msg)){
-            let today:any = new Date();
-            let dd:any = today.getDate();
-            let mm:any = today.getMonth()+1; //January is 0!
-            let yyyy:any = today.getFullYear();
-
-            if(dd<10) {
-                dd = '0'+dd
-            } 
-
-            if(mm<10) {
-                mm = '0'+mm
-            } 
-
-            today = mm + '-' + dd + '-' + yyyy;
-
-
-            artist.action_on = today;
-
-            artist.status = status;
-            let where = '{"id": artist.id}';
-            console.log(where);
-
-            this.http.post(API_URL+'/Members/update?where={"id":"'+  artist.id +'"}&access_token='+ localStorage.getItem('currentUserToken'), artist,  options)
-            .subscribe(response => {
-
-                this.toasterService.pop('success', 'Success ', "Artist Record updated successfully.");
-                //this.router.navigate(['artist']);  
-                const index: number = this.users.indexOf(artist);
-
-                if (index !== -1) {
-                 this.users.splice(index, 1);
-                }
-                   
-            }, error => {
-                this.toasterService.pop('error', 'Error ',  error.json().error.message);
-                console.log(JSON.stringify(error.json()));
-            });
-        }
-    } 
-
-    changeAllStatuses()  {
-        let options = new RequestOptions();
-        options.headers = new Headers();
-        options.headers.append('Content-Type', 'application/json');
-        options.headers.append('Accept', 'application/json');
-
-          
-
-        this.http.post(API_URL+'/Members/update?where={"seen":false}&access_token='+ localStorage.getItem('currentUserToken'), {"seen" : true},  options)
-        .subscribe(response => {
-
-            console.log("status changed");
-               
-        }, error => {
-            this.toasterService.pop('error', 'Error ',  error.json().error.message);
-            
-        });
-    }
-    delartist(artist) {
-        if(confirm("Are you sure you want to delete the selected Artist?")){
+   
+    delartist(nailartist) {
+        if(confirm("Are you sure you want to delete the selected Nail Artist?")){
             let options = new RequestOptions();
             options.headers = new Headers();
             options.headers.append('Content-Type', 'application/json');
             options.headers.append('Accept', 'application/json');
 
-            this.http.delete(API_URL+'/Members/'+ artist.id +'?access_token='+ localStorage.getItem('currentUserToken'), options)
+            this.http.delete(API_URL+'/Members/'+ nailartist.id +'?access_token='+ localStorage.getItem('currentUserToken'), options)
             .subscribe(response => {
                 console.log(response.json()); 
                 localStorage.setItem('noticemessage', 'artistdelete');
-                this.toasterService.pop('success', 'Success ', "Artist Record deleted successfully.");
-                //this.router.navigate(['artist']);
+                this.toasterService.pop('success', 'Success ', "Nail Artist Record deleted successfully.");
 
-                const index: number = this.users.indexOf(artist);
+                const index: number = this.users.indexOf(nailartist);
                 console.log(index);
                 if (index !== -1) {
                  this.users.splice(index, 1);
