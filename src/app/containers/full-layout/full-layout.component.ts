@@ -146,7 +146,7 @@ export class FullLayoutComponent {
             },
             {
               name: 'Manage Employees',
-              url: '/nailartists',
+              url: '/nailartists/manage',
               icon: 'icon-list',
             },
             {

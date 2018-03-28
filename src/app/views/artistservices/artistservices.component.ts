@@ -48,10 +48,10 @@ export class ArtistservicesComponent {
 	private makeup:any = [];
 	private nomakeup:any = 0;
 	
-	private nailservices: any;
-	private nailservicesData:any;
+	private nailsservices: any;
+	private nailsservicesData:any;
 	private nails:any = [];
-	private nonail:any = 0;
+	private nonails:any = 0;
 
 	private hairservices: any;
 	private hairservicesData:any;
@@ -114,6 +114,7 @@ export class ArtistservicesComponent {
     this.mytime = void 0;
   };
 
+  public loginUserRole:any;
 	  
   constructor(private NgxRolesService: NgxRolesService, private NgxPermissionsService: NgxPermissionsService, @Inject(Http) private http: Http, @Inject(Router)private router:Router, private activatedRoute: ActivatedRoute,toasterService: ToasterService) {
 		//console.log(localStorage.getItem('currentUserRoleId'));
@@ -128,10 +129,13 @@ export class ArtistservicesComponent {
      }
 	  if(localStorage.getItem('currentUserRoleId') == "1"){
         localStorage.setItem('currentUserRole', "ADMIN");
+        this.loginUserRole = "admin";
       } else if(localStorage.getItem('currentUserRoleId') == "2"){
         localStorage.setItem('currentUserRole', "ARTIST");
+        this.loginUserRole = "artist";
       } else if(localStorage.getItem('currentUserRoleId') == "3"){
         localStorage.setItem('currentUserRole', "SALON");
+        this.loginUserRole = "salon";
       } 
 
 	   this.NgxRolesService.flushRoles();
@@ -302,33 +306,43 @@ export class ArtistservicesComponent {
 
 	    this.http.get(API_URL+'/Nails?access_token='+ localStorage.getItem('currentUserToken'), options)
       .subscribe(response => {
-      	//console.log(response.json());	
-      	this.nailservices = response.json();
+        this.nailsservices = response.json();
+        console.log(response.json());
+        this.nailsservicesData = [];
+        this.nails = [];
+        this.nonails = 0;
 
-      	this.nailservicesData = [];
+        let removedata:any = 0;
 
+        for(let ser in response.json()) {
+          this.http.get(API_URL+'/Artistservices?filter={"where":{"and":[{"subserviceId":"'+response.json()[parseInt(ser)-removedata].id+'"},{"memberId":"'+localStorage.getItem('currentUserId')+'"}]}}&access_token='+ localStorage.getItem('currentUserToken'), options)
+          .subscribe(r => {
+            if(r.json().length != 0) {
+              this.nailsservicesData[response.json()[ser].id] = r.json()[0];
+              this.nailsservicesData[response.json()[ser].id].price = [];
+              this.nailsservicesData[response.json()[ser].id].duration = [];
+              this.nailsservicesData[response.json()[ser].id].price['Home'] = r.json()[0].homeprice;
+              this.nailsservicesData[response.json()[ser].id].price['Salon'] = r.json()[0].salonprice;
+              this.nailsservicesData[response.json()[ser].id].price['GCC'] = r.json()[0].gccprice;
+              this.nailsservicesData[response.json()[ser].id].duration['Home'] = r.json()[0].homeduration;
+              this.nailsservicesData[response.json()[ser].id].duration['Salon'] = r.json()[0].salonduration;
+              this.nailsservicesData[response.json()[ser].id].duration['GCC'] = r.json()[0].gccduration;
+              this.nails.push(response.json()[ser]);
+              this.nonails = 1;
 
-      	let removedata:any = 0;
+              console.log(this.nailsservicesData);
+            } else if(r.json().length == 0){
+              this.nailsservicesData[response.json()[ser].id] = '';
+              delete this.nailsservices[ser];
+            }
 
-      	for(let ser in response.json()) {
-        	this.http.get(API_URL+'/Artistservices?filter={"where":{"and":[{"subserviceId":"'+response.json()[parseInt(ser)-removedata].id+ '"},{"memberId":"'+localStorage.getItem('currentUserId')+'"}]}}&access_token='+ localStorage.getItem('currentUserToken'), options)
-	        .subscribe(r => {
-	        	if(r.json().length != 0){
-	        		this.nailservicesData[response.json()[parseInt(ser)-removedata].id] = r.json()[0];        		
-	        		this.nails.push(this.nailservices[parseInt(ser)-removedata]);
-	        		this.nonail = 1;
-	        	} else if(r.json().length == 0){
-	        		this.nailservicesData[response.json()[parseInt(ser)-removedata].id] = '';
-	        		delete this.nailservices[parseInt(ser)-removedata];
-	        	}
-			    }, error => {
-			        console.log(JSON.stringify(error.json()));
-
-			    });
-			  }
-	    }, error => {
-	        console.log(JSON.stringify(error.json()));
-	    });
+          }, error => {
+              console.log(JSON.stringify(error.json()));
+          });
+        }
+      }, error => {
+          console.log(JSON.stringify(error.json()));
+      });
 
 	    this.http.get(API_URL+'/Hairs?access_token='+ localStorage.getItem('currentUserToken'), options)
       .subscribe(response => {

@@ -1,0 +1,118 @@
+<div class="animated fadeIn">
+  <div class="row">
+    <div class="col-lg-12">
+      	<div class="card">         
+            <form class="form-horizontal ng-untouched ng-pristine ng-valid" novalidate="" (ngSubmit)="onSubmit()" #artistForm="ngForm">
+                <div class="card-header">                                    
+                    <span *ngIf="editparam.action == 'add'">Add New Nail Artist</span>
+                    <span *ngIf="editparam.action == 'edit'">Edit Nail Artist </span>
+                </div>
+                <div class="card-body">  
+                    <div class="form-group row">
+                      	<div class="col-md-6">
+                          <label>Name<span class="text-danger">*</span></label>
+                        	<input class="form-control" name="name" placeholder="Name" type="text"  [(ngModel)]="data.name" required>
+                        </div>
+                        <div class="col-md-6">
+                          <label>Email<span class="text-danger">*</span></label>
+                          <input class="form-control" name="email" placeholder="abc@xyz.com" type="text"  [(ngModel)]="data.email" required  pattern="^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$" [textMask]="{mask: emailmask }"> 
+                          <span *ngIf="error" style="color:red;">Email Address already exists. Please use different email</span>
+                        </div>
+                    </div> 
+                    <div class="form-group row">
+                        <div class="col-md-6" *ngIf="editparam.action == 'add'">
+                          <label>Password<span class="text-danger">*</span></label> 
+                          <input class="form-control" name="password" placeholder="Password" type="password"  [(ngModel)]="data.password" required *ngIf="editparam.action == 'add'"> <!-- required = "editparam.action == 'add'"  -->
+                        </div>
+                       <!--  <div class="col-md-6">
+                          <label>CPR No.<span class="text-danger">*</span></label> 
+                          <input class="form-control" name="cpr" placeholder="CPR No." type="text"  [(ngModel)]="data.cpr" >  
+                        </div> -->
+<!--                                               <div class="col-md-6">
+                          <label>Username<span class="text-danger">*</span></label>                          
+                          <input class="form-control" name="username" placeholder="User Name" type="text"  [(ngModel)]="data.username" required >
+                        </div> -->
+<!--                         <div class="col-md-6">
+                          <label>Role<span class="text-danger">*</span></label>
+                          <select class="form-control" name="role_id"  [(ngModel)]="data.role_id" required>
+                            <option value="">Select Role</option>
+                            <option value="1">Admin</option>
+                            <option value="2" >Artist</option>
+                            <option value="3">Salon</option>
+                          </select>
+                        </div> -->
+                        
+                    </div> 
+                    <div class="form-group row" >
+                      <div class="col-md-12"><h5>Address</h5></div>
+                    </div>
+                    <div class="form-group row" >
+              <div class="col-md-6">
+                      <label>Villa No.</label>
+ <input class="form-control" name="villa" placeholder="Villa No." type="text"  [(ngModel)]="data.villa" >  
+                    </div> 
+                                      <div class="col-md-6">
+                      <label>Road No.</label>
+ <input class="form-control" name="road" placeholder="Road No." type="text"  [(ngModel)]="data.road" >  
+                    </div> 
+
+                    </div> 
+                    <div class="form-group row">    
+                       <div class="col-md-6">
+                          <label>Block No.</label>
+     <input class="form-control" name="block" placeholder="Block No." type="text"  [(ngModel)]="data.block" >  
+                        </div>                   
+                       <div class="col-md-6">
+                          <label>City</label>
+     <input class="form-control" name="city" placeholder="City" type="text"  [(ngModel)]="data.city" >  
+                        </div>  
+<!--                         <div class="col-md-6">
+                          <label>State/Province<span class="text-danger">*</span></label> 
+                          <select class="form-control" name="province"  [(ngModel)]="data.province" required>
+                            <option value="" >Select State/Province</option>
+                            <option *ngFor="let province of provinces" value="{{province.id}}">{{province.name}}</option>
+                          </select>
+                        </div> -->
+
+                    </div> 
+            <div class="form-group row">
+               <div class="col-md-6">
+                <label>Country</label> 
+                <select class="form-control" name="country"  [(ngModel)]="data.country" (change) = "onChangeCountry()" >
+                  <option value="" >Select Country</option>
+                  <option *ngFor="let country of countries" value="{{country.id}}">{{country.name}}</option>
+                </select>
+              </div>
+              <div class="col-md-6">
+                <label>Phone<span class="text-danger">*</span></label>
+                <input class="form-control" name="phone" placeholder="999 99999999" type="text"  [(ngModel)]="data.phone" required [textMask]="{mask: mask}">
+              </div>
+            </div>
+            
+
+<!--                     <div class="form-group row">                        
+                      	<div class="col-md-6">
+                          <label>Languages<span class="text-danger">*</span></label> 
+                        	<input class="form-control" name="languages" placeholder="Languages" type="text"  [(ngModel)]="data.languages" required>
+                        </div>
+                        <div class="col-md-6">
+                          <label>Alternate Phone</label>
+                          <input class="form-control" name="altphone" placeholder="(999) 999-9999" type="text"  [(ngModel)]="data.altphone" [textMask]="{mask: mask}">
+                        </div>
+                    </div>  -->
+                    <div class="form-group row">
+                      <div class="col-md-6">                     
+                         <button class="btn btn-large btn-primary" type="submit" *ngIf="editparam.action == 'add'" [disabled] = "!artistForm.form.valid">Add Nail Artist</button>               
+                         <button class="btn btn-large btn-primary" type="submit" *ngIf="editparam.action == 'edit'" [disabled] = "!artistForm.form.valid">Update Nail Artist</button>
+                      </div>
+                    </div> 
+                </div>                 
+              </form>
+            </div>
+    </div>    
+  </div>
+  <!--/.row-->
+</div>
+
+
+<toaster-container [toasterconfig]="toasterconfig"></toaster-container>

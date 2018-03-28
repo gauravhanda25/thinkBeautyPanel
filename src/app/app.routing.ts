@@ -272,6 +272,48 @@ export const routes: Routes = [
     ]
   },
   {
+    path: 'nailartists',
+    component: FullLayoutComponent,
+    data: {
+      title: 'Manage Nail Artists'
+    },
+    children: [
+      {
+        path: 'manage',
+        component: SimpleLayoutComponent,
+        canActivate: [NgxPermissionsGuard],
+        data: {
+          permissions: {
+            only: 'SALON'
+          }
+        },
+        loadChildren: './views/nailartist/nailartist.module#NailartistModule'
+      },
+      {
+        path: 'addartist',
+        component: SimpleLayoutComponent,
+        canActivate: [NgxPermissionsGuard],
+        data: {
+          permissions: {
+            only: 'SALON'
+          }
+        },
+        loadChildren: './views/addnailartist/addnailartist.module#AddnailartistModule'
+      },
+      {
+        path: 'editartist/:id',
+        component: SimpleLayoutComponent,
+        canActivate: [NgxPermissionsGuard],
+        data: {
+          permissions: {
+            only: 'SALON'
+          }
+        },
+        loadChildren: './views/addnailartist/addnailartist.module#AddnailartistModule'
+      },
+    ]
+  },
+  {
         path: 'dashboard',
         component: FullLayoutComponent,        
         canActivate: [NgxPermissionsGuard],

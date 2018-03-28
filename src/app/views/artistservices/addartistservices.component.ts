@@ -44,8 +44,8 @@ export class AddartistservicesComponent {
 
 	private makeupservices: any;
 	private makeupservicesData:any;
-	private nailservices: any;
-	private nailservicesData:any;
+	private nailsservices: any;
+	private nailsservicesData:any;
 	private hairservices: any;
 	private hairservicesData:any;
 
@@ -106,6 +106,7 @@ export class AddartistservicesComponent {
   };
 
 
+  public loginUserRole:any;
 
 
     constructor(private NgxRolesService: NgxRolesService, private NgxPermissionsService: NgxPermissionsService, @Inject(Http) private http: Http, @Inject(Router)private router:Router, private activatedRoute: ActivatedRoute,toasterService: ToasterService) {
@@ -121,11 +122,15 @@ export class AddartistservicesComponent {
  			
 	  if(localStorage.getItem('currentUserRoleId') == "1"){
         localStorage.setItem('currentUserRole', "ADMIN");
+        this.loginUserRole = "admin";
       } else if(localStorage.getItem('currentUserRoleId') == "2"){
         localStorage.setItem('currentUserRole', "ARTIST");
+        this.loginUserRole = "artist";
       } else if(localStorage.getItem('currentUserRoleId') == "3"){
         localStorage.setItem('currentUserRole', "SALON");
+        this.loginUserRole = "salon";
       } 
+
 
 	   this.NgxRolesService.flushRoles();
 
@@ -309,27 +314,41 @@ export class AddartistservicesComponent {
 
 	    this.http.get(API_URL+'/Nails?access_token='+ localStorage.getItem('currentUserToken'), options)
         .subscribe(response => {
-        	//console.log(response.json());	
-        	this.nailservices = response.json();
+          //console.log(response.json()); 
+          this.nailsservices = response.json();
 
-        	this.nailservicesData = [];
+          this.nailsservicesData = [];
 
-        	for(let ser in this.nailservices) {
-	        	this.http.get(API_URL+'/Artistservices?filter={"where":{"and":[{"subserviceId":"'+this.nailservices[ser].id+'"},{"memberId":"'+localStorage.getItem('currentUserId')+'"}]}}&access_token='+ localStorage.getItem('currentUserToken'), options)
-		        .subscribe(r => {
-		        	if(r.json().length != 0){
-		        		this.nailservicesData[this.nailservices[ser].id] = r.json()[0];
-		        	} else {
-		        		this.nailservicesData[this.nailservices[ser].id] = '';
-		        	}
-		        	console.log(this.nailservicesData);
-			    }, error => {
-			        console.log(JSON.stringify(error.json()));
-			    });
-			}
-	    }, error => {
-	        console.log(JSON.stringify(error.json()));
-	    });
+          for(let ser in this.nailsservices) {
+            this.http.get(API_URL+'/Artistservices?filter={"where":{"and":[{"subserviceId":"'+this.nailsservices[ser].id+'"},{"memberId":"'+localStorage.getItem('currentUserId')+'"}]}}&access_token='+ localStorage.getItem('currentUserToken'), options)
+            .subscribe(r => {
+
+              console.log(r.json());
+
+
+              if(r.json().length != 0){
+                this.nailsservicesData[this.nailsservices[ser].id] = r.json()[0];
+                this.nailsservicesData[this.nailsservices[ser].id].price = [];
+                this.nailsservicesData[this.nailsservices[ser].id].duration = [];
+                this.nailsservicesData[this.nailsservices[ser].id].price['Home'] = r.json()[0].homeprice;
+                this.nailsservicesData[this.nailsservices[ser].id].price['Salon'] = r.json()[0].salonprice;
+                this.nailsservicesData[this.nailsservices[ser].id].price['GCC'] = r.json()[0].gccprice;
+                this.nailsservicesData[this.nailsservices[ser].id].duration['Home'] = r.json()[0].homeduration;
+                this.nailsservicesData[this.nailsservices[ser].id].duration['Salon'] = r.json()[0].salonduration;
+                this.nailsservicesData[this.nailsservices[ser].id].duration['GCC'] = r.json()[0].gccduration;
+
+                console.log(this.nailsservicesData);
+              } else {
+                this.nailsservicesData[this.nailsservices[ser].id] = '';
+              }
+              console.log(this.nailsservicesData);
+          }, error => {
+              console.log(JSON.stringify(error.json()));
+          });
+      }
+      }, error => {
+          console.log(JSON.stringify(error.json()));
+      });
 
 	    this.http.get(API_URL+'/Hairs?access_token='+ localStorage.getItem('currentUserToken'), options)
         .subscribe(response => {

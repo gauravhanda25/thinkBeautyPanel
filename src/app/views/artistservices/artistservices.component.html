@@ -12,7 +12,7 @@
             <div class="card-body">  
               <!-- Nav tabs -->
               <tabset>
-                <tab heading="Makeup"> 
+                <tab heading="Makeup" *ngIf="loginUserRole == 'artist'"> 
                     <div class="col-md-12" *ngIf = "nomakeup == 0"> No makeup services added by you.</div>
 
                     <div  class="form-group row"  *ngFor = "let subservice of makeup">
@@ -375,19 +375,148 @@
                           </div><!-- /.modal -->                                       
                     </div>
                   </tab>
-                  <!-- <tab heading="Nails"> 
-                    <div class="col-md-12" *ngIf = "nonail == 0"> No nail services added by you.</div>
+                 <tab heading="Nails" *ngIf="loginUserRole == 'salon'"> 
+                    <div class="col-md-12" *ngIf = "nonails == 0"> No nails services added by you.</div>
 
-                    <div class="form-group row" *ngFor = "let subservice of nails">
-                      <div class=" col-md-4 service-card card-body"  >
-                         <h6>{{subservice.name}} </h6>
+                    <div  class="form-group row"  *ngFor = "let subservice of nails">
+                      <div class=" col-md-4 service-card card-body">
+                         <h6>{{subservice.name}}
+                         </h6>
+
+
+                         <span class="pull-right">
+                            <button class="btn btn-sm btn-outline-primary" type="button" data-toggle="modal" (click)="nailsModal.show()" *ngIf="nailsservicesData[subservice.id] == ''"><span class="fa fa-plus"></span></button>
+                            <button class="btn btn-sm btn-outline-primary" type="button"  *ngIf="nailsservicesData[subservice.id] != ''" data-toggle="modal" (click)="nailsModal.show()"  ><span class="fa fa-pencil"></span></button>
+                            <button class="btn btn-sm btn-outline-primary" type="button"  *ngIf="nailsservicesData[subservice.id] != ''" (click)="delsubservicedata(nailsservicesData[subservice.id].id)" ><span class="fa fa-trash"></span></button>
+                         </span>
                          <div class="clearfix"></div>
-                         <span *ngIf = "nailservicesData[subservice.id]">Price: {{currency}}{{nailservicesData[subservice.id].price}}</span>
-                         <span *ngIf = "nailservicesData[subservice.id]">Duration: {{nailservicesData[subservice.id].duration}}</span>                          
-                      </div>                                        
+
+                          <div class="" *ngIf="nailsservicesData[subservice.id]">
+                            <div class="col-sm-12  row" *ngIf="nailsservicesData[subservice.id].salonprice">
+                             <div class="col-sm-3"> <span><strong>Salon</strong></span>:</div>
+                              <div class="col-sm-9"> <span >{{currency}} {{nailsservicesData[subservice.id].price['Salon']}} for</span>
+                               <span >{{nailsservicesData[subservice.id].duration['Salon']}}</span></div>
+                               <!-- <span *ngIf="nailsservicesData[subservice.id]">{{nailsservicesData[subservice.id].servicetype}}
+                               </span> -->
+                            </div>
+                         </div>
+                      </div> 
+                      <div bsModal #nailsModal="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                            <div class="modal-dialog modal-primary" role="document">
+                              <div class="modal-content">
+                                <div class="modal-body">
+                                  <h5>{{subservice.name}}</h5>  
+                                  <button type="button" class="btn btn-default pull-right closeModalButton" (click)="nailsModal.hide()" style="margin-right:5px;" >Cancel</button>                       
+                                </div>
+                                <div class="card-body" style="border-top:1px solid #c2cfd6;"> 
+                                      <form class="form-horizontal ng-untouched ng-pristine ng-valid" novalidate="" #salonServiceForm="ngForm">
+                                      <!-- <div class="form-group row" *ngIf="nailsservicesData[subservice.id] == ''">
+                                        <div class="col-md-6">
+                                    <label>Service type<span class="text-danger">*</span></label> 
+                                    <ng-select class="bootstrap"  name="servicetype"  placeholder="Select Service Type"
+                                     [options]="servicetypes" [multiple]="true" 
+                                     [(ngModel)]="data.servicetype" required></ng-select>
+                                  </div>
+                                    </div> -->
+                                    <div *ngIf="nailsservicesData[subservice.id] == ''"><div class="form-group row">
+
+                                        <div class="col-md-6" >
+                                          <label>DURATION</label>
+                                          <select class="form-control" name="salonduration" [(ngModel)]="data.salonduration" required>
+                                            <option value="">Duration</option>
+                                            <option value="15 mins">15 mins</option>
+                                            <option value="30 mins">30 mins</option>
+                                            <option value="45 mins">45 mins</option>
+                                            <option value="1 hr">1 hr</option>
+                                            <option value="1 hr 15 mins">1 hr 15 mins</option>
+                                            <option value="1 hr 30 mins">1 hr 30 mins</option>
+                                            <option value="1 hr 45 mins">1 hr 45 mins</option>
+                                            <option value="2 hrs">2 hrs</option>
+                                            <option value="2 hrs 15 mins">2 hrs 15 mins</option>
+                                            <option value="2 hrs 30 mins">2 hrs 30 mins</option>
+                                            <option value="2 hrs 45 mins">2 hrs 45 mins</option>
+                                            <option value="3 hrs">3 hrs</option>
+                                            <option value="3 hrs 15 mins">3 hrs 15 mins</option>
+                                            <option value="3 hrs 30 mins">3 hrs 30 mins</option>
+                                            <option value="3 hrs 45 mins">3 hrs 45 mins</option>
+                                            <option value="4 hrs">4 hrs</option>
+                                            <option value="5 hrs">5 hrs</option>
+                                            <option value="6 hrs">6 hrs</option>
+                                            <option value="7 hrs">7 hrs</option>
+                                            <option value="8 hrs">8 hrs</option>
+                                          </select>
+                                          <!-- <input class="form-control" name="duration" type="text"  [(ngModel)]="data.duration" placeholder="e.g. 12 mins OR 1 hrs"  > -->
+                                        </div>
+                                        <div class="col-md-6" >
+                                            <label>PRICE </label>
+                                            <div class="input-group">
+                                    <div class="input-group-prepend">
+                                      <span class="input-group-text">{{currency}}</span>
+                                    </div>
+                                            <input class="form-control" name="salonprice" type="number" (keypress) = "numericOnly($event)" [(ngModel)]="data.salonprice"  placeholder="e.g. 1200" pattern="^(0|[1-9][0-9]*)$" required>
+                                          </div>
+                                        </div>
+                              </div> </div>
+                                       <!-- <div class="form-group row" *ngIf="nailsservicesData[subservice.id] != ''">
+                                        <div class="col-md-6">
+                                    <label>Service type<span class="text-danger">*</span></label> 
+                                    <ng-select class="bootstrap"  name="servicetype"  placeholder="Select Service Type"  [options]="servicetypes" [multiple]="true" 
+                                     [(ngModel)]="nailsservicesData[subservice.id].servicetype"  required></ng-select>
+                                  </div>
+                                    </div> -->
+                                   <div *ngIf="nailsservicesData[subservice.id] != ''"> <div class="form-group row" >
+                                        <div class="col-md-6">
+                                          <label>DURATION</label>
+                                          <select class="form-control" name="salonduration"  [(ngModel)]="nailsservicesData[subservice.id].salonduration" required>
+                                            <option value="">Duration</option>
+                                            <option value="15 mins">15 mins</option>
+                                            <option value="30 mins">30 mins</option>
+                                            <option value="45 mins">45 mins</option>
+                                            <option value="1 hr">1 hr</option>
+                                            <option value="1 hr 15 mins">1 hr 15 mins</option>
+                                            <option value="1 hr 30 mins">1 hr 30 mins</option>
+                                            <option value="1 hr 45 mins">1 hr 45 mins</option>
+                                            <option value="2 hrs">2 hrs</option>
+                                            <option value="2 hrs 15 mins">2 hrs 15 mins</option>
+                                            <option value="2 hrs 30 mins">2 hrs 30 mins</option>
+                                            <option value="2 hrs 45 mins">2 hrs 45 mins</option>
+                                            <option value="3 hrs">3 hrs</option>
+                                            <option value="3 hrs 15 mins">3 hrs 15 mins</option>
+                                            <option value="3 hrs 30 mins">3 hrs 30 mins</option>
+                                            <option value="3 hrs 45 mins">3 hrs 45 mins</option>
+                                            <option value="4 hrs">4 hrs</option>
+                                            <option value="5 hrs">5 hrs</option>
+                                            <option value="6 hrs">6 hrs</option>
+                                            <option value="7 hrs">7 hrs</option>
+                                            <option value="8 hrs">8 hrs</option>
+                                          </select>
+                                         <!--  <input class="form-control" name="duration" type="text"  [(ngModel)]="nailsservicesData[subservice.id].duration" placeholder="e.g. 12 mins OR 1 hrs" value="{{nailsservicesData[subservice.id].duration}}" > -->
+                                        </div>
+                                        <div class="col-md-6">
+                                          <label>PRICE</label>
+                                            <div class="input-group">
+                                    <div class="input-group-prepend">
+                                      <span class="input-group-text">{{currency}}</span>
+                                    </div>
+                                              <input class="form-control" name="salonprice" type="number" (keypress) = "numericOnly($event)" [(ngModel)]="nailsservicesData[subservice.id].salonprice"  value="{{nailsservicesData[subservice.id].salonprice}}" placeholder="e.g. 1200" pattern="^(0|[1-9][0-9]*)$" required>
+                                            </div>
+                                        </div>
+                                      </div> </div>
+
+                                      <div class="form-group row">
+                                        <div class="col-md-12">     
+                                          <button class="btn btn-primary pull-right" type="button" (click)="savesubservicedata(subservice.id,1,'salon')" [disabled] = "!salonServiceForm.form.valid" style="margin-right:5px;" *ngIf="nailsservicesData[subservice.id]== ''" >Save</button> 
+                                          <button class="btn btn-primary pull-right" type="button" (click)="updatesubservicedata(nailsservicesData[subservice.id],'salon')" style="margin-right:5px;" *ngIf="nailsservicesData[subservice.id] != ''" [disabled] = "!salonServiceForm.form.valid" >Update</button>       
+                                        </div>
+                                      </div>
+                                  </form>
+                                </div>
+                              </div><!-- /.modal-content -->
+                            </div><!-- /.modal-dialog -->
+                          </div><!-- /.modal -->                                       
                     </div>
-                  </tab> -->
-                  <tab heading="Hair"> 
+                  </tab>
+                  <tab heading="Hair" *ngIf="loginUserRole == 'artist'"> 
                     <div class="col-md-12" *ngIf = "nohair == 0"> No Hair services added by you.</div>
 
                     <div class="form-group row" *ngFor = "let subservice of hair">
@@ -716,7 +845,7 @@
 
                   </tab> -->
 
-                   <tab heading = "Courses" >
+                   <tab heading = "Courses" *ngIf = "loginUserRole == 'artist' || loginUserRole == 'salon'">
                     <div class="form-group row"><div class="col-md-12"><button type="button" class="btn btn-sm btn-primary pull-right" data-toggle="modal" (click)="courseModal.show()"><span class="fa fa-plus"></span> Add New Course</button></div></div>
 
                     <table class="table table-striped" [mfData]="coursesData | dataFilter : filterQuery" #mf="mfDataTable" [mfRowsOnPage]="10" style="    margin: 0 -1.7rem;">
