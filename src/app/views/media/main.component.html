@@ -9,10 +9,12 @@
         </div>
         <div class="card-body">
           <div class= "row">
-            <div class="col-sm-3" *ngFor="let images of mainImages">
-              <img src="{{apiUrl}}/server/storage{{images.filePath}}/{{images.fileName}}" style="width:auto; height:auto; max-height:100%; max-width:100%;"/>
-              <button class="btn btn-sm btn-outline-primary" (click)="downloadAttachment(images)"><span class="fa fa-download"></span></button>
-              <button class="btn btn-sm btn-outline-danger" (click)="removeAttachment(images)"><span class="fa fa-close"></span></button>
+            <div class="col-sm-3 galleryimages" *ngFor="let images of mainImages">
+              <img src="https://dummyimage.com/300.png/09f/fff" style="width:auto; height:auto; max-height:100%; max-width:100%;"/>  <!--  {{apiUrl}}/server/storage{{images.filePath}}/{{images.fileName}} -->
+              <div class="galleryimages-btn">
+                <button class="btn btn-sm btn-outline-primary" (click)="downloadAttachment(images)"><span class="fa fa-download"></span></button>
+                <button class="btn btn-sm btn-outline-danger" (click)="removeAttachment(images)"><span class="fa fa-close"></span></button>
+              </div>
             </div>
           </div>
         </div>
