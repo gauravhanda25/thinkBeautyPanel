@@ -22,6 +22,8 @@ import { MediaRoutingModule } from './media-routing.module';
 // Toastr
 import { ToasterModule, ToasterService} from 'angular2-toaster/angular2-toaster';
 
+// Ng2-file-upload
+import { FileSelectDirective, FileDropDirective, FileUploadModule, FileUploader } from 'ng2-file-upload';
 
 // Datepicker
 import { BsDatepickerModule } from 'ngx-bootstrap';
@@ -39,6 +41,7 @@ import { TimepickerModule } from 'ngx-bootstrap';
   TabsModule,
   FormsModule,
   ToasterModule,
+  FileUploadModule,
   MediaRoutingModule,
   BsDatepickerModule.forRoot(),
   TimepickerModule.forRoot()

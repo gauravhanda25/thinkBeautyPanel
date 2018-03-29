@@ -2,59 +2,89 @@
   <div class="row">
   	<div class="col-lg-12">
   		<div class="card">         
-            <div class="card-header">
-
-              <span *ngIf="editparam.action == 'add'">Add GCC Availability</span>
-              <span *ngIf="editparam.action == 'edit'">Edit GCC Availability</span>
-              <a href="#" class="btn btn-primary pull-right" routerLink="/schedule/gcc" style="margin-left:5px;">Cancel</a>
-              <button (click)="onSave()" class="btn btn-primary pull-right" [disabled] = "!gccForm.form.valid" *ngIf="editparam.action == 'add'">Save</button>
-              <button (click)="onUpdate()" class="btn btn-primary pull-right" [disabled] = "!gccForm.form.valid" *ngIf="editparam.action == 'edit'">Update</button>
-			</div>
-        	<div class="card-body col-md-6">  
-        		<form class="form-horizontal ng-untouched ng-pristine ng-valid" novalidate="" #gccForm="ngForm" >
-		      	<table class="table " >
-			        <tr >
-			        	<td style="border-bottom:3px solid #a4b7c1" >Start On
-
-			        		<input class="col-md-7 form-control pull-right" name="starton" type="text"  [(ngModel)]="data.starton"  [minDate]="today" placeholder="Start On" required readonly #sdp="bsDatepicker" bsDatepicker [(bsValue)]="bsStartValue">
-			        	</td>
-			        </tr>
-			        <!-- <tr *ngIf = " day == 0" >
-			        	<td style="border-bottom:3px solid #a4b7c1" >Start Time
-			        		<input class="col-md-7 form-control pull-right" name="starttime" type="text"  [(ngModel)]="data.starttime" placeholder="Start Time" required>
-			        	</td>
-			        </tr> -->
-			        <tr >
-			        	<td style="border-bottom:3px solid #a4b7c1" >End On
-
-			        		<input class="col-md-7 form-control pull-right" name="endon" type="text"  [(ngModel)]="data.endon"  [minDate]="data.starton" placeholder="End On" required readonly #edp="bsDatepicker" bsDatepicker [(bsValue)]="bsEndValue">
-			        	</td>
-			        </tr>
-			        <tr >
-			        	<td style="border-bottom:3px solid #a4b7c1" >GCC Location
-			        		<select class="col-md-7 form-control pull-right" name="gcclocation"  [(ngModel)]="data.gcclocation" required>
-		                       <option value="">Select GCC Location</option>
-		                       <option *ngFor="let loc of gcclocations" value="{{loc.id}}">{{loc.name}}</option>
-		                       <option value="All Locations">All Locations</option>
-		                     </select>
-			        	</td>
-			        </tr>
-			        <!-- <tr *ngIf = " day == 0" >
-			        	<td style="border-bottom:3px solid #a4b7c1" >End Time
-			        		<input class="col-md-7 form-control pull-right" name="endtime" type="text"  [(ngModel)]="data.endtime" placeholder="End Time" required>
-			        	</td>
-			        </tr> -->
-			        <!-- <tr >
-			        	<td style="border-bottom:3px solid #a4b7c1" >All Day
-			        		<label class="switch switch-text switch-pill switch-lg switch-primary pull-right">			              
-
-				              	<input type="checkbox" checked class="switch-input" [disabled]="1" [(ngModel)]="data.allday" >
-				              	<span class="switch-label" data-on="On" data-off="Off"></span>
-				             	 <span class="switch-handle"></span>
-			            	</label>
-			        	</td>
-			        </tr> -->
-			    </table></form>
+          <div class="card-header">
+            <span >Add New Images</span>
+			    </div>
+        	<div class="card-body col-md-12">  
+        		<div><form class="form-horizontal ng-untouched ng-pristine ng-valid" novalidate="" #salonMainUploadForm="ngForm" enctype="multipart/form-data">
+                  <div class="form-group row">
+                    <div class="col-md-4">
+                      <label>Image Uploads</label>
+                      <input type="file" ng2FileSelect [uploader]="uploader" multiple  /><br/>
+                    </div>
+                    <div class="col-md-8 pull-right" >                         
+                        <table class="table col-6">
+                            <thead>
+                            <tr>
+                                <th>Name</th>
+                                <th>Actions</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <!-- <tr *ngFor="let file of files">
+                              <td><strong>{{ file.name }}</strong></td>
+                              <td nowrap>
+                                  <button type="button" class="btn btn-success btn-sm"
+                                          (click)="downloadAttachment(file)">
+                                      <span class="fa fa-download"></span> Download
+                                  </button>
+                                  <button type="button" class="btn btn-danger btn-sm"
+                                          (click)="removeAttachment(file)">
+                                      <span class="fa fa-trash"></span> Remove
+                                  </button>
+                              </td>
+                            </tr> -->
+                            <tr *ngFor="let item of uploader.queue">
+                                <td><strong>{{ item?.file?.name }}</strong></td>
+                                <td nowrap>
+                                    <span *ngIf="item.isSuccess"><i class="fa fa-check-circle"></i></span>
+                                    <span *ngIf="item.isCancel"><i class="fa fa-ban"></i></span>
+                                    <span *ngIf="item.isError"><i class="fa fa-trash"></i></span>
+                                    <button type="button" class="btn btn-success btn-sm"
+                                          (click)="downloadNewAttachment(item?.file)" *ngIf = "item.isSuccess" >
+                                      <span class="fa fa-download"></span> Download
+                                    </button>                                    
+                                    <button type="button" class="btn btn-danger btn-sm"
+                                            (click)="removeNewAttachment(item)" *ngIf = "item.isSuccess">
+                                        <span class="fa fa-trash"></span> Remove
+                                    </button>
+                                    <button type="button" class="btn btn-success btn-sm"
+                                            (click)="item.upload()" [disabled]="item.isReady || item.isUploading || item.isSuccess" *ngIf = "!item.isSuccess">
+                                        <span class="fa fa-upload"></span> Upload
+                                    </button>
+                                    <!-- <button type="button" class="btn btn-warning btn-xs"
+                                            (click)="item.cancel()" [disabled]="!item.isUploading">
+                                        <span class="fa fa-ban"></span> Cancel
+                                    </button> -->
+                                    <button type="button" class="btn btn-danger btn-sm"
+                                            (click)="item.remove()" [disabled]="item.isSuccess" *ngIf = "!item.isSuccess">
+                                        <span class="fa fa-trash"></span> Remove
+                                    </button>
+                                </td>
+                            </tr>
+                            </tbody>
+                        </table>
+             
+                        <div>                            
+                            <button type="button" class="btn btn-success "
+                                    (click)="uploader.uploadAll()" [disabled]="!uploader.getNotUploadedItems().length">
+                                <span class="fa fa-upload"></span> Upload all
+                            </button>
+                            <!-- <button type="button" class="btn btn-warning btn-s"
+                                    (click)="uploader.cancelAll()" [disabled]="!uploader.isUploading">
+                                <span class="fa fa-ban"></span> Cancel all
+                            </button> -->
+                            <button type="button" class="btn btn-danger "
+                                    (click)="uploader.clearQueue()" [disabled]="!uploader.queue.length || !uploader.getNotUploadedItems().length">
+                                <span class="fa fa-trash"></span> Remove all
+                            </button>
+                        </div>
+             
+                    </div>                       
+                        
+ 
+                  </div> 
+                </form></div>
 		    </div>
 		</div>
     </div>    

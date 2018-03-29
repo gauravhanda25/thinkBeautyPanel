@@ -21,118 +21,110 @@ import { ToasterModule, ToasterService, ToasterConfig }  from 'angular2-toaster/
 	encapsulation: ViewEncapsulation.None
 })
 export class MainComponent {
+	
+	public mainImages:any;
+	public apiUrl:any = API_URL;
 
-	private data: any;
-	private editparam: any;
-  private gccData:any;
-  private gcclocations:any;
-  private noGCC:any = 1;
+	public loggedInUserId:any = localStorage.getItem('currentUserId');
 
-  private serviceFor:any;
-  private currency:any = localStorage.getItem('currentUserCurrency');
+    private toasterService: ToasterService;
 
-	private toasterService: ToasterService;
-	public toasterconfig : ToasterConfig =
-	  new ToasterConfig({
-		tapToDismiss: true,
-		timeout: 5000
-	  });
-	  
-	  
-    constructor(private NgxRolesService: NgxRolesService, private NgxPermissionsService: NgxPermissionsService, @Inject(Http) private http: Http, @Inject(Router)private router:Router, private activatedRoute: ActivatedRoute,toasterService: ToasterService) {
-		//console.log(localStorage.getItem('currentUserRoleId'));
- 			
-        $('.preloader').show(); 
-	  if(localStorage.getItem('currentUserRoleId') == "1"){
-        localStorage.setItem('currentUserRole', "ADMIN");
-      } else if(localStorage.getItem('currentUserRoleId') == "2"){
-        localStorage.setItem('currentUserRole', "ARTIST");
-      } else if(localStorage.getItem('currentUserRoleId') == "3"){
-        localStorage.setItem('currentUserRole', "SALON");
-      } 
-
-	   this.NgxRolesService.flushRoles();
-
-	   if(localStorage.getItem('currentUserRole') != null) { 
-	   	this.NgxRolesService.addRole(localStorage.getItem('currentUserRole'), ['A'] );
-	   } else {
-	   	this.NgxRolesService.addRole("GUEST", ['A'] );	   
-	   } 
-
-	   let roles = NgxRolesService.getRoles();
-	    NgxRolesService.roles$.subscribe((data) => {
-	        console.log(data);
-	    })
-
-		this.toasterService = toasterService;
-		
-    	this.editparam = {
-    		id: '',
-    		action: 'add'
-    	}
-
-      let options = new RequestOptions();
-      options.headers = new Headers();
-      options.headers.append('Content-Type', 'application/json');
-      options.headers.append('Accept', 'application/json');
-
-      this.http.get(API_URL+'/Artistgcclocations?access_token='+ localStorage.getItem('currentUserToken'), options)
-      .subscribe(response => {
-         this.gcclocations = response.json();
-
-      }, error => {
-          console.log(JSON.stringify(error.json()));
+    public toasterconfig : ToasterConfig =
+      new ToasterConfig({
+        tapToDismiss: true,
+        timeout: 5000
       });
 
 
-      this.getAllgccData();
+    constructor(private NgxRolesService: NgxRolesService, private NgxPermissionsService: NgxPermissionsService, @Inject(Http) private http: Http, @Inject(Router)private router:Router, private activatedRoute: ActivatedRoute, toasterService: ToasterService) {
 
-  	}
-  	
-    getAllgccData() {
-      let options = new RequestOptions();
-      options.headers = new Headers();
-      options.headers.append('Content-Type', 'application/json');
-      options.headers.append('Accept', 'application/json');
- 
-      this.gccData = [];
-      this.noGCC = 1;
 
-      this.http.get(API_URL+'/Artistgcc?filter={"where":{"and":[{"artistId":"'+localStorage.getItem('currentUserId')+'"}]},"order":"createdon DESC"}&access_token='+ localStorage.getItem('currentUserToken'), options)
-        .subscribe(response => {
-          console.log(this.gccData = response.json());
+      	if(localStorage.getItem('currentUserRoleId') == "1"){
+        	localStorage.setItem('currentUserRole', "ADMIN");
+      	} else if(localStorage.getItem('currentUserRoleId') == "2"){
+        	localStorage.setItem('currentUserRole', "ARTIST");
+      	} else if(localStorage.getItem('currentUserRoleId') == "3"){
+        	localStorage.setItem('currentUserRole', "SALON");
+      	} 
 
-          if(response.json().length != 0) {
-            for(let index in this.gccData){ 
-              this.gccData[index].starton = moment(this.gccData[index].starton).format("DD/MM/YYYY");
-              this.gccData[index].endon = moment(this.gccData[index].endon).format("DD/MM/YYYY");
-            }
+     	this.NgxRolesService.flushRoles();
 
-            this.noGCC = 0;
-          }
-        $('.preloader').hide(); 
+     	if(localStorage.getItem('currentUserRole') != null) { 
+      		this.NgxRolesService.addRole(localStorage.getItem('currentUserRole'), ['A'] );
+     	} else {
+     		this.NgxRolesService.addRole("GUEST", ['A'] );     
+     	} 
 
-        }, error => {
-          console.log(JSON.stringify(error.json()));
-      });
-    }
-
-    resetAvail(id){
-      let options = new RequestOptions();
-      options.headers = new Headers();
-      options.headers.append('Content-Type', 'application/json');
-      options.headers.append('Accept', 'application/json');
-
-      if(confirm("Are you sure you want to remove this GCC availability?")){
-        $('.preloader').show(); 
-        this.http.delete(API_URL+'/Artistgcc/'+id+'?access_token='+ localStorage.getItem('currentUserToken'), options)
-        .subscribe(response => {
-          this.getAllgccData();
-        }, error => {
-            console.log(JSON.stringify(error.json()));
-        });
-      }
+     	let roles = NgxRolesService.getRoles();
+      	NgxRolesService.roles$.subscribe((data) => {
+        	console.log(data);
+      	})
       
 
+        this.toasterService = toasterService;
+
+      	let options = new RequestOptions();
+      	options.headers = new Headers();
+      	options.headers.append('Content-Type', 'application/json');
+      	options.headers.append('Accept', 'application/json'); 
+
+       	this.http.get(API_URL+'/FileStorages?filter={"where":{"and":[{"memberType":"salon"},{"uploadType":"main"},{"memberId":"'+this.loggedInUserId+'"},{"status":"active"}]}}&access_token='+ localStorage.getItem('currentUserToken'), options)
+        .subscribe(storageRes => {
+	       this.mainImages = storageRes.json();
+	     }, error => {
+	        console.log(JSON.stringify(error.json()));
+	     });
+
     }
+
+    downloadAttachment(file){
+    console.log(file);
+     let options = new RequestOptions();
+      options.headers = new Headers();
+      options.headers.append('Content-Type', 'application/json');
+      options.headers.append('Accept', 'application/json');
+
+
+    this.http.get(API_URL+'/Containers/'+file.memberId+'/download/'+file.fileName+ '?access_token='+localStorage.getItem('currentUserToken'), options)
+    .subscribe(response => {    
+      window.open(API_URL+'/Containers/'+file.memberId+'/download/'+file.fileName);
+      this.toasterService.pop('success', 'Success ', "Gallery downloaded file "+file.fileName+" successfully.");
+    }, error => {
+          this.toasterService.pop('error', 'Error ',  "Gallery downloaded file "+file.fileName+"  failed.");
+        console.log(JSON.stringify(error.json()));
+    });
+
+  }
+
+  removeAttachment(file){
+    console.log(file);
+     let options = new RequestOptions();
+      options.headers = new Headers();
+      options.headers.append('Content-Type', 'application/json');
+      options.headers.append('Accept', 'application/json');
+
+      this.http.delete(API_URL+'/Containers/'+ file.memberId +'/files/'+  file.fileName + '?access_token='+localStorage.getItem('currentUserToken'), options)
+        .subscribe(response => {
+          console.log(response.json());
+          this.toasterService.pop('success', 'Success ', "Gallery Uploaded file "+file.fileName+" deleted successfully.");
+
+          const index: number = this.galleryImages.indexOf(file);
+          console.log(index);
+          if (index !== -1) {
+           this.galleryImages.splice(index, 1);
+          }   
+
+          this.http.post(API_URL+'/FileStorages/update?where={"id":"'+file.id+'"}&access_token='+ localStorage.getItem('currentUserToken'), {"status":"active"}, options)
+          .subscribe(findres => {
+
+
+          }, error => {
+              console.log(JSON.stringify(error.json()));
+          });
+      }, error => {
+            this.toasterService.pop('error', 'Error ',  "Gallery Uploaded file "+file.fileName+" deletion failed.");
+          console.log(JSON.stringify(error.json()));
+      });
+  }
+  
 }

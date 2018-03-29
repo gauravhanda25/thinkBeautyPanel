@@ -9,8 +9,9 @@
     background-position: center top;
 }
 .artist-form {
-    background: url('../assets/img/artist_panel.jpg');
-    background-position: center top;
+    background: url('../assets/img/artist.jpg');
+    background-position: center right;
+    background-size:cover;
 }
 .salon-form {
     background: url('../assets/img/artist_panel.jpg');
@@ -39,7 +40,21 @@
 		}
  	}
 }
+.galleryimages {
+    position: relative;
+    margin-bottom: 30px;
 
+    .galleryimages-btn {
+        position: absolute;
+        top: 5px;
+        right: 20px;
+
+        .btn{
+            color: #fff;
+            border-color: #fff;
+        }
+    }
+}
 .service-card {
 	border:1px solid #ccc;
 	border-left:3px solid #ceb26f;
