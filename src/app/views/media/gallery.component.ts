@@ -117,7 +117,7 @@ export class GalleryComponent {
            this.galleryImages.splice(index, 1);
           }   
 
-          this.http.post(API_URL+'/FileStorages/update?where={"id":"'+file.id+'"}&access_token='+ localStorage.getItem('currentUserToken'), {"status":"active"}, options)
+          this.http.post(API_URL+'/FileStorages/update?where={"id":"'+file.id+'"}&access_token='+ localStorage.getItem('currentUserToken'), {"status":"inactive"}, options)
           .subscribe(findres => {
 
 
