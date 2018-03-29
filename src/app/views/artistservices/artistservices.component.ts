@@ -80,6 +80,15 @@ export class ArtistservicesComponent {
 		tapToDismiss: true,
 		timeout: 5000
 	  });
+
+     private filesdata: any;
+    private containerdata: any;
+    public uploader:FileUploader;
+    public files:any = [];
+    private fileRemove:any = 0;
+
+    public loggedInUserId:any = localStorage.getItem('currentUserId');
+
 	   
 
   // Timepicker
@@ -115,6 +124,8 @@ export class ArtistservicesComponent {
   };
 
   public loginUserRole:any;
+
+  public photoexist:any;
 	  
   constructor(private NgxRolesService: NgxRolesService, private NgxPermissionsService: NgxPermissionsService, @Inject(Http) private http: Http, @Inject(Router)private router:Router, private activatedRoute: ActivatedRoute,toasterService: ToasterService) {
 		//console.log(localStorage.getItem('currentUserRoleId'));
@@ -127,6 +138,7 @@ export class ArtistservicesComponent {
        locationIconUrl: '',
        inputPlaceholderText: 'Course Location'
      }
+
 	  if(localStorage.getItem('currentUserRoleId') == "1"){
         localStorage.setItem('currentUserRole', "ADMIN");
         this.loginUserRole = "admin";
@@ -152,6 +164,30 @@ export class ArtistservicesComponent {
 	    })
 
 		this.toasterService = toasterService;
+
+    this.filesdata = {
+        file:''
+      }
+
+      this.containerdata = {
+        name: ''
+      }
+
+      let options = new RequestOptions();
+      options.headers = new Headers();
+      options.headers.append('Content-Type', 'application/json');
+      options.headers.append('Accept', 'application/json'); 
+
+
+      this.http.post(API_URL+'/Containers?access_token='+ localStorage.getItem('currentUserToken'), '{"name":"'+this.loggedInUserId+'"}',  options)
+        .subscribe(response => {
+          console.log(response.json());
+        }, error => {
+            console.log(JSON.stringify(error.json()));
+        });
+
+      this.uploader = new FileUploader({url: '',
+      allowedMimeType: ['image/gif','image/jpeg','image/png'] });
 		
     	this.data = {
         homeprice:'',
@@ -235,6 +271,16 @@ export class ArtistservicesComponent {
            /*this.userSettings.inputString = this.coursesData[index].location;
            console.log(this.userSettings.inputString);
            this.userSettings.inputString = Object.assign({},this.userSettings.inputString);*/
+
+            this.coursesData[index].images = [];
+           
+           this.http.get(API_URL+'/FileStorages?filter={"where":{"and":[{"memberType":"'+this.coursesData[index].memberType+'"},{"uploadType":"course"},{"memberId":"'+this.loggedInUserId+'"},{"status":"active"},{"courseId":"'+this.coursesData[index].id+'"}]}}&access_token='+ localStorage.getItem('currentUserToken'), options)
+           .subscribe(storageRes => {
+             this.coursesData[index].images = storageRes.json();
+           }, error => {
+              console.log(JSON.stringify(error.json()));
+           });
+
 
           }
       		this.nocourses = 1;
@@ -545,7 +591,7 @@ export class ArtistservicesComponent {
       if(this.locationSelected == '') {
           $('.preloader').hide(); 
           this.toasterService.pop('error', 'Error', "Please select the location"); 
-          return;        
+        //  return;        
       }
 
 
@@ -555,8 +601,48 @@ export class ArtistservicesComponent {
 
 
     	this.http.post(API_URL+'/Artistcourses?access_token='+ localStorage.getItem('currentUserToken'), this.course, options)
-        .subscribe(response => {
+        .subscribe(res => {
+          console.log(res.json());
 
+           this.uploader.options.url = API_URL+'/Containers/'+this.loggedInUserId+'/upload?access_token='+ localStorage.getItem('currentUserToken');
+
+
+              for(let val of this.uploader.queue){
+                val.url = API_URL+'/Containers/'+this.loggedInUserId+'/upload?access_token='+ localStorage.getItem('currentUserToken');
+
+                console.log(val);
+                val.upload();
+            
+                this.uploader.onSuccessItem = (item:any, response:any, status:any, headers:any) => {
+                console.log("ImageUpload:uploaded:", item, status);
+                if(status == "200"){
+                  let fileStorageData = {
+                    memberId: this.loggedInUserId,
+                    memberType: (localStorage.getItem('currentUserRoleId') == "2" ? "artist" : "salon"),
+                    filePath: '/Containers/'+this.loggedInUserId,
+                    fileName: item.file.name,
+                    uploadType: 'course' ,       
+                    status: 'active',  
+                    courseId: res.json().id,
+                    created_by: this.loggedInUserId
+                  }
+
+                  this.http.post(API_URL+'/FileStorages?access_token='+ localStorage.getItem('currentUserToken'), fileStorageData ,  options)
+                  .subscribe(storageRes => {
+                    console.log(storageRes.json());
+                  }, error => {
+                      console.log(JSON.stringify(error.json()));
+                  });
+
+                } else {
+                  this.toasterService.pop('error', 'Error ',  "File: "+item.file.name+" not uploaded successfully");
+                }
+            };
+
+              }
+
+
+           
 	    	this.course = { 
 	    		name: '',   		
 	    		price:'',
@@ -612,7 +698,7 @@ export class ArtistservicesComponent {
       if(this.locationSelected == '') {
           $('.preloader').hide(); 
           this.toasterService.pop('error', 'Error', "Please select the location"); 
-          return;        
+        //  return;        
       }
 
 
@@ -635,8 +721,46 @@ export class ArtistservicesComponent {
       this.locationSelected = '';
 
     	this.http.post(API_URL+'/Artistcourses/update?where=%7B%22id%22%3A%22'+course.id+'%22%7D&access_token='+ localStorage.getItem('currentUserToken'), this.coursedetaildata, options)
-      .subscribe(response => {
-      	console.log(response.json());
+      .subscribe(res => {
+      	console.log(res.json());
+
+        this.uploader.options.url = API_URL+'/Containers/'+this.loggedInUserId+'/upload?access_token='+ localStorage.getItem('currentUserToken');
+
+
+          for(let val of this.uploader.queue){
+            val.url = API_URL+'/Containers/'+this.loggedInUserId+'/upload?access_token='+ localStorage.getItem('currentUserToken');
+
+            console.log(val);
+            val.upload();
+        
+            this.uploader.onSuccessItem = (item:any, response:any, status:any, headers:any) => {
+            console.log("ImageUpload:uploaded:", item, status);
+            if(status == "200"){
+              let fileStorageData = {
+                memberId: this.loggedInUserId,
+                memberType: (localStorage.getItem('currentUserRoleId') == "2" ? "artist" : "salon"),
+                filePath: '/Containers/'+this.loggedInUserId,
+                fileName: item.file.name,
+                uploadType: 'course' ,       
+                status: 'active',  
+                courseId: course.id,
+                created_by: this.loggedInUserId
+              }
+
+              this.http.post(API_URL+'/FileStorages?access_token='+ localStorage.getItem('currentUserToken'), fileStorageData ,  options)
+              .subscribe(storageRes => {
+                console.log(storageRes.json());
+              }, error => {
+                  console.log(JSON.stringify(error.json()));
+              });
+
+            } else {
+              this.toasterService.pop('error', 'Error ',  "File: "+item.file.name+" not uploaded successfully");
+            }
+        };
+
+          }
+
 
         $(".closeModalButton").click();
 	    	this.coursedetaildata = { 
@@ -708,5 +832,52 @@ export class ArtistservicesComponent {
         d.setMinutes(parseInt(sMinutes));
         return d;
     }
+
+  downloadAttachment(file){
+    console.log(file);
+     let options = new RequestOptions();
+      options.headers = new Headers();
+      options.headers.append('Content-Type', 'application/json');
+      options.headers.append('Accept', 'application/json');
+
+
+    this.http.get(API_URL+'/Containers/'+file.memberId+'/download/'+file.fileName+ '?access_token='+localStorage.getItem('currentUserToken'), options)
+    .subscribe(response => {    
+      window.open(API_URL+'/Containers/'+file.memberId+'/download/'+file.fileName);
+      this.toasterService.pop('success', 'Success ', "Gallery downloaded file "+file.fileName+" successfully.");
+    }, error => {
+          this.toasterService.pop('error', 'Error ',  "Gallery downloaded file "+file.fileName+"  failed.");
+        console.log(JSON.stringify(error.json()));
+    });
+
+  }
+
+  removeAttachment(file){
+    console.log(file);
+     let options = new RequestOptions();
+      options.headers = new Headers();
+      options.headers.append('Content-Type', 'application/json');
+      options.headers.append('Accept', 'application/json');
+
+      this.http.delete(API_URL+'/Containers/'+ file.memberId +'/files/'+  file.fileName + '?access_token='+localStorage.getItem('currentUserToken'), options)
+        .subscribe(response => {
+          console.log(response.json());
+          this.toasterService.pop('success', 'Success ', "Gallery Uploaded file "+file.fileName+" deleted successfully.");
+
+         this.photoexist = 0;
+
+          this.http.post(API_URL+'/FileStorages/update?where={"id":"'+file.id+'"}&access_token='+ localStorage.getItem('currentUserToken'), {"status":"inactive"}, options)
+          .subscribe(findres => {
+
+
+          }, error => {
+              console.log(JSON.stringify(error.json()));
+          });
+      }, error => {
+            this.toasterService.pop('error', 'Error ',  "Gallery Uploaded file "+file.fileName+" deletion failed.");
+          console.log(JSON.stringify(error.json()));
+      });
+  }
+  
 
 }

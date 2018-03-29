@@ -821,99 +821,104 @@
 	                    </div>		  
               		</tab>
               		<tab heading = "Courses" *ngIf = "loginUserRole == 'artist' || loginUserRole == 'salon'">
-              			<div class="form-group row"><div class="col-md-12"><button type="button" class="btn btn-sm btn-primary pull-right" data-toggle="modal" (click)="courseModal.show()"><span class="fa fa-plus"></span> Add New Course</button></div></div>
+                    <div class="form-group row"><div class="col-md-12"><button type="button" class="btn btn-sm btn-primary pull-right" data-toggle="modal" (click)="courseModal.show()"><span class="fa fa-plus"></span> Add New Course</button></div></div>
 
-					          <table class="table table-striped" [mfData]="coursesData | dataFilter : filterQuery" #mf="mfDataTable" [mfRowsOnPage]="10" style="    margin: 0 -1.7rem;">
-					            <thead >
-			                        <tr>
-			                          <th><mfDefaultSorter by="name">Course Name</mfDefaultSorter></th>
-			                          <th style="width:15%;"><mfDefaultSorter by="price">Price</mfDefaultSorter></th>
-			                          <th><mfDefaultSorter by="description">Description</mfDefaultSorter></th>
-			                          <th><mfDefaultSorter by="startfrom">Start From</mfDefaultSorter></th>
-			                          <th><mfDefaultSorter by="endon">End On</mfDefaultSorter></th>
-			                          <th><mfDefaultSorter by="location">Location</mfDefaultSorter></th>
-			                          <th style="width:20%;"><mfDefaultSorter by="timeslotFrom">Time</mfDefaultSorter></th>
-			                          <th><mfDefaultSorter by="guestno">No. of Guests</mfDefaultSorter></th>
-			                          <th style="width:15%;">Action</th>
-			                        </tr>
-			                      </thead>
-			                      <tbody> 
-			                        <tr *ngIf = "nousers == 0">
-			                          <td colspan="10">No Courses Records</td>
-			                        </tr>
-			                        <tr *ngFor="let coursedetail of mf.data" >
-			                          <td>{{coursedetail.name}}</td>
-			                          <td>{{currency}} {{coursedetail.price}}</td>
-			                          <td>{{coursedetail.description}}</td>
-			                          <td>{{coursedetaildata[coursedetail.id].startfrom}}</td>
-			                          <td>{{coursedetaildata[coursedetail.id].endon}}</td>
-			                          <td>{{coursedetail.location}}</td>
-			                          <td>{{coursedetail.timeslotFrom}} - {{coursedetail.timeslotTo}}</td>
-			                          <td>{{coursedetail.guestno}}</td>
-					                <td>
-					                  <button class="btn btn-sm btn-outline-primary" type="button"  data-toggle="modal" (click)="prefillLocation(coursedetail.id, updateCourseModal)"    ><span class="fa fa-pencil"></span></button>
-		                       			<button class="btn btn-sm btn-outline-primary" type="button" (click)="delcoursedata(coursedetail.id)" ><span class="fa fa-trash"></span></button>
+                    <table class="table table-striped" [mfData]="coursesData | dataFilter : filterQuery" #mf="mfDataTable" [mfRowsOnPage]="10" style="    margin: 0 -1.7rem;">
+                      <thead >
+                        <tr>
+                          <th style="width:10%;"><mfDefaultSorter by="name">Course Image</mfDefaultSorter></th>
+                          <th><mfDefaultSorter by="name">Course Name</mfDefaultSorter></th>
+                          <th style="width:15%;"><mfDefaultSorter by="price">Price</mfDefaultSorter></th>
+                          <th><mfDefaultSorter by="description">Description</mfDefaultSorter></th>
+                          <th><mfDefaultSorter by="startfrom">Start From</mfDefaultSorter></th>
+                          <th><mfDefaultSorter by="endon">End On</mfDefaultSorter></th>
+                          <th><mfDefaultSorter by="location">Location</mfDefaultSorter></th>
+                          <th style="width:25%;"><mfDefaultSorter by="timeslotFrom">Time</mfDefaultSorter></th>
+                          <th ><mfDefaultSorter by="guestno">No. of Guests</mfDefaultSorter></th>
+                          <th  style="width:15%;">Action</th>
+                        </tr>
+                      </thead>
+                      <tbody> 
+                        <tr *ngIf = "nousers == 0">
+                          <td colspan="10">No Courses Records</td>
+                        </tr>
+                        <tr *ngFor="let coursedetail of mf.data" >
+                          <td><img src="https://dummyimage.com/300.png/09f/fff" style="width:100px; height:100px; max-height:100%; max-width:100%;" *ngIf="coursedetail.images != ''  "/>  <!--  {{apiUrl}}/server/storage{{coursedetail.images[0].filePath}}/{{coursedetail.images[0].fileName}} --></td>
+                          <td>{{coursedetail.name}}</td>
+                          <td>{{currency}} {{coursedetail.price}}</td>
+                          <td>{{coursedetail.description}}</td>
+                          <td>{{coursedetaildata[coursedetail.id].startfrom}}</td>
+                          <td>{{coursedetaildata[coursedetail.id].endon}}</td>
+                          <td>{{coursedetail.location}}</td>
+                          <td>{{coursedetail.timeslotFrom}} - {{coursedetail.timeslotTo}}</td>
+                          <td>{{coursedetail.guestno}}</td>
+                          <td>
+                            <button class="btn btn-sm btn-outline-primary" type="button"  data-toggle="modal" (click)="prefillLocation(coursedetail.id, updateCourseModal)"  ><span class="fa fa-pencil"></span></button>
+                                <button class="btn btn-sm btn-outline-primary" type="button" (click)="delcoursedata(coursedetail.id)" ><span class="fa fa-trash"></span></button>
 
 
-		                       			<div bsModal #updateCourseModal="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-				                          <div class="modal-dialog modal-primary" role="document">
-				                            <div class="modal-content">
-				                              <div class="modal-body">
-				                              	<h5>Update Course Details</h5>
-				                                <button type="button" class="btn btn-default pull-right closeModalButton" (click)="updateCourseModal.hide()" style="margin-right:5px;">Cancel</button>
-					                            <button class="btn btn-primary pull-right" type="button" (click)="updatecoursedata(coursedetail)" style="margin-right:5px;" [disabled] = "!courseServiceForm.form.valid" >Update</button>	
-				                              </div>
-				                              <div class="card-body" style="border-top:1px solid #c2cfd6;">
-				                              <form class="form-horizontal ng-untouched ng-pristine ng-valid" novalidate="" #courseServiceForm="ngForm"> 
-				                              	<div class="form-group row" >
-					                                <div class="col-md-6">
-					                                  <label>Name </label>	  
-					                                  <input class="form-control" name="coursename" type="text"  [(ngModel)]="coursedetail.name" required value="{{coursedetail.name}}" placeholder="Course Name">
-					                                </div>
-					                                <div class="col-md-6">
-					                                  <label>Price </label>
-					                                  <div class="input-group">
-										                  <div class="input-group-prepend">
-										                    <span class="input-group-text">{{currency}}</span>
-										                  </div>
-					                                  	  <input class="form-control" name="courseprice" type="number" (keypress) = "numericOnly($event)"  [(ngModel)]="coursedetail.price" pattern="^(0|[1-9][0-9]*)$" value="{{coursedetail.price}}"  required placeholder="e.g. 1200" >
-					                                  	</div>
-					                                </div>
-					                            </div>
-								                <div class="form-group row" >
-					                                <div class="col-md-12">	                                	
-					                                  <label>Description </label>
-					                                  <input class="form-control" name="coursedescription" type="text"  [(ngModel)]="coursedetail.description"  value="{{coursedetail.description}}" required placeholder="Course Description" >
-								                    </div>
-								                </div>	
-					                            <div class="form-group row" >
-					                                <div class="col-md-6">	                                	
-					                                  <label>Start From </label>
-					                                  <input class="form-control" name="coursestartfrom" type="text"  [(ngModel)]="coursedetail.startfrom" value="{{coursedetail.startfrom}}" [minDate]="today" placeholder="Start From" required readonly #sdp="bsDatepicker" bsDatepicker >
-								                    </div>				                    
-					                                <div class="col-md-6">	                                	
-					                                  <label>End On </label>
-					                                  <input class="form-control" name="courseendon" type="text"  [(ngModel)]="coursedetail.endon" [minDate]="coursedetail.startfrom" value="{{coursedetail.endon}}" placeholder="End On" required readonly #edp="bsDatepicker" bsDatepicker >
-								                    </div>
-								                </div>
-					                            <div class="form-group row" >
-					                                <div class="col-md-6">	                                	
-					                                  <label>Location </label>
-					                                 <ng4geo-autocomplete [userSettings]="userSettings" (componentCallback)="autoCompleteCallback1($event)"  required  ></ng4geo-autocomplete>
-								                    </div>				                    
-					                                <div class="col-md-6">	                                	
-					                                  <label>No. of Guests </label>
-					                                  <input class="form-control" name="courseguestno" type="number" (keypress) = "numericOnly($event)"  [(ngModel)]="coursedetail.guestno" pattern="^(0|[1-9][0-9]*)$"  value="{{coursedetail.guestno}}" required placeholder="No. of guests" >
-								                    </div>
-								                </div>			
-								                <div class="form-group row" >	                              
-					                                <div class="col-md-6">	                                	
-					                                  <label>Time</label> 
+                                <div bsModal #updateCourseModal="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                                  <div class="modal-dialog modal-primary" role="document" style="max-width: 700px;">
+                                    <div class="modal-content">
+                                      <div class="modal-body">
+                                        <h5>Update Course Details</h5>
+                                        <button type="button" class="btn btn-default pull-right closeModalButton" (click)="updateCourseModal.hide()" style="margin-right:5px;">Cancel</button>
+                                      <button class="btn btn-primary pull-right" type="button" (click)="updatecoursedata(coursedetail)" style="margin-right:5px;" [disabled] = "!courseServiceForm.form.valid " >Update</button> 
+                                     <!--  || this.userSettings.inputString == '' -->
+                                      </div>
+                                      <div class="card-body" style="border-top:1px solid #c2cfd6;">
+                                      <form class="form-horizontal ng-untouched ng-pristine ng-valid" novalidate="" #courseServiceForm="ngForm" enctype="multipart/form-data"> 
+                                        <div class="form-group row" >
+                                          <div class="col-md-6">
+                                            <label>Name </label>    
+                                            <input class="form-control" name="coursename" type="text"  [(ngModel)]="coursedetail.name" required value="{{coursedetail.name}}" placeholder="Course Name">
+                                          </div>
+                                          <div class="col-md-6">
+                                            <label>Price </label>
+                                            <div class="input-group">
+                                      <div class="input-group-prepend">
+                                        <span class="input-group-text">{{currency}}</span>
+                                      </div>
+                                                <input class="form-control" name="courseprice" type="number" (keypress) = "numericOnly($event)"  [(ngModel)]="coursedetail.price" pattern="^(0|[1-9][0-9]*)$"  value="{{coursedetail.price}}" required placeholder="e.g. 1200" >
+                                              </div>
+                                          </div>
+                                      </div>
+                                <div class="form-group row" >
+                                          <div class="col-md-12">                                   
+                                            <label>Description </label>
+                                            <input class="form-control" name="coursedescription" type="text"  [(ngModel)]="coursedetail.description"  value="{{coursedetail.description}}" required placeholder="Course Description" >
+                                    </div>
+                                </div>  
+                                      <div class="form-group row" >
+                                          <div class="col-md-6">                                    
+                                            <label>Start From </label>
+                                            <input class="form-control" name="coursestartfrom" type="text"  [(ngModel)]="coursedetail.startfrom" value="{{coursedetail.startfrom}}" [minDate]="today" placeholder="Start From" required readonly #sdp="bsDatepicker" bsDatepicker >
+                                    </div>                            
+                                          <div class="col-md-6">                                    
+                                            <label>End On </label>
+                                            <input class="form-control" name="courseendon" type="text"  [(ngModel)]="coursedetail.endon" [minDate]="coursedetail.startfrom" value="{{coursedetail.endon}}" placeholder="End On" required readonly #edp="bsDatepicker" bsDatepicker >
+                                    </div>
+                                </div>
+                                      <div class="form-group row" >
+                                          <div class="col-md-6">                                    
+                                            <label>Location </label>
+                                            <!-- [(ngModel)]="coursedetail.location" -->
+                                            <ng4geo-autocomplete [userSettings]="userSettings" (componentCallback)="autoCompleteCallback1($event)"  required  ></ng4geo-autocomplete>
+                                            
+                                    </div>                            
+                                          <div class="col-md-6">                                    
+                                            <label>No. of Guests </label>
+                                            <input class="form-control" name="courseguestno" type="number"  [(ngModel)]="coursedetail.guestno" (keypress) = "numericOnly($event)"  pattern="^(0|[1-9][0-9]*)$" value="{{coursedetail.guestno}}" required placeholder="No. of guests" >
+                                    </div>
+                                </div>      
+                                <div class="form-group row" >                               
+                                          <div class="col-md-6">                                    
+                                            <label>Time</label> 
 
-					                                   <!-- <timepicker [(ngModel)]="coursedetail.timeslotFrom" (change)="changed()" [hourStep]="hstep" [minuteStep]="mstep" required [showMeridian]="ismeridian" [readonlyInput]="!isEnabled"></timepicker> -->
-					                                   <select class="form-control" name="coursetimeslotFrom" [(ngModel)]="coursedetail.timeslotFrom" required >
-										        			<option value=''>From</option>
-										        			<!-- <option value="12:00am">12:00am</option>
+                                             <!-- <timepicker [(ngModel)]="coursedetail.timeslotFrom" (change)="changed()" [hourStep]="hstep" [minuteStep]="mstep" required [showMeridian]="ismeridian" [readonlyInput]="!isEnabled"></timepicker> -->
+                                             <select class="form-control" name="coursetimeslotFrom" [(ngModel)]="coursedetail.timeslotFrom" required >
+                                  <option value=''>From</option>
+                                  <!-- <option value="12:00am">12:00am</option>
                                   <option value="12:15am">12:15am</option>
                                   <option  value="12:30am">12:30am</option>
                                   <option  value="12:45am">12:45am</option>
@@ -1009,14 +1014,14 @@
                                   <option  value="11:15pm">11:15pm</option>
                                   <option  value="11:30pm">11:30pm</option>
                                   <option  value="11:45pm">11:45pm</option> -->
-										        		</select>
-					                                 </div>
-					                                 <div class="col-md-6">
-					                                 	<label>&nbsp;</label>
-					                                  <!-- <timepicker [(ngModel)]="coursedetail.timeslotTo" (change)="changed()" [hourStep]="hstep" [minuteStep]="mstep" [showMeridian]="ismeridian" required [readonlyInput]="!isEnabled"></timepicker> -->
-					                                  <select class="form-control" name="oursetimeslotTo" [(ngModel)]="coursedetail.timeslotTo" required >
-										        			<option value=''>To</option>
-										        			<!-- <option value="12:00am">12:00am</option>
+                                </select>
+                                           </div>
+                                           <div class="col-md-6">
+                                            <label>&nbsp;</label>
+                                            <!-- <timepicker [(ngModel)]="coursedetail.timeslotTo" (change)="changed()" [hourStep]="hstep" [minuteStep]="mstep" [showMeridian]="ismeridian" required [readonlyInput]="!isEnabled"></timepicker> -->
+                                            <select class="form-control" name="oursetimeslotTo" [(ngModel)]="coursedetail.timeslotTo" required >
+                                  <option value=''>To</option>
+                                 <!-- <option value="12:00am">12:00am</option>
                                   <option value="12:15am">12:15am</option>
                                   <option  value="12:30am">12:30am</option>
                                   <option  value="12:45am">12:45am</option>
@@ -1112,98 +1117,192 @@
                                   <option  value="11:15pm">11:15pm</option>
                                   <option  value="11:30pm">11:30pm</option>
                                   <option  value="11:45pm">11:45pm</option> -->
-										        		</select>
-								                    </div>
-				                                </div></form>
-				                              </div>
-				                            </div>
-				                          </div>
-				                        </div>
-					                </td>
-					              </tr>
-					            </tbody>            
-					            <tfoot>
-					              <tr>
-					                <td colspan="7">
-					                  <mfBootstrapPaginator [rowsOnPageSet]="[5,10,15]"></mfBootstrapPaginator>
-					                </td>
-					              </tr>
-					            </tfoot>
-					          </table>          
+                                </select>
+                                    </div>
+                                        </div>
+                                      <div class="form-group" *ngIf="coursedetail.images != '' ">
+                                        <div class= "row">
+                                              <div class="col-sm-6">
+                                               <img src="https://dummyimage.com/300.png/09f/fff" style="width:100px; height:100px; max-height:100%; max-width:100%;"/>  <!--  {{apiUrl}}/server/storage{{coursedetail.images[0].filePath}}/{{coursedetail.images[0].fileName}} -->
+                                                <div class="">
+                                                  <button class="btn btn-sm btn-outline-primary" (click)="downloadAttachment(coursedetail.images[0])"><span class="fa fa-download"></span></button>
+                                                  <button class="btn btn-sm btn-outline-danger" (click)="removeAttachment(coursedetail.images[0])"><span class="fa fa-close"></span></button>
+                                                </div>
+                                              </div>
+                                            </div>
+                                      </div>
+
+                                <div class="form-group row" *ngIf="coursedetail.images == '' ">
+                    <div class="col-md-4">
+                      <label>Course Image</label>
+                      <input type="file" ng2FileSelect [uploader]="uploader" required /><br/>
+                    </div>
+                    <div class="col-md-8 pull-right" >                         
+                        <table class="table col-6">
+                            <thead>
+                            <tr>
+                                <th>Name</th>
+                                <th>Actions</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <!-- <tr *ngFor="let file of files">
+                              <td><strong>{{ file.name }}</strong></td>
+                              <td nowrap>
+                                  <button type="button" class="btn btn-success btn-sm"
+                                          (click)="downloadAttachment(file)">
+                                      <span class="fa fa-download"></span> Download
+                                  </button>
+                                  <button type="button" class="btn btn-danger btn-sm"
+                                          (click)="removeAttachment(file)">
+                                      <span class="fa fa-trash"></span> Remove
+                                  </button>
+                              </td>
+                            </tr> -->
+                            <tr *ngFor="let item of uploader.queue">
+                                <td><strong>{{ item?.file?.name }}</strong></td>
+                                <td nowrap>
+                                    <span *ngIf="item.isSuccess"><i class="fa fa-check-circle"></i></span>
+                                    <span *ngIf="item.isCancel"><i class="fa fa-ban"></i></span>
+                                    <span *ngIf="item.isError"><i class="fa fa-trash"></i></span>
+                                    <button type="button" class="btn btn-success btn-sm"
+                                          (click)="downloadNewAttachment(item?.file)" *ngIf = "item.isSuccess" >
+                                      <span class="fa fa-download"></span> Download
+                                    </button>                                    
+                                    <button type="button" class="btn btn-danger btn-sm"
+                                            (click)="removeNewAttachment(item)" *ngIf = "item.isSuccess">
+                                        <span class="fa fa-trash"></span> Remove
+                                    </button>
+                                    <!-- <button type="button" class="btn btn-success btn-sm"
+                                            (click)="item.upload()" [disabled]="item.isReady || item.isUploading || item.isSuccess" *ngIf = "!item.isSuccess">
+                                        <span class="fa fa-upload"></span> Upload
+                                    </button> -->
+                                    <!-- <button type="button" class="btn btn-warning btn-xs"
+                                            (click)="item.cancel()" [disabled]="!item.isUploading">
+                                        <span class="fa fa-ban"></span> Cancel
+                                    </button> -->
+                                    <button type="button" class="btn btn-danger btn-sm"
+                                            (click)="item.remove()" [disabled]="item.isSuccess" *ngIf = "!item.isSuccess">
+                                        <span class="fa fa-trash"></span> Remove
+                                    </button>
+                                </td>
+                            </tr>
+                            </tbody>
+                        </table>
+             
+                        <div>                            
+                            <!-- <button type="button" class="btn btn-success "
+                                    (click)="uploader.uploadAll()" [disabled]="!uploader.getNotUploadedItems().length">
+                                <span class="fa fa-upload"></span> Upload all
+                            </button> -->
+                            <!-- <button type="button" class="btn btn-warning btn-s"
+                                    (click)="uploader.cancelAll()" [disabled]="!uploader.isUploading">
+                                <span class="fa fa-ban"></span> Cancel all
+                            </button> -->
+                            <button type="button" class="btn btn-danger "
+                                    (click)="uploader.clearQueue()" [disabled]="!uploader.queue.length || !uploader.getNotUploadedItems().length">
+                                <span class="fa fa-trash"></span> Remove all
+                            </button>
+                        </div>
+             
+                    </div>                       
+                        
+ 
+                  </div> 
+
+
+                                      </form>
+                                      </div>
+                                    </div>
+                                  </div>
+                                </div>
+                          </td>
+                        </tr>
+                      </tbody>            
+                      <tfoot>
+                        <tr>
+                          <td colspan="7">
+                            <mfBootstrapPaginator [rowsOnPageSet]="[5,10,15]"></mfBootstrapPaginator>
+                          </td>
+                        </tr>
+                      </tfoot>
+                    </table>          
 
 
 
 
-              			 <!-- <div class="form-group row" *ngFor = "let coursedetail of coursesData"> -->
-		                    
-		                <!-- </div> -->
+                     <!-- <div class="form-group row" *ngFor = "let coursedetail of coursesData"> -->
+                        
+                    <!-- </div> -->
 
 
 
 
 
 
-                       <div bsModal #courseModal="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-                          <div class="modal-dialog modal-primary" role="document">
-                            <div class="modal-content">
+                       <div bsModal #courseModal="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" >
+                          <div class="modal-dialog modal-primary" role="document" style="max-width: 700px;">
+                            <div class="modal-content" >
                               <div class="modal-body">
-                              	<h5>New Course Details</h5>
+                                <h5>New Course Details</h5>
                                 <button type="button" class="btn btn-default pull-right closeModalButton" (click)="courseModal.hide()" style="margin-right:5px;">Cancel</button>
                                 <button class="btn btn-primary pull-right" style="margin-right:5px;" type="button" (click)="savecoursedata()" [disabled] = "!courseServiceForm.form.valid">Save</button> 
                               </div>
-                              <div class="card-body" style="border-top:1px solid #c2cfd6;">                              	
-	                              <form class="form-horizontal ng-untouched ng-pristine ng-valid" novalidate="" #courseServiceForm="ngForm"> 
-                              	<div class="form-group row" >
-	                                <div class="col-md-6">
-	                                  <label>Name </label>	  
-	                                  <input class="form-control" name="name" type="text"  [(ngModel)]="course.name" required placeholder="Course Name">
-	                                </div>
-	                                <div class="col-md-6">
-	                                  <label>Price </label>
-	                                  <div class="input-group">
-						                  <div class="input-group-prepend">
-						                    <span class="input-group-text">{{currency}}</span>
-						                  </div>
-	                                  	  <input class="form-control" name="price" type="number" (keypress) = "numericOnly($event)"  [(ngModel)]="course.price" pattern="^(0|[1-9][0-9]*)$" required  placeholder="e.g. 1200" >
-	                                  	</div>
-	                                </div>
-	                            </div>
-	                            <div class="form-group row" >
-	                                <div class="col-md-12">	                                	
-	                                  <label>Description </label>
-	                                  <input class="form-control" name="description" type="text"  [(ngModel)]="course.description"  required placeholder="Course Description" >
-				                    </div>
-				                </div>	
-	                            <div class="form-group row" >
-	                                <div class="col-md-6">	                                	
-	                                  <label>Start From </label>
-	                                  <input class="form-control" name="startfrom" type="text"  [(ngModel)]="course.startfrom" [minDate]="today"  placeholder="Start From" required readonly #sdp="bsDatepicker" bsDatepicker [(bsValue)]="bsStartValue">
-				                    </div>				                    
-	                                <div class="col-md-6">	                                	
-	                                  <label>End On </label>
-	                                  <input class="form-control" name="endon" type="text"  [(ngModel)]="course.endon"  placeholder="End On" [minDate]="course.startfrom"  required readonly #edp="bsDatepicker" bsDatepicker [(bsValue)]="bsEndValue">
-				                    </div>
-				                </div>
-	                            <div class="form-group row" >
-	                                <div class="col-md-6">	                                	
-	                                  <label>Location </label>
-	                                  <ng4geo-autocomplete [userSettings]="userSettings" (componentCallback)="autoCompleteCallback1($event)"  required></ng4geo-autocomplete>
-				                    </div>				                    
-	                                <div class="col-md-6">	                                	
-	                                  <label>No. of Guests </label>
-	                                  <input class="form-control" name="courseguestno" type="number" (keypress) = "numericOnly($event)"   [(ngModel)]="course.guestno" pattern="^(0|[1-9][0-9]*)$" required placeholder="No. of guests" >
-				                    </div>
-				                </div>				                
-				                <div class="form-group row" >			                    
-	                                <div class="col-md-6">	                                	
-	                                  <label>Time</label>	                                  
-	                                  <!-- <input class="form-control" name="timeslotFrom" type="text"  [(ngModel)]="course.timeslotFrom"  value="" placeholder="From" > -->
+                              <div class="card-body" style="border-top:1px solid #c2cfd6;">                               
+                                <form class="form-horizontal ng-untouched ng-pristine ng-valid" novalidate="" #courseServiceForm="ngForm" enctype="multipart/form-data"> 
+                                <div class="form-group row" >
+                                  <div class="col-md-6">
+                                    <label>Name </label>    
+                                    <input class="form-control" name="name" type="text"  [(ngModel)]="course.name" required placeholder="Course Name">
+                                  </div>
+                                  <div class="col-md-6">
+                                    <label>Price </label>
+                                    <div class="input-group">
+                              <div class="input-group-prepend">
+                                <span class="input-group-text">{{currency}}</span>
+                              </div>
+                                        <input class="form-control" name="price" pattern="^(0|[1-9][0-9]*)$" type="number" (keypress) = "numericOnly($event)"  [(ngModel)]="course.price" required  placeholder="e.g. 1200" >
+                                      </div>
+                                  </div>
+                              </div>
+                              <div class="form-group row" >
+                                  <div class="col-md-12">                                   
+                                    <label>Description </label>
+                                    <input class="form-control" name="description" type="text"  [(ngModel)]="course.description"  required placeholder="Course Description" >
+                            </div>
+                        </div>  
+                              <div class="form-group row" >
+                                  <div class="col-md-6">                                    
+                                    <label>Start From </label>
+                                    <input class="form-control" name="startfrom" type="text"  [(ngModel)]="course.startfrom" [minDate]="today"   placeholder="Start From" required readonly #sdp="bsDatepicker" bsDatepicker [(bsValue)]="bsStartValue">
+                            </div>                            
+                                  <div class="col-md-6">                                    
+                                    <label>End On </label>
+                                    <input class="form-control" [minDate]="course.startfrom"  name="endon" type="text"  [(ngModel)]="course.endon"  placeholder="End On" required readonly #edp="bsDatepicker" bsDatepicker [(bsValue)]="bsEndValue">
+                            </div>
+                        </div>
+                              <div class="form-group row" >
+                                  <div class="col-md-6">                                    
+                                    <label>Location </label>
+                                    <ng4geo-autocomplete [userSettings]="userSettings" (componentCallback)="autoCompleteCallback1($event)"  required></ng4geo-autocomplete>
+                                    <!-- [(ngModel)]="course.location" -->
+                                   <!-- <input placeholder="search for location" autocorrect="off" autocapitalize="off" spellcheck="off" type="text" class="form-control" #search [formControl]="searchControl"> -->
+                            </div>                            
+                                  <div class="col-md-6">                                    
+                                    <label>No. of Guests </label>
+                                    <input class="form-control" name="courseguestno" type="number" (keypress) = "numericOnly($event)"  [(ngModel)]="course.guestno" pattern="^(0|[1-9][0-9]*)$" required placeholder="No. of guests" >
+                            </div>
+                        </div>                        
+                        <div class="form-group row" >                         
+                                  <div class="col-md-6">                                    
+                                    <label>Time</label>                                    
+                                    <!-- <input class="form-control" name="timeslotFrom" type="text"  [(ngModel)]="course.timeslotFrom"  value="" placeholder="From" > -->
 
-	                                  <!-- <timepicker [(ngModel)]="course.timeslotFrom" (change)="changed()" [hourStep]="hstep" [minuteStep]="mstep" [showMeridian]="ismeridian" required [readonlyInput]="!isEnabled"></timepicker> -->
+                                    <!-- <timepicker [(ngModel)]="course.timeslotFrom" (change)="changed()" [hourStep]="hstep" [minuteStep]="mstep" [showMeridian]="ismeridian" required [readonlyInput]="!isEnabled"></timepicker> -->
 
-	                                  <select class="form-control" name="timeslotFrom" [(ngModel)]="course.timeslotFrom" required >
-						        			<option value=''>From</option>
-						        			<!-- <option value="12:00am">12:00am</option>
+                                    <select class="form-control" name="timeslotFrom" [(ngModel)]="course.timeslotFrom" required >
+                          <option value=''>From</option>
+                         <!-- <option value="12:00am">12:00am</option>
                                   <option value="12:15am">12:15am</option>
                                   <option  value="12:30am">12:30am</option>
                                   <option  value="12:45am">12:45am</option>
@@ -1299,17 +1398,17 @@
                                   <option  value="11:15pm">11:15pm</option>
                                   <option  value="11:30pm">11:30pm</option>
                                   <option  value="11:45pm">11:45pm</option> -->
-						        		</select>
-	                                </div>
-	                                <div class="col-md-6">
-	                                  <label>&nbsp;</label>
-	                                 <!--  <input class="form-control" name="timeslotTo" type="text"  [(ngModel)]="course.timeslotTo"  value="" placeholder="To" > -->
+                        </select>
+                                  </div>
+                                  <div class="col-md-6">
+                                    <label>&nbsp;</label>
+                                   <!--  <input class="form-control" name="timeslotTo" type="text"  [(ngModel)]="course.timeslotTo"  value="" placeholder="To" > -->
 
-										<!-- <timepicker [(ngModel)]="course.timeslotTo" (change)="changed()" [hourStep]="hstep" [minuteStep]="mstep" [showMeridian]="ismeridian" required [readonlyInput]="!isEnabled"></timepicker> -->
+                    <!-- <timepicker [(ngModel)]="course.timeslotTo" (change)="changed()" [hourStep]="hstep" [minuteStep]="mstep" [showMeridian]="ismeridian" required [readonlyInput]="!isEnabled"></timepicker> -->
 
-										<select class="form-control" name="timeslotTo" [(ngModel)]="course.timeslotTo" required >
-						        			<option value=''>To</option>
-						        			<!-- <option value="12:00am">12:00am</option>
+                    <select class="form-control" name="timeslotTo" [(ngModel)]="course.timeslotTo" required >
+                          <option value=''>To</option>
+                          <!-- <option value="12:00am">12:00am</option>
                                   <option value="12:15am">12:15am</option>
                                   <option  value="12:30am">12:30am</option>
                                   <option  value="12:45am">12:45am</option>
@@ -1405,14 +1504,94 @@
                                   <option  value="11:15pm">11:15pm</option>
                                   <option  value="11:30pm">11:30pm</option>
                                   <option  value="11:45pm">11:45pm</option> -->
-						        		</select>
-				                    </div>
-                                </div></form>
+                        </select>
+                            </div>
+                                </div>
+
+                                <div class="form-group row">
+                    <div class="col-md-4">
+                      <label>Course Image</label>
+                      <input type="file" ng2FileSelect [uploader]="uploader" required /><br/>
+                    </div>
+                    <div class="col-md-8 pull-right" >                         
+                        <table class="table col-6">
+                            <thead>
+                            <tr>
+                                <th>Name</th>
+                                <th>Actions</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <!-- <tr *ngFor="let file of files">
+                              <td><strong>{{ file.name }}</strong></td>
+                              <td nowrap>
+                                  <button type="button" class="btn btn-success btn-sm"
+                                          (click)="downloadAttachment(file)">
+                                      <span class="fa fa-download"></span> Download
+                                  </button>
+                                  <button type="button" class="btn btn-danger btn-sm"
+                                          (click)="removeAttachment(file)">
+                                      <span class="fa fa-trash"></span> Remove
+                                  </button>
+                              </td>
+                            </tr> -->
+                            <tr *ngFor="let item of uploader.queue">
+                                <td><strong>{{ item?.file?.name }}</strong></td>
+                                <td nowrap>
+                                    <span *ngIf="item.isSuccess"><i class="fa fa-check-circle"></i></span>
+                                    <span *ngIf="item.isCancel"><i class="fa fa-ban"></i></span>
+                                    <span *ngIf="item.isError"><i class="fa fa-trash"></i></span>
+                                    <button type="button" class="btn btn-success btn-sm"
+                                          (click)="downloadNewAttachment(item?.file)" *ngIf = "item.isSuccess" >
+                                      <span class="fa fa-download"></span> Download
+                                    </button>                                    
+                                    <button type="button" class="btn btn-danger btn-sm"
+                                            (click)="removeNewAttachment(item)" *ngIf = "item.isSuccess">
+                                        <span class="fa fa-trash"></span> Remove
+                                    </button>
+                                    <!-- <button type="button" class="btn btn-success btn-sm"
+                                            (click)="item.upload()" [disabled]="item.isReady || item.isUploading || item.isSuccess" *ngIf = "!item.isSuccess">
+                                        <span class="fa fa-upload"></span> Upload
+                                    </button> -->
+                                    <!-- <button type="button" class="btn btn-warning btn-xs"
+                                            (click)="item.cancel()" [disabled]="!item.isUploading">
+                                        <span class="fa fa-ban"></span> Cancel
+                                    </button> -->
+                                    <button type="button" class="btn btn-danger btn-sm"
+                                            (click)="item.remove()" [disabled]="item.isSuccess" *ngIf = "!item.isSuccess">
+                                        <span class="fa fa-trash"></span> Remove
+                                    </button>
+                                </td>
+                            </tr>
+                            </tbody>
+                        </table>
+             
+                        <div>                            
+                            <!-- <button type="button" class="btn btn-success "
+                                    (click)="uploader.uploadAll()" [disabled]="!uploader.getNotUploadedItems().length">
+                                <span class="fa fa-upload"></span> Upload all
+                            </button> -->
+                            <!-- <button type="button" class="btn btn-warning btn-s"
+                                    (click)="uploader.cancelAll()" [disabled]="!uploader.isUploading">
+                                <span class="fa fa-ban"></span> Cancel all
+                            </button> -->
+                            <button type="button" class="btn btn-danger "
+                                    (click)="uploader.clearQueue()" [disabled]="!uploader.queue.length || !uploader.getNotUploadedItems().length">
+                                <span class="fa fa-trash"></span> Remove all
+                            </button>
+                        </div>
+             
+                    </div>                       
+                        
+ 
+                  </div> 
+
+                              </form>
                               </div>
                             </div><!-- /.modal-content -->
                           </div><!-- /.modal-dialog -->
                         </div><!-- /.modal -->
-              		</tab>
+                  </tab>
            		</tabset>
 			</div>
         </div> 
