@@ -42,7 +42,8 @@ import { Ng4GeoautocompleteModule } from 'ng4-geoautocomplete';
 @Injectable()
 export class AddartistservicesComponent {
 
-	private makeupservices: any;
+  private makeupservices: any;
+	private photoexist: any;
 	private makeupservicesData:any;
 	private nailsservices: any;
 	private nailsservicesData:any;
