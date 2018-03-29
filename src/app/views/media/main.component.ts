@@ -108,10 +108,10 @@ export class MainComponent {
           console.log(response.json());
           this.toasterService.pop('success', 'Success ', "Gallery Uploaded file "+file.fileName+" deleted successfully.");
 
-          const index: number = this.galleryImages.indexOf(file);
+          const index: number = this.mainImages.indexOf(file);
           console.log(index);
           if (index !== -1) {
-           this.galleryImages.splice(index, 1);
+           this.mainImages.splice(index, 1);
           }   
 
           this.http.post(API_URL+'/FileStorages/update?where={"id":"'+file.id+'"}&access_token='+ localStorage.getItem('currentUserToken'), {"status":"active"}, options)
