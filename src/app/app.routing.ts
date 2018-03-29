@@ -275,7 +275,7 @@ export const routes: Routes = [
     path: 'nailartists',
     component: FullLayoutComponent,
     data: {
-      title: 'Manage Nail Artists'
+      title: 'Nail Artists'
     },
     children: [
       {
@@ -386,6 +386,19 @@ export const routes: Routes = [
           }
         },
         loadChildren: './views/artistavail/artistavail.module#ArtistavailModule'
+      },
+
+      {
+        path: 'media',
+        component: FullLayoutComponent,        
+        canActivate: [NgxPermissionsGuard],
+        data: {
+          permissions: {
+            only: ['ARTIST','SALON'],
+            except: ['ADMIN','GUEST']
+          }
+        },
+        loadChildren: './views/media/media.module#MediaModule'
       }
 ];
 

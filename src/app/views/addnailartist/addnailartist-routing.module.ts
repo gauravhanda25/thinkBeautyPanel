@@ -8,7 +8,7 @@ const routes: Routes = [
     path: '',
     component: AddnailartistComponent,
     data: {
-      title: 'Manage Nail Artists'
+      title: 'Add New Nail Artist'
     }
   }
 ];

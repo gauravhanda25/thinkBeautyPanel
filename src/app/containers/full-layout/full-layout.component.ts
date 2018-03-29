@@ -170,18 +170,18 @@ export class FullLayoutComponent {
             {
               name: 'Media',
               url: '/media',
-              icon: 'icon-photo',
+              icon: 'icon-camera',
               children: [
             
                 {
                   name: 'Gallery',
                   url: '/media/gallery',
-                  icon: 'icon-photo',
+                  icon: 'icon-camera',
                 },
                 {
                   name: 'Main Images',
                   url: '/media/main',
-                  icon: 'icon-photo',
+                  icon: 'icon-camera',
                 }
               ]
             }
