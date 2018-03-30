@@ -316,6 +316,48 @@ export const routes: Routes = [
     ]
   },
   {
+    path: 'updates',
+    component: FullLayoutComponent,
+    data: {
+      title: "What's New"
+    },
+    children: [
+      {
+        path: 'manage',
+        component: SimpleLayoutComponent,
+        canActivate: [NgxPermissionsGuard],
+        data: {
+          permissions: {
+            only: 'ARTIST'
+          }
+        },
+        loadChildren: './views/updates/updates.module#UpdatesModule'
+      },
+      {
+        path: 'addupdates',
+        component: SimpleLayoutComponent,
+        canActivate: [NgxPermissionsGuard],
+        data: {
+          permissions: {
+            only: 'ARTIST'
+          }
+        },
+        loadChildren: './views/addupdates/addupdates.module#AddupdatesModule'
+      },
+      {
+        path: 'editupdates/:id',
+        component: SimpleLayoutComponent,
+        canActivate: [NgxPermissionsGuard],
+        data: {
+          permissions: {
+            only: 'ARTIST'
+          }
+        },
+        loadChildren: './views/addupdates/addupdates.module#AddupdatesModule'
+      },
+    ]
+  },
+  {
         path: 'dashboard',
         component: FullLayoutComponent,        
         canActivate: [NgxPermissionsGuard],

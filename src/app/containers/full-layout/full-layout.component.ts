@@ -131,7 +131,14 @@ export class FullLayoutComponent {
       		        icon: 'icon-clock',
       		      }
       		    ]
-      		  }];
+      		  },
+            {
+              name: "What's New",
+              url: '/updates/manage',
+              icon: 'icon-list',
+            }
+
+            ];
       	    } else if(localStorage.getItem('currentUserRoleId') == "3"){
               localStorage.setItem('currentUserRole', "SALON");
               this.navigation = [{

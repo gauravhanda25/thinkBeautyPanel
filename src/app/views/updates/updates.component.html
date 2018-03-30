@@ -1,0 +1,59 @@
+<div class="animated fadeIn">
+  <div class="row">
+    <div class="col-lg-12">
+      <a class="btn btn-large btn-primary pull-right" href="#" routerLink='/updates/addupdates' style="margin-bottom:5px"><i class="fa fa-user-plus"></i> Add New Updates</a>
+    </div>
+    <div class="col-lg-12">
+      <div class="card">
+        <div class="card-header">
+          <i class="fa fa-users"></i> What's New
+        </div>
+        <div class="card-body">
+          <div class="row mb-3">
+            <div class="col-md-4 offset-md-8">
+              <div class="input-group">
+                <div class="input-group-prepend"><span class="input-group-text"><i class="fa fa-search"></i></span></div>
+                <input type="text" class="form-control" [(ngModel)]="filterQuery" placeholder="Search by name"/>
+              </div>
+            </div>
+          </div>
+          <table class="table table-striped" [mfData]="updates | dataFilter : filterQuery" #mf="mfDataTable" [mfRowsOnPage]="10">
+            <thead >
+              <tr>
+                <th><mfDefaultSorter by="title">Title</mfDefaultSorter></th>
+                <th><mfDefaultSorter by="description">Description</mfDefaultSorter></th>
+                <th><mfDefaultSorter by="created_on">Request Date</mfDefaultSorter></th>
+                <th>Action</th>
+              </tr>
+            </thead>
+            <tbody> 
+              <tr *ngIf = "noupdates == 0">
+                <td colspan="10">No Updates</td>
+              </tr>
+              <tr *ngFor="let update of mf.data" >
+                <td>{{update.title}}</td>
+                <td>{{update.description}}</td>
+                <td>{{update.created_on}}</td>
+                <td>
+                  <a class="btn btn-sm btn-outline-primary " href="#" routerLink='/updates/editupdates/{{update.id}}'><i class="fa fa-edit"></i> </a>                 
+                  <button class="btn btn-sm btn-outline-primary "  (click) ="delupdate(update)"><i class="fa fa-trash"></i></button>
+                </td>
+              </tr>
+            </tbody>            
+            <tfoot>
+              <tr>
+                <td colspan="7">
+                  <mfBootstrapPaginator [rowsOnPageSet]="[5,10,15]"></mfBootstrapPaginator>
+                </td>
+              </tr>
+            </tfoot>
+          </table>          
+        </div>
+      </div>
+    </div>
+    <!--/.col-->
+  </div>
+  <!--/.row-->
+</div>
+
+<toaster-container [toasterconfig]="toasterconfig"></toaster-container>

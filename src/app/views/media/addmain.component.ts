@@ -91,12 +91,21 @@ export class AddmainComponent {
       options.headers.append('Accept', 'application/json'); 
 
 
-      this.http.post(API_URL+'/Containers?access_token='+ localStorage.getItem('currentUserToken'), '{"name":"'+this.loggedInUserId+'"}',  options)
+     this.http.get(API_URL+'/Containers/'+this.loggedInUserId+'?access_token='+ localStorage.getItem('currentUserToken'),  options)
+      .subscribe(response => {     
+        console.log(response.json());  
+      }, error => {
+          console.log(JSON.stringify(error.json()));
+            
+
+        this.http.post(API_URL+'/Containers?access_token='+ localStorage.getItem('currentUserToken'), '{"name":"'+this.loggedInUserId+'"}',  options)
         .subscribe(response => {
-          console.log(response.json());
+            console.log(response.json());
         }, error => {
             console.log(JSON.stringify(error.json()));
         });
+        
+      });
 
       this.uploader = new FileUploader({url: API_URL+'/Containers/'+this.loggedInUserId+'/upload?access_token='+localStorage.getItem('currentUserToken'),
       allowedMimeType: ['image/gif','image/jpeg','image/png'] });

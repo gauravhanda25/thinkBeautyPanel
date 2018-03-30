@@ -1,9 +1,9 @@
 <div class="app flex-row align-items-center login-form {{loginType}}-form">
 <div class="container">
     <div class="row" style="margin:3% 0">
-        <div class="col-sm-6">
+        <div class="col-sm-6" *ngIf="loginType != 'admin'">
         </div>
-        <div class="col-sm-4 text-center"  style="margin: 0 0 5%;">
+        <div class="col-sm-4 text-center"  style="margin: 0 0 5%;" *ngIf="loginType != 'admin'">
           <h2 style="color: #c8ac6b; font-family: 'Roboto Slab', serif; font-size: 40px;">THINK BEAUTY</h2>
         </div>
         <div class="col-sm-6">
@@ -63,9 +63,9 @@
               </form>
             </div>
         </div>
-        <div class="col-sm-5">
+        <div class="col-sm-5" *ngIf="loginType != 'admin'">
         </div>
-        <div class="col-sm-6 text-center"  style="margin: 5% 0 0;">
+        <div class="col-sm-6 text-center"  style="margin: 5% 0 0;"  *ngIf="loginType != 'admin'">
           <h2 style="color: #c8ac6b; font-family: 'Roboto Slab', serif; font-size: 40px;">What we think, We become</h2>
         </div>
     </div>
