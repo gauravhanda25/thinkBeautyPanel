@@ -843,7 +843,7 @@
                           <td colspan="10">No Courses Records</td>
                         </tr>
                         <tr *ngFor="let coursedetail of mf.data" >
-                          <td><img src="https://dummyimage.com/300.png/09f/fff" style="width:100px; height:100px; max-height:100%; max-width:100%;" *ngIf="coursedetail.images != ''  "/>  <!--  {{apiUrl}}/server/storage{{coursedetail.images[0].filePath}}/{{coursedetail.images[0].fileName}} --></td>
+                          <td><img src="{{apiUrl}}{{coursedetail.images[0].filePath}}/download/{{coursedetail.images[0].fileName}}" style="width:100px; height:100px; max-height:100%; max-width:100%;" *ngIf="coursedetail.images != ''  "/>  </td>
                           <td>{{coursedetail.name}}</td>
                           <td>{{currency}} {{coursedetail.price}}</td>
                           <td>{{coursedetail.description}}</td>
@@ -1123,7 +1123,7 @@
                                       <div class="form-group" *ngIf="coursedetail.images != '' ">
                                         <div class= "row">
                                               <div class="col-sm-6">
-                                               <img src="https://dummyimage.com/300.png/09f/fff" style="width:100px; height:100px; max-height:100%; max-width:100%;"/>  <!--  {{apiUrl}}/server/storage{{coursedetail.images[0].filePath}}/{{coursedetail.images[0].fileName}} -->
+                                               <img src="{{apiUrl}}{{coursedetail.images[0].filePath}}/download/{{coursedetail.images[0].fileName}}" style="width:100px; height:100px; max-height:100%; max-width:100%;"/>  <!--  {{apiUrl}}/server/storage{{coursedetail.images[0].filePath}}/{{coursedetail.images[0].fileName}} -->
                                                 <div class="">
                                                   <button class="btn btn-sm btn-outline-primary" (click)="downloadAttachment(coursedetail.images[0])"><span class="fa fa-download"></span></button>
                                                   <button class="btn btn-sm btn-outline-danger" (click)="removeAttachment(coursedetail.images[0])"><span class="fa fa-close"></span></button>

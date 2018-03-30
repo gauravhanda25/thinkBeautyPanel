@@ -36,10 +36,12 @@ export const routes: Routes = [
         path: 'artist',
         loadChildren: './views/login/login.module#LoginModule'
       },
+      /* 
       {
         path: 'salon',
         loadChildren: './views/login/login.module#LoginModule'
-      },
+      },  
+      */
       {
         path: 'forgot',
         loadChildren: './views/forgot/forgot.module#ForgotModule'

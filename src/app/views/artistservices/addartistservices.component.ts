@@ -589,7 +589,7 @@ export class AddartistservicesComponent {
       if(this.locationSelected == '') {
           $('.preloader').hide(); 
           this.toasterService.pop('error', 'Error', "Please select the location"); 
-        //  return;        
+         return;        
       }
 
       this.course.location =  this.locationSelected;
@@ -693,7 +693,7 @@ export class AddartistservicesComponent {
       if(this.locationSelected == '') {
           $('.preloader').hide(); 
           this.toasterService.pop('error', 'Error', "Please select the location"); 
-        //  return;        
+          return;        
       }
 
 

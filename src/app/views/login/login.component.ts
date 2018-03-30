@@ -51,9 +51,10 @@ export class LoginComponent {
             this.loginType = "artist"
           } else if(event.url == "/admin"){
             this.loginType = "admin"
-          } else if(event.url == "/salon") {
+          } 
+          /* else if(event.url == "/salon") {
             this.loginType = "salon"
-          }
+          } */
         }
       });
 	  }
@@ -76,9 +77,11 @@ export class LoginComponent {
         this.data.role_id = 1;
        } else if(this.loginType == "artist"){
         this.data.role_id = 2;
-       } else if(this.loginType == "salon"){
+       } 
+
+       /* else if(this.loginType == "salon"){
         this.data.role_id = 3;
-       }
+       }  */
       
       console.log(this.data);
       const toast = this.toasterService.pop('success', 'Please wait', "Logging you in...")
@@ -119,7 +122,7 @@ export class LoginComponent {
 
 
 
-          if(this.data.role_id == localStorage.getItem('currentUserRoleId')){
+          if((this.data.role_id == localStorage.getItem('currentUserRoleId')) || (this.loginType == "artist" && localStorage.getItem('currentUserRoleId') == "3")){
       			if(localStorage.getItem('currentUserRoleId') == "1"){
       				localStorage.setItem('currentUserRole', "ADMIN");
       			} else if(response.json().user.role_id == "2"){

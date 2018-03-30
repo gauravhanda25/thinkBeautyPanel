@@ -109,7 +109,7 @@ export class AddmainComponent {
             memberType: (localStorage.getItem('currentUserRoleId') == "2" ? "artist" : "salon"),
             filePath: '/Containers/'+this.loggedInUserId,
             fileName: item.file.name,
-            uploadType: 'gallery' ,       
+            uploadType: 'main' ,       
             status: 'active',  
             created_by: this.loggedInUserId
           }

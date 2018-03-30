@@ -10,7 +10,7 @@
         <div class="card-body">
           <div class= "row">
             <div class="col-sm-3 galleryimages" *ngFor="let images of mainImages">
-              <img src="http://www.thinkbeauty.net:3000/api{{images.filePath}}/download/{{images.fileName}}" style="width:auto; height:auto; max-height:100%; max-width:100%;"/>  <!--  {{apiUrl}}/server/storage{{images.filePath}}/{{images.fileName}} -->
+              <img src="{{apiUrl}}{{images.filePath}}/download/{{images.fileName}}" style="width:auto; height:auto; max-height:100%; max-width:100%;"/>  
               <div class="galleryimages-btn">
                 <button class="btn btn-sm btn-outline-primary" (click)="downloadAttachment(images)"><span class="fa fa-download"></span></button>
                 <button class="btn btn-sm btn-outline-danger" (click)="removeAttachment(images)"><span class="fa fa-close"></span></button>

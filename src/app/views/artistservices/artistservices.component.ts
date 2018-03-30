@@ -591,7 +591,7 @@ export class ArtistservicesComponent {
       if(this.locationSelected == '') {
           $('.preloader').hide(); 
           this.toasterService.pop('error', 'Error', "Please select the location"); 
-        //  return;        
+         return;        
       }
 
 
@@ -698,7 +698,7 @@ export class ArtistservicesComponent {
       if(this.locationSelected == '') {
           $('.preloader').hide(); 
           this.toasterService.pop('error', 'Error', "Please select the location"); 
-        //  return;        
+        return;        
       }
 
 
