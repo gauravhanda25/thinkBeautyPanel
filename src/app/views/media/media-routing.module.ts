@@ -34,14 +34,14 @@ const routes: Routes = [
 			path: 'main',
 			component: MainComponent,
 			data: {
-			  title: "Manage Salon Main Images"
+			  title: "Manage Main Images"
 			}
 		},
 		{
 			path: 'main/add',
 			component: AddmainComponent,
 			data: {
-			  title: "Add New Salon Images"
+			  title: "Add New Images"
 			}
 		}
 		]	

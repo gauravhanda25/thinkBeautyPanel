@@ -25,6 +25,7 @@ export class MainComponent {
 	public mainImages:any;
 	public apiUrl:any = API_URL;
 
+private memberType:any;
 	public loggedInUserId:any = localStorage.getItem('currentUserId');
 
     private toasterService: ToasterService;
@@ -40,35 +41,38 @@ export class MainComponent {
 
 
       	if(localStorage.getItem('currentUserRoleId') == "1"){
-        	localStorage.setItem('currentUserRole', "ADMIN");
-      	} else if(localStorage.getItem('currentUserRoleId') == "2"){
-        	localStorage.setItem('currentUserRole', "ARTIST");
-      	} else if(localStorage.getItem('currentUserRoleId') == "3"){
-        	localStorage.setItem('currentUserRole', "SALON");
-      	} 
+          localStorage.setItem('currentUserRole', "ADMIN");
+          this.memberType = 'admin';
+        } else if(localStorage.getItem('currentUserRoleId') == "2"){
+          localStorage.setItem('currentUserRole', "ARTIST");
+          this.memberType = 'artist';
+        } else if(localStorage.getItem('currentUserRoleId') == "3"){
+          localStorage.setItem('currentUserRole', "SALON");
+          this.memberType = 'salon';
+        } 
 
-     	this.NgxRolesService.flushRoles();
+      this.NgxRolesService.flushRoles();
 
-     	if(localStorage.getItem('currentUserRole') != null) { 
-      		this.NgxRolesService.addRole(localStorage.getItem('currentUserRole'), ['A'] );
-     	} else {
-     		this.NgxRolesService.addRole("GUEST", ['A'] );     
-     	} 
+      if(localStorage.getItem('currentUserRole') != null) { 
+          this.NgxRolesService.addRole(localStorage.getItem('currentUserRole'), ['A'] );
+      } else {
+        this.NgxRolesService.addRole("GUEST", ['A'] );     
+      } 
 
-     	let roles = NgxRolesService.getRoles();
-      	NgxRolesService.roles$.subscribe((data) => {
-        	console.log(data);
-      	})
+      let roles = NgxRolesService.getRoles();
+        NgxRolesService.roles$.subscribe((data) => {
+          console.log(data);
+        })
       
 
         this.toasterService = toasterService;
 
-      	let options = new RequestOptions();
-      	options.headers = new Headers();
-      	options.headers.append('Content-Type', 'application/json');
-      	options.headers.append('Accept', 'application/json'); 
+        let options = new RequestOptions();
+        options.headers = new Headers();
+        options.headers.append('Content-Type', 'application/json');
+        options.headers.append('Accept', 'application/json'); 
 
-       	this.http.get(API_URL+'/FileStorages?filter={"where":{"and":[{"memberType":"salon"},{"uploadType":"main"},{"memberId":"'+this.loggedInUserId+'"},{"status":"active"}]}}&access_token='+ localStorage.getItem('currentUserToken'), options)
+        this.http.get(API_URL+'/FileStorages?filter={"where":{"and":[{"memberType":"'+this.memberType+'"},{"uploadType":"main"},{"memberId":"'+this.loggedInUserId+'"},{"status":"active"}]}}&access_token='+ localStorage.getItem('currentUserToken'), options)
         .subscribe(storageRes => {
 	       this.mainImages = storageRes.json();
 	     }, error => {

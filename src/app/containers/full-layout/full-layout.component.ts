@@ -133,6 +133,24 @@ export class FullLayoutComponent {
       		    ]
       		  },
             {
+              name: 'Media',
+              url: '/media',
+              icon: 'icon-camera',
+              children: [
+            
+                {
+                  name: 'Gallery',
+                  url: '/media/gallery',
+                  icon: 'icon-camera',
+                },
+                {
+                  name: 'Main Images',
+                  url: '/media/main',
+                  icon: 'icon-camera',
+                }
+              ]
+            },
+            {
               name: "What's New",
               url: '/updates/manage',
               icon: 'icon-list',
