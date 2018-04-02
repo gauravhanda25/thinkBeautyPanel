@@ -174,7 +174,19 @@ export const routes: Routes = [
           }
         },
         loadChildren: './views/salon/salon.module#SalonModule'
-      },{
+      },
+      {
+        path: 'verified',
+        component: SimpleLayoutComponent,
+        canActivate: [NgxPermissionsGuard],
+        data: {
+          permissions: {
+            only: 'ADMIN'
+          }
+        },
+        loadChildren: './views/salon/salon.module#SalonModule'
+      },
+      {
         path: 'newrequests',
         component: SimpleLayoutComponent,
         canActivate: [NgxPermissionsGuard],
@@ -229,6 +241,17 @@ export const routes: Routes = [
       },
       {
         path: 'rejected',
+        component: SimpleLayoutComponent,
+        canActivate: [NgxPermissionsGuard],
+        data: {
+          permissions: {
+            only: 'ADMIN'
+          }
+        },
+        loadChildren: './views/artist/artist.module#ArtistModule'
+      },
+      {
+        path: 'verified',
         component: SimpleLayoutComponent,
         canActivate: [NgxPermissionsGuard],
         data: {

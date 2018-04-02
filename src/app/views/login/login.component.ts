@@ -106,7 +106,7 @@ export class LoginComponent {
             if(localStorage.getItem('currentUserCountry') == "Bahrain") {
               localStorage.setItem('currentUserCurrency', "BHD");
             } else {
-              localStorage.setItem('currentUserCurrency', "KD");
+              localStorage.setItem('currentUserCurrency', "KWD");
             }
 
           }, error => {

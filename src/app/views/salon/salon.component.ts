@@ -61,7 +61,7 @@ export class SalonComponent {
         options.headers.append('Accept', 'application/json');
 
         const reqUrl = this.router.url;
-        if(reqUrl === '/salon/newrequests'){
+        if(reqUrl === '/managesalon/newrequests'){
             this.use_url = API_URL+'/Members?filter={"where":{"role_id":3, "status" : "inactive"}}&access_token='+localStorage.getItem('currentUserToken');
 
             this.check_account = {
@@ -70,14 +70,24 @@ export class SalonComponent {
                 actionName : 'Verify'
             }
         }
-        else if(reqUrl === '/artist/registered') {
+        else if(reqUrl === '/managesalon/registered') {
             this.check_account = {
                 id: '',
                 action: 'active',
                 actionName : 'Block'
             }
             this.use_url = API_URL+'/Members?filter={"where":{"role_id":3, "status" : "active"}}&access_token='+localStorage.getItem('currentUserToken');
-        } else {
+        } 
+        else if(reqUrl === '/managesalon/verified')
+        {
+              this.check_account = {
+                id: '',
+                action: 'verify',
+                actionName : 'Verify'
+            }
+             this.use_url = API_URL+'/Members?filter={"where":{"role_id":3, "status" : "verify"}}&access_token='+localStorage.getItem('currentUserToken');
+        } 
+        else {
             this.check_account = {
                 id: '',
                 action: 'reject',
@@ -162,12 +172,7 @@ export class SalonComponent {
             salon.action_on = today;
 
 
-
-            if(salon.status == 'active') {
-                 salon.status = 'inactive';
-            } else {
-                salon.status = 'active';
-            }
+            salon.status = status;
             let where = '{"id": salon.id}';
             console.log(where);
 
@@ -198,7 +203,6 @@ export class SalonComponent {
             this.http.delete(API_URL+'/Members/'+ salon.id +'?access_token='+ localStorage.getItem('currentUserToken'), options)
             .subscribe(response => {
                 console.log(response.json()); 
-                localStorage.setItem('noticemessage', 'salondelete');
                 this.toasterService.pop('success', 'Success ', "Salon Record deleted successfully.");
                 //this.router.navigate(['salon']);
 

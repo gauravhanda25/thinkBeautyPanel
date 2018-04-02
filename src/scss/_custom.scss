@@ -49,11 +49,11 @@
         top: 5px;
         right: 20px;
 
-        .btn{
+       /* .btn{
             color: #fff;
             border-color: #fff;
-        }
-    }
+        } */
+    } 
 }
 .service-card {
 	border:1px solid #ccc;
@@ -447,4 +447,9 @@ input:-webkit-autofill:active {
     opacity: 0;
         -moz-transform: rotate(900deg);
     }
+}
+
+
+.theme-green .bs-datepicker-head {
+    background-color: #ceb26f !important;
 }

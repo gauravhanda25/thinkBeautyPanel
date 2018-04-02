@@ -10,6 +10,7 @@ import { NgxPermissionsService, NgxRolesService } from 'ngx-permissions';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { NgModule } from '@angular/core';
+import * as moment from 'moment';
 
 // Toastr
 import { ToasterModule, ToasterService, ToasterConfig }  from 'angular2-toaster/angular2-toaster';
@@ -64,6 +65,11 @@ export class UpdatesComponent {
 
             if(response.json().length !=0) {    
                 this.updates = response.json();
+
+                for(let i in this.updates){
+                    this.updates[i].created_on = moment(this.updates[i].created_on).format('DD-MM-YYYY');
+                }
+
             } else {
                 this.noupdates = 0;
             }
@@ -99,7 +105,6 @@ export class UpdatesComponent {
             this.http.delete(API_URL+'/Updates/'+ update.id +'?access_token='+ localStorage.getItem('currentUserToken'), options)
             .subscribe(response => {
                 console.log(response.json()); 
-                localStorage.setItem('noticemessage', 'newdelete');
                 this.toasterService.pop('success', 'Success ', "Record deleted successfully.");
 
                 const index: number = this.updates.indexOf(update);

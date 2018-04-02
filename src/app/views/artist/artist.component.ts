@@ -80,7 +80,17 @@ export class ArtistComponent {
                 actionName : 'Block'
             }
              this.use_url = API_URL+'/Members?filter={"where":{"role_id":2, "status" : "active"}}&access_token='+localStorage.getItem('currentUserToken');
-        } else {
+        } 
+        else if(reqUrl === '/manageartist/verified')
+        {
+              this.check_account = {
+                id: '',
+                action: 'verify',
+                actionName : 'Verify'
+            }
+             this.use_url = API_URL+'/Members?filter={"where":{"role_id":2, "status" : "verify"}}&access_token='+localStorage.getItem('currentUserToken');
+        } 
+        else {
             this.check_account = {
                 id: '',
                 action: 'reject',
@@ -214,7 +224,6 @@ export class ArtistComponent {
             this.http.delete(API_URL+'/Members/'+ artist.id +'?access_token='+ localStorage.getItem('currentUserToken'), options)
             .subscribe(response => {
                 console.log(response.json()); 
-                localStorage.setItem('noticemessage', 'artistdelete');
                 this.toasterService.pop('success', 'Success ', "Artist Record deleted successfully.");
                 //this.router.navigate(['artist']);
 

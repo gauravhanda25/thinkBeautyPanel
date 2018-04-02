@@ -31,6 +31,11 @@ export class FullLayoutComponent {
               icon: 'icon-people',
             },
             {
+              name: 'Verified Artists',
+              url: '/manageartist/verified',
+              icon: 'icon-people',
+            },
+            {
               name: 'Registered Artists',
               url: '/manageartist/registered',
               icon: 'icon-people',
@@ -57,13 +62,18 @@ export class FullLayoutComponent {
           url: '/managesalon/newrequests',
           icon: 'icon-list',
         },
+        {
+          name: 'Verified Salons',
+          url: '/managesalon/verified',
+          icon: 'icon-list',
+        },
           {
-          name: 'Registered Salon',
+          name: 'Registered Salons',
           url: '/managesalon/registered',
           icon: 'icon-list',
         },
           {
-          name: 'Rejected Salon',
+          name: 'Rejected Salons',
           url: '/managesalon/rejected',
           icon: 'icon-list',
         },
@@ -133,7 +143,7 @@ export class FullLayoutComponent {
       		    ]
       		  },
             {
-              name: 'Media',
+              name: 'Upload',
               url: '/media',
               icon: 'icon-camera',
               children: [
@@ -193,7 +203,7 @@ export class FullLayoutComponent {
               ]
             },
             {
-              name: 'Media',
+              name: 'Upload',
               url: '/media',
               icon: 'icon-camera',
               children: [

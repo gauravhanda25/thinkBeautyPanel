@@ -51,11 +51,13 @@
                   <button class="btn btn-sm btn-outline-primary " (click) ="delsalon(user)" *ngIf="check_account.action == 'active'"><i class="fa fa-trash"></i></button>
                   <button class="btn btn-sm btn-outline-primary " *ngIf="check_account.action == 'active'" (click) ="changeStatus(user, 'inactive','block')">Block</button>
 
-                  <button class="btn btn-sm btn-outline-primary " *ngIf="check_account.action == 'inactive'" (click) ="changeStatus(user, 'active','verify')">Verify</button>
+                  <button class="btn btn-sm btn-outline-primary " *ngIf="check_account.action == 'inactive'" (click) ="changeStatus(user, 'verify','verify')">Verify</button>
 
-                  <button class="btn btn-sm btn-outline-primary " *ngIf="check_account.action == 'inactive'" (click) ="changeStatus(user, 'reject', 'reject')">Reject</button>
+                  <button class="btn btn-sm btn-outline-primary " *ngIf="check_account.action == 'verify'" (click) ="changeStatus(user, 'active','accept')">Accept</button>
 
-                  <button class="btn btn-sm btn-outline-primary " *ngIf="check_account.action == 'reject'" (click) ="changeStatus(user, 'active','activate')">Activate</button>
+                  <button class="btn btn-sm btn-outline-primary " *ngIf="check_account.action == 'inactive' || check_account.action == 'verify'" (click) ="changeStatus(user, 'reject','reject')">Reject</button>
+
+                  <button class="btn btn-sm btn-outline-primary " *ngIf="check_account.action == 'reject'" (click) ="changeStatus(user, 'inactive','activate')">Activate</button>
                 </td>
               </tr>
             </tbody>            

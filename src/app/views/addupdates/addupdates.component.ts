@@ -81,7 +81,7 @@ export class AddupdatesComponent {
     		title: '',
     		description: '',
     		status: 'active',
-    		created_on: today
+    		created_on: new Date()
     	}
 
     	let options = new RequestOptions();

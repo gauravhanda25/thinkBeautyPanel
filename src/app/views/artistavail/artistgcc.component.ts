@@ -108,9 +108,9 @@ export class ArtistgccComponent {
               this.gccData[index].endon = moment(this.gccData[index].endon).format("DD/MM/YYYY");
             }
 
-        $('.preloader').hide(); 
             this.noGCC = 0;
           }
+        $('.preloader').hide(); 
 
         }, error => {
           console.log(JSON.stringify(error.json()));
