@@ -104,6 +104,9 @@ export class AddartistvacationComponent {
         this.http.get(API_URL+'/Artistvacations?filter={"where":{"and":[{"id":"'+this.editparam.id+'"}]}}&access_token='+ localStorage.getItem('currentUserToken'), options)
         .subscribe(vacationres => {
            this.data = vacationres.json()[0];
+            this.data.starton = new Date(this.data.starton);
+            this.data.endon = new Date(this.data.endon);
+
            this.editparam.action = "edit";
     
         $('.preloader').hide(); 

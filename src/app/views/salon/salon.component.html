@@ -49,6 +49,7 @@
                 <td>
                   <a class="btn btn-sm btn-outline-primary " href="#" routerLink='/managesalon/editsalon/{{user.id}}' *ngIf="check_account.action == 'active'"><i class="fa fa-edit"></i> </a>                 
                   <button class="btn btn-sm btn-outline-primary " (click) ="delsalon(user)" *ngIf="check_account.action == 'active'"><i class="fa fa-trash"></i></button>
+                  <button class="btn btn-sm btn-outline-primary " data-toggle="modal" (click)="getSalonData(user.id); salonModal.show(); " ><i class="fa fa-eye"></i> </button> 
                   <button class="btn btn-sm btn-outline-primary " *ngIf="check_account.action == 'active'" (click) ="changeStatus(user, 'inactive','block')">Block</button>
 
                   <button class="btn btn-sm btn-outline-primary " *ngIf="check_account.action == 'inactive'" (click) ="changeStatus(user, 'verify','verify')">Verify</button>
@@ -76,5 +77,46 @@
   </div>
   <!--/.row-->
 </div>
-
+<div bsModal #salonModal="bs-modal" class="modal fade salon-detail-modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-primary" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title">Salon Details</h4>
+        <button type="button" class="close" (click)="salonModal.hide()" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <table class="table" >
+          <tr>
+            <td>Salon Name</td>
+            <td>{{salonDetails.name}}</td>
+          </tr>
+          <tr>
+            <td>Phone</td>
+            <td>{{salonDetails.phone}}</td>
+          </tr>
+          <tr>
+            <td>Email</td>
+            <td>{{salonDetails.email}}</td>
+          </tr>
+          <tr>
+            <td>Address</td>
+            <td>
+              CPR No. {{salonDetails.cpr}}<br/>
+              Villa No.: {{salonDetails.villa}}<br/>
+              Road No.: {{salonDetails.road}}<br/>
+              Block No.: {{salonDetails.block}}<br/>
+              City: {{salonDetails.city}}<br/>
+              Country: {{salonDetails.countryname}}
+            </td>
+          </tr>
+        </table>     
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" (click)="salonModal.hide()">Close</button>
+      </div>
+    </div><!-- /.modal-content -->
+  </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
 <toaster-container [toasterconfig]="toasterconfig"></toaster-container>

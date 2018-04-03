@@ -254,7 +254,7 @@ export class AddartistavailComponent {
 
       this.data.date = moment(this.data.date).format('YYYY-MM-DD');
       
-      this.http.get(API_URL+'/Artistavailabilities?filter={"where":{"and":[{"memberId":"'+localStorage.getItem('currentUserId')+'"},{"date":"'+this.data.date+'"}]}}&access_token='+ localStorage.getItem('currentUserToken'), options)
+      this.http.get(API_URL+'/Artistavailabilities?filter={"where":{"and":[{"memberId":"'+localStorage.getItem('currentUserId')+'"},{"date":"'+this.data.date+'"},{"id":{"neq":"'+this.editparam.id+'"}}]}}&access_token='+ localStorage.getItem('currentUserToken'), options)
       .subscribe(response => {
         console.log(response.json());
         if(response.json().length != 0) {
@@ -264,13 +264,13 @@ export class AddartistavailComponent {
         } 
         if(new Date(this.am_pm_to_hours(this.data.hoursfrom)) > new Date(this.am_pm_to_hours(this.data.hoursto)) && this.data.hoursfrom != '' && this.data.hoursto != '') {
           $('.preloader').hide(); 
-            this.toasterService.pop('error', 'Time invalid', "Work End Time is less than the Work Start Time"); 
+            this.toasterService.pop('error', 'Time invalid', "For Work, End Time should always be greater than the Start Time"); 
             return;        
         }
 
         if(new Date(this.am_pm_to_hours(this.data.breakfrom)) > new Date(this.am_pm_to_hours(this.data.breakto)) && this.data.breakfrom!= '' && this.data.breakto != '') {
           $('.preloader').hide(); 
-            this.toasterService.pop('error', 'Time invalid', "Break End Time is less than the Break Start Time"); 
+            this.toasterService.pop('error', 'Time invalid', "For Break, End Time should always be greater than the Start Time"); 
             return;        
         }
 

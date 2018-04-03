@@ -10,6 +10,7 @@ import { NgxPermissionsService, NgxRolesService } from 'ngx-permissions';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { NgModule } from '@angular/core';
+import { ModalDirective } from 'ngx-bootstrap/modal';
 
 // Toastr
 import { ToasterModule, ToasterService, ToasterConfig }  from 'angular2-toaster/angular2-toaster';
@@ -28,6 +29,7 @@ export class ArtistComponent {
     private use_url: any;
     private check_account: any;
     private profession_vals: any;
+    private artistDetails:any = [];
 
     private toasterService: ToasterService;
 
@@ -146,6 +148,21 @@ export class ArtistComponent {
         });    	        
 
  	}
+
+    getArtistData(artistId) {
+        let options = new RequestOptions();
+        options.headers = new Headers();
+        options.headers.append('Content-Type', 'application/json');
+        options.headers.append('Accept', 'application/json');
+
+        this.http.get(API_URL+'/Members/'+artistId+'?access_token='+ localStorage.getItem('currentUserToken'), options)
+        .subscribe(response => {
+            console.log(response.json());       
+            this.artistDetails = response.json();  
+        }, error => {
+            console.log(JSON.stringify(error.json()));
+        }); 
+    }
 
     changeStatus(artist, status, action) {
         let options = new RequestOptions();

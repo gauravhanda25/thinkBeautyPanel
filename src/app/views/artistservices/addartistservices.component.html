@@ -8,8 +8,8 @@
 			</div>
           	<div class="card-body">  
             	<!-- Nav tabs -->
-            	<tabset>
-            		<tab heading="Makeup" *ngIf="loginUserRole == 'artist'"> 
+            	<tabset >
+            		<tab heading="Makeup" *ngIf="loginUserRole == 'artist'" > 
 	                  <div class="form-group row"  *ngFor = "let subservice of makeupservices">
 	                    <div class="col-md-4 service-card card-body">
 	                       <h6>{{subservice.name}}
@@ -1199,10 +1199,10 @@
                                     (click)="uploader.cancelAll()" [disabled]="!uploader.isUploading">
                                 <span class="fa fa-ban"></span> Cancel all
                             </button> -->
-                            <button type="button" class="btn btn-danger "
+                            <!-- <button type="button" class="btn btn-danger "
                                     (click)="uploader.clearQueue()" [disabled]="!uploader.queue.length || !uploader.getNotUploadedItems().length">
                                 <span class="fa fa-trash"></span> Remove all
-                            </button>
+                            </button> -->
                         </div>
              
                     </div>                       
@@ -1575,10 +1575,10 @@
                                     (click)="uploader.cancelAll()" [disabled]="!uploader.isUploading">
                                 <span class="fa fa-ban"></span> Cancel all
                             </button> -->
-                            <button type="button" class="btn btn-danger "
+                            <!-- <button type="button" class="btn btn-danger "
                                     (click)="uploader.clearQueue()" [disabled]="!uploader.queue.length || !uploader.getNotUploadedItems().length">
                                 <span class="fa fa-trash"></span> Remove all
-                            </button>
+                            </button> -->
                         </div>
              
                     </div>                       

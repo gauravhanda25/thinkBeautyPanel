@@ -89,6 +89,7 @@ export class ArtistservicesComponent {
 
     public loggedInUserId:any = localStorage.getItem('currentUserId');
 
+    private courseActive:any = 0;
 	   
 
   // Timepicker
@@ -244,6 +245,16 @@ export class ArtistservicesComponent {
     	this.getAllArtistData();
     	this.getAllArtistCourseData();
   	}
+
+
+
+    tabSelected(tab) {
+      if(tab == 'course') {
+        this.courseActive = 1;
+      } else {      
+        this.courseActive = 0;
+      }
+    }
 
     autoCompleteCallback1(selectedData:any) {
       if(selectedData.data != undefined) {
@@ -705,7 +716,9 @@ export class ArtistservicesComponent {
 
       }
 
-      if(this.locationSelected == '') {
+    // alert(this.userSettings.inputString);
+
+      if(this.locationSelected == '' && this.userSettings.inputString == '') {
           $('.preloader').hide(); 
           this.toasterService.pop('error', 'Error', "Please select the location"); 
         return;        

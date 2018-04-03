@@ -699,9 +699,9 @@ export class AddartistservicesComponent {
 
       }
 
-      
+      // alert(this.userSettings.inputString);
 
-      if(this.locationSelected == '') {
+      if(this.locationSelected == '' && this.userSettings.inputString == '') {
           $('.preloader').hide(); 
           this.toasterService.pop('error', 'Error', "Please select the location"); 
           return;        

@@ -2,6 +2,7 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { NgModule } from '@angular/core';
 import { SalonComponent } from './salon.component';
+import { ModalModule } from "ngx-bootstrap";
 
 // DataTable
 import { DataTableModule } from 'angular2-datatable';
@@ -21,7 +22,8 @@ import { ToasterModule, ToasterService} from 'angular2-toaster/angular2-toaster'
     DataTableModule,
    	SalonRoutingModule,
     ToasterModule,
-    HttpModule
+    HttpModule,
+    ModalModule.forRoot()
   ],
   declarations: [
     SalonComponent,

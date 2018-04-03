@@ -43,7 +43,7 @@
                 <td>{{profession_vals[(user.artist_profession)-1]}}</td>
                 <td>{{user.city}}</td>
                 <td>{{user.countryname}}</td>
-                <td>{{user.mobile}}</td>
+                <td>{{user.phone}}</td>
                 <td>{{user.email}}</td>
                 <td>{{user.created_on}}</td>
                 <td *ngIf="check_account.action == 'active'">{{user.action_on}}</td>
@@ -51,6 +51,7 @@
                 <td>
                   <a class="btn btn-sm btn-outline-primary " href="#" routerLink='/manageartist/editartist/{{user.id}}' *ngIf="check_account.action == 'active'"><i class="fa fa-edit"></i> </a>                 
                   <button class="btn btn-sm btn-outline-primary "  (click) ="delartist(user)" *ngIf="check_account.action == 'active'"><i class="fa fa-trash"></i></button>
+                  <button class="btn btn-sm btn-outline-primary " data-toggle="modal" (click)="getArtistData(user.id); artistModal.show(); " ><i class="fa fa-eye"></i> </button>    
 
                   <button class="btn btn-sm btn-outline-primary " *ngIf="check_account.action == 'active'" (click) ="changeStatus(user, 'inactive','block')">Block</button>
 
@@ -79,5 +80,49 @@
   </div>
   <!--/.row-->
 </div>
+
+<div bsModal #artistModal="bs-modal" class="modal fade artist-detail-modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-primary" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title">Artist Details</h4>
+        <button type="button" class="close" (click)="artistModal.hide()" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <table class="table" >
+          <tr>
+            <td>Artist Name</td>
+            <td>{{artistDetails.name}}</td>
+          </tr>
+          <tr>
+            <td>Phone</td>
+            <td>{{artistDetails.phone}}</td>
+          </tr>
+          <tr>
+            <td>Email</td>
+            <td>{{artistDetails.email}}</td>
+          </tr>
+          <tr>
+            <td>Address</td>
+            <td>
+              CPR No. {{artistDetails.cpr}}<br/>
+              Villa No.: {{artistDetails.villa}}<br/>
+              Road No.: {{artistDetails.road}}<br/>
+              Block No.: {{artistDetails.block}}<br/>
+              City: {{artistDetails.city}}<br/>
+              Country: {{artistDetails.countryname}}
+            </td>
+          </tr>
+        </table>     
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" (click)="artistModal.hide()">Close</button>
+      </div>
+    </div><!-- /.modal-content -->
+  </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+
 
 <toaster-container [toasterconfig]="toasterconfig"></toaster-container>

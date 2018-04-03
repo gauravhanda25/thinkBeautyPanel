@@ -246,10 +246,8 @@ export class ArtistavailComponent {
             }   
                       
           }
-          $('.preloader').hide();
           console.log(this.workingData, this.weekendData,this.specificData);
-        	if(response.json().length != 0) {
-        	}
+          $('.preloader').hide();
         }, error => {
 	        console.log(JSON.stringify(error.json()));
 	    });
@@ -283,13 +281,13 @@ export class ArtistavailComponent {
     
       if(new Date(this.am_pm_to_hours(data.hoursfrom)) > new Date(this.am_pm_to_hours(data.hoursto)) && data.hoursfrom != '' && data.hoursto != '') {
           $('.preloader').hide(); 
-          this.toasterService.pop('error', 'Time invalid', "Work End Time is less than the Work Start Time"); 
+          this.toasterService.pop('error', 'Time invalid', "For Work, End Time should always be greater than the Start Time"); 
           return;        
       }
 
       if(new Date(this.am_pm_to_hours(data.breakfrom)) > new Date(this.am_pm_to_hours(data.breakto)) && data.breakfrom!= '' && data.breakto != '') {
           $('.preloader').hide(); 
-          this.toasterService.pop('error', 'Time invalid', "Break End Time is less than the Break Start Time"); 
+          this.toasterService.pop('error', 'Time invalid', "For Break, End Time should always be greater than the Start Time"); 
           return;        
       }
 
@@ -315,13 +313,13 @@ export class ArtistavailComponent {
 
       if(new Date(this.am_pm_to_hours(data.hoursfrom)) > new Date(this.am_pm_to_hours(data.hoursto)) && data.hoursfrom != '' && data.hoursto != '') {
           $('.preloader').hide(); 
-          this.toasterService.pop('error', 'Time invalid', "Work End Time is less than the Work Start Time"); 
+          this.toasterService.pop('error', 'Time invalid', "For Work, End Time should always be greater than the Start Time"); 
           return;        
       }
 
       if(new Date(this.am_pm_to_hours(data.breakfrom)) > new Date(this.am_pm_to_hours(data.breakto)) && data.breakfrom!= '' && data.breakto != '') {
           $('.preloader').hide(); 
-          this.toasterService.pop('error', 'Time invalid', "Break End Time is less than the Break Start Time"); 
+          this.toasterService.pop('error', 'Time invalid', "For Break, End Time should always be greater than the Start Time"); 
           return;        
       }
 

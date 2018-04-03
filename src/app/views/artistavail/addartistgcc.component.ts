@@ -113,6 +113,8 @@ export class AddartistgccComponent {
         this.http.get(API_URL+'/Artistgcc?filter={"where":{"and":[{"id":"'+this.editparam.id+'"}]}}&access_token='+ localStorage.getItem('currentUserToken'), options)
         .subscribe(gccres => {
            this.data = gccres.json()[0];
+            this.data.starton = new Date(this.data.starton);
+            this.data.endon = new Date(this.data.endon);
            this.editparam.action = "edit";
 
     

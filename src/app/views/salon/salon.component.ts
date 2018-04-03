@@ -29,6 +29,8 @@ export class SalonComponent {
     private check_account: any;
     private profession_vals: any;
 
+    private salonDetails:any = [];
+
     private toasterService: ToasterService;
 
     public toasterconfig : ToasterConfig =
@@ -143,6 +145,23 @@ export class SalonComponent {
         });    	        
 
  	}
+
+    getSalonData(salonId) {
+        let options = new RequestOptions();
+        options.headers = new Headers();
+        options.headers.append('Content-Type', 'application/json');
+        options.headers.append('Accept', 'application/json');
+
+        this.http.get(API_URL+'/Members/'+salonId+'?access_token='+ localStorage.getItem('currentUserToken'), options)
+        .subscribe(response => {
+            console.log(response.json());       
+            this.salonDetails = response.json();  
+        }, error => {
+            console.log(JSON.stringify(error.json()));
+        }); 
+    }
+
+
     changeStatus(salon, status, action) {
         let options = new RequestOptions();
         options.headers = new Headers();
