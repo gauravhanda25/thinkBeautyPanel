@@ -615,7 +615,7 @@ export class ArtistservicesComponent {
         return;        
       } 
 
-      if(this.uploader.queue == ''){
+      if(this.uploader.queue.length == 0){
         $('.preloader').hide(); 
           this.toasterService.pop('error', 'Error', "Please select the Course Image"); 
          return;    
@@ -734,7 +734,7 @@ export class ArtistservicesComponent {
         locationVal = this.userSettings.inputString;
       }
 
-      if(this.uploader.queue == '' && course.images.length == 0){
+      if(this.uploader.queue.length == 0 && course.images.length == 0){
         $('.preloader').hide(); 
           this.toasterService.pop('error', 'Error', "Please select the Course Image"); 
          return;    
