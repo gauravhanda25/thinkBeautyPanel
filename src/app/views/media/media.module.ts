@@ -5,9 +5,9 @@ import { MainComponent } from './main.component';
 import { AddmainComponent } from './addmain.component';
 import { GalleryComponent } from './gallery.component';
 import { AddgalleryComponent } from './addgallery.component';
-import { MasonryModule } from 'angular2-masonry';
+// import { MasonryModule } from 'angular2-masonry';
 
-import { ImageViewerModule } from "ngx-image-viewer";
+// import { ImageViewerModule } from "ngx-image-viewer";
 
 import { DataFilterPipe } from './datafilterpipe';
 import { DataTableModule } from 'angular2-datatable';
@@ -48,8 +48,8 @@ import { TimepickerModule } from 'ngx-bootstrap';
   MediaRoutingModule,
   BsDatepickerModule.forRoot(),
   TimepickerModule.forRoot(),
-  ImageViewerModule.forRoot(),
-  MasonryModule
+ // ImageViewerModule.forRoot(),
+ // MasonryModule
   ],
   declarations: [
     MainComponent,
