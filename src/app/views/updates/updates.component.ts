@@ -59,7 +59,7 @@ export class UpdatesComponent {
         options.headers.append('Accept', 'application/json');
        
 
-        this.http.get(API_URL+'/Updates?filter={"order":"created_on DESC"}&access_token=' + localStorage.getItem('currentUserToken'), options)
+        this.http.get(API_URL+'/Updates?filter={"order":"updated_on DESC"}&access_token=' + localStorage.getItem('currentUserToken'), options)
         .subscribe(response => {
             console.log(response.json());       
 
@@ -67,7 +67,7 @@ export class UpdatesComponent {
                 this.updates = response.json();
 
                 for(let i in this.updates){
-                    this.updates[i].created_on = moment(this.updates[i].created_on).format('DD-MM-YYYY');
+                    this.updates[i].updated_on = moment(this.updates[i].updated_on).format('DD-MM-YYYY');
                 }
 
             } else {

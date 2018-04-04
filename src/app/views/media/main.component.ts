@@ -24,6 +24,7 @@ export class MainComponent {
 	
 	public mainImages:any;
 	public apiUrl:any = API_URL;
+  private imageSrc:any ;
 
 private memberType:any;
 	public loggedInUserId:any = localStorage.getItem('currentUserId');
@@ -80,6 +81,10 @@ private memberType:any;
 	     });
 
     }
+    
+getImage(images) {
+  this.imageSrc = API_URL+images.filePath+'/download/'+images.fileName;
+}
 
     downloadAttachment(file){
     console.log(file);

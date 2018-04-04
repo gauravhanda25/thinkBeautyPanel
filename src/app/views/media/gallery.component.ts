@@ -25,6 +25,7 @@ export class GalleryComponent {
 	
 	public galleryImages:any;
 	public apiUrl:any = API_URL;
+  private imageSrc:any ;
 
 private memberType:any;
 	public loggedInUserId:any = localStorage.getItem('currentUserId');
@@ -73,7 +74,7 @@ private memberType:any;
       	options.headers.append('Content-Type', 'application/json');
       	options.headers.append('Accept', 'application/json'); 
 
-       	this.http.get(API_URL+'/FileStorages?filter={"where":{"and":[{"memberType":"'+this.memberType+'"},{"uploadType":"gallery"},{"memberId":"'+this.loggedInUserId+'"},{"status":"active"}]}}&access_token='+ localStorage.getItem('currentUserToken'), options)
+       	this.http.get(API_URL+'/FileStorages?filter={"where":{"and":[{"memberType":"'+this.memberType+'"},{"or":[{"uploadType":"gallery"},{"uploadType":"main"}]},{"memberId":"'+this.loggedInUserId+'"},{"status":"active"}]}}&access_token='+ localStorage.getItem('currentUserToken'), options)
         .subscribe(storageRes => {
 	       console.log(this.galleryImages = storageRes.json());
 	     }, error => {
@@ -82,7 +83,9 @@ private memberType:any;
 
     }
 
-
+getImage(images) {
+  this.imageSrc = API_URL+images.filePath+'/download/'+images.fileName;
+}
 
   downloadAttachment(file){
     console.log(file);

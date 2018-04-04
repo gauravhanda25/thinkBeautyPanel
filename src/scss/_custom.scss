@@ -43,6 +43,17 @@
 .galleryimages {
     position: relative;
     margin-bottom: 30px;
+    height: 200px;
+    text-align: center;
+
+    img{
+        width: auto;
+        height: 200px;
+        max-height: 100%;
+        max-width: 100%;
+        margin: 0 auto;
+        cursor: pointer;
+    }
 
     .galleryimages-btn {
         position: absolute;
@@ -54,6 +65,25 @@
             border-color: #fff;
         } */
     } 
+}
+.dashboardBox{
+    .card{
+        border-radius: 20px;
+        box-shadow: 0 0 10px 3px #ccc;
+        .card-header{
+            border-radius: 20px 20px 0 0;
+            text-align: center;
+        }
+    }
+}
+.courseImage{
+    width:100px;
+    height:100px;
+    max-height:100%;
+    max-width:100%;
+    border: 2px solid #ceb26f;
+    margin-bottom: 10px;
+    border-radius:  5px;
 }
 .service-card {
 	border:1px solid #ccc;

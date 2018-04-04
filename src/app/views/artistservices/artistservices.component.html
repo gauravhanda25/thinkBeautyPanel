@@ -1148,7 +1148,7 @@
                                       <div class="form-group" *ngIf="coursedetail.images.length > 0  ">
                                         <div class= "row">
                                               <div class="col-sm-6">
-                                               <img src="{{apiUrl}}{{coursedetail.images[0].filePath}}/download/{{coursedetail.images[0].fileName}}" style="width:100px; height:100px; max-height:100%; max-width:100%;"/>  <!--  {{apiUrl}}/server/storage{{coursedetail.images[0].filePath}}/{{coursedetail.images[0].fileName}} -->
+                                               <img class="courseImage" src="{{apiUrl}}{{coursedetail.images[0].filePath}}/download/{{coursedetail.images[0].fileName}}"/>  <!--  {{apiUrl}}/server/storage{{coursedetail.images[0].filePath}}/{{coursedetail.images[0].fileName}} -->
                                                 <div class="">
                                                   <button class="btn btn-sm btn-outline-primary" (click)="downloadAttachment(coursedetail.images[0])"><span class="fa fa-download"></span></button>
                                                   <button class="btn btn-sm btn-outline-danger" (click)="removeAttachment(coursedetail.images[0])"><span class="fa fa-close"></span></button>

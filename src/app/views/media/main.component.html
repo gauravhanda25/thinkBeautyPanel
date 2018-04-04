@@ -1,6 +1,6 @@
 <div class="animated fadeIn">
   <div class="row"><div class="col-lg-12">
-      <a class="btn btn-large btn-primary pull-right" href="#" routerLink='add' style="margin-bottom:5px"><i class="fa fa-plus"></i>  Add New Images</a>
+      <a class="btn btn-large btn-primary pull-right" href="#" routerLink='add' style="margin-bottom:5px" *ngIf="mainImages.length <= 4"><i class="fa fa-plus"></i>  Add New Images</a>
     </div>
     <div class="col-lg-12">
       <div class="card">
@@ -10,7 +10,7 @@
         <div class="card-body">
           <div class= "row">
             <div class="col-sm-3 galleryimages" *ngFor="let images of mainImages">
-              <img src="{{apiUrl}}{{images.filePath}}/download/{{images.fileName}}" style="width:auto; height:auto; max-height:100%; max-width:100%;"/>  
+              <img src="{{apiUrl}}{{images.filePath}}/download/{{images.fileName}}" data-toggle="modal" (click)="getImage(images);imageModal.show()"/>  
               <div class="galleryimages-btn">
                 <button class="btn btn-sm btn-primary" (click)="downloadAttachment(images)"><span class="fa fa-download"></span></button>
                 <button class="btn btn-sm btn-primary" (click)="removeAttachment(images)"><span class="fa fa-trash"></span></button>
@@ -24,3 +24,17 @@
   </div>
   <!--/.row-->
 </div>
+
+<div bsModal #imageModal="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" >
+  <div class="modal-dialog modal-primary" role="document" style="max-width: 700px;">
+    <div class="modal-content" >
+      <div class="modal-body">
+        <button class="btn btn-sm btn-primary pull-right" (click)="imageModal.hide()"><span class="fa fa-times"></span></button>
+      </div>
+      <div class="card-body" style="border-top:1px solid #c2cfd6;">                               
+        <img style="width: 100%;" src="{{imageSrc}}">
+      </div>
+    </div><!-- /.modal-content -->
+  </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+<toaster-container [toasterconfig]="toasterconfig"></toaster-container>

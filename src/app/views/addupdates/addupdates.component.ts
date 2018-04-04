@@ -81,7 +81,8 @@ export class AddupdatesComponent {
     		title: '',
     		description: '',
     		status: 'active',
-    		created_on: new Date()
+    		created_on: new Date(),
+    		updated_on: new Date()    		
     	}
 
     	let options = new RequestOptions();
@@ -141,6 +142,7 @@ export class AddupdatesComponent {
 		    });
 			
 		} else {
+			this.data.updated_on = new Date();
 
 			this.http.post(API_URL+'/Updates/update?where=%7B%22id%22%3A%22'+  this.editparam.id +'%22%7D&access_token='+ localStorage.getItem('currentUserToken'), this.data,  options)
 	        .subscribe(response => {

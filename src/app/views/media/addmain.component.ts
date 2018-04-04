@@ -37,6 +37,8 @@ export class AddmainComponent {
     public uploader:FileUploader;
     public files:any = [];
     private fileRemove:any = 0;
+    private mainImagesCount:any = 0;
+private memberType:any;
 
     public loggedInUserId:any = localStorage.getItem('currentUserId');
 
@@ -52,13 +54,15 @@ export class AddmainComponent {
     constructor(private NgxRolesService: NgxRolesService, private NgxPermissionsService: NgxPermissionsService, @Inject(Http) private http: Http, @Inject(Router)private router:Router, private activatedRoute: ActivatedRoute, toasterService: ToasterService) {
     
       if(localStorage.getItem('currentUserRoleId') == "1"){
-        localStorage.setItem('currentUserRole', "ADMIN");
-      } else if(localStorage.getItem('currentUserRoleId') == "2"){
-        localStorage.setItem('currentUserRole', "ARTIST");
-      } else if(localStorage.getItem('currentUserRoleId') == "3"){
-        localStorage.setItem('currentUserRole', "SALON");
-      } 
-
+          localStorage.setItem('currentUserRole', "ADMIN");
+          this.memberType = 'admin';
+        } else if(localStorage.getItem('currentUserRoleId') == "2"){
+          localStorage.setItem('currentUserRole', "ARTIST");
+          this.memberType = 'artist';
+        } else if(localStorage.getItem('currentUserRoleId') == "3"){
+          localStorage.setItem('currentUserRole', "SALON");
+          this.memberType = 'salon';
+        } 
      this.NgxRolesService.flushRoles();
 
      if(localStorage.getItem('currentUserRole') != null) { 
@@ -90,6 +94,18 @@ export class AddmainComponent {
       options.headers.append('Content-Type', 'application/json');
       options.headers.append('Accept', 'application/json'); 
 
+      this.http.get(API_URL+'/FileStorages?filter={"where":{"and":[{"memberType":"'+this.memberType+'"},{"uploadType":"main"},{"memberId":"'+this.loggedInUserId+'"},{"status":"active"}]}}&access_token='+ localStorage.getItem('currentUserToken'), options)
+      .subscribe(storageRes => {
+         console.log(this.mainImagesCount = storageRes.json().length);
+
+         this.uploader = new FileUploader({url: API_URL+'/Containers/'+this.loggedInUserId+'/upload?access_token='+localStorage.getItem('currentUserToken'),
+          allowedMimeType: ['image/gif','image/jpeg','image/png'], queueLimit: (4- parseInt(this.mainImagesCount)) });
+
+       }, error => {
+          console.log(JSON.stringify(error.json()));
+       });
+
+
 
      this.http.get(API_URL+'/Containers/'+this.loggedInUserId+'?access_token='+ localStorage.getItem('currentUserToken'),  options)
       .subscribe(response => {     
@@ -108,7 +124,7 @@ export class AddmainComponent {
       });
 
       this.uploader = new FileUploader({url: API_URL+'/Containers/'+this.loggedInUserId+'/upload?access_token='+localStorage.getItem('currentUserToken'),
-      allowedMimeType: ['image/gif','image/jpeg','image/png'] });
+          allowedMimeType: ['image/gif','image/jpeg','image/png'], queueLimit: 0 });
 
       this.uploader.onSuccessItem = (item:any, response:any, status:any, headers:any) => {
         console.log("ImageUpload:uploaded:", item, status);
@@ -134,6 +150,9 @@ export class AddmainComponent {
           this.toasterService.pop('error', 'Error ',  "File: "+item.file.name+" not uploaded successfully");
         }
     };
+
+
+    console.log(this.uploader);
 
 }
 
