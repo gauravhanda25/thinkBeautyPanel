@@ -734,7 +734,7 @@ export class ArtistservicesComponent {
         locationVal = this.userSettings.inputString;
       }
 
-      if(this.uploader.queue == ''){
+      if(this.uploader.queue == '' && course.images.length == 0){
         $('.preloader').hide(); 
           this.toasterService.pop('error', 'Error', "Please select the Course Image"); 
          return;    
