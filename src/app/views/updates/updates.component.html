@@ -33,7 +33,7 @@
               <tr *ngFor="let update of mf.data" >
                 <td>{{update.title}}</td>
                 <td>{{update.description}}</td>
-                <td>{{update.created_on}}</td>
+                <td>{{update.updated_on}}</td>
                 <td>
                   <a class="btn btn-sm btn-outline-primary " href="#" routerLink='/updates/editupdates/{{update.id}}'><i class="fa fa-edit"></i> </a>                 
                   <button class="btn btn-sm btn-outline-primary "  (click) ="delupdate(update)"><i class="fa fa-trash"></i></button>
