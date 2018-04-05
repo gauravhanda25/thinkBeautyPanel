@@ -597,10 +597,17 @@ export class AddartistservicesComponent {
 
 
 
+      let locationVal:any = '';
       if(this.locationSelected == '') {
           $('.preloader').hide(); 
           this.toasterService.pop('error', 'Error', "Please select the location"); 
-         return;        
+        return;        
+      } 
+
+      if(this.uploader.queue.length == 0){
+        $('.preloader').hide(); 
+          this.toasterService.pop('error', 'Error', "Please select the Course Image"); 
+         return;    
       }
 
       this.course.location =  this.locationSelected;
@@ -701,19 +708,29 @@ export class AddartistservicesComponent {
 
       // alert(this.userSettings.inputString);
 
+     let locationVal:any = '';
       if(this.locationSelected == '' && this.userSettings.inputString == '') {
           $('.preloader').hide(); 
           this.toasterService.pop('error', 'Error', "Please select the location"); 
-          return;        
+        return;        
+      } else if(this.locationSelected != '') {
+        locationVal = this.locationSelected;
+      } else if(this.userSettings.inputString != '') {
+        locationVal = this.userSettings.inputString;
       }
 
+      if(this.uploader.queue.length == 0  && course.images.length == 0){
+        $('.preloader').hide(); 
+          this.toasterService.pop('error', 'Error', "Please select the Course Image"); 
+         return;    
+      }
 
         this.coursedetaildata = { 
       		name: course.name,   		
       		price: course.price,
       		description: course.description ,
       		guestno: course.guestno,
-          location: this.locationSelected,
+          location: locationVal,
           startfrom: course.startfrom,
           endon: course.endon,
       		timeslotFrom: course.timeslotFrom,
