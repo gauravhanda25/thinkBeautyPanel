@@ -10,6 +10,7 @@ import { NgxPermissionsService, NgxRolesService } from 'ngx-permissions';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { NgModule } from '@angular/core';
+import * as moment from 'moment';
 
 // Toastr
 import { ToasterModule, ToasterService, ToasterConfig }  from 'angular2-toaster/angular2-toaster';
@@ -105,6 +106,10 @@ export class SalonComponent {
 
             if(this.users.length !=0) {
                 for(let i=0; i< this.users.length; i++ ) {
+
+                    this.users[i].created_on = moment(this.users[i].created_on).format('DD/MM/YYYY');
+                    this.users[i].action_on = moment(this.users[i].action_on).format('DD/MM/YYYY');
+                    
                     this.http.get(API_URL+'/Members/'+this.users[i].id+'/roles?access_token='+ localStorage.getItem('currentUserToken'), options)
                     .subscribe(response => {
                         console.log(response.json());       

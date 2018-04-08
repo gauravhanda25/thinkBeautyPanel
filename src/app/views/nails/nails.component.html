@@ -10,14 +10,14 @@
           <i class="fa fa-align-justify"></i> Nails Service
         </div>
         <div class="card-body">
-          <div class="row mb-3">
+         <!--  <div class="row mb-3">
             <div class="col-md-4 offset-md-8">
               <div class="input-group">
                 <div class="input-group-prepend"><span class="input-group-text"><i class="fa fa-search"></i></span></div>
               <input type="text" class="form-control" [(ngModel)]="filterQuery" placeholder="Search by name"/>
               </div>
             </div>
-          </div>
+          </div> -->
           <table class="table table-striped"  [mfData]="data | dataFilter : filterQuery" #mf="mfDataTable" [mfRowsOnPage]="10">
             <thead>
               <tr>

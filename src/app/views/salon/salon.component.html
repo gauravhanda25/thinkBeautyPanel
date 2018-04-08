@@ -21,6 +21,7 @@
             <thead >
               <tr>
                 <th><mfDefaultSorter by="name">Name</mfDefaultSorter></th>
+                <th><mfDefaultSorter by="cpr">National ID</mfDefaultSorter></th>
                 <th><mfDefaultSorter by="role">Role</mfDefaultSorter></th>
                 <th><mfDefaultSorter by="city">City</mfDefaultSorter></th>
                 <th><mfDefaultSorter by="country">Country</mfDefaultSorter></th>
@@ -34,10 +35,11 @@
             </thead>
             <tbody> 
               <tr *ngIf = "nousers == 0">
-                <td colspan="9">No Salon Records</td>
+                <td colspan="12">No Salon Records</td>
               </tr>
               <tr *ngFor="let user of mf.data">
                 <td>{{user.name}}</td>
+                <td>{{user.cpr}}</td>
                 <td>{{user.role}}</td>
                 <td>{{user.city}}</td>
                 <td>{{user.countryname}}</td>
@@ -103,7 +105,7 @@
           <tr>
             <td>Address</td>
             <td>
-              CPR No. {{salonDetails.cpr}}<br/>
+              <!-- CPR No. {{salonDetails.cpr}}<br/> -->
               Villa No.: {{salonDetails.villa}}<br/>
               Road No.: {{salonDetails.road}}<br/>
               Block No.: {{salonDetails.block}}<br/>
