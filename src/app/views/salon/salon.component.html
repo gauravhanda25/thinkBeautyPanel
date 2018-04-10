@@ -8,7 +8,7 @@
         <div class="card-header">
           <i class="fa fa-users"></i> Manage Salons
         </div>
-        <div class="card-body">
+        <div class="card-body table-responsive">
           <div class="row mb-3">
             <div class="col-md-4 offset-md-8">
               <div class="input-group">
@@ -30,7 +30,7 @@
                 <th><mfDefaultSorter by="created_on">Request Date</mfDefaultSorter></th>
                 <th *ngIf="check_account.action == 'reject'"><mfDefaultSorter by="action_on">Rejection Date</mfDefaultSorter></th>
                 <th *ngIf="check_account.action == 'active'"><mfDefaultSorter by="action_on" >Verification Date</mfDefaultSorter></th>
-                <th>Action</th>
+                <th >Action</th>
               </tr>
             </thead>
             <tbody> 

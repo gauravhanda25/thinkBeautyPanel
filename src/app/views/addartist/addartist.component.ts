@@ -106,7 +106,7 @@ export class AddartistComponent {
         options.headers.append('Content-Type', 'application/json');
         options.headers.append('Accept', 'application/json');
 
-    	this.http.get(API_URL+'/Countries?access_token='+ localStorage.getItem('currentUserToken'), options)
+    	this.http.get(API_URL+'/Countries?filter={"order":"name ASC"}&access_token='+ localStorage.getItem('currentUserToken'), options)
         .subscribe(response => {
         	console.log(response.json());	
         	this.countries = response.json();
