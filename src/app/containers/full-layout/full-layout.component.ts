@@ -106,6 +106,10 @@ export class FullLayoutComponent {
               icon: 'icon-list',
             }
           ]
+        },{
+          name: 'Commission',
+          url: '/commission',
+          icon: 'icon-list',
         }];
       	    } else if(localStorage.getItem('currentUserRoleId') == "2"){
       	      localStorage.setItem('currentUserRole', "ARTIST");

@@ -392,6 +392,18 @@ export const routes: Routes = [
         },
         loadChildren: './views/dashboard/dashboard.module#DashboardModule'
       },
+      {
+        path: 'commission',
+        component: FullLayoutComponent,        
+        canActivate: [NgxPermissionsGuard],
+        data: {
+          permissions: {
+            only: ['ADMIN'],
+            except: 'GUEST'
+          }
+        },
+        loadChildren: './views/commission/commission.module#CommissionModule'
+      }
 
       {
         path: 'makeup',

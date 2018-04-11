@@ -1,0 +1,43 @@
+<div class="animated fadeIn">
+  <div class="row">
+    <div class="col-lg-12">
+      <div class="card">         
+        <form class="form-horizontal ng-untouched ng-pristine ng-valid" novalidate="" (ngSubmit)="onSubmit()" #commissionForm="ngForm">
+		      <div class="card-header">
+			      <span *ngIf="editparam.action == 'add'">Add Commission</span>
+            <span *ngIf="editparam.action == 'edit'">Edit Commission</span>
+            <button type="button" class="btn btn-primary btn-sm pull-right" routerLink="/commission">Cancel</button>
+		      </div>
+          <div class="card-body">                    
+            <div class="form-group row ">
+              <div class="col-md-6">
+					      <label for="price">Price Range<span class="text-danger">*</span></label>
+                <!-- <input class="form-control" name="price" placeholder="Price Range" type="text"  [(ngModel)]="data.price" required> -->
+                <select class="form-control" name="price" [(ngModel)]="data.price" required>
+                  <option value="">Price Range</option>
+                  <option value="100-200">100-200</option>
+                  <option value="200-400">200-400</option>
+                  <option value="400-600">400-600</option>
+                  <option value="600-1000">600-1000</option>
+                  <option value=">1000">>1000</option>
+                </select>
+              </div>
+              <div class="col-md-6">
+                <label for="commission">Commission(%)<span class="text-danger">*</span></label>
+                <input class="form-control" name="commission" placeholder="Commission" type="text"  [(ngModel)]="data.commission" required>
+              </div>
+            </div> 							
+            <div class="form-group row">
+              <div class="col-md-6">                     
+                 <button class="btn btn-large btn-primary" type="submit" *ngIf="editparam.action == 'add'" [disabled] = "!commissionForm.form.valid" >Add Commission</button>               
+                 <button class="btn btn-large btn-primary" type="submit" *ngIf="editparam.action == 'edit'" [disabled] = "!commissionForm.form.valid" >Update Commission</button>
+              </div>
+            </div> 
+          </div>                 
+        </form>
+      </div>
+    </div>    
+  </div>
+  <!--/.row-->
+</div>
+<toaster-container [toasterconfig]="toasterconfig"></toaster-container>
