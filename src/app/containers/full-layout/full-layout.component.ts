@@ -84,6 +84,23 @@ export class FullLayoutComponent {
         },
             ]
         }, 
+        {
+          name: 'Manage Users',
+          url: '/manageusers',
+          icon: 'icon-list',
+                children: [
+          {
+          name: 'Registered Users',
+          url: '/manageusers/registered',
+          icon: 'icon-list',
+        },
+          {
+          name: 'Blocked Users',
+          url: '/manageusers/blocked',
+          icon: 'icon-list',
+        }
+            ]
+        }, 
 
         {
           name: 'Services',

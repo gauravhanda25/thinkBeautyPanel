@@ -1,0 +1,117 @@
+<div class="animated fadeIn">
+  <div class="row">
+    <div class="col-lg-12">
+      <div class="card">
+        <div class="card-header">
+          <i class="fa fa-users"></i> Manage Users
+        </div>
+        <div class="card-body table-responsive">
+          <div class="row mb-3">
+            <div class="col-md-4 offset-md-8">
+              <div class="input-group">
+                <div class="input-group-prepend"><span class="input-group-text"><i class="fa fa-search"></i></span></div>
+                <input type="text" class="form-control" [(ngModel)]="filterQuery" placeholder="Search by name or country"/>
+              </div>
+            </div>
+          </div>
+          <table class="table table-striped" [mfData]="users | dataFilter : filterQuery" #mf="mfDataTable" [mfRowsOnPage]="10">
+            <thead >
+              <tr>
+                <th><mfDefaultSorter by="name">Name</mfDefaultSorter></th>
+                <th><mfDefaultSorter by="cpr">DOB</mfDefaultSorter></th>
+                <th><mfDefaultSorter by="country">Country</mfDefaultSorter></th>
+                <th><mfDefaultSorter by="phone">Phone</mfDefaultSorter></th>
+                <th><mfDefaultSorter by="email">Email</mfDefaultSorter></th>
+                <!-- <th><mfDefaultSorter by="created_on">Request Date</mfDefaultSorter></th> -->
+                <!-- <th *ngIf="check_account.action == 'reject'"><mfDefaultSorter by="action_on">Rejection Date</mfDefaultSorter></th>
+                <th *ngIf="check_account.action == 'active'||check_account.action == 'verify' "><mfDefaultSorter by="action_on" >Verification Date</mfDefaultSorter></th> -->
+                <th>Action</th>
+              </tr>
+            </thead>
+            <tbody> 
+              <tr *ngIf = "nousers == 0">
+                <td colspan="12">No User Records</td>
+              </tr>
+              <tr *ngFor="let user of mf.data" >
+                <td>{{user.name}}</td>
+                <td>{{user.dob}}</td>
+                <td>{{user.countryname}}</td>
+                <td>{{user.mobile}}</td>
+                <td>{{user.email}}</td><!-- 
+                <td>{{user.created_on}}</td>
+                <td *ngIf="check_account.action == 'active'||check_account.action == 'verify'">{{user.action_on}}</td>
+                <td *ngIf="check_account.action == 'reject'">{{user.action_on}}</td> -->
+                <td>
+                  <a class="btn btn-sm btn-outline-primary " href="#" routerLink='/manageartist/editartist/{{user.id}}' *ngIf="check_account.action == 'active'"><i class="fa fa-edit"></i> </a>                 
+                  <button class="btn btn-sm btn-outline-primary "  (click) ="delartist(user)" *ngIf="check_account.action == 'active'"><i class="fa fa-trash"></i></button>
+                  <button class="btn btn-sm btn-outline-primary " data-toggle="modal" (click)="getUserData(user.id); userModal.show(); " ><i class="fa fa-eye"></i> </button>    
+
+                  <button class="btn btn-sm btn-outline-primary " *ngIf="check_account.action == 'active'" (click) ="changeStatus(user, 'reject','block')">Block</button>
+                </td>
+              </tr>
+            </tbody>            
+            <tfoot>
+              <tr>
+                <td colspan="7">
+                  <mfBootstrapPaginator [rowsOnPageSet]="[5,10,15]"></mfBootstrapPaginator>
+                </td>
+              </tr>
+            </tfoot>
+          </table>          
+        </div>
+      </div>
+    </div>
+    <!--/.col-->
+  </div>
+  <!--/.row-->
+</div>
+
+<div bsModal #artistModal="bs-modal" class="modal fade artist-detail-modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-primary" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title">Artist Details</h4>
+        <button type="button" class="close" (click)="artistModal.hide()" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <table class="table" >
+          <tr>
+            <td>Artist Name</td>
+            <td>{{artistDetails.name}}</td>
+          </tr>
+          <tr>
+            <td>Phone</td>
+            <td>{{artistDetails.phone}}</td>
+          </tr>
+          <tr>
+            <td>Email</td>
+            <td>{{artistDetails.email}}</td>
+          </tr>
+          <tr>
+            <td>Profession</td>
+            <td>{{profession_vals[(artistDetails.artist_profession)-1]}}</td>
+          </tr>
+          <tr>
+            <td>Address</td>
+            <td>
+            <!--   CPR No. {{artistDetails.cpr}}<br/> -->
+              Villa No.: {{artistDetails.villa}}<br/>
+              Road No.: {{artistDetails.road}}<br/>
+              Block No.: {{artistDetails.block}}<br/>
+              City: {{artistDetails.city}}<br/>
+              Country: {{artistDetails.countryname}}
+            </td>
+          </tr>
+        </table>     
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" (click)="artistModal.hide()">Close</button>
+      </div>
+    </div><!-- /.modal-content -->
+  </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+
+
+<toaster-container [toasterconfig]="toasterconfig"></toaster-container>

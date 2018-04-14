@@ -222,6 +222,37 @@ export const routes: Routes = [
     ]
   },
   {
+    path: 'manageusers',
+    component: FullLayoutComponent,
+    data: {
+      title: 'Manage Users'
+    },
+    children: [
+      {
+        path: 'registered',
+        component: SimpleLayoutComponent,
+        canActivate: [NgxPermissionsGuard],
+        data: {
+          permissions: {
+            only: 'ADMIN'
+          }
+        },
+        loadChildren: './views/users/users.module#UsersModule'
+      },
+      {
+        path: 'rejected',
+        component: SimpleLayoutComponent,
+        canActivate: [NgxPermissionsGuard],
+        data: {
+          permissions: {
+            only: 'ADMIN'
+          }
+        },
+        loadChildren: './views/users/users.module#UsersModule'
+      }
+    ]
+  },
+  {
     path: 'manageartist',
     component: FullLayoutComponent,
     data: {
@@ -403,7 +434,7 @@ export const routes: Routes = [
           }
         },
         loadChildren: './views/commission/commission.module#CommissionModule'
-      }
+      },
 
       {
         path: 'makeup',
