@@ -9,7 +9,7 @@ export class DataFilterPipe implements PipeTransform {
   transform(array: any[], query: string): any {
     if (query) {
    	  console.log(query);
-      return _.filter(array, row=>((row.name.toLowerCase().indexOf(query.toLowerCase()) > -1) (row.countryname.toLowerCase().indexOf(query.toLowerCase()) > -1)  );  
+      return _.filter(array, row=>((row.fullName.toLowerCase().indexOf(query.toLowerCase()) > -1) (row.countryname.toLowerCase().indexOf(query.toLowerCase()) > -1)  );  
       
     }
     return array;

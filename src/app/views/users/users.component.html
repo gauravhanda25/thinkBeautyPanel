@@ -17,7 +17,7 @@
           <table class="table table-striped" [mfData]="users | dataFilter : filterQuery" #mf="mfDataTable" [mfRowsOnPage]="10">
             <thead >
               <tr>
-                <th><mfDefaultSorter by="name">Name</mfDefaultSorter></th>
+                <th><mfDefaultSorter by="fullName">Name</mfDefaultSorter></th>
                 <th><mfDefaultSorter by="cpr">DOB</mfDefaultSorter></th>
                 <th><mfDefaultSorter by="country">Country</mfDefaultSorter></th>
                 <th><mfDefaultSorter by="phone">Phone</mfDefaultSorter></th>
@@ -33,7 +33,7 @@
                 <td colspan="12">No User Records</td>
               </tr>
               <tr *ngFor="let user of mf.data" >
-                <td>{{user.name}}</td>
+                <td>{{user.fullName}}</td>
                 <td>{{user.dob}}</td>
                 <td>{{user.countryname}}</td>
                 <td>{{user.mobile}}</td>
