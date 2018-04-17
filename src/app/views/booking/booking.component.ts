@@ -65,11 +65,11 @@ export class BookingComponent {
         if(reqUrl === '/bookings/manage')
         {
              
-             this.use_url = API_URL+'/Bookings?access_token='+localStorage.getItem('currentUserToken');
+             this.use_url = API_URL+'/Bookings?filter={"where":{"bookingStatus":"done"},"include":["members","artists"]}&access_token='+localStorage.getItem('currentUserToken');
         }
         else {
            
-             this.use_url = API_URL+'/Members?filter={"where":{"role_id":4, "status" : "reject"}}&access_token=' + localStorage.getItem('currentUserToken');
+             this.use_url = API_URL+'/Bookings?filter={"where":{"bookingStatus":"cancelled"},"include":["members","artists"]}&access_token=' + localStorage.getItem('currentUserToken');
         }
 
         this.http.get(this.use_url, options)
@@ -107,82 +107,41 @@ export class BookingComponent {
 
  	}
 
-    getBookingData(userId) {
+    getBookingData(bookingId) {
         let options = new RequestOptions();
         options.headers = new Headers();
         options.headers.append('Content-Type', 'application/json');
         options.headers.append('Accept', 'application/json');
 
-        this.http.get(API_URL+'/Members/'+userId+'?access_token='+ localStorage.getItem('currentUserToken'), options)
+        this.http.get(API_URL+'/Bookings/'+bookingId+'?access_token='+ localStorage.getItem('currentUserToken'), options)
         .subscribe(response => {
             console.log(response.json());       
-            this.userDetails = response.json();  
+            this.bookingDetails = response.json();  
         }, error => {
             console.log(JSON.stringify(error.json()));
         }); 
     }
 
-    changeStatus(user, status, action) {
-        let options = new RequestOptions();
-        options.headers = new Headers();
-        options.headers.append('Content-Type', 'application/json');
-        options.headers.append('Accept', 'application/json');
-
-        let msg:any = "Are you sure you want to "+action+" the selected User?";
-
-        if(confirm(msg)){
-            let today:any = new Date();
-            let dd:any = today.getDate();
-            let mm:any = today.getMonth()+1; //January is 0!
-            let yyyy:any = today.getFullYear();
-
-            if(dd<10) {
-                dd = '0'+dd
-            } 
-
-            if(mm<10) {
-                mm = '0'+mm
-            } 
-
-            today = mm + '-' + dd + '-' + yyyy;
-
-
-            user.action_on = today;
-
-            user.status = status;
-
-            this.http.post(API_URL+'/Members/update?where={"id":"'+  user.id +'"}&access_token='+ localStorage.getItem('currentUserToken'), user,  options)
-            .subscribe(response => {
-
-                this.toasterService.pop('success', 'Success ', "User Record updated successfully.");
-                //this.router.navigate(['user']);  
-                const index: number = this.bookings.indexOf(user);
-
-                if (index !== -1) {
-                 this.bookings.splice(index, 1);
-                }
-                   
-            }, error => {
-                this.toasterService.pop('error', 'Error ',  error.json().error.message);
-                console.log(JSON.stringify(error.json()));
-            });
-        }
-    } 
-
-    cancelBooking(user) {
+    cancelBooking(booking) {
         if(confirm("Are you sure you want to cancel the selected Booking?")){
             let options = new RequestOptions();
             options.headers = new Headers();
             options.headers.append('Content-Type', 'application/json');
             options.headers.append('Accept', 'application/json');
 
-            this.http.delete(API_URL+'/Members/'+ user.id +'?access_token='+ localStorage.getItem('currentUserToken'), options)
+            let cancellationPostData:any = {
+                bookingId: booking.id,
+                userId: booking.userId,
+            }
+
+
+            this.http.get(API_URL+'/Bookings/cancelBooking?access_token='+ localStorage.getItem('currentUserToken'), cancellationPostData, options)
             .subscribe(response => {
                 console.log(response.json()); 
-                this.toasterService.pop('success', 'Success ', "User Record deleted successfully.");
+                this.toasterService.pop('success', 'Success ', "Booking Record cancelled successfully.");
                 //this.router.navigate(['user']);
 
-                const index: number = this.bookings.indexOf(user);
+                const index: number = this.bookings.indexOf(booking);
                 console.log(index);
                 if (index !== -1) {
                  this.bookings.splice(index, 1);
