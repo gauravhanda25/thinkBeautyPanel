@@ -204,6 +204,7 @@ export class ArtistservicesComponent {
         homeprice:'',
         salonprice:'',
         gccprice:'',
+        gccflightprice:'',
         homeduration:'',
         salonduration:'',
         gccduration:'',
@@ -476,7 +477,8 @@ export class ArtistservicesComponent {
         this.data = {   
           homeprice:'',
           salonprice:'',
-          gccprice:'',
+          gccprice:'',          
+          gccflightprice:'',
           homeduration:'',
           salonduration:'',
           gccduration:'',
@@ -519,6 +521,7 @@ export class ArtistservicesComponent {
           this.data = { 
             gccprice: artistSubserviceId.gccprice,
             gccduration: artistSubserviceId.gccduration,
+            gccflightprice: artistSubserviceId.gccflightprice,
             servicetype: 'gcc'
           }
         }
@@ -538,6 +541,7 @@ export class ArtistservicesComponent {
           homeprice:'',
           salonprice:'',
           gccprice:'',
+        gccflightprice:'',
           homeduration:'',
           salonduration:'',
           gccduration:'',

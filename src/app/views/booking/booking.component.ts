@@ -82,6 +82,14 @@ export class BookingComponent {
                    this.bookings[i].created = moment(this.bookings[i].created).format('DD/MM/YYYY');
                    this.bookings[i].bookingDate = moment(this.bookings[i].bookingDate).format('DD/MM/YYYY');
 
+                   /* this.http.get(API_URL+'/Artistservices?filter={"where":{"id":"'+ this.bookings[i].artistServiceId+'"}}&access_token=' + localStorage.getItem('currentUserToken'), options)
+                    .subscribe(response => {
+                        this.bookings[i].serviceName = response.json()[0].serviceType;
+                    }, error => {
+                        console.log(JSON.stringify(error.json()));
+                    }); 
+
+                    */
                 }
             } else {
                 this.nobookings = 0;

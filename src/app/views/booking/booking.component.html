@@ -19,7 +19,7 @@
               <tr>
                 <th><mfDefaultSorter by="">Artist Name</mfDefaultSorter></th>
                 <th><mfDefaultSorter by="">User Name</mfDefaultSorter></th>
-                <th><mfDefaultSorter by="">Service</mfDefaultSorter></th>         
+                <!-- <th><mfDefaultSorter by="">Service</mfDefaultSorter></th>     -->     
                 <th><mfDefaultSorter by="">Transaction Id</mfDefaultSorter></th>
                 <th><mfDefaultSorter by="">Booking Date</mfDefaultSorter></th>
                 <th><mfDefaultSorter by="">Service Price</mfDefaultSorter></th>
@@ -36,9 +36,9 @@
                 <td colspan="12">No Booking Records</td>
               </tr>
               <tr *ngFor="let booking of mf.data" >
-                <td>{{booking.artistId}}</td>
-                <td>{{booking.userId}}</td>
-                <td>{{booking.artistServiceId}}</td>
+                <td>{{booking.artists.name}}</td>
+                <td>{{booking.members.name}}</td>
+                <!-- <td>{{booking.artistServiceId}}</td> -->
                 <td>{{booking.transactionId}}</td>
                 <td>{{booking.bookingDate}}</td>
                 <td>{{booking.servicePrice}}</td>
@@ -81,13 +81,15 @@
           <tr>
             <td>Artist Name</td>
             <td>{{bookingDetails.artists.name}}</td>
-          </tr><tr>
+          </tr>
+          <tr>
             <td>User Name</td>
             <td>{{bookingDetails.members.name}}</td>
-          </tr><tr>
+          </tr>
+          <!-- <tr>
             <td>Service</td>
             <td>{{bookingDetails.artistServiceId}}</td>
-          </tr>
+          </tr> -->
           <tr>
             <td>Transaction ID</td>
             <td>{{bookingDetails.transactionId}}</td>

@@ -314,7 +314,20 @@
                                             <input class="form-control" name="gccprice" type="number" (keypress) = "numericOnly($event)"  [(ngModel)]="data.gccprice" pattern="^(0|[1-9][0-9]*)$" placeholder="e.g. 1200" required>
                                           </div>
                                         </div>
-                              </div> </div>
+                              </div> 
+                              <div class="form-group">
+                                <div class="col-md-6" >
+                                            <label>FLIGHT PRICE</label>
+                                            <div class="input-group">
+                                    <div class="input-group-prepend">
+                                      <span class="input-group-text">{{currency}}</span>
+                                    </div>
+                                            <input class="form-control" name="gccflightprice"  type="number" (keypress) = "numericOnly($event)"    [(ngModel)]="data.gccflightprice"  pattern="^(0|[1-9][0-9]*)$" placeholder="e.g. 1200" required>
+                                          </div>
+                                        </div>
+                              </div>
+
+                              </div>
                                        <!-- <div class="form-group row" *ngIf="makeupservicesData[subservice.id] != ''">
                                         <div class="col-md-6">
                                     <label>Service type<span class="text-danger">*</span></label> 
@@ -359,7 +372,20 @@
                                               <input class="form-control" name="gccprice" type="number" (keypress) = "numericOnly($event)"  [(ngModel)]="makeupservicesData[subservice.id].gccprice"  value="{{makeupservicesData[subservice.id].gccprice}}" placeholder="e.g. 1200" pattern="^(0|[1-9][0-9]*)$" required>
                                             </div>
                                         </div>
-                                      </div></div> 
+                                      </div>
+                                      <div class="form-group">
+                                        <div class="col-md-6" >
+                                                    <label>FLIGHT PRICE</label>
+                                                    <div class="input-group">
+                                            <div class="input-group-prepend">
+                                              <span class="input-group-text">{{currency}}</span>
+                                            </div>
+                                                    <input class="form-control" name="gccflightprice"  type="number" (keypress) = "numericOnly($event)"    [(ngModel)]="makeupservicesData[subservice.id].gccflightprice" value="{{makeupservicesData[subservice.id].gccflightprice}}" pattern="^(0|[1-9][0-9]*)$" placeholder="e.g. 1200" required>
+                                                  </div>
+                                                </div>
+                                      </div>
+
+                                      </div> 
                                       <div class="form-group row">
                                         <div class="col-md-12">     
                                           <button class="btn btn-primary pull-right" type="button" (click)="savesubservicedata(subservice.id,1,'gcc')" [disabled] = "!gccServiceForm.form.valid" style="margin-right:5px;" *ngIf="makeupservicesData[subservice.id]== ''" >Save</button> 
@@ -774,7 +800,19 @@
                                             <input class="form-control" name="gccprice" type="number" (keypress) = "numericOnly($event)" [(ngModel)]="data.gccprice" pattern="^(0|[1-9][0-9]*)$"  placeholder="e.g. 1200" required>
                                           </div>
                                         </div>
-                              </div> </div>
+                              </div> 
+                              <div class="form-group">
+                                <div class="col-md-6" >
+                                            <label>FLIGHT PRICE</label>
+                                            <div class="input-group">
+                                    <div class="input-group-prepend">
+                                      <span class="input-group-text">{{currency}}</span>
+                                    </div>
+                                            <input class="form-control" name="gccflightprice"  type="number" (keypress) = "numericOnly($event)"    [(ngModel)]="data.gccflightprice" pattern="^(0|[1-9][0-9]*)$" placeholder="e.g. 1200" required>
+                                          </div>
+                                        </div>
+                              </div>
+                            </div>
                                    <div *ngIf="hairservicesData[subservice.id] != ''"> <div class="form-group row" >
                                         <div class="col-md-6">
                                           <label>DURATION </label>
@@ -811,7 +849,19 @@
                                               <input class="form-control" name="gccprice" type="number" (keypress) = "numericOnly($event)"  [(ngModel)]="hairservicesData[subservice.id].gccprice" pattern="^(0|[1-9][0-9]*)$" value="{{hairservicesData[subservice.id].gccprice}}" placeholder="e.g. 1200" required>
                                             </div>
                                         </div>
-                                      </div></div> 
+                                      </div>
+                                      <div class="form-group">
+                                <div class="col-md-6" >
+                                            <label>FLIGHT PRICE</label>
+                                            <div class="input-group">
+                                    <div class="input-group-prepend">
+                                      <span class="input-group-text">{{currency}}</span>
+                                    </div>
+                                            <input class="form-control" name="gccflightprice"  type="number" (keypress) = "numericOnly($event)"    [(ngModel)]="hairservicesData[subservice.id].gccflightprice" value="{{hairservicesData[subservice.id].gccflightprice}}" pattern="^(0|[1-9][0-9]*)$" placeholder="e.g. 1200" required>
+                                          </div>
+                                        </div>
+                              </div>
+                                    </div> 
                                       <div class="form-group row">
                                         <div class="col-md-12">     
                                           <button class="btn btn-primary pull-right" type="button" (click)="savesubservicedata(subservice.id,1,'gcc')" [disabled] = "!gccServiceForm.form.valid" style="margin-right:5px;" *ngIf="hairservicesData[subservice.id]== ''" >Save</button> 

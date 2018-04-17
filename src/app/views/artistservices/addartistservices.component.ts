@@ -198,6 +198,7 @@ export class AddartistservicesComponent {
     		homeduration:'',
         salonduration:'',
         gccduration:'',
+        gccflightprice: '',
         memberId: localStorage.getItem('currentUserId'),
         memberType: (localStorage.getItem('currentUserRole') == 'SALON' ? 'salon' : 'artist'),
     		serviceId: '',
@@ -465,6 +466,7 @@ export class AddartistservicesComponent {
           homeprice:'',
           salonprice:'',
           gccprice:'',
+          gccflightprice:'',
           homeduration:'',
           salonduration:'',
           gccduration:'',
@@ -508,6 +510,7 @@ export class AddartistservicesComponent {
           this.data = { 
             gccprice: artistSubserviceId.gccprice,
             gccduration: artistSubserviceId.gccduration,
+            gccflightprice: artistSubserviceId.gccflightprice,
             servicetype: 'gcc'
           }
         }
@@ -529,6 +532,7 @@ export class AddartistservicesComponent {
           gccprice:'',
           homeduration:'',
           salonduration:'',
+          gccflightprice: '',
           gccduration:'',
           memberId: localStorage.getItem('currentUserId'),
           memberType: (localStorage.getItem('currentUserRole') == 'SALON' ? 'salon' : 'artist'),
