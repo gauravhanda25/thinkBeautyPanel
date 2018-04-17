@@ -143,7 +143,7 @@ export class BookingComponent {
             }
 
 
-            this.http.get(API_URL+'/Bookings/cancelBooking?access_token='+ localStorage.getItem('currentUserToken'), cancellationPostData, options)
+            this.http.post(API_URL+'/Bookings/cancelBooking?access_token='+ localStorage.getItem('currentUserToken'), cancellationPostData, options)
             .subscribe(response => {
                 console.log(response.json()); 
                 this.toasterService.pop('success', 'Success ', "Booking Record cancelled successfully.");
