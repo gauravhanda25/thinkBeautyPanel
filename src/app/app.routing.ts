@@ -370,6 +370,39 @@ export const routes: Routes = [
     ]
   },
   {
+    path: 'bookings',
+    component: FullLayoutComponent,
+    data: {
+      title: 'Manage Bookings'
+    },
+    children: [
+      {
+        path: 'manage',
+        component: SimpleLayoutComponent,
+        canActivate: [NgxPermissionsGuard],
+        data: {
+          permissions: {
+            only: ['ARTIST','SALON'],
+            except: ['ADMIN','GUEST']
+          }
+        },
+        loadChildren: './views/booking/booking.module#BookingModule'
+      },
+      {
+        path: 'cancelled',
+        component: SimpleLayoutComponent,
+        canActivate: [NgxPermissionsGuard],
+        data: {
+          permissions: {
+            only: ['ARTIST','SALON'],
+            except: ['ADMIN','GUEST']
+          }
+        },
+        loadChildren: './views/booking/booking.module#BookingModule'
+      }
+    ]
+  },
+  {
     path: 'updates',
     component: FullLayoutComponent,
     data: {

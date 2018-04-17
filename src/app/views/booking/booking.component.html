@@ -1,0 +1,111 @@
+<div class="animated fadeIn">
+  <div class="row">
+    <div class="col-lg-12">
+      <div class="card">
+        <div class="card-header">
+          <i class="fa fa-users"></i> Manage Bookings
+        </div>
+        <div class="card-body table-responsive">
+          <div class="row mb-3">
+            <div class="col-md-4 offset-md-8">
+              <div class="input-group">
+                <div class="input-group-prepend"><span class="input-group-text"><i class="fa fa-search"></i></span></div>
+                <input type="text" class="form-control" [(ngModel)]="filterQuery" placeholder="Search by name"/>
+              </div>
+            </div>
+          </div>
+          <table class="table table-striped" [mfData]="bookings | dataFilter : filterQuery" #mf="mfDataTable" [mfRowsOnPage]="10">
+            <thead >
+              <tr>
+                <th><mfDefaultSorter by="">Transaction Id</mfDefaultSorter></th>
+                <th><mfDefaultSorter by="">Booking Date</mfDefaultSorter></th>
+                <th><mfDefaultSorter by="">Service Price</mfDefaultSorter></th>
+                <th><mfDefaultSorter by="">Total Price</mfDefaultSorter></th>
+                <th><mfDefaultSorter by="">Phone</mfDefaultSorter></th>
+                <th><mfDefaultSorter by="">Created On</mfDefaultSorter></th>
+                <!-- <th *ngIf="check_account.action == 'reject'"><mfDefaultSorter by="action_on">Rejection Date</mfDefaultSorter></th>
+                <th *ngIf="check_account.action == 'active'||check_account.action == 'verify' "><mfDefaultSorter by="action_on" >Verification Date</mfDefaultSorter></th> -->
+                <th>Action</th>
+              </tr>
+            </thead>
+            <tbody> 
+              <tr *ngIf = "nobookings == 0">
+                <td colspan="12">No Booking Records</td>
+              </tr>
+              <tr *ngFor="let booking of mf.data" >
+                <td>{{booking.transactionId}}</td>
+                <td>{{booking.bookingDate}}</td>
+                <td>{{booking.servicePrice}}</td>
+                <td>{{booking.totalPrice}}</td>
+                <td>{{booking.mobile}}</td> 
+                <td>{{booking.created}}</td>
+                <td>       
+                  <button class="btn btn-sm btn-outline-primary "  (click) ="cancelBooking(booking)">Cancel</button>
+                  <button class="btn btn-sm btn-outline-primary " data-toggle="modal" (click)="getBookingData(booking.id); bookingModal.show(); " ><i class="fa fa-eye"></i> </button>
+                </td>
+              </tr>
+            </tbody>            
+            <tfoot>
+              <tr>
+                <td colspan="7">
+                  <mfBootstrapPaginator [rowsOnPageSet]="[5,10,15]"></mfBootstrapPaginator>
+                </td>
+              </tr>
+            </tfoot>
+          </table>          
+        </div>
+      </div>
+    </div>
+    <!--/.col-->
+  </div>
+  <!--/.row-->
+</div>
+
+<!-- <div bsModal #bookingModal="bs-modal" class="modal fade artist-detail-modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-primary" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title">Booking Details</h4>
+        <button type="button" class="close" (click)="bookingModal.hide()" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <table class="table" >
+          <tr>
+            <td>Artist Name</td>
+            <td>{{artistDetails.name}}</td>
+          </tr>
+          <tr>
+            <td>Phone</td>
+            <td>{{artistDetails.phone}}</td>
+          </tr>
+          <tr>
+            <td>Email</td>
+            <td>{{artistDetails.email}}</td>
+          </tr>
+          <tr>
+            <td>Profession</td>
+            <td>{{profession_vals[(artistDetails.artist_profession)-1]}}</td>
+          </tr>
+          <tr>
+            <td>Address</td>
+            <td>
+              Villa No.: {{artistDetails.villa}}<br/>
+              Road No.: {{artistDetails.road}}<br/>
+              Block No.: {{artistDetails.block}}<br/>
+              City: {{artistDetails.city}}<br/>
+              Country: {{artistDetails.countryname}}
+            </td>
+          </tr>
+        </table>     
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" (click)="bookingModal.hide()">Close</button>
+      </div>
+    </div>
+  </div>
+</div> -->
+
+
+<toaster-container [toasterconfig]="toasterconfig"></toaster-container>

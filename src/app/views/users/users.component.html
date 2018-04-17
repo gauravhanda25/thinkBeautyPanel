@@ -44,7 +44,7 @@
                 <td>
                   <a class="btn btn-sm btn-outline-primary " href="#" routerLink='/manageartist/editartist/{{user.id}}' *ngIf="check_account.action == 'active'"><i class="fa fa-edit"></i> </a>                 
                   <button class="btn btn-sm btn-outline-primary "  (click) ="delartist(user)" *ngIf="check_account.action == 'active'"><i class="fa fa-trash"></i></button>
-                  <button class="btn btn-sm btn-outline-primary " data-toggle="modal" (click)="getUserData(user.id); userModal.show(); " ><i class="fa fa-eye"></i> </button>    
+                  <!-- <button class="btn btn-sm btn-outline-primary " data-toggle="modal" (click)="getUserData(user.id); userModal.show(); " ><i class="fa fa-eye"></i> </button>  -->   
 
                   <button class="btn btn-sm btn-outline-primary " *ngIf="check_account.action == 'active'" (click) ="changeStatus(user, 'reject','block')">Block</button>
                 </td>
@@ -66,12 +66,12 @@
   <!--/.row-->
 </div>
 
-<div bsModal #artistModal="bs-modal" class="modal fade artist-detail-modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+<div bsModal #userModal="bs-modal" class="modal fade artist-detail-modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
   <div class="modal-dialog modal-primary" role="document">
     <div class="modal-content">
       <div class="modal-header">
         <h4 class="modal-title">Artist Details</h4>
-        <button type="button" class="close" (click)="artistModal.hide()" aria-label="Close">
+        <button type="button" class="close" (click)="userModal.hide()" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
@@ -79,35 +79,35 @@
         <table class="table" >
           <tr>
             <td>Artist Name</td>
-            <td>{{artistDetails.name}}</td>
+            <td>{{userDetails.name}}</td>
           </tr>
           <tr>
             <td>Phone</td>
-            <td>{{artistDetails.phone}}</td>
+            <td>{{userDetails.phone}}</td>
           </tr>
           <tr>
             <td>Email</td>
-            <td>{{artistDetails.email}}</td>
+            <td>{{userDetails.email}}</td>
           </tr>
           <tr>
             <td>Profession</td>
-            <td>{{profession_vals[(artistDetails.artist_profession)-1]}}</td>
+            <td>{{profession_vals[(userDetails.artist_profession)-1]}}</td>
           </tr>
           <tr>
             <td>Address</td>
             <td>
-            <!--   CPR No. {{artistDetails.cpr}}<br/> -->
-              Villa No.: {{artistDetails.villa}}<br/>
-              Road No.: {{artistDetails.road}}<br/>
-              Block No.: {{artistDetails.block}}<br/>
-              City: {{artistDetails.city}}<br/>
-              Country: {{artistDetails.countryname}}
+            <!--   CPR No. {{userDetails.cpr}}<br/> -->
+              Villa No.: {{userDetails.villa}}<br/>
+              Road No.: {{userDetails.road}}<br/>
+              Block No.: {{userDetails.block}}<br/>
+              City: {{userDetails.city}}<br/>
+              Country: {{userDetails.countryname}}
             </td>
           </tr>
         </table>     
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" (click)="artistModal.hide()">Close</button>
+        <button type="button" class="btn btn-secondary" (click)="userModal.hide()">Close</button>
       </div>
     </div><!-- /.modal-content -->
   </div><!-- /.modal-dialog -->

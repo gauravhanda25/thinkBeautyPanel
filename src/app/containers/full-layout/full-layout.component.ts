@@ -164,6 +164,23 @@ export class FullLayoutComponent {
       		    ]
       		  },
             {
+              name: 'Manage Bookings',
+              url: '/bookings',
+              icon: 'icon-list',
+                    children: [
+              {
+              name: 'Bookings',
+              url: '/bookings/manage',
+              icon: 'icon-list',
+            },
+              {
+              name: 'Cancelled Bookings',
+              url: '/bookings/cancelled',
+              icon: 'icon-list',
+            }
+                ]
+            }, 
+            {
               name: 'Upload',
               url: '/media',
               icon: 'icon-camera',
@@ -223,6 +240,23 @@ export class FullLayoutComponent {
                 }
               ]
             },
+            {
+              name: 'Manage Bookings',
+              url: '/bookings',
+              icon: 'icon-list',
+                    children: [
+              {
+              name: 'Bookings',
+              url: '/bookings/manage',
+              icon: 'icon-list',
+            },
+              {
+              name: 'Cancelled Bookings',
+              url: '/bookings/cancelled',
+              icon: 'icon-list',
+            }
+                ]
+            }, 
             {
               name: 'Upload',
               url: '/media',
