@@ -181,6 +181,11 @@ export class FullLayoutComponent {
                 ]
             }, 
             {
+              name: 'Lifetime Revenue',
+              url: '/lifetimeRevenue',
+              icon: 'icon-list'
+            }, 
+            {
               name: 'Upload',
               url: '/media',
               icon: 'icon-camera',
@@ -256,6 +261,11 @@ export class FullLayoutComponent {
               icon: 'icon-list',
             }
                 ]
+            }, 
+            {
+              name: 'Lifetime Revenue',
+              url: '/lifetimeRevenue',
+              icon: 'icon-list'
             }, 
             {
               name: 'Upload',

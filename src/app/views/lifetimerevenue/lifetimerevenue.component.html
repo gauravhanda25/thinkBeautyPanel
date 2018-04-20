@@ -1,0 +1,120 @@
+<div class="animated fadeIn">
+  <div class="row">
+    <div class="col-lg-12">
+      <div class="card">
+        <div class="card-header">
+          <i class="fa fa-users"></i> Lifetime Revenue
+        </div>
+        <div class="card-body table-responsive">
+          <div class="row mb-3">
+            <div class="col-md-4 offset-md-8">
+              <div class="input-group">
+                <div class="input-group-prepend"><span class="input-group-text"><i class="fa fa-search"></i></span></div>
+                <input type="text" class="form-control" [(ngModel)]="filterQuery" placeholder="Search by country"/>
+              </div>
+            </div>
+          </div>
+          <table class="table table-striped" [mfData]="revenues | dataFilter : filterQuery" #mf="mfDataTable" [mfRowsOnPage]="10">
+            <thead >
+              <tr>
+                <th><mfDefaultSorter by="">Customer Name</mfDefaultSorter></th>  
+                <th><mfDefaultSorter by="">Customer Phone No</mfDefaultSorter></th>   
+                <th><mfDefaultSorter by="">Country</mfDefaultSorter></th>
+                <th><mfDefaultSorter by="">Service Name</mfDefaultSorter></th>
+                <th><mfDefaultSorter by="">Service Type</mfDefaultSorter></th>
+                <th><mfDefaultSorter by="">Service Price</mfDefaultSorter></th>
+                <th><mfDefaultSorter by="">Service Date</mfDefaultSorter></th>
+                <th><mfDefaultSorter by="">Created On</mfDefaultSorter></th>
+                <th>Action</th>
+              </tr>
+            </thead>
+            <tbody> 
+              <tr *ngIf = "norevenues == 0">
+                <td colspan="12">No Lifetime Revenue Records</td>
+              </tr>
+              <tr *ngFor="let revenue of mf.data" >
+                <td>{{revenue.members.name}}</td>
+                <td>{{revenue.members.phone}}</td> 
+                <td>{{revenue.members.countries.name}}</td> 
+                <td>{{revenue.serviceName}}</td>
+                <td>{{revenue.serviceType}}</td> 
+                <td>{{revenue.servicePrice}}</td>
+                <td>{{revenue.bookingDate}}</td>
+                <td>{{revenue.created}}</td>
+                <td>       
+                  <button class="btn btn-sm btn-outline-primary " data-toggle="modal" (click)="getRevenueData(revenue.id); revenueModal.show(); " ><i class="fa fa-eye"></i> </button>
+                </td>
+              </tr>
+            </tbody>            
+            <tfoot>
+              <tr>
+                <td colspan="7">
+                  <mfBootstrapPaginator [rowsOnPageSet]="[5,10,15]"></mfBootstrapPaginator>
+                </td>
+              </tr>
+            </tfoot>
+          </table>          
+        </div>
+      </div>
+    </div>
+    <!--/.col-->
+  </div>
+  <!--/.row-->
+</div>
+
+<div bsModal #revenueModal="bs-modal" class="modal fade artist-detail-modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-primary" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title">Revenue Details</h4>
+        <button type="button" class="close" (click)="revenueModal.hide()" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <table class="table" >
+          <tr>
+            <td>Artist Name</td>
+            <td>{{revenueDetails.artists.name}}</td>
+          </tr>
+          <tr>
+            <td>User Name</td>
+            <td>{{revenueDetails.members.name}}</td>
+          </tr>
+          <!-- <tr>
+            <td>Service</td>
+            <td>{{revenueDetails.artistServiceId}}</td>
+          </tr> -->
+          <tr>
+            <td>Transaction ID</td>
+            <td>{{revenueDetails.transactionId}}</td>
+          </tr>
+          <tr>
+            <td>Booking Date</td>
+            <td>{{revenueDetails.bookingDate}}</td>
+          </tr>
+          <tr>
+            <td>Service Price</td>
+            <td>{{revenueDetails.servicePrice}}</td>
+          </tr>
+          <tr>
+            <td>Total Price</td>
+            <td>{{revenueDetails.totalPrice}}</td>
+          </tr>
+          <tr>
+            <td>Phone</td>
+            <td>
+             {{revenueDetails.mobile}}
+            </td>
+          </tr>
+        </table>     
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" (click)="revenueModal.hide()">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<toaster-container [toasterconfig]="toasterconfig"></toaster-container>

@@ -457,6 +457,18 @@ export const routes: Routes = [
         loadChildren: './views/dashboard/dashboard.module#DashboardModule'
       },
       {
+        path: 'lifetimeRevenue',
+        component: FullLayoutComponent,        
+        canActivate: [NgxPermissionsGuard],
+        data: {
+          permissions: {
+            only: ['ARTIST','SALON'],
+            except: ['GUEST','ADMIN']
+          }
+        },
+        loadChildren: './views/lifetimerevenue/lifetimerevenue.module#LifetimerevenueModule'
+      },
+      {
         path: 'commission',
         component: FullLayoutComponent,        
         canActivate: [NgxPermissionsGuard],

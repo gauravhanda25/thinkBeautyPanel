@@ -19,9 +19,11 @@
               <tr>
                 <th><mfDefaultSorter by="">Artist Name</mfDefaultSorter></th>
                 <th><mfDefaultSorter by="">User Name</mfDefaultSorter></th>
-                <!-- <th><mfDefaultSorter by="">Service</mfDefaultSorter></th>     -->     
+                <th><mfDefaultSorter by="">Service Type</mfDefaultSorter></th>
+                <th><mfDefaultSorter by=""># of Persons</mfDefaultSorter></th>         
                 <th><mfDefaultSorter by="">Transaction Id</mfDefaultSorter></th>
                 <th><mfDefaultSorter by="">Booking Date</mfDefaultSorter></th>
+                <th><mfDefaultSorter by="">Booking Time</mfDefaultSorter></th>
                 <th><mfDefaultSorter by="">Service Price</mfDefaultSorter></th>
                 <th><mfDefaultSorter by="">Total Price</mfDefaultSorter></th>
                 <th><mfDefaultSorter by="">Phone</mfDefaultSorter></th>
@@ -38,9 +40,11 @@
               <tr *ngFor="let booking of mf.data" >
                 <td>{{booking.artists.name}}</td>
                 <td>{{booking.members.name}}</td>
-                <!-- <td>{{booking.artistServiceId}}</td> -->
+                <td>{{booking.serviceType}}</td>
+                <td>{{booking.artistServiceId.persons}}</td>
                 <td>{{booking.transactionId}}</td>
                 <td>{{booking.bookingDate}}</td>
+                <td>{{booking.bookingStartTime}} - {{booking.bookingEndTime}}</td>
                 <td>{{booking.servicePrice}}</td>
                 <td>{{booking.totalPrice}}</td>
                 <td>{{booking.mobile}}</td> 
