@@ -6,12 +6,43 @@
           <i class="fa fa-users"></i> Lifetime Revenue
         </div>
         <div class="card-body table-responsive">
-          <div class="row mb-3">
+          <!-- <div class="row mb-3">
             <div class="col-md-4 offset-md-8">
               <div class="input-group">
                 <div class="input-group-prepend"><span class="input-group-text"><i class="fa fa-search"></i></span></div>
                 <input type="text" class="form-control" [(ngModel)]="filterQuery" placeholder="Search by country"/>
               </div>
+            </div>
+          </div> -->
+          <div class="row  mb-3">
+            <div class="col-md-3">
+               <select class="form-control" name="country"  [(ngModel)]="data.country" (change) = "onChangeFilter()">
+                  <option value="" >Select Country</option>
+                  <option *ngFor="let country of countries" value="{{country.id}}">{{country.name}}</option>
+                </select> 
+            </div>
+            <div class="col-md-3">
+              <select class="form-control" name="year"  [(ngModel)]="data.year" (change) = "onChangeFilter()">
+                  <option value="" >Select Year</option>
+                  <option *ngFor="let year of years" value="{{year}}">{{year}}</option>
+                </select> 
+            </div>
+            <div class="col-md-3">
+               <select class="form-control" name="month"  [(ngModel)]="data.month" (change) = "onChangeFilter()">
+                  <option value="" >Select Month</option>
+                  <option *ngFor="let month of months" value="{{month}}">{{month}}</option>
+                </select> 
+            </div>
+            <div class="col-md-2">
+              <input class="form-control" name="date" type="text"  [(ngModel)]="data.date"  placeholder="Filter by any date"  readonly #sdp="bsDatepicker" bsDatepicker [(bsValue)]="bsStartValue" (ngModelChange) = "onChangeFilter()">
+            </div>
+            <div class="col-md-1">
+              <input class="btn btn-primary" type="button" value="Reset" (click) = "resetFilter()">
+            </div>
+          </div>
+          <div class="row mb-3">
+            <div class="col-md-12 pull-right">
+              <h4 class="pull-right">Total Revenue: {{total_revenue}}</h4>
             </div>
           </div>
           <table class="table table-striped" [mfData]="revenues | dataFilter : filterQuery" #mf="mfDataTable" [mfRowsOnPage]="10">
@@ -20,12 +51,12 @@
                 <th><mfDefaultSorter by="">Customer Name</mfDefaultSorter></th>  
                 <th><mfDefaultSorter by="">Customer Phone No</mfDefaultSorter></th>   
                 <th><mfDefaultSorter by="">Country</mfDefaultSorter></th>
-                <th><mfDefaultSorter by="">Service Name</mfDefaultSorter></th>
+                <!-- <th><mfDefaultSorter by="">Service Name</mfDefaultSorter></th> -->
                 <th><mfDefaultSorter by="">Service Type</mfDefaultSorter></th>
                 <th><mfDefaultSorter by="">Service Price</mfDefaultSorter></th>
                 <th><mfDefaultSorter by="">Service Date</mfDefaultSorter></th>
                 <th><mfDefaultSorter by="">Created On</mfDefaultSorter></th>
-                <th>Action</th>
+                <!-- <th>Action</th> -->
               </tr>
             </thead>
             <tbody> 
@@ -35,15 +66,15 @@
               <tr *ngFor="let revenue of mf.data" >
                 <td>{{revenue.members.name}}</td>
                 <td>{{revenue.members.phone}}</td> 
-                <td>{{revenue.members.countries.name}}</td> 
-                <td>{{revenue.serviceName}}</td>
+                <td>{{revenue.countryname}}</td> 
+               <!--  <td>{{revenue.serviceName}}</td> -->
                 <td>{{revenue.serviceType}}</td> 
                 <td>{{revenue.servicePrice}}</td>
                 <td>{{revenue.bookingDate}}</td>
                 <td>{{revenue.created}}</td>
-                <td>       
+                <!-- <td>       
                   <button class="btn btn-sm btn-outline-primary " data-toggle="modal" (click)="getRevenueData(revenue.id); revenueModal.show(); " ><i class="fa fa-eye"></i> </button>
-                </td>
+                </td> -->
               </tr>
             </tbody>            
             <tfoot>
@@ -62,7 +93,7 @@
   <!--/.row-->
 </div>
 
-<div bsModal #revenueModal="bs-modal" class="modal fade artist-detail-modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+<!-- <div bsModal #revenueModal="bs-modal" class="modal fade artist-detail-modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
   <div class="modal-dialog modal-primary" role="document">
     <div class="modal-content">
       <div class="modal-header">
@@ -81,10 +112,10 @@
             <td>User Name</td>
             <td>{{revenueDetails.members.name}}</td>
           </tr>
-          <!-- <tr>
+          <tr>
             <td>Service</td>
             <td>{{revenueDetails.artistServiceId}}</td>
-          </tr> -->
+          </tr>
           <tr>
             <td>Transaction ID</td>
             <td>{{revenueDetails.transactionId}}</td>
@@ -116,5 +147,5 @@
   </div>
 </div>
 
-
+ -->
 <toaster-container [toasterconfig]="toasterconfig"></toaster-container>

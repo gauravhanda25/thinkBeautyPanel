@@ -15,6 +15,10 @@ import { LifetimerevenueRoutingModule } from './lifetimerevenue-routing.module';
 // Toastr
 import { ToasterModule, ToasterService} from 'angular2-toaster/angular2-toaster';
 
+// Datepicker
+import { BsDatepickerModule } from 'ngx-bootstrap';
+
+
 @NgModule({
   imports: [
   	CommonModule,
@@ -24,6 +28,7 @@ import { ToasterModule, ToasterService} from 'angular2-toaster/angular2-toaster'
     ToasterModule,
     HttpModule,
     ModalModule.forRoot()
+    BsDatepickerModule.forRoot(),
   ],
   declarations: [
     LifetimerevenueComponent,

@@ -16,9 +16,14 @@ import * as moment from 'moment';
 // Toastr
 import { ToasterModule, ToasterService, ToasterConfig }  from 'angular2-toaster/angular2-toaster';
 
+
+// Datepicker
+import { BsDatepickerModule } from 'ngx-bootstrap';
+
+
 @Component({
   templateUrl: 'lifetimerevenue.component.html',
-  styleUrls: ['../../../scss/vendors/toastr/toastr.scss'],
+  styleUrls: ['../../../scss/vendors/toastr/toastr.scss', '../../../scss/vendors/bs-datepicker/bs-datepicker.scss'],
   encapsulation: ViewEncapsulation.None
 })
 export class LifetimerevenueComponent {
@@ -29,6 +34,13 @@ export class LifetimerevenueComponent {
     private data: any;
     private use_url: any;
     private revenueDetails:any = [];
+    private countries: any;
+    private years:any = [];
+    private months:any = [];
+    private total_revenue:any = 0;
+
+
+    public bsStartValue = new Date();
 
     private toasterService: ToasterService;
 
@@ -50,6 +62,13 @@ export class LifetimerevenueComponent {
             action: 'add'
         }
 
+        this.data = {
+            country: '',
+            year: '',
+            month:'',
+            date: ''
+        }
+
         this.activatedRoute.params.subscribe((params) => {
             let id = params['id'];
             this.delparam.id = id;
@@ -60,6 +79,20 @@ export class LifetimerevenueComponent {
         options.headers.append('Content-Type', 'application/json');
         options.headers.append('Accept', 'application/json');
         // alert(this.router.url);
+
+        this.http.get(API_URL+'/Countries?filter={"order":"name ASC"}&access_token='+ localStorage.getItem('currentUserToken'), options)
+        .subscribe(response => {
+            console.log(response.json());   
+            this.countries = response.json();
+        }, error => {
+            console.log(JSON.stringify(error.json()));
+        });
+
+        for(let i = 1970; i<= (new Date()).getFullYear(); i++){
+            this.years.push(i);
+        }
+
+        this.months = ['January','Feburary','March','April','May','June','July','August','September','October','November','December'];
 
         const reqUrl = this.router.url;
         this.use_url = API_URL+'/Bookings?filter={"where":{"bookingStatus":"done"},"include":["members","artists"]}&access_token='+localStorage.getItem('currentUserToken');
@@ -75,14 +108,14 @@ export class LifetimerevenueComponent {
                    this.revenues[i].created = moment(this.revenues[i].created).format('DD/MM/YYYY');
                    this.revenues[i].bookingDate = moment(this.revenues[i].bookingDate).format('DD/MM/YYYY');
 
-                   /* this.http.get(API_URL+'/Artistservices?filter={"where":{"id":"'+ this.bookings[i].artistServiceId+'"}}&access_token=' + localStorage.getItem('currentUserToken'), options)
+                   this.total_revenue = this.total_revenue + parseInt(this.revenues[i].servicePrice);
+
+                    this.http.get(API_URL+'/Countries?filter={"where":{"id":"'+ this.revenues[i].members.country+'"}}&access_token=' + localStorage.getItem('currentUserToken'), options)
                     .subscribe(response => {
-                        this.bookings[i].serviceName = response.json()[0].serviceType;
+                        this.revenues[i].countryname = response.json()[0].name;
                     }, error => {
                         console.log(JSON.stringify(error.json()));
                     }); 
-
-                    */
                 }
             } else {
                 this.norevenues = 0;
@@ -107,6 +140,103 @@ export class LifetimerevenueComponent {
         });    	        
 
  	}
+
+    onChangeFilter(){
+        let options = new RequestOptions();
+        options.headers = new Headers();
+        options.headers.append('Content-Type', 'application/json');
+        options.headers.append('Accept', 'application/json');
+
+
+        this.total_revenue = 0;
+        this.norevenues = 1;
+
+        if(this.data.date == ''){
+
+        } else {
+            this.data.country = '';
+            this.data.year = '';
+            this.data.month = '';
+            let date = moment(this.data.date).format('YYYY-MM-DD');
+            console.log(date);
+
+            this.use_url = API_URL+'/Bookings?filter={"where":{"and":[{"bookingStatus":"done"},{"bookingDate":"'+date+'"}]},"include":["members","artists"]}&access_token='+localStorage.getItem('currentUserToken');
+        
+
+            this.http.get(this.use_url, options)
+            .subscribe(response => {
+                console.log(response.json());       
+                this.revenues = response.json();    
+
+
+                if(this.revenues.length !=0) {
+                    for(let i=0; i< this.revenues.length; i++ ) {
+                       this.revenues[i].created = moment(this.revenues[i].created).format('DD/MM/YYYY');
+                       this.revenues[i].bookingDate = moment(this.revenues[i].bookingDate).format('DD/MM/YYYY');
+
+                       this.total_revenue = this.total_revenue + parseInt(this.revenues[i].servicePrice);
+
+                        this.http.get(API_URL+'/Countries?filter={"where":{"id":"'+ this.revenues[i].members.country+'"}}&access_token=' + localStorage.getItem('currentUserToken'), options)
+                        .subscribe(response => {
+                            this.revenues[i].countryname = response.json()[0].name;
+                        }, error => {
+                            console.log(JSON.stringify(error.json()));
+                        }); 
+                    }
+                } else {
+                    this.norevenues = 0;
+                }
+            }, error => {
+                console.log(JSON.stringify(error.json()));
+            });            
+        }            
+    }
+
+    resetFilter() {
+         this.data = {
+            country: '',
+            year: '',
+            month:'',
+            date: ''
+        }
+
+        this.total_revenue = 0;
+        this.norevenues = 1;
+
+        let options = new RequestOptions();
+        options.headers = new Headers();
+        options.headers.append('Content-Type', 'application/json');
+        options.headers.append('Accept', 'application/json');
+
+        this.use_url = API_URL+'/Bookings?filter={"where":{"bookingStatus":"done"},"include":["members","artists"]}&access_token='+localStorage.getItem('currentUserToken');
+        
+
+        this.http.get(this.use_url, options)
+        .subscribe(response => {
+            console.log(response.json());       
+            this.revenues = response.json();    
+
+            if(this.revenues.length !=0) {
+                for(let i=0; i< this.revenues.length; i++ ) {
+                   this.revenues[i].created = moment(this.revenues[i].created).format('DD/MM/YYYY');
+                   this.revenues[i].bookingDate = moment(this.revenues[i].bookingDate).format('DD/MM/YYYY');
+
+                   this.total_revenue = this.total_revenue + parseInt(this.revenues[i].servicePrice);
+
+                    this.http.get(API_URL+'/Countries?filter={"where":{"id":"'+ this.revenues[i].members.country+'"}}&access_token=' + localStorage.getItem('currentUserToken'), options)
+                    .subscribe(response => {
+                        this.revenues[i].countryname = response.json()[0].name;
+                    }, error => {
+                        console.log(JSON.stringify(error.json()));
+                    }); 
+                }
+            } else {
+                this.norevenues = 0;
+            }
+        }, error => {
+            console.log(JSON.stringify(error.json()));
+        }); 
+    }
 
     getRevenueData(revenueId) {
         let options = new RequestOptions();
