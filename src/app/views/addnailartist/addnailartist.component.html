@@ -2,7 +2,7 @@
   <div class="row">
     <div class="col-lg-12">
       	<div class="card">         
-            <form class="form-horizontal ng-untouched ng-pristine ng-valid" novalidate="" (ngSubmit)="onSubmit()" #artistForm="ngForm">
+            <form autocomplete="off" class="form-horizontal ng-untouched ng-pristine ng-valid" novalidate="" (ngSubmit)="onSubmit()" #artistForm="ngForm">
                 <div class="card-header">                                    
                     <span *ngIf="editparam.action == 'add'">Add New Nail Artist</span>
                     <span *ngIf="editparam.action == 'edit'">Edit Nail Artist </span>

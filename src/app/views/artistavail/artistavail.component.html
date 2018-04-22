@@ -43,7 +43,7 @@
                         <button (click)="onSave(data)" class="btn btn-primary pull-right" [disabled] = "!availForm.form.valid" >Save</button>             
                     </div>
                     <div class="card-body" style="border-top:1px solid #c2cfd6;"> 
-                        <form class="form-horizontal ng-untouched ng-pristine ng-valid" novalidate="" #availForm="ngForm" >
+                        <form autocomplete="off" class="form-horizontal ng-untouched ng-pristine ng-valid" novalidate="" #availForm="ngForm" >
                           <input name="days" type="hidden"  [(ngModel)]="data.days" required readonly value="{
                           {data.days}}">
                           <table class="table " >
@@ -502,7 +502,7 @@
                         <button (click)="onUpdate(data.id,data)" class="btn btn-primary pull-right" [disabled] = "!availForm.form.valid" >Update</button>                  
                     </div>
                     <div class="card-body" style="border-top:1px solid #c2cfd6;"> 
-                        <form class="form-horizontal ng-untouched ng-pristine ng-valid" novalidate="" #availForm="ngForm" >
+                        <form autocomplete="off" class="form-horizontal ng-untouched ng-pristine ng-valid" novalidate="" #availForm="ngForm" >
                           <input name="days" type="hidden"  [(ngModel)]="data.days" required readonly value="{{data.days}}">
                           <table class="table " >
                             <tr *ngIf='data.days == "specificDate"'>
@@ -988,7 +988,7 @@
                         <button (click)="onSave(dataweekend)" class="btn btn-primary pull-right" [disabled] = "!availweekendForm.form.valid" >Save</button>             
                     </div>
                     <div class="card-body" style="border-top:1px solid #c2cfd6;"> 
-                        <form class="form-horizontal ng-untouched ng-pristine ng-valid" novalidate="" #availweekendForm="ngForm" >
+                        <form autocomplete="off" class="form-horizontal ng-untouched ng-pristine ng-valid" novalidate="" #availweekendForm="ngForm" >
                           <input name="days" type="hidden"  [(ngModel)]="dataweekend.days" required readonly value="{
                           {dataweekend.days}}">
                           <table class="table " >
@@ -1447,7 +1447,7 @@
                         <button (click)="onUpdate(dataweekend.id,dataweekend)" class="btn btn-primary pull-right" [disabled] = "!availweekendForm.form.valid" >Update</button>                  
                     </div>
                     <div class="card-body" style="border-top:1px solid #c2cfd6;"> 
-                        <form class="form-horizontal ng-untouched ng-pristine ng-valid" novalidate="" #availweekendForm="ngForm" >
+                        <form autocomplete="off" class="form-horizontal ng-untouched ng-pristine ng-valid" novalidate="" #availweekendForm="ngForm" >
                           <input name="days" type="hidden"  [(ngModel)]="dataweekend.days" required readonly value="{{dataweekend.days}}">
                           <table class="table " >
                             <tr *ngIf='dataweekend.days == "specificDate"'>

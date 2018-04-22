@@ -2,7 +2,7 @@
     <div class="row" style="margin:15% 0">
         <div class="col-sm-4 col-sm-offset-4" style="margin:auto;">
             <div class="card">         
-              <form class="form-horizontal ng-untouched ng-pristine ng-valid" novalidate="" (ngSubmit)="onSubmit()" #resetForm="ngForm">  
+              <form autocomplete="off" class="form-horizontal ng-untouched ng-pristine ng-valid" novalidate="" (ngSubmit)="onSubmit()" #resetForm="ngForm">  
                 <div class="alert alert-danger" [hidden]="!error">New password and confirm password doesnot match!</div>
                  <div class="alert alert-success" [hidden]="!success">Password reset successfully!</div>
                   <div class="text-center img-responsive" style="margin: 15px 0 0 15px">

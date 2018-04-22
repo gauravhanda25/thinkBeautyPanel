@@ -11,7 +11,7 @@
       <ace-editor [(text)]="text" [options]="options" #editor style="min-height: 200px; width:100%; overflow: auto;"></ace-editor>
     </div>
     <div class="card-footer">
-      <form class="form-inline">
+      <form autocomplete="off" class="form-inline">
         <select id="theme" class="form-control form-control-sm" (change)="onThemeChange($event)">
           <option value="monokai">monokai</option>
           <option value="eclipse">eclipse</option>

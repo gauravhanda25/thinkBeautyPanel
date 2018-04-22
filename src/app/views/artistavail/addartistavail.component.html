@@ -11,7 +11,7 @@
               <button (click)="onUpdate()" class="btn btn-primary pull-right" [disabled] = "!availForm.form.valid"  *ngIf="editparam.action == 'edit'">Update</button>
 			</div>
         	<div class="card-body col-md-6">  
-        		<form class="form-horizontal ng-untouched ng-pristine ng-valid" novalidate="" #availForm="ngForm" >
+        		<form autocomplete="off" class="form-horizontal ng-untouched ng-pristine ng-valid" novalidate="" #availForm="ngForm" >
 		      	<table class="table " >
 			        <tr *ngIf='data.days == "specificDate"'>
 			        	<td style="border-bottom:3px solid #a4b7c1" >Date
