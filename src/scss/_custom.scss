@@ -487,3 +487,11 @@ input:-webkit-autofill:active {
 .theme-green .bs-datepicker-head {
     background-color: #ceb26f !important;
 }
+
+
+.custom-autocomplete__input[_ngcontent-c1] input[_ngcontent-c1] {
+    height:auto !important;
+    padding: 0.375rem 0.75rem !important; 
+     font-size: 0.875rem !important;
+
+}

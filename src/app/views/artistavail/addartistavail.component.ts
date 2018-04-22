@@ -188,7 +188,7 @@ export class AddartistavailComponent {
       options.headers.append('Content-Type', 'application/json');
       options.headers.append('Accept', 'application/json');
 
-      this.data.date = moment(this.data.date).format('YYYY-MM-DD');
+      this.data.date = moment(this.data.date).format('DD/MM/YYYY');
 
       this.http.get(API_URL+'/Artistavailabilities?filter={"where":{"and":[{"memberId":"'+localStorage.getItem('currentUserId')+'"},{"date":"'+this.data.date+'"}]}}&access_token='+ localStorage.getItem('currentUserToken'), options)
       .subscribe(response => {
@@ -252,7 +252,7 @@ export class AddartistavailComponent {
       options.headers.append('Accept', 'application/json');
 
 
-      this.data.date = moment(this.data.date).format('YYYY-MM-DD');
+      this.data.date = moment(this.data.date).format('DD/MM/YYYY');
       
       this.http.get(API_URL+'/Artistavailabilities?filter={"where":{"and":[{"memberId":"'+localStorage.getItem('currentUserId')+'"},{"date":"'+this.data.date+'"},{"id":{"neq":"'+this.editparam.id+'"}}]}}&access_token='+ localStorage.getItem('currentUserToken'), options)
       .subscribe(response => {
