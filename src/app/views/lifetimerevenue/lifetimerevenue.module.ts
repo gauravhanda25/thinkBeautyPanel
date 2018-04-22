@@ -27,8 +27,8 @@ import { BsDatepickerModule } from 'ngx-bootstrap';
    	LifetimerevenueRoutingModule,
     ToasterModule,
     HttpModule,
-    ModalModule.forRoot()
-    BsDatepickerModule.forRoot(),
+    ModalModule.forRoot(),
+    BsDatepickerModule.forRoot()
   ],
   declarations: [
     LifetimerevenueComponent,
