@@ -412,10 +412,10 @@
 	                       <div class="clearfix"></div>
 	                       
 	                       <div class="" *ngIf="nailsservicesData[subservice.id]">
-			                    <div class="col-sm-12 row" *ngIf="nailsservicesData[subservice.id].price">
+			                    <div class="col-sm-12 row" *ngIf="nailsservicesData[subservice.id]['salon'] != ''">
 				                   <div class="col-sm-3"> <span><strong>Salon</strong></span>:</div>
-			                       <div class="col-sm-9"><span >{{currency}} {{nailsservicesData[subservice.id].price['Salon']}} for</span>
-			                       <span >{{nailsservicesData[subservice.id].duration['Salon']}}</span></div>
+			                       <div class="col-sm-9"><span >{{currency}} {{nailsservicesData[subservice.id]['salon'].price}} for</span>
+			                       <span >{{nailsservicesData[subservice.id]['salon'].duration}}</span></div>
 			                       <!-- <span *ngIf="nailsservicesData[subservice.id]">{{nailsservicesData[subservice.id].servicetype}}
 			                       </span> -->
 			                    </div>
@@ -437,7 +437,7 @@
 					                       [(ngModel)]="data.servicetype" required></ng-select>
 					                    </div>
 		                            </div> -->
-		                            <div *ngIf="nailsservicesData[subservice.id] == ''"><div class="form-group row">
+		                            <div *ngIf="nailsservicesData[subservice.id]['salon'] == ''"><div class="form-group row">
 
 		                                <div class="col-md-6" >
 		                                  <label>DURATION</label>
@@ -483,10 +483,10 @@
 					                       [(ngModel)]="nailsservicesData[subservice.id].servicetype"  required></ng-select>
 					                    </div>
 		                            </div> -->
-		                           <div *ngIf="nailsservicesData[subservice.id] != ''"> <div class="form-group row" >
+		                           <div *ngIf="nailsservicesData[subservice.id]['salon'] != ''"> <div class="form-group row" >
 		                                <div class="col-md-6">
 		                                  <label>DURATION</label>
-		                                  <select class="form-control" name="duration"  [(ngModel)]="nailsservicesData[subservice.id].duration" required>
+		                                  <select class="form-control" name="duration"  [(ngModel)]="nailsservicesData[subservice.id]['salon'].duration" required>
 		                                  	<option value="">Duration</option>
 		                                  	<option value="15 mins">15 mins</option>
 		                                  	<option value="30 mins">30 mins</option>
@@ -517,15 +517,15 @@
 							                  <div class="input-group-prepend">
 							                    <span class="input-group-text">{{currency}}</span>
 							                  </div>
-		                                  	  <input class="form-control" name="price"  type="number" (keypress) = "numericOnly($event)"    [(ngModel)]="nailsservicesData[subservice.id].price"  value="{{nailsservicesData[subservice.id].price}}" placeholder="" pattern="^(0|[1-9][0-9]*)$" required>
+		                                  	  <input class="form-control" name="price"  type="number" (keypress) = "numericOnly($event)"    [(ngModel)]="nailsservicesData[subservice.id]['salon'].price"  value="{{nailsservicesData[subservice.id].price}}" placeholder="" pattern="^(0|[1-9][0-9]*)$" required>
 		                                  	</div>
 		                                </div>
 	                                </div> </div>
 
 	                                <div class="form-group row">
 	                                	<div class="col-md-12">			
-			                                <button class="btn btn-primary pull-right" type="button" (click)="savesubservicedata(subservice.id,1,'salon')" [disabled] = "!salonServiceForm.form.valid" style="margin-right:5px;" *ngIf="nailsservicesData[subservice.id]== ''" >Save</button> 
-			                                <button class="btn btn-primary pull-right" type="button" (click)="updatesubservicedata(nailsservicesData[subservice.id],'salon')" style="margin-right:5px;" *ngIf="nailsservicesData[subservice.id] != ''" [disabled] = "!salonServiceForm.form.valid" >Update</button>       
+			                                <button class="btn btn-primary pull-right" type="button" (click)="savesubservicedata(subservice.id,1,'salon')" [disabled] = "!salonServiceForm.form.valid" style="margin-right:5px;" *ngIf="nailsservicesData[subservice.id]['salon']== ''" >Save</button> 
+			                                <button class="btn btn-primary pull-right" type="button" (click)="updatesubservicedata(nailsservicesData[subservice.id]['salon'],'salon')" style="margin-right:5px;" *ngIf="nailsservicesData[subservice.id]['salon'] != ''" [disabled] = "!salonServiceForm.form.valid" >Update</button>       
 	                                	</div>
 	                                </div>
 	                            </form>

@@ -378,19 +378,20 @@ export class AddartistservicesComponent {
 
 
               if(r.json().length != 0){
-                this.nailsservicesData[this.nailsservices[ser].id] = r.json()[0];
-                this.nailsservicesData[this.nailsservices[ser].id].price = [];
-                this.nailsservicesData[this.nailsservices[ser].id].duration = [];
-                this.nailsservicesData[this.nailsservices[ser].id].price['Home'] = r.json()[0].homeprice;
-                this.nailsservicesData[this.nailsservices[ser].id].price['Salon'] = r.json()[0].salonprice;
-                this.nailsservicesData[this.nailsservices[ser].id].price['GCC'] = r.json()[0].gccprice;
-                this.nailsservicesData[this.nailsservices[ser].id].duration['Home'] = r.json()[0].homeduration;
-                this.nailsservicesData[this.nailsservices[ser].id].duration['Salon'] = r.json()[0].salonduration;
-                this.nailsservicesData[this.nailsservices[ser].id].duration['GCC'] = r.json()[0].gccduration;
+                this.nailsservicesData[response.json()[ser].id] = r.json();              
+               this.nailsservicesData[response.json()[ser].id]['home'] = [];
+               this.nailsservicesData[response.json()[ser].id]['salon'] = [];
+               this.nailsservicesData[response.json()[ser].id]['gcc'] = [];
+               for(let i in r.json()){
+                this.nailsservicesData[response.json()[ser].id][r.json()[i].servicetype] = r.json()[i];            
+              }
 
                 console.log(this.nailsservicesData);
               } else {
-                this.nailsservicesData[this.nailsservices[ser].id] = '';
+              this.nailsservicesData[response.json()[ser].id] = {};              
+               this.nailsservicesData[response.json()[ser].id]['home'] = [];
+               this.nailsservicesData[response.json()[ser].id]['salon'] = [];
+               this.nailsservicesData[response.json()[ser].id]['gcc'] = [];
               }
               console.log(this.nailsservicesData);
           }, error => {

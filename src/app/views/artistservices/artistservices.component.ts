@@ -381,13 +381,23 @@ export class ArtistservicesComponent {
           this.http.get(API_URL+'/Artistservices?filter={"where":{"and":[{"subserviceId":"'+response.json()[parseInt(ser)-removedata].id+'"},{"memberId":"'+localStorage.getItem('currentUserId')+'"}]}}&access_token='+ localStorage.getItem('currentUserToken'), options)
           .subscribe(r => {
             if(r.json().length != 0) {
-              this.nailsservicesData[response.json()[ser].id] = r.json()[0];
+              this.nailsservicesData[response.json()[ser].id] = r.json();              
+               this.nailsservicesData[response.json()[ser].id]['home'] = [];
+               this.nailsservicesData[response.json()[ser].id]['salon'] = [];
+               this.nailsservicesData[response.json()[ser].id]['gcc'] = [];
+               for(let i in r.json()){
+                this.nailsservicesData[response.json()[ser].id][r.json()[i].servicetype] = r.json()[i];            
+              }
+
               this.nails.push(response.json()[ser]);
               this.nonails = 1;
 
               console.log(this.nailsservicesData);
             } else if(r.json().length == 0){
-              this.nailsservicesData[response.json()[ser].id] = '';
+              this.nailsservicesData[response.json()[ser].id] = {};              
+               this.nailsservicesData[response.json()[ser].id]['home'] = [];
+               this.nailsservicesData[response.json()[ser].id]['salon'] = [];
+               this.nailsservicesData[response.json()[ser].id]['gcc'] = [];
               delete this.nailsservices[ser];
             }
 
