@@ -530,7 +530,51 @@ export class ArtistservicesComponent {
         options.headers.append('Content-Type', 'application/json');
         options.headers.append('Accept', 'application/json');
 
-        this.http.delete(API_URL+'/Artistservices/'+recordId+'?access_token='+ localStorage.getItem('currentUserToken'), options)
+          if(recordId['home'] != '' && recordId['home'] != undefined) {
+          //alert(recordId['home'].id);
+          this.http.delete(API_URL+'/Artistservices/'+recordId['home'].id+'?access_token='+ localStorage.getItem('currentUserToken'), options)
+          .subscribe(response => {
+
+          this.toasterService.pop('success', 'Success', "Service removed successfully");
+
+            this.getAllArtistData();
+
+          }, error => {
+              console.log(JSON.stringify(error.json()));
+          });
+        }
+
+        if(recordId['salon'] != ''  && recordId['salon'] != undefined) {
+        //  alert(recordId['salon'].id);
+          this.http.delete(API_URL+'/Artistservices/'+recordId['salon'].id+'?access_token='+ localStorage.getItem('currentUserToken'), options)
+          .subscribe(response => {
+
+          this.toasterService.pop('success', 'Success', "Service removed successfully");
+
+            this.getAllArtistData();
+
+          }, error => {
+              console.log(JSON.stringify(error.json()));
+          });
+        }
+
+        if(recordId['gcc'] != ''  && recordId['gcc'] != undefined) {
+         // alert(recordId['gcc'].id);
+          this.http.delete(API_URL+'/Artistservices/'+recordId['gcc'].id+'?access_token='+ localStorage.getItem('currentUserToken'), options)
+          .subscribe(response => {
+
+          this.toasterService.pop('success', 'Success', "Service removed successfully");
+
+            this.getAllArtistData();
+
+          }, error => {
+              console.log(JSON.stringify(error.json()));
+          });
+        }
+
+        
+
+        /*this.http.delete(API_URL+'/Artistservices/'+recordId+'?access_token='+ localStorage.getItem('currentUserToken'), options)
           .subscribe(response => {
 
         this.toasterService.pop('success', 'Success', "Service removed successfully");
@@ -540,7 +584,7 @@ export class ArtistservicesComponent {
 
         }, error => {
             console.log(JSON.stringify(error.json()));
-        });
+        });*/
       }
 
     }

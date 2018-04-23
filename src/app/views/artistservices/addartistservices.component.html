@@ -19,34 +19,34 @@
 	                       <span class="pull-right">
 	                       		<button class="btn btn-sm btn-outline-primary" type="button" data-toggle="modal" (click)="makeupModal.show()" *ngIf="makeupservicesData[subservice.id] == ''"><span class="fa fa-plus"></span></button>
 	                       		<button class="btn btn-sm btn-outline-primary" type="button"  *ngIf="makeupservicesData[subservice.id] != ''" data-toggle="modal" (click)="makeupModal.show()"  ><span class="fa fa-pencil"></span></button>
-	                       		<button class="btn btn-sm btn-outline-primary" type="button"  *ngIf="makeupservicesData[subservice.id] != ''" (click)="delsubservicedata(makeupservicesData[subservice.id].id)" ><span class="fa fa-trash"></span></button>
+	                       		<button class="btn btn-sm btn-outline-primary" type="button"  *ngIf="makeupservicesData[subservice.id] != ''" (click)="delsubservicedata(makeupservicesData[subservice.id])" ><span class="fa fa-trash"></span></button>
 	                       </span>
 
 	                       <div class="clearfix"></div>
 	                       
 	                       <div class="" *ngIf="makeupservicesData[subservice.id]">
-	                       		<div class="col-sm-12 row" *ngIf="makeupservicesData[subservice.id].homeprice">
-				                   <div class="col-sm-3"><span><strong>Home</strong></span>:</div>
-			                       <div class="col-sm-9"><span >{{currency}} {{makeupservicesData[subservice.id].price['Home']}} for</span>
-			                       <span >{{makeupservicesData[subservice.id].duration['Home']}}</span></div>
-			                       <!-- <span *ngIf="makeupservicesData[subservice.id]">{{makeupservicesData[subservice.id].servicetype}}
-			                       </span> -->
-			                    </div>
-			                    <div class="col-sm-12 row" *ngIf="makeupservicesData[subservice.id].salonprice">
-				                   <div class="col-sm-3"> <span><strong>Salon</strong></span>:</div>
-			                       <div class="col-sm-9"><span >{{currency}} {{makeupservicesData[subservice.id].price['Salon']}} for</span>
-			                       <span >{{makeupservicesData[subservice.id].duration['Salon']}}</span></div>
-			                       <!-- <span *ngIf="makeupservicesData[subservice.id]">{{makeupservicesData[subservice.id].servicetype}}
-			                       </span> -->
-			                    </div>
-			                    <div class="col-sm-12 row" *ngIf="makeupservicesData[subservice.id].gccprice">
-				                   <div class="col-sm-3"> <span><strong>GCC</strong></span>:</div>
-			                       <div class="col-sm-9"><span >{{currency}} {{makeupservicesData[subservice.id].price['GCC']}} for</span>
-			                       <span >{{makeupservicesData[subservice.id].duration['GCC']}}</span></div>
-			                       <!-- <span *ngIf="makeupservicesData[subservice.id]">{{makeupservicesData[subservice.id].servicetype}}
-			                       </span> -->
-			                    </div>
-		                   </div>
+                            <div class="col-sm-12 row" *ngIf="makeupservicesData[subservice.id]['home'] != ''">
+                              <div class="col-sm-3"><span><strong>Home</strong></span>:</div>
+                              <div class="col-sm-9"> <span >{{currency}} {{makeupservicesData[subservice.id]['home'].price}} for</span>
+                               <span >{{makeupservicesData[subservice.id]['home'].duration}}</span></div>
+                               <!-- <span *ngIf="makeupservicesData[subservice.id]">{{makeupservicesData[subservice.id].servicetype}}
+                               </span> -->
+                            </div>
+                            <div class="col-sm-12  row" *ngIf="makeupservicesData[subservice.id]['salon']!= ''">
+                             <div class="col-sm-3"> <span><strong>Salon</strong></span>:</div>
+                              <div class="col-sm-9"> <span >{{currency}} {{makeupservicesData[subservice.id]['salon'].price}} for</span>
+                               <span >{{makeupservicesData[subservice.id]['salon'].duration}}</span></div>
+                               <!-- <span *ngIf="makeupservicesData[subservice.id]">{{makeupservicesData[subservice.id].servicetype}}
+                               </span> -->
+                            </div>
+                            <div class="col-sm-12 row" *ngIf="makeupservicesData[subservice.id]['gcc'] != ''">
+                              <div class="col-sm-3"><span><strong>GCC</strong></span>:</div>
+                              <div class="col-sm-9"> <span >{{currency}} {{makeupservicesData[subservice.id]['gcc'].price}} for</span>
+                               <span >{{makeupservicesData[subservice.id]['gcc'].duration}}</span></div>
+                               <!-- <span *ngIf="makeupservicesData[subservice.id]">{{makeupservicesData[subservice.id].servicetype}}
+                               </span> -->
+                            </div>
+                         </div>
 	                        <div bsModal #makeupModal="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
 	                          <div class="modal-dialog modal-primary" role="document">
 	                            <div class="modal-content">
@@ -66,11 +66,11 @@
 							                       [(ngModel)]="data.servicetype" required></ng-select>
 							                    </div>
 				                            </div> -->
-				                            <div *ngIf="makeupservicesData[subservice.id] == ''"><div class="form-group row" >
+				                            <div *ngIf="makeupservicesData[subservice.id]['home'] == ''"><div class="form-group row" >
 
 				                                <div class="col-md-6" >
 				                                  <label>DURATION</label>
-				                                  <select class="form-control" name="homeduration" [(ngModel)]="data.homeduration" required>
+				                                  <select class="form-control" name="duration" [(ngModel)]="data.duration" required>
 				                                  	<option value="">Duration</option>
 				                                  	<option value="15 mins">15 mins</option>
 				                                  	<option value="30 mins">30 mins</option>
@@ -101,7 +101,7 @@
 									                  <div class="input-group-prepend">
 									                    <span class="input-group-text">{{currency}}</span>
 									                  </div>
-				                                 	  <input class="form-control" name="homeprice" type="number" (keypress) = "numericOnly($event)"   [(ngModel)]="data.homeprice"  placeholder="" pattern="^(0|[1-9][0-9]*)$" required>
+				                                 	  <input class="form-control" name="price" type="number" (keypress) = "numericOnly($event)"   [(ngModel)]="data.price"  placeholder="" pattern="^(0|[1-9][0-9]*)$" required>
 				                                 	</div>
 				                                </div>
 							                </div> </div>
@@ -112,10 +112,10 @@
 							                       [(ngModel)]="makeupservicesData[subservice.id].servicetype"  required></ng-select>
 							                    </div>
 				                            </div> -->
-				                           <div *ngIf="makeupservicesData[subservice.id] != ''"> <div class="form-group row" >
+				                           <div *ngIf="makeupservicesData[subservice.id]['home'] != ''"> <div class="form-group row" >
 				                                <div class="col-md-6">
 				                                  <label>DURATION</label>
-				                                  <select class="form-control" name="homeduration"  [(ngModel)]="makeupservicesData[subservice.id].homeduration" required>
+				                                  <select class="form-control" name="duration"  [(ngModel)]="makeupservicesData[subservice.id]['home'].duration" required>
 				                                  	<option value="">Duration</option>
 				                                  	<option value="15 mins">15 mins</option>
 				                                  	<option value="30 mins">30 mins</option>
@@ -146,14 +146,14 @@
 									                  <div class="input-group-prepend">
 									                    <span class="input-group-text">{{currency}}</span>
 									                  </div>
-				                                  	  <input class="form-control" name="homeprice"  type="number" (keypress) = "numericOnly($event)"    [(ngModel)]="makeupservicesData[subservice.id].homeprice"  value="{{makeupservicesData[subservice.id].homeprice}}" placeholder="" pattern="^(0|[1-9][0-9]*)$" required>
+				                                  	  <input class="form-control" name="price"  type="number" (keypress) = "numericOnly($event)"    [(ngModel)]="makeupservicesData[subservice.id]['home'].price"  value="{{makeupservicesData[subservice.id].price}}" placeholder="" pattern="^(0|[1-9][0-9]*)$" required>
 				                                  	</div>
 				                                </div>
 			                                </div> </div>
 			                                <div class="form-group row">
 			                                	<div class="col-md-12">			
-					                                <button class="btn btn-primary pull-right" type="button" (click)="savesubservicedata(subservice.id,1,'home')" [disabled] = "!homeServiceForm.form.valid" style="margin-right:5px;" *ngIf="makeupservicesData[subservice.id]== ''" >Save</button> 
-					                                <button class="btn btn-primary pull-right" type="button" (click)="updatesubservicedata(makeupservicesData[subservice.id],'home')" style="margin-right:5px;" *ngIf="makeupservicesData[subservice.id] != ''" [disabled] = "!homeServiceForm.form.valid" >Update</button>       
+					                                <button class="btn btn-primary pull-right" type="button" (click)="savesubservicedata(subservice.id,1,'home')" [disabled] = "!homeServiceForm.form.valid" style="margin-right:5px;" *ngIf="makeupservicesData[subservice.id]['home']== ''" >Save</button> 
+					                                <button class="btn btn-primary pull-right" type="button" (click)="updatesubservicedata(makeupservicesData[subservice.id]['home'],'home')" style="margin-right:5px;" *ngIf="makeupservicesData[subservice.id]['home'] != ''" [disabled] = "!homeServiceForm.form.valid" >Update</button>       
 			                                	</div>
 			                                </div>
 			                            </form>
@@ -168,11 +168,11 @@
 							                       [(ngModel)]="data.servicetype" required></ng-select>
 							                    </div>
 				                            </div> -->
-				                            <div *ngIf="makeupservicesData[subservice.id] == ''"><div class="form-group row">
+				                            <div *ngIf="makeupservicesData[subservice.id]['salon'] == ''"><div class="form-group row">
 
 				                                <div class="col-md-6" >
 				                                  <label>DURATION</label>
-				                                  <select class="form-control" name="salonduration" [(ngModel)]="data.salonduration" required>
+				                                  <select class="form-control" name="duration" [(ngModel)]="data.duration" required>
 				                                  	<option value="">Duration</option>
 				                                  	<option value="15 mins">15 mins</option>
 				                                  	<option value="30 mins">30 mins</option>
@@ -203,7 +203,7 @@
 									                  <div class="input-group-prepend">
 									                    <span class="input-group-text">{{currency}}</span>
 									                  </div>
-				                                 	  <input class="form-control" name="salonprice"  type="number" (keypress) = "numericOnly($event)"    [(ngModel)]="data.salonprice"  placeholder="" pattern="^(0|[1-9][0-9]*)$" required>
+				                                 	  <input class="form-control" name="price"  type="number" (keypress) = "numericOnly($event)"    [(ngModel)]="data.price"  placeholder="" pattern="^(0|[1-9][0-9]*)$" required>
 				                                 	</div>
 				                                </div>
 							                </div> </div>
@@ -214,10 +214,10 @@
 							                       [(ngModel)]="makeupservicesData[subservice.id].servicetype"  required></ng-select>
 							                    </div>
 				                            </div> -->
-				                           <div *ngIf="makeupservicesData[subservice.id] != ''"> <div class="form-group row" >
+				                           <div *ngIf="makeupservicesData[subservice.id]['salon'] != ''"> <div class="form-group row" >
 				                                <div class="col-md-6">
 				                                  <label>DURATION</label>
-				                                  <select class="form-control" name="salonduration"  [(ngModel)]="makeupservicesData[subservice.id].salonduration" required>
+				                                  <select class="form-control" name="duration"  [(ngModel)]="makeupservicesData[subservice.id]['salon'].duration" required>
 				                                  	<option value="">Duration</option>
 				                                  	<option value="15 mins">15 mins</option>
 				                                  	<option value="30 mins">30 mins</option>
@@ -248,15 +248,15 @@
 									                  <div class="input-group-prepend">
 									                    <span class="input-group-text">{{currency}}</span>
 									                  </div>
-				                                  	  <input class="form-control" name="salonprice"  type="number" (keypress) = "numericOnly($event)"    [(ngModel)]="makeupservicesData[subservice.id].salonprice"  value="{{makeupservicesData[subservice.id].salonprice}}" placeholder="" pattern="^(0|[1-9][0-9]*)$" required>
+				                                  	  <input class="form-control" name="price"  type="number" (keypress) = "numericOnly($event)"    [(ngModel)]="makeupservicesData[subservice.id]['salon'].price"  value="{{makeupservicesData[subservice.id].price}}" placeholder="" pattern="^(0|[1-9][0-9]*)$" required>
 				                                  	</div>
 				                                </div>
 			                                </div> </div>
 
 			                                <div class="form-group row">
 			                                	<div class="col-md-12">			
-					                                <button class="btn btn-primary pull-right" type="button" (click)="savesubservicedata(subservice.id,1,'salon')" [disabled] = "!salonServiceForm.form.valid" style="margin-right:5px;" *ngIf="makeupservicesData[subservice.id]== ''" >Save</button> 
-					                                <button class="btn btn-primary pull-right" type="button" (click)="updatesubservicedata(makeupservicesData[subservice.id],'salon')" style="margin-right:5px;" *ngIf="makeupservicesData[subservice.id] != ''" [disabled] = "!salonServiceForm.form.valid" >Update</button>       
+					                                <button class="btn btn-primary pull-right" type="button" (click)="savesubservicedata(subservice.id,1,'salon')" [disabled] = "!salonServiceForm.form.valid" style="margin-right:5px;" *ngIf="makeupservicesData[subservice.id]['salon']== ''" >Save</button> 
+					                                <button class="btn btn-primary pull-right" type="button" (click)="updatesubservicedata(makeupservicesData[subservice.id]['salon'],'salon')" style="margin-right:5px;" *ngIf="makeupservicesData[subservice.id]['salon'] != ''" [disabled] = "!salonServiceForm.form.valid" >Update</button>       
 			                                	</div>
 			                                </div>
 			                            </form>
@@ -271,11 +271,11 @@
 							                       [(ngModel)]="data.servicetype" required></ng-select>
 							                    </div>
 				                            </div> -->
-				                            <div *ngIf="makeupservicesData[subservice.id] == ''"><div class="form-group row">
+				                            <div *ngIf="makeupservicesData[subservice.id]['gcc'] == ''"><div class="form-group row">
 
 				                                <div class="col-md-6" >
 				                                  <label>DURATION</label>
-				                                  <select class="form-control" name="gccduration" [(ngModel)]="data.gccduration" required>
+				                                  <select class="form-control" name="duration" [(ngModel)]="data.duration" required>
 				                                  	<option value="">Duration</option>
 				                                  	<option value="15 mins">15 mins</option>
 				                                  	<option value="30 mins">30 mins</option>
@@ -306,7 +306,7 @@
 									                  <div class="input-group-prepend">
 									                    <span class="input-group-text">{{currency}}</span>
 									                  </div>
-				                                 	  <input class="form-control" name="gccprice"  type="number" (keypress) = "numericOnly($event)"    [(ngModel)]="data.gccprice" pattern="^(0|[1-9][0-9]*)$" placeholder="" required>
+				                                 	  <input class="form-control" name="price"  type="number" (keypress) = "numericOnly($event)"    [(ngModel)]="data.price" pattern="^(0|[1-9][0-9]*)$" placeholder="" required>
 				                                 	</div>
 				                                </div>
 							                </div> 
@@ -317,7 +317,7 @@
 									                  <div class="input-group-prepend">
 									                    <span class="input-group-text">{{currency}}</span>
 									                  </div>
-				                                 	  <input class="form-control" name="gccflightprice"  type="number" (keypress) = "numericOnly($event)"    [(ngModel)]="data.gccflightprice" pattern="^(0|[1-9][0-9]*)$" placeholder="" required>
+				                                 	  <input class="form-control" name="fixedcharge"  type="number" (keypress) = "numericOnly($event)"    [(ngModel)]="data.fixedcharge" pattern="^(0|[1-9][0-9]*)$" placeholder="" required>
 				                                 	</div>
 				                                </div>
 							                </div>
@@ -330,10 +330,10 @@
 							                       [(ngModel)]="makeupservicesData[subservice.id].servicetype"  required></ng-select>
 							                    </div>
 				                            </div> -->
-				                           <div *ngIf="makeupservicesData[subservice.id] != ''"> <div class="form-group row" >
+				                           <div *ngIf="makeupservicesData[subservice.id]['gcc'] != ''"> <div class="form-group row" >
 				                                <div class="col-md-6">
 				                                  <label>DURATION </label>
-				                                  <select class="form-control" name="gccduration"  [(ngModel)]="makeupservicesData[subservice.id].gccduration" required>
+				                                  <select class="form-control" name="duration"  [(ngModel)]="makeupservicesData[subservice.id]['gcc'].duration" required>
 				                                  	<option value="">Duration</option>
 				                                  	<option value="15 mins">15 mins</option>
 				                                  	<option value="30 mins">30 mins</option>
@@ -364,7 +364,7 @@
 									                  <div class="input-group-prepend">
 									                    <span class="input-group-text">{{currency}}</span>
 									                  </div>
-				                                  	  <input class="form-control" name="gccprice"  type="number" (keypress) = "numericOnly($event)"    [(ngModel)]="makeupservicesData[subservice.id].gccprice"  value="{{makeupservicesData[subservice.id].gccprice}}" placeholder="" pattern="^(0|[1-9][0-9]*)$" required>
+				                                  	  <input class="form-control" name="price"  type="number" (keypress) = "numericOnly($event)"    [(ngModel)]="makeupservicesData[subservice.id]['gcc'].price"  value="{{makeupservicesData[subservice.id].price}}" placeholder="" pattern="^(0|[1-9][0-9]*)$" required>
 				                                  	</div>
 				                                </div>
 			                                </div>
@@ -376,15 +376,15 @@
 									                  <div class="input-group-prepend">
 									                    <span class="input-group-text">{{currency}}</span>
 									                  </div>
-				                                 	  <input class="form-control" name="gccflightprice"  type="number" (keypress) = "numericOnly($event)"    [(ngModel)]="makeupservicesData[subservice.id].gccflightprice" value="{{makeupservicesData[subservice.id].gccflightprice}}" pattern="^(0|[1-9][0-9]*)$" placeholder="" required>
+				                                 	  <input class="form-control" name="fixedcharge"  type="number" (keypress) = "numericOnly($event)"    [(ngModel)]="makeupservicesData[subservice.id]['gcc'].fixedcharge" value="{{makeupservicesData[subservice.id].fixedcharge}}" pattern="^(0|[1-9][0-9]*)$" placeholder="" required>
 				                                 	</div>
 				                                </div>
 							                </div>
 			                            </div> 
 			                                <div class="form-group row">
 			                                	<div class="col-md-12">			
-					                                <button class="btn btn-primary pull-right" type="button" (click)="savesubservicedata(subservice.id,1,'gcc')" [disabled] = "!gccServiceForm.form.valid" style="margin-right:5px;" *ngIf="makeupservicesData[subservice.id]== ''" >Save</button> 
-					                                <button class="btn btn-primary pull-right" type="button" (click)="updatesubservicedata(makeupservicesData[subservice.id],'gcc')" style="margin-right:5px;" *ngIf="makeupservicesData[subservice.id] != ''" [disabled] = "!gccServiceForm.form.valid" >Update</button>    
+					                                <button class="btn btn-primary pull-right" type="button" (click)="savesubservicedata(subservice.id,1,'gcc')" [disabled] = "!gccServiceForm.form.valid" style="margin-right:5px;" *ngIf="makeupservicesData[subservice.id]['gcc']== ''" >Save</button> 
+					                                <button class="btn btn-primary pull-right" type="button" (click)="updatesubservicedata(makeupservicesData[subservice.id]['gcc'],'gcc')" style="margin-right:5px;" *ngIf="makeupservicesData[subservice.id]['gcc'] != ''" [disabled] = "!gccServiceForm.form.valid" >Update</button>    
 			                                	</div>
 			                                </div>
 			                            </form>
@@ -412,7 +412,7 @@
 	                       <div class="clearfix"></div>
 	                       
 	                       <div class="" *ngIf="nailsservicesData[subservice.id]">
-			                    <div class="col-sm-12 row" *ngIf="nailsservicesData[subservice.id].salonprice">
+			                    <div class="col-sm-12 row" *ngIf="nailsservicesData[subservice.id].price">
 				                   <div class="col-sm-3"> <span><strong>Salon</strong></span>:</div>
 			                       <div class="col-sm-9"><span >{{currency}} {{nailsservicesData[subservice.id].price['Salon']}} for</span>
 			                       <span >{{nailsservicesData[subservice.id].duration['Salon']}}</span></div>
@@ -441,7 +441,7 @@
 
 		                                <div class="col-md-6" >
 		                                  <label>DURATION</label>
-		                                  <select class="form-control" name="salonduration" [(ngModel)]="data.salonduration" required>
+		                                  <select class="form-control" name="duration" [(ngModel)]="data.duration" required>
 		                                  	<option value="">Duration</option>
 		                                  	<option value="15 mins">15 mins</option>
 		                                  	<option value="30 mins">30 mins</option>
@@ -472,7 +472,7 @@
 							                  <div class="input-group-prepend">
 							                    <span class="input-group-text">{{currency}}</span>
 							                  </div>
-		                                 	  <input class="form-control" name="salonprice"  type="number" (keypress) = "numericOnly($event)"    [(ngModel)]="data.salonprice"  placeholder="" pattern="^(0|[1-9][0-9]*)$" required>
+		                                 	  <input class="form-control" name="price"  type="number" (keypress) = "numericOnly($event)"    [(ngModel)]="data.price"  placeholder="" pattern="^(0|[1-9][0-9]*)$" required>
 		                                 	</div>
 		                                </div>
 					                </div> </div>
@@ -486,7 +486,7 @@
 		                           <div *ngIf="nailsservicesData[subservice.id] != ''"> <div class="form-group row" >
 		                                <div class="col-md-6">
 		                                  <label>DURATION</label>
-		                                  <select class="form-control" name="salonduration"  [(ngModel)]="nailsservicesData[subservice.id].salonduration" required>
+		                                  <select class="form-control" name="duration"  [(ngModel)]="nailsservicesData[subservice.id].duration" required>
 		                                  	<option value="">Duration</option>
 		                                  	<option value="15 mins">15 mins</option>
 		                                  	<option value="30 mins">30 mins</option>
@@ -517,7 +517,7 @@
 							                  <div class="input-group-prepend">
 							                    <span class="input-group-text">{{currency}}</span>
 							                  </div>
-		                                  	  <input class="form-control" name="salonprice"  type="number" (keypress) = "numericOnly($event)"    [(ngModel)]="nailsservicesData[subservice.id].salonprice"  value="{{nailsservicesData[subservice.id].salonprice}}" placeholder="" pattern="^(0|[1-9][0-9]*)$" required>
+		                                  	  <input class="form-control" name="price"  type="number" (keypress) = "numericOnly($event)"    [(ngModel)]="nailsservicesData[subservice.id].price"  value="{{nailsservicesData[subservice.id].price}}" placeholder="" pattern="^(0|[1-9][0-9]*)$" required>
 		                                  	</div>
 		                                </div>
 	                                </div> </div>
@@ -545,33 +545,33 @@
 	                       <span class="pull-right">
 	                       		<button class="btn btn-sm btn-outline-primary" type="button" data-toggle="modal" (click)="hairModal.show()" *ngIf="hairservicesData[subservice.id] == ''"><span class="fa fa-plus"></span></button>
 	                       		<button class="btn btn-sm btn-outline-primary" type="button"  *ngIf="hairservicesData[subservice.id] != ''" data-toggle="modal" (click)="hairModal.show()"  ><span class="fa fa-pencil"></span></button>
-	                       		<button class="btn btn-sm btn-outline-primary" type="button"  *ngIf="hairservicesData[subservice.id] != ''"  (click)="delsubservicedata(hairservicesData[subservice.id].id)" ><span class="fa fa-trash"></span></button>	                       		
+	                       		<button class="btn btn-sm btn-outline-primary" type="button"  *ngIf="hairservicesData[subservice.id] != ''"  (click)="delsubservicedata(hairservicesData[subservice.id])" ><span class="fa fa-trash"></span></button>	                       		
 	                       </span>
 
 	                       <div class="clearfix"></div>
 	                       <div class="" *ngIf="hairservicesData[subservice.id]">
-	                       		<div class="col-sm-12 row" *ngIf="hairservicesData[subservice.id].homeprice">
-				                   <div class="col-sm-3"> <span><strong>Home</strong></span>:</div>
-			                       <div class="col-sm-9"><span >{{currency}} {{hairservicesData[subservice.id].price['Home']}} for</span>
-			                       <span >{{hairservicesData[subservice.id].duration['Home']}}</span></div>
-			                       <!-- <span *ngIf="hairservicesData[subservice.id]">{{hairservicesData[subservice.id].servicetype}}
-			                       </span> -->
-			                    </div>
-			                    <div class="col-sm-12 row" *ngIf="hairservicesData[subservice.id].salonprice">
-				                  <div class="col-sm-3">   <span><strong>Salon</strong></span>:</div>
-			                      <div class="col-sm-9">  <span >{{currency}} {{hairservicesData[subservice.id].price['Salon']}} for</span>
-			                       <span >{{hairservicesData[subservice.id].duration['Salon']}}</span></div>
-			                       <!-- <span *ngIf="hairservicesData[subservice.id]">{{hairservicesData[subservice.id].servicetype}}
-			                       </span> -->
-			                    </div>
-			                    <div class="col-sm-12 row" *ngIf="hairservicesData[subservice.id].gccprice" >
-				                   <div class="col-sm-3">  <span><strong>GCC</strong></span>: </div>
-			                       <div class="col-sm-9"> <span >{{currency}} {{hairservicesData[subservice.id].price['GCC']}} for</span>
-			                       <span >{{hairservicesData[subservice.id].duration['GCC']}}</span></div>
-			                       <!-- <span *ngIf="hairservicesData[subservice.id]">{{hairservicesData[subservice.id].servicetype}}
-			                       </span> -->
-			                    </div>
-		                   </div>
+                            <div class="col-sm-12 row" *ngIf="hairservicesData[subservice.id]['home'] != ''">
+                              <div class="col-sm-3"><span><strong>Home</strong></span>:</div>
+                               <div class="col-sm-9"><span >{{currency}} {{hairservicesData[subservice.id]['home'].price}} for</span>
+                               <span >{{hairservicesData[subservice.id]['home'].duration}}</span></div>
+                               <!-- <span *ngIf="hairservicesData[subservice.id]">{{hairservicesData[subservice.id].servicetype}}
+                               </span> -->
+                            </div>
+                            <div class="col-sm-12 row" *ngIf="hairservicesData[subservice.id]['salon'] != ''">
+                             <div class="col-sm-3"> <span><strong>Salon</strong></span>:</div>
+                              <div class="col-sm-9"> <span >{{currency}} {{hairservicesData[subservice.id]['salon'].price}} for</span>
+                               <span >{{hairservicesData[subservice.id]['salon'].duration}}</span></div>
+                               <!-- <span *ngIf="hairservicesData[subservice.id]">{{hairservicesData[subservice.id].servicetype}}
+                               </span> -->
+                            </div>
+                            <div class="col-sm-12 row" *ngIf="hairservicesData[subservice.id]['gcc'] != ''" >
+                              <div class="col-sm-3"><span><strong>GCC</strong></span>:</div>
+                               <div class="col-sm-9"><span >{{currency}} {{hairservicesData[subservice.id]['gcc'].price}} for</span>
+                               <span >{{hairservicesData[subservice.id]['gcc'].duration}}</span></div>
+                               <!-- <span *ngIf="hairservicesData[subservice.id]">{{hairservicesData[subservice.id].servicetype}}
+                               </span> -->
+                            </div>
+                         </div>  
 
 
 	                       <div bsModal #hairModal="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
@@ -585,11 +585,11 @@
 	                              	<tabset>
                 						<tab heading="Home"> 
 			                              	<form autocomplete="off" class="form-horizontal ng-untouched ng-pristine ng-valid" novalidate="" #homeServiceForm="ngForm">
-				                            <div *ngIf="hairservicesData[subservice.id] == ''"><div class="form-group row" >
+				                            <div *ngIf="hairservicesData[subservice.id]['home'] == ''"><div class="form-group row" >
 
 				                                <div class="col-md-6" >
 				                                  <label>DURATION</label>
-				                                  <select class="form-control" name="homeduration" [(ngModel)]="data.homeduration" required>
+				                                  <select class="form-control" name="duration" [(ngModel)]="data.duration" required>
 				                                  	<option value="">Duration</option>
 				                                  	<option value="15 mins">15 mins</option>
 				                                  	<option value="30 mins">30 mins</option>
@@ -619,14 +619,14 @@
 									                  <div class="input-group-prepend">
 									                    <span class="input-group-text">{{currency}}</span>
 									                  </div>
-				                                 	  <input class="form-control" name="homeprice"  type="number" (keypress) = "numericOnly($event)"    [(ngModel)]="data.homeprice"  placeholder="" pattern="^(0|[1-9][0-9]*)$" required>
+				                                 	  <input class="form-control" name="price"  type="number" (keypress) = "numericOnly($event)"    [(ngModel)]="data.price"  placeholder="" pattern="^(0|[1-9][0-9]*)$" required>
 				                                 	</div>
 				                                </div>
 							                </div> </div>
-				                           <div *ngIf="hairservicesData[subservice.id] != ''"> <div class="form-group row" >
+				                           <div *ngIf="hairservicesData[subservice.id]['home'] != ''"> <div class="form-group row" >
 				                                <div class="col-md-6">
 				                                  <label>DURATION</label>
-				                                  <select class="form-control" name="homeduration"  [(ngModel)]="hairservicesData[subservice.id].homeduration" required>
+				                                  <select class="form-control" name="duration"  [(ngModel)]="hairservicesData[subservice.id]['home'].duration" required>
 				                                  	<option value="">Duration</option>
 				                                  	<option value="15 mins">15 mins</option>
 				                                  	<option value="30 mins">30 mins</option>
@@ -656,25 +656,25 @@
 									                  <div class="input-group-prepend">
 									                    <span class="input-group-text">{{currency}}</span>
 									                  </div>
-				                                  	  <input class="form-control" name="homeprice"  type="number" (keypress) = "numericOnly($event)"    [(ngModel)]="hairservicesData[subservice.id].homeprice"  value="{{hairservicesData[subservice.id].homeprice}}" placeholder="" pattern="^(0|[1-9][0-9]*)$" required>
+				                                  	  <input class="form-control" name="price"  type="number" (keypress) = "numericOnly($event)"    [(ngModel)]="hairservicesData[subservice.id]['home'].price"  value="{{hairservicesData[subservice.id]['home'].price}}" placeholder="" pattern="^(0|[1-9][0-9]*)$" required>
 				                                  	</div>
 				                                </div>
 			                                </div> </div>
 			                                <div class="form-group row">
 			                                	<div class="col-md-12">			
-					                                <button class="btn btn-primary pull-right" type="button" (click)="savesubservicedata(subservice.id,1,'home')" [disabled] = "!homeServiceForm.form.valid" style="margin-right:5px;" *ngIf="hairservicesData[subservice.id]== ''" >Save</button> 
-					                                <button class="btn btn-primary pull-right" type="button" (click)="updatesubservicedata(hairservicesData[subservice.id],'home')" style="margin-right:5px;" *ngIf="hairservicesData[subservice.id] != ''" [disabled] = "!homeServiceForm.form.valid" >Update</button>       
+					                                <button class="btn btn-primary pull-right" type="button" (click)="savesubservicedata(subservice.id,1,'home')" [disabled] = "!homeServiceForm.form.valid" style="margin-right:5px;" *ngIf="hairservicesData[subservice.id]['home']== ''" >Save</button> 
+					                                <button class="btn btn-primary pull-right" type="button" (click)="updatesubservicedata(hairservicesData[subservice.id]['home'],'home')" style="margin-right:5px;" *ngIf="hairservicesData[subservice.id]['home'] != ''" [disabled] = "!homeServiceForm.form.valid" >Update</button>       
 			                                	</div>
 			                                </div>
 			                            </form>
 			                        </tab>
 			                        <tab heading="Salon"> 
 			                              	<form autocomplete="off" class="form-horizontal ng-untouched ng-pristine ng-valid" novalidate="" #salonServiceForm="ngForm">
-				                            <div *ngIf="hairservicesData[subservice.id] == ''"><div class="form-group row">
+				                            <div *ngIf="hairservicesData[subservice.id]['salon'] == ''"><div class="form-group row">
 
 				                                <div class="col-md-6" >
 				                                  <label>DURATION</label>
-				                                  <select class="form-control" name="salonduration" [(ngModel)]="data.salonduration" required>
+				                                  <select class="form-control" name="duration" [(ngModel)]="data.duration" required>
 				                                  	<option value="">Duration</option>
 				                                  	<option value="15 mins">15 mins</option>
 				                                  	<option value="30 mins">30 mins</option>
@@ -704,14 +704,14 @@
 									                  <div class="input-group-prepend">
 									                    <span class="input-group-text">{{currency}}</span>
 									                  </div>
-				                                 	  <input class="form-control" name="salonprice"  type="number" (keypress) = "numericOnly($event)"    [(ngModel)]="data.salonprice"  placeholder="" pattern="^(0|[1-9][0-9]*)$" required>
+				                                 	  <input class="form-control" name="price"  type="number" (keypress) = "numericOnly($event)"    [(ngModel)]="data.price"  placeholder="" pattern="^(0|[1-9][0-9]*)$" required>
 				                                 	</div>
 				                                </div>
 							                </div> </div>
-				                           <div *ngIf="hairservicesData[subservice.id] != ''"> <div class="form-group row" >
+				                           <div *ngIf="hairservicesData[subservice.id]['salon'] != ''"> <div class="form-group row" >
 				                                <div class="col-md-6">
 				                                  <label>DURATION</label>
-				                                  <select class="form-control" name="salonduration"  [(ngModel)]="hairservicesData[subservice.id].salonduration" required>
+				                                  <select class="form-control" name="duration"  [(ngModel)]="hairservicesData[subservice.id]['salon'].duration" required>
 				                                  	<option value="">Duration</option>
 				                                  	<option value="15 mins">15 mins</option>
 				                                  	<option value="30 mins">30 mins</option>
@@ -741,26 +741,26 @@
 									                  <div class="input-group-prepend">
 									                    <span class="input-group-text">{{currency}}</span>
 									                  </div>
-				                                  	  <input class="form-control" name="salonprice"  type="number" (keypress) = "numericOnly($event)"    [(ngModel)]="hairservicesData[subservice.id].salonprice"  value="{{hairservicesData[subservice.id].salonprice}}" placeholder="" pattern="^(0|[1-9][0-9]*)$" required>
+				                                  	  <input class="form-control" name="price"  type="number" (keypress) = "numericOnly($event)"    [(ngModel)]="hairservicesData[subservice.id]['salon'].price"  value="{{hairservicesData[subservice.id]['salon'].price}}" placeholder="" pattern="^(0|[1-9][0-9]*)$" required>
 				                                  	</div>
 				                                </div>
 			                                </div> </div>
 
 			                                <div class="form-group row">
 			                                	<div class="col-md-12">			
-					                                <button class="btn btn-primary pull-right" type="button" (click)="savesubservicedata(subservice.id,1,'salon')" [disabled] = "!salonServiceForm.form.valid" style="margin-right:5px;" *ngIf="hairservicesData[subservice.id]== ''" >Save</button> 
-					                                <button class="btn btn-primary pull-right" type="button" (click)="updatesubservicedata(hairservicesData[subservice.id],'salon')" style="margin-right:5px;" *ngIf="hairservicesData[subservice.id] != ''" [disabled] = "!salonServiceForm.form.valid" >Update</button>       
+					                                <button class="btn btn-primary pull-right" type="button" (click)="savesubservicedata(subservice.id,1,'salon')" [disabled] = "!salonServiceForm.form.valid" style="margin-right:5px;" *ngIf="hairservicesData[subservice.id]['salon']== ''" >Save</button> 
+					                                <button class="btn btn-primary pull-right" type="button" (click)="updatesubservicedata(hairservicesData[subservice.id]['salon'],'salon')" style="margin-right:5px;" *ngIf="hairservicesData[subservice.id]['salon'] != ''" [disabled] = "!salonServiceForm.form.valid" >Update</button>       
 			                                	</div>
 			                                </div>
 			                            </form>
 			                        </tab>
 			                        <tab heading="GCC"> 
 			                              	<form autocomplete="off" class="form-horizontal ng-untouched ng-pristine ng-valid" novalidate="" #gccServiceForm="ngForm">
-				                            <div *ngIf="hairservicesData[subservice.id] == ''"><div class="form-group row">
+				                            <div *ngIf="hairservicesData[subservice.id]['gcc'] == ''"><div class="form-group row">
 
 				                                <div class="col-md-6" >
 				                                  <label>DURATION</label>
-				                                  <select class="form-control" name="gccduration" [(ngModel)]="data.gccduration" required>
+				                                  <select class="form-control" name="duration" [(ngModel)]="data.duration" required>
 				                                  	<option value="">Duration</option>
 				                                  	<option value="15 mins">15 mins</option>
 				                                  	<option value="30 mins">30 mins</option>
@@ -790,7 +790,7 @@
 									                  <div class="input-group-prepend">
 									                    <span class="input-group-text">{{currency}}</span>
 									                  </div>
-				                                 	  <input class="form-control" name="gccprice"  type="number" (keypress) = "numericOnly($event)"    [(ngModel)]="data.gccprice" pattern="^(0|[1-9][0-9]*)$"  placeholder="" required>
+				                                 	  <input class="form-control" name="price"  type="number" (keypress) = "numericOnly($event)"    [(ngModel)]="data.price" pattern="^(0|[1-9][0-9]*)$"  placeholder="" required>
 				                                 	</div>
 				                                </div>
 							                </div> 
@@ -802,15 +802,15 @@
 									                  <div class="input-group-prepend">
 									                    <span class="input-group-text">{{currency}}</span>
 									                  </div>
-				                                 	  <input class="form-control" name="gccflightprice"  type="number" (keypress) = "numericOnly($event)"    [(ngModel)]="data.gccflightprice"  pattern="^(0|[1-9][0-9]*)$" placeholder="" required>
+				                                 	  <input class="form-control" name="fixedcharge"  type="number" (keypress) = "numericOnly($event)"    [(ngModel)]="data.fixedcharge"  pattern="^(0|[1-9][0-9]*)$" placeholder="" required>
 				                                 	</div>
 				                                </div>
 							                </div>
 							            	</div>
-				                           <div *ngIf="hairservicesData[subservice.id] != ''"> <div class="form-group row" >
+				                           <div *ngIf="hairservicesData[subservice.id]['gcc'] != ''"> <div class="form-group row" >
 				                                <div class="col-md-6">
 				                                  <label>DURATION </label>
-				                                  <select class="form-control" name="gccduration"  [(ngModel)]="hairservicesData[subservice.id].gccduration" required>
+				                                  <select class="form-control" name="duration"  [(ngModel)]="hairservicesData[subservice.id]['gcc'].duration" required>
 				                                  	<option value="">Duration</option>
 				                                  	<option value="15 mins">15 mins</option>
 				                                  	<option value="30 mins">30 mins</option>
@@ -840,7 +840,7 @@
 									                  <div class="input-group-prepend">
 									                    <span class="input-group-text">{{currency}}</span>
 									                  </div>
-				                                  	  <input class="form-control" name="gccprice"  type="number" (keypress) = "numericOnly($event)"    [(ngModel)]="hairservicesData[subservice.id].gccprice" pattern="^(0|[1-9][0-9]*)$" value="{{hairservicesData[subservice.id].gccprice}}" placeholder="" required>
+				                                  	  <input class="form-control" name="price"  type="number" (keypress) = "numericOnly($event)"    [(ngModel)]="hairservicesData[subservice.id]['gcc'].price" pattern="^(0|[1-9][0-9]*)$" value="{{hairservicesData[subservice.id]['gcc'].price}}" placeholder="" required>
 				                                  	</div>
 				                                </div>
 			                                </div>
@@ -852,15 +852,15 @@
 									                  <div class="input-group-prepend">
 									                    <span class="input-group-text">{{currency}}</span>
 									                  </div>
-				                                 	  <input class="form-control" name="gccflightprice"  type="number" (keypress) = "numericOnly($event)"    [(ngModel)]="hairservicesData[subservice.id].gccflightprice" value="{{hairservicesData[subservice.id].gccflightprice}}" pattern="^(0|[1-9][0-9]*)$" placeholder="" required>
+				                                 	  <input class="form-control" name="fixedcharge"  type="number" (keypress) = "numericOnly($event)"    [(ngModel)]="hairservicesData[subservice.id]['gcc'].fixedcharge" value="{{hairservicesData[subservice.id]['gcc'].fixedcharge}}" pattern="^(0|[1-9][0-9]*)$" placeholder="" required>
 				                                 	</div>
 				                                </div>
 							                </div>
 			                            	</div> 
 			                                <div class="form-group row">
 			                                	<div class="col-md-12">			
-					                                <button class="btn btn-primary pull-right" type="button" (click)="savesubservicedata(subservice.id,1,'gcc')" [disabled] = "!gccServiceForm.form.valid" style="margin-right:5px;" *ngIf="hairservicesData[subservice.id]== ''" >Save</button> 
-					                                <button class="btn btn-primary pull-right" type="button" (click)="updatesubservicedata(hairservicesData[subservice.id],'gcc')" style="margin-right:5px;" *ngIf="hairservicesData[subservice.id] != ''" [disabled] = "!gccServiceForm.form.valid" >Update</button>       
+					                                <button class="btn btn-primary pull-right" type="button" (click)="savesubservicedata(subservice.id,1,'gcc')" [disabled] = "!gccServiceForm.form.valid" style="margin-right:5px;" *ngIf="hairservicesData[subservice.id]['gcc']== ''" >Save</button> 
+					                                <button class="btn btn-primary pull-right" type="button" (click)="updatesubservicedata(hairservicesData[subservice.id]['gcc'],'gcc')" style="margin-right:5px;" *ngIf="hairservicesData[subservice.id]['gcc'] != ''" [disabled] = "!gccServiceForm.form.valid" >Update</button>       
 			                                	</div>
 			                                </div>
 			                            </form>

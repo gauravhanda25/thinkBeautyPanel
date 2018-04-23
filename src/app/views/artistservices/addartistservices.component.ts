@@ -192,19 +192,15 @@ export class AddartistservicesComponent {
 
     
     	this.data = {
-        homeprice:'',
-        salonprice:'',
-        gccprice:'',
-    		homeduration:'',
-        salonduration:'',
-        gccduration:'',
-        gccflightprice: '',
+        price:'',
+        fixedcharge:'',
+        duration:'',
         memberId: localStorage.getItem('currentUserId'),
         memberType: (localStorage.getItem('currentUserRole') == 'SALON' ? 'salon' : 'artist'),
-    		serviceId: '',
-    		subserviceId: '',
-    		servicetype: ''
-    	}
+        serviceId: '',
+        subserviceId: '',
+        servicetype: ''
+      }
 
     	this.course = { 
     		name: '',   		
@@ -344,19 +340,19 @@ export class AddartistservicesComponent {
 
 
 		        	if(r.json().length != 0){
-		        		this.makeupservicesData[this.makeupservices[ser].id] = r.json()[0];
-                this.makeupservicesData[this.makeupservices[ser].id].price = [];
-                this.makeupservicesData[this.makeupservices[ser].id].duration = [];
-                this.makeupservicesData[this.makeupservices[ser].id].price['Home'] = r.json()[0].homeprice;
-                this.makeupservicesData[this.makeupservices[ser].id].price['Salon'] = r.json()[0].salonprice;
-                this.makeupservicesData[this.makeupservices[ser].id].price['GCC'] = r.json()[0].gccprice;
-                this.makeupservicesData[this.makeupservices[ser].id].duration['Home'] = r.json()[0].homeduration;
-                this.makeupservicesData[this.makeupservices[ser].id].duration['Salon'] = r.json()[0].salonduration;
-                this.makeupservicesData[this.makeupservices[ser].id].duration['GCC'] = r.json()[0].gccduration;
-
+		        		this.makeupservicesData[this.makeupservices[ser].id] = r.json();
+                 this.makeupservicesData[response.json()[ser].id]['home'] = [];
+                 this.makeupservicesData[response.json()[ser].id]['salon'] = [];
+                 this.makeupservicesData[response.json()[ser].id]['gcc'] = [];
+                for(let i in r.json()){
+                  this.makeupservicesData[response.json()[ser].id][r.json()[i].servicetype] = r.json()[i];            
+                }
                 console.log(this.makeupservicesData);
 		        	} else {
-		        		this.makeupservicesData[this.makeupservices[ser].id] = '';
+		        		this.makeupservicesData[this.makeupservices[ser].id] = {};
+                 this.makeupservicesData[response.json()[ser].id]['home'] = [];
+                 this.makeupservicesData[response.json()[ser].id]['salon'] = [];
+                 this.makeupservicesData[response.json()[ser].id]['gcc'] = [];
 		        	}
 		        	console.log(this.makeupservicesData);
 			    }, error => {
@@ -416,17 +412,18 @@ export class AddartistservicesComponent {
 	        	this.http.get(API_URL+'/Artistservices?filter={"where":{"and":[{"subserviceId":"'+this.hairservices[ser].id+'"},{"memberId":"'+localStorage.getItem('currentUserId')+'"}]}}&access_token='+ localStorage.getItem('currentUserToken'), options)
 		        .subscribe(r => {
 		        	if(r.json().length != 0){
-		        		this.hairservicesData[this.hairservices[ser].id] = r.json()[0];
-                this.hairservicesData[this.hairservices[ser].id].price = [];
-                this.hairservicesData[this.hairservices[ser].id].duration = [];
-                this.hairservicesData[this.hairservices[ser].id].price['Home'] = r.json()[0].homeprice;
-                this.hairservicesData[this.hairservices[ser].id].price['Salon'] = r.json()[0].salonprice;
-                this.hairservicesData[this.hairservices[ser].id].price['GCC'] = r.json()[0].gccprice;
-                this.hairservicesData[this.hairservices[ser].id].duration['Home'] = r.json()[0].homeduration;
-                this.hairservicesData[this.hairservices[ser].id].duration['Salon'] = r.json()[0].salonduration;
-                this.hairservicesData[this.hairservices[ser].id].duration['GCC'] = r.json()[0].gccduration;
+		        		this.hairservicesData[this.hairservices[ser].id] = r.json();
+                this.hairservicesData[response.json()[ser].id]['home'] = [];
+                 this.hairservicesData[response.json()[ser].id]['salon'] = [];
+                 this.hairservicesData[response.json()[ser].id]['gcc'] = [];
+                for(let i in r.json()){
+                  this.hairservicesData[response.json()[ser].id][r.json()[i].servicetype] = r.json()[i];            
+                }
 		        	} else {
-		        		this.hairservicesData[this.hairservices[ser].id] = '';
+		        		this.hairservicesData[this.hairservices[ser].id] = {};
+                this.hairservicesData[response.json()[ser].id]['home'] = [];
+                 this.hairservicesData[response.json()[ser].id]['salon'] = [];
+                 this.hairservicesData[response.json()[ser].id]['gcc'] = [];
 		        	}
 		        	console.log(this.hairservicesData);
 			    }, error => {
@@ -452,30 +449,25 @@ export class AddartistservicesComponent {
         options.headers.append('Accept', 'application/json');
 
         this.data.servicetype = serviceType;
-        delete this.data.duration;
-        delete this.data.price;
 
         console.log(this.data);
        // return;
 
 
-    	this.http.post(API_URL+'/Artistservices/upsertWithWhere?where={"and":[{"memberId":"'+localStorage.getItem('currentUserId')+'"},{"subserviceId":"'+this.data.subserviceId+'"}]}&access_token='+ localStorage.getItem('currentUserToken'), this.data, options)
+    	this.http.post(API_URL+'/Artistservices?access_token='+ localStorage.getItem('currentUserToken'), this.data, options)
         .subscribe(response => {
 
-	    	this.data = {   
-          homeprice:'',
-          salonprice:'',
-          gccprice:'',
-          gccflightprice:'',
-          homeduration:'',
-          salonduration:'',
-          gccduration:'',
-          memberId: localStorage.getItem('currentUserId'),
-          memberType: (localStorage.getItem('currentUserRole') == 'SALON' ? 'salon' : 'artist'),
-	    		serviceId: '',
-	    		subserviceId: '',
-	    		servicetype: ''
-	    	}
+	    	
+        this.data = {
+        price:'',
+        fixedcharge:'',
+        duration:'',
+        memberId: localStorage.getItem('currentUserId'),
+        memberType: (localStorage.getItem('currentUserRole') == 'SALON' ? 'salon' : 'artist'),
+        serviceId: '',
+        subserviceId: '',
+        servicetype: ''
+      }
 			this.toasterService.pop('success', 'Success', "Service saved successfully");
     		
     		this.getAllArtistData();
@@ -494,52 +486,30 @@ export class AddartistservicesComponent {
         options.headers.append('Content-Type', 'application/json');
         options.headers.append('Accept', 'application/json');
 
-        if(serviceType == "home") {
-          this.data = { 
-            homeprice: artistSubserviceId.homeprice,
-            homeduration: artistSubserviceId.homeduration,
-            servicetype: 'home'
-          }
-        } else if(serviceType == "salon") {
-          this.data = { 
-            salonprice:  artistSubserviceId.salonprice,
-            salonduration: artistSubserviceId.salonduration,
-            servicetype: 'salon'
-          }
-        } else if(serviceType == "gcc") {
-          this.data = { 
-            gccprice: artistSubserviceId.gccprice,
-            gccduration: artistSubserviceId.gccduration,
-            gccflightprice: artistSubserviceId.gccflightprice,
-            servicetype: 'gcc'
-          }
+        this.data = { 
+          price: artistSubserviceId.price,
+          duration: artistSubserviceId.duration,
+          fixedcharge: (artistSubserviceId.fixedcharge != undefined) ? artistSubserviceId.fixedcharge : '',
+          servicetype: serviceType
         }
 
-
-        console.log(this.data);
-
-        delete this.data.duration;
-        delete this.data.price;
-        
 
     	this.http.post(API_URL+'/Artistservices/upsertWithWhere?where=%7B%22id%22%3A%22'+artistSubserviceId.id+'%22%7D&access_token='+ localStorage.getItem('currentUserToken'), this.data, options)
         .subscribe(response => {
         	console.log(response.json());
 
-	    	this.data = { 
-          homeprice:'',
-          salonprice:'',
-          gccprice:'',
-          homeduration:'',
-          salonduration:'',
-          gccflightprice: '',
-          gccduration:'',
-          memberId: localStorage.getItem('currentUserId'),
-          memberType: (localStorage.getItem('currentUserRole') == 'SALON' ? 'salon' : 'artist'),
-	    		serviceId: '',
-	    		subserviceId: '',
-	    		servicetype: ''
-	    	}
+	    
+       this.data = {
+        price:'',
+        fixedcharge:'',
+        duration:'',
+        memberId: localStorage.getItem('currentUserId'),
+        memberType: (localStorage.getItem('currentUserRole') == 'SALON' ? 'salon' : 'artist'),
+        serviceId: '',
+        subserviceId: '',
+        servicetype: ''
+      }
+
 			this.toasterService.pop('success', 'Success', "Service updated successfully");
     		
     		this.getAllArtistData();
@@ -558,7 +528,51 @@ export class AddartistservicesComponent {
         options.headers.append('Content-Type', 'application/json');
         options.headers.append('Accept', 'application/json');
 
-      	this.http.delete(API_URL+'/Artistservices/'+recordId+'?access_token='+ localStorage.getItem('currentUserToken'), options)
+
+        if(recordId['home'] != '' && recordId['home'] != undefined) {
+          //alert(recordId['home'].id);
+          this.http.delete(API_URL+'/Artistservices/'+recordId['home'].id+'?access_token='+ localStorage.getItem('currentUserToken'), options)
+          .subscribe(response => {
+
+          this.toasterService.pop('success', 'Success', "Service removed successfully");
+
+            this.getAllArtistData();
+
+          }, error => {
+              console.log(JSON.stringify(error.json()));
+          });
+        }
+
+        if(recordId['salon'] != ''  && recordId['salon'] != undefined) {
+        //  alert(recordId['salon'].id);
+          this.http.delete(API_URL+'/Artistservices/'+recordId['salon'].id+'?access_token='+ localStorage.getItem('currentUserToken'), options)
+          .subscribe(response => {
+
+          this.toasterService.pop('success', 'Success', "Service removed successfully");
+
+            this.getAllArtistData();
+
+          }, error => {
+              console.log(JSON.stringify(error.json()));
+          });
+        }
+
+        if(recordId['gcc'] != ''  && recordId['gcc'] != undefined) {
+         // alert(recordId['gcc'].id);
+          this.http.delete(API_URL+'/Artistservices/'+recordId['gcc'].id+'?access_token='+ localStorage.getItem('currentUserToken'), options)
+          .subscribe(response => {
+
+          this.toasterService.pop('success', 'Success', "Service removed successfully");
+
+            this.getAllArtistData();
+
+          }, error => {
+              console.log(JSON.stringify(error.json()));
+          });
+        }
+
+
+      	/*this.http.delete(API_URL+'/Artistservices/'+recordId+'?access_token='+ localStorage.getItem('currentUserToken'), options)
           .subscribe(response => {
 
   			this.toasterService.pop('success', 'Success', "Service removed successfully");
@@ -567,7 +581,7 @@ export class AddartistservicesComponent {
 
   	    }, error => {
   	        console.log(JSON.stringify(error.json()));
-  	    });
+  	    });*/
       }
 
   	}
