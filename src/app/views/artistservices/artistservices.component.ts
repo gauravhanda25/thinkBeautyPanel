@@ -343,9 +343,15 @@ export class ArtistservicesComponent {
 	        .subscribe(r => {
             console.log(r.json());
 	        	if(r.json().length != 0) {
-	        		this.makeupservicesData[response.json()[ser].id] = r.json();
-	        		this.makeup.push(response.json()[ser]);
-	        		this.nomakeup = 1;
+               this.makeupservicesData[response.json()[ser].id] = r.json();
+               this.makeupservicesData[response.json()[ser].id]['home'] = [];
+               this.makeupservicesData[response.json()[ser].id]['salon'] = [];
+               this.makeupservicesData[response.json()[ser].id]['gcc'] = [];
+              for(let i in r.json()){
+                this.makeupservicesData[response.json()[ser].id][r.json()[i].servicetype] = r.json()[i];            
+              }
+                this.makeup.push(response.json()[ser]);
+                this.nomakeup = 1;    
 
               console.log(this.makeupservicesData);
 	        	} else if(r.json().length == 0){
@@ -407,11 +413,19 @@ export class ArtistservicesComponent {
       	for(let ser in response.json()) {
         	this.http.get(API_URL+'/Artistservices?filter={"where":{"and":[{"subserviceId":"'+response.json()[parseInt(ser)-removedata].id+ '"},{"memberId":"'+localStorage.getItem('currentUserId')+'"}]}}&access_token='+ localStorage.getItem('currentUserToken'), options)
 	        .subscribe(r => {
-	        	if(r.json().length != 0){
-	        		this.hairservicesData[response.json()[ser].id] = r.json()[0];
-	        		this.hair.push(response.json()[ser]);
-	        		this.nohair = 1;
-	        	} else if(r.json().length == 0){
+	        	if(r.json().length != 0) {
+               this.hairservicesData[response.json()[ser].id] = r.json();
+               this.hairservicesData[response.json()[ser].id]['home'] = [];
+               this.hairservicesData[response.json()[ser].id]['salon'] = [];
+               this.hairservicesData[response.json()[ser].id]['gcc'] = [];
+              for(let i in r.json()){
+                this.hairservicesData[response.json()[ser].id][r.json()[i].servicetype] = r.json()[i];            
+              }
+                this.hair.push(response.json()[ser]);
+                this.nohair = 1;    
+
+              console.log(this.hairservicesData);
+            } else if(r.json().length == 0){
 	        		this.hairservicesData[response.json()[ser].id] = '';
 	        		delete this.hairservices[ser];
 	        	}
