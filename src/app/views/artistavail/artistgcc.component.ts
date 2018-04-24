@@ -104,8 +104,8 @@ export class ArtistgccComponent {
 
           if(response.json().length != 0) {
             for(let index in this.gccData){ 
-              this.gccData[index].starton = moment(this.gccData[index].starton).format("DD/MM/YYYY");
-              this.gccData[index].endon = moment(this.gccData[index].endon).format("DD/MM/YYYY");
+              this.gccData[index].starton = moment(this.gccData[index].starton).format("DD MMMM YYYY");
+              this.gccData[index].endon = moment(this.gccData[index].endon).format("DD MMMM YYYY");
             }
 
             this.noGCC = 0;

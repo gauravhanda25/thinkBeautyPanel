@@ -107,8 +107,16 @@ export class SalonComponent {
             if(this.users.length !=0) {
                 for(let i=0; i< this.users.length; i++ ) {
 
-                    this.users[i].created_on = moment(this.users[i].created_on).format('DD/MM/YYYY');
-                    this.users[i].action_on = moment(this.users[i].action_on).format('DD/MM/YYYY');
+                    if(this.users[i].created_on != '' && this.users[i].created_on != undefined) {
+                        this.users[i].created_on = moment(this.users[i].created_on).format('DD MMMM YYYY');
+                    } else {
+                       this.users[i].created_on = ''; 
+                    }
+                    if(this.users[i].action_on != ''  && this.users[i].action_on != undefined) {
+                        this.users[i].action_on = moment(this.users[i].action_on).format('DD MMMM YYYY');
+                    } else {
+                       this.users[i].action_on = ''; 
+                    }
                     
                     this.http.get(API_URL+'/Members/'+this.users[i].id+'/roles?access_token='+ localStorage.getItem('currentUserToken'), options)
                     .subscribe(response => {

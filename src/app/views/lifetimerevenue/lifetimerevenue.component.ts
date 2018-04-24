@@ -18,7 +18,7 @@ import { ToasterModule, ToasterService, ToasterConfig }  from 'angular2-toaster/
 
 
 // Datepicker
-import { BsDatepickerModule } from 'ngx-bootstrap';
+import { BsDatepickerModule, BsDatepickerConfig } from 'ngx-bootstrap';
 
 
 @Component({
@@ -52,8 +52,15 @@ export class LifetimerevenueComponent {
 
     public filterQuery = '';
 
+    private datePickerConfig: Partial<BsDatepickerConfig>;
+    
     constructor(private router:Router, private http: Http, private activatedRoute: ActivatedRoute, toasterService: ToasterService ) { 
         this.toasterService = toasterService;
+
+    this.datePickerConfig = Object.assign({},
+    {
+      showWeekNumbers: false
+    });
 
         this.norevenues = 1;
         

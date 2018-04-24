@@ -26,7 +26,7 @@ import { ToasterModule, ToasterService} from 'angular2-toaster/angular2-toaster'
 
 
 // Datepicker
-import { BsDatepickerModule } from 'ngx-bootstrap';
+import { BsDatepickerModule,BsDatepickerConfig } from 'ngx-bootstrap';
 
 
 // Timepicker

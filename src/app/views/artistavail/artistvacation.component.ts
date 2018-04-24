@@ -87,8 +87,8 @@ export class ArtistvacationComponent {
 
           if(response.json().length != 0) {
             for(let index in this.vacationData){ 
-              this.vacationData[index].starton = moment(this.vacationData[index].starton).format("DD/MM/YYYY");
-              this.vacationData[index].endon = moment(this.vacationData[index].endon).format("DD/MM/YYYY");
+              this.vacationData[index].starton = moment(this.vacationData[index].starton).format("DD MMMM YYYY");
+              this.vacationData[index].endon = moment(this.vacationData[index].endon).format("DD MMMM YYYY");
             }
 
             this.noVacation = 0;

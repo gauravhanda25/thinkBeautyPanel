@@ -67,7 +67,7 @@ export class UpdatesComponent {
                 this.updates = response.json();
 
                 for(let i in this.updates){
-                    this.updates[i].updated_on = moment(this.updates[i].updated_on).format('DD/MM/YYYY');
+                    this.updates[i].updated_on = moment(this.updates[i].updated_on).format('DD MMMM YYYY');
                 }
 
             } else {

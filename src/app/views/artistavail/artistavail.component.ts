@@ -14,6 +14,10 @@ import * as moment from 'moment';
 import * as $ from 'jquery';
 import { ModalDirective } from 'ngx-bootstrap/modal';
 
+
+// Datepicker
+import { BsDatepickerModule,BsDatepickerConfig } from 'ngx-bootstrap';
+
 // Toastr
 import { ToasterModule, ToasterService, ToasterConfig }  from 'angular2-toaster/angular2-toaster';
 @Component({
@@ -60,6 +64,8 @@ export class ArtistavailComponent {
 	  });
 	  
 	  
+    private datePickerConfig: Partial<BsDatepickerConfig>;
+    
     constructor(private NgxRolesService: NgxRolesService, private NgxPermissionsService: NgxPermissionsService, @Inject(Http) private http: Http, @Inject(Router)private router:Router, private activatedRoute: ActivatedRoute,toasterService: ToasterService) {
 		//console.log(localStorage.getItem('currentUserRoleId'));
  			$('.preloader').show();
@@ -83,6 +89,11 @@ export class ArtistavailComponent {
 	    NgxRolesService.roles$.subscribe((data) => {
 	        console.log(data);
 	    })
+
+    this.datePickerConfig = Object.assign({},
+    {
+      showWeekNumbers: false
+    });
 
 		this.toasterService = toasterService;
 
@@ -232,7 +243,7 @@ export class ArtistavailComponent {
               this.dateAvail = 1;  
               this.specificData[i] = [];   
               this.specificData[i].id = this.availData[index].id;
-              this.specificData[i].date = moment(this.availData[index].date).format("DD/MM/YYYY");       
+              this.specificData[i].date = moment(this.availData[index].date).format("DD MMMM YYYY");       
              // this.specificData[i].hoursfrom = moment(this.availData[index].hoursfrom).format("hh:mm A");
              // this.specificData[i].hoursto =  moment(this.availData[index].hoursto).format("hh:mm A"); 
 
@@ -290,6 +301,13 @@ export class ArtistavailComponent {
           this.toasterService.pop('error', 'Time invalid', "For Break, End Time should always be greater than the Start Time"); 
           return;        
       }
+      
+      if((new Date(this.am_pm_to_hours(data.breakfrom)) < new Date(this.am_pm_to_hours(data.hoursfrom)) || new Date(this.am_pm_to_hours(data.breakfrom)) > new Date(this.am_pm_to_hours(data.hoursto)) || new Date(this.am_pm_to_hours(data.breakto)) < new Date(this.am_pm_to_hours(data.hoursfrom)) || new Date(this.am_pm_to_hours(data.breakto)) > new Date(this.am_pm_to_hours(data.hoursto))) && data.hoursfrom!= '' && data.hoursto != '' && data.breakfrom!= '' && data.breakto != '' ) {
+          $('.preloader').hide(); 
+            this.toasterService.pop('error', 'Time invalid', "Break Time must be in between Work Time"); 
+            return;        
+        }
+
 
 
       this.http.post(API_URL+'/Artistavailabilities?access_token='+ localStorage.getItem('currentUserToken'), data, options)
@@ -322,6 +340,12 @@ export class ArtistavailComponent {
           this.toasterService.pop('error', 'Time invalid', "For Break, End Time should always be greater than the Start Time"); 
           return;        
       }
+      
+      if((new Date(this.am_pm_to_hours(data.breakfrom)) < new Date(this.am_pm_to_hours(data.hoursfrom)) || new Date(this.am_pm_to_hours(data.breakfrom)) > new Date(this.am_pm_to_hours(data.hoursto)) || new Date(this.am_pm_to_hours(data.breakto)) < new Date(this.am_pm_to_hours(data.hoursfrom)) || new Date(this.am_pm_to_hours(data.breakto)) > new Date(this.am_pm_to_hours(data.hoursto))) && data.hoursfrom!= '' && data.hoursto != '' && data.breakfrom!= '' && data.breakto != '' ) {
+          $('.preloader').hide(); 
+            this.toasterService.pop('error', 'Time invalid', "Break Time must be in between Work Time"); 
+            return;        
+        }
 
 
       this.http.post(API_URL+'/Artistavailabilities/update?where={"id":"'+Id+'"}&access_token='+ localStorage.getItem('currentUserToken'), data, options)

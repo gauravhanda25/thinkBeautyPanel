@@ -16,7 +16,7 @@
 			        <tr >
 			        	<td style="border-bottom:3px solid #a4b7c1" >Start On
 
-			        		<input class="col-md-7 form-control pull-right" name="starton" type="text"  [(ngModel)]="data.starton" [minDate]="today" placeholder="Start On" required readonly #sdp="bsDatepicker" bsDatepicker [(bsValue)]="bsStartValue">
+			        		<input class="col-md-7 form-control pull-right" name="starton" type="text"  [(ngModel)]="data.starton" [minDate]="today" placeholder="Start On" required readonly #sdp="bsDatepicker" bsDatepicker [(bsValue)]="bsStartValue" [bsConfig]="datePickerConfig">
 			        	</td>
 			        </tr>
 			        <!-- <tr *ngIf = " day == 0" >
@@ -27,7 +27,7 @@
 			        <tr >
 			        	<td style="border-bottom:3px solid #a4b7c1" >End On
 
-			        		<input class="col-md-7 form-control pull-right" name="endon" type="text"  [(ngModel)]="data.endon" [minDate]="data.starton" placeholder="End On" required readonly #edp="bsDatepicker" bsDatepicker [(bsValue)]="bsEndValue">
+			        		<input class="col-md-7 form-control pull-right" name="endon" type="text"  [(ngModel)]="data.endon" [minDate]="data.starton" placeholder="End On" required readonly #edp="bsDatepicker" bsDatepicker [(bsValue)]="bsEndValue" [bsConfig]="datePickerConfig">
 			        	</td>
 			        </tr>
 			        <!-- <tr *ngIf = " day == 0" >

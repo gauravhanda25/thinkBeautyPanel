@@ -13,6 +13,10 @@ import { NgModule } from '@angular/core';
 import * as moment from 'moment';
 import * as $ from 'jquery';
 
+
+// Datepicker
+import { BsDatepickerModule,BsDatepickerConfig } from 'ngx-bootstrap';
+
 // Toastr
 import { ToasterModule, ToasterService, ToasterConfig, Toast }  from 'angular2-toaster/angular2-toaster';
 
@@ -42,6 +46,9 @@ export class AddartistvacationComponent {
   		tapToDismiss: true,
   		timeout: 5000
   	  });
+
+      
+    private datePickerConfig: Partial<BsDatepickerConfig>;
 	  
 	  
     constructor(private NgxRolesService: NgxRolesService, private NgxPermissionsService: NgxPermissionsService, @Inject(Http) private http: Http, @Inject(Router)private router:Router, private activatedRoute: ActivatedRoute,toasterService: ToasterService) {
@@ -69,6 +76,11 @@ export class AddartistvacationComponent {
 	        console.log(data);
 	    })
 
+    this.datePickerConfig = Object.assign({},
+    {
+      showWeekNumbers: false
+    });
+    
 		this.toasterService = toasterService;
 
      	this.data = { 

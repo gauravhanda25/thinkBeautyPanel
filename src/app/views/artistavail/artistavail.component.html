@@ -49,7 +49,7 @@
                           <table class="table " >
                             <tr *ngIf='data.days == "specificDate"'>
                               <td style="border-bottom:3px solid #a4b7c1" >Date
-                                <input class="col-md-7 form-control pull-right" name="date" type="text"  [(ngModel)]="data.date"  [minDate]="today" placeholder="Select Date" required readonly #sdp="bsDatepicker" bsDatepicker [(bsValue)]="bsStartValue">
+                                <input class="col-md-7 form-control pull-right" name="date" type="text"  [(ngModel)]="data.date"  [minDate]="today" placeholder="Select Date" required readonly #sdp="bsDatepicker" bsDatepicker [(bsValue)]="bsStartValue" [bsConfig]="datePickerConfig">
                               </td>
                             </tr>
                             <tr>
@@ -507,7 +507,7 @@
                           <table class="table " >
                             <tr *ngIf='data.days == "specificDate"'>
                               <td style="border-bottom:3px solid #a4b7c1" >Date
-                                <input class="col-md-7 form-control pull-right" name="date" type="text"  [(ngModel)]="data.date"  [minDate]="today" placeholder="Select Date" required readonly #sdp="bsDatepicker" bsDatepicker [(bsValue)]="bsStartValue">
+                                <input class="col-md-7 form-control pull-right" name="date" type="text"  [(ngModel)]="data.date"  [minDate]="today" placeholder="Select Date" required readonly #sdp="bsDatepicker" bsDatepicker [(bsValue)]="bsStartValue" [bsConfig]="datePickerConfig">
                               </td>
                             </tr>
                             <tr>
@@ -961,7 +961,7 @@
               </div>
 
             
-              <div class="col-md-8"> 
+              <div class="col-md-6"> 
                 <span *ngIf="weekendAvail == 0">No Availability Scheduled.</span>
                 <table class="table table-striped" *ngIf="weekendAvail == 1">
                   <tr>
@@ -994,7 +994,7 @@
                           <table class="table " >
                             <tr *ngIf='dataweekend.days == "specificDate"'>
                               <td style="border-bottom:3px solid #a4b7c1" >Date
-                                <input class="col-md-7 form-control pull-right" name="date" type="text"  [(ngModel)]="dataweekend.date"  [minDate]="today" placeholder="Select Date" required readonly #sdp="bsDatepicker" bsDatepicker [(bsValue)]="bsStartValue">
+                                <input class="col-md-7 form-control pull-right" name="date" type="text"  [(ngModel)]="dataweekend.date"  [minDate]="today" placeholder="Select Date" required readonly #sdp="bsDatepicker" bsDatepicker [(bsValue)]="bsStartValue" [bsConfig]="datePickerConfig">
                               </td>
                             </tr>
                             <tr>
@@ -1452,7 +1452,7 @@
                           <table class="table " >
                             <tr *ngIf='dataweekend.days == "specificDate"'>
                               <td style="border-bottom:3px solid #a4b7c1" >Date
-                                <input class="col-md-7 form-control pull-right" name="date" type="text"  [(ngModel)]="dataweekend.date"  [minDate]="today" placeholder="Select Date" required readonly #sdp="bsDatepicker" bsDatepicker [(bsValue)]="bsStartValue">
+                                <input class="col-md-7 form-control pull-right" name="date" type="text"  [(ngModel)]="dataweekend.date"  [minDate]="today" placeholder="Select Date" required readonly #sdp="bsDatepicker" bsDatepicker [(bsValue)]="bsStartValue" [bsConfig]="datePickerConfig">
                               </td>
                             </tr>
                             <tr>

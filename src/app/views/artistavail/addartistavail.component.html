@@ -15,7 +15,7 @@
 		      	<table class="table " >
 			        <tr *ngIf='data.days == "specificDate"'>
 			        	<td style="border-bottom:3px solid #a4b7c1" >Date
-			        		<input class="col-md-7 form-control pull-right" name="date" type="text"  [(ngModel)]="data.date"  [minDate]="today" placeholder="Select Date" required readonly #sdp="bsDatepicker" bsDatepicker [(bsValue)]="bsStartValue">
+			        		<input class="col-md-7 form-control pull-right" name="date" type="text"  [(ngModel)]="data.date"  [minDate]="today" placeholder="Select Date" required readonly #sdp="bsDatepicker" bsDatepicker [(bsValue)]="bsStartValue" [bsConfig]="datePickerConfig">
 			        	</td>
 			        </tr>
 			        <tr>

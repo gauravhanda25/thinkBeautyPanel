@@ -15,7 +15,7 @@ import * as moment from 'moment';
 import * as $ from 'jquery';
 
 // Datepicker
-import { BsDatepickerModule } from 'ngx-bootstrap';
+import { BsDatepickerModule, BsDatepickerConfig } from 'ngx-bootstrap';
 
 // Tabs Component
 import { TabsModule } from 'ngx-bootstrap/tabs';
@@ -117,6 +117,11 @@ export class AddartistservicesComponent {
 
   public loginUserRole:any;
 
+    private datePickerConfig: Partial<BsDatepickerConfig>;
+
+    private profession_vals: any;
+    private makeupAsProfesion:any = 0;
+    private hairAsProfesion:any = 0;
 
     constructor(private NgxRolesService: NgxRolesService, private NgxPermissionsService: NgxPermissionsService, @Inject(Http) private http: Http, @Inject(Router)private router:Router, private activatedRoute: ActivatedRoute,toasterService: ToasterService) {
 		//console.log(localStorage.getItem('currentUserRoleId'));
@@ -154,6 +159,11 @@ export class AddartistservicesComponent {
 	        console.log(data);
 	    })
 
+    this.datePickerConfig = Object.assign({},
+    {
+      showWeekNumbers: false
+    });
+
 		this.toasterService = toasterService;
 		
     this.filesdata = {
@@ -163,6 +173,8 @@ export class AddartistservicesComponent {
       this.containerdata = {
         name: ''
       }
+
+       this.profession_vals = ['Make Up', 'Hair', 'Make Up & Hair'];
 
       let options = new RequestOptions();
       options.headers = new Headers();
@@ -230,6 +242,17 @@ export class AddartistservicesComponent {
         memberType: (localStorage.getItem('currentUserRole') == 'SALON' ? 'salon' : 'artist')
     	}
 
+       this.http.get(API_URL+'/Members?filter={"where":{"and":[{"id":"'+localStorage.getItem('currentUserId')+'"}]}}&access_token='+ localStorage.getItem('currentUserToken'), options)
+      .subscribe(r => {
+      console.log(r.json());
+        if(r.json().length != 0){
+          this.makeupAsProfesion = (r.json()[0].artist_profession == 1 || r.json()[0].artist_profession == 3) ? 1 : 0;
+          this.hairAsProfesion = (r.json()[0].artist_profession == 2 || r.json()[0].artist_profession == 3) ? 1 : 0;
+        }
+      }, error => {
+        console.log(JSON.stringify(error.json()));
+      });
+
 
     	this.getAllArtistCourseData();
     	this.getAllArtistData();
@@ -279,8 +302,8 @@ export class AddartistservicesComponent {
         		this.coursesData = r.json();
             for(let index in this.coursesData) {
               this.coursedetaildata[this.coursesData[index].id] = [];
-              this.coursedetaildata[this.coursesData[index].id].startfrom = moment(this.coursesData[index].startfrom ).format('DD/MM/YYYY');
-              this.coursedetaildata[this.coursesData[index].id].endon = moment(this.coursesData[index].endon ).format('DD/MM/YYYY');
+              this.coursedetaildata[this.coursesData[index].id].startfrom = moment(this.coursesData[index].startfrom ).format('DD MMMM YYYY');
+              this.coursedetaildata[this.coursesData[index].id].endon = moment(this.coursesData[index].endon ).format('DD MMMM YYYY');
 
             /*   this.userSettings.inputString = this.coursesData[index].location;
             console.log(this.userSettings.inputString);

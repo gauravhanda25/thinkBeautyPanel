@@ -30,7 +30,7 @@ import { SelectModule } from 'ng-select';
 
 
 // Datepicker
-import { BsDatepickerModule } from 'ngx-bootstrap';
+import { BsDatepickerModule, BsDatepickerConfig } from 'ngx-bootstrap';
 
 // Timepicker
 import { TimepickerModule } from 'ngx-bootstrap';

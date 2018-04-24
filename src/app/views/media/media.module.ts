@@ -29,7 +29,7 @@ import { ToasterModule, ToasterService} from 'angular2-toaster/angular2-toaster'
 import { FileSelectDirective, FileDropDirective, FileUploadModule, FileUploader } from 'ng2-file-upload';
 
 // Datepicker
-import { BsDatepickerModule } from 'ngx-bootstrap';
+import { BsDatepickerModule, BsDatepickerConfig } from 'ngx-bootstrap';
 
 
 // Timepicker

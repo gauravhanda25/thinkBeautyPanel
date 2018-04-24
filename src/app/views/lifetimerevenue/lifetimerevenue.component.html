@@ -34,7 +34,7 @@
                 </select> 
             </div>
             <div class="col-md-2">
-              <input class="form-control" name="date" type="text"  [(ngModel)]="data.date"  placeholder="Filter by any date"  readonly #sdp="bsDatepicker" bsDatepicker [(bsValue)]="bsStartValue" (ngModelChange) = "onChangeFilter()">
+              <input class="form-control" name="date" type="text"  [(ngModel)]="data.date"  placeholder="Filter by any date"  readonly #sdp="bsDatepicker" bsDatepicker [(bsValue)]="bsStartValue" (ngModelChange) = "onChangeFilter()" [bsConfig]="datePickerConfig">
             </div>
             <div class="col-md-1">
               <input class="btn btn-primary" type="button" value="Reset" (click) = "resetFilter()">

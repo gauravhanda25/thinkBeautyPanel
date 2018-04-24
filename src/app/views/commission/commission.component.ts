@@ -11,6 +11,8 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { NgModule } from '@angular/core';
 
+import * as moment from 'moment';
+
 // Toastr
 import { ToasterModule, ToasterService, ToasterConfig }  from 'angular2-toaster/angular2-toaster';
 @Component({
@@ -54,11 +56,20 @@ export class CommissionComponent {
 		options.headers.append('Accept', 'application/json');
 
 		this.http.get(API_URL+'/Commissions?filter={"where":{"active":{"neq":0}}}&access_token='+localStorage.getItem('currentUserToken'), options)
-		.subscribe(response => {      
-			this.commissions = response.json();
-			if( this.commissions.length == 0){
-			 this.nocr = 0;
-			}	
+		.subscribe(response => {   
+			console.log(response.json());   
+			 if(response.json().length !=0) {
+				this.commissions = response.json();
+                for(let i=0; i< this.commissions.length; i++ ) {
+					if(this.commissions[i].created_on != '' && this.commissions[i].created_on != undefined) {
+		                this.commissions[i].created_on = moment(this.commissions[i].created_on).format('DD MMMM YYYY');
+		            } else {
+		               this.commissions[i].created_on = ''; 
+		            }
+		        }
+		    } else {
+			 	this.nocr = 0;
+		    }
 
 		}, error => {
 			console.log(JSON.stringify(error.json()));
