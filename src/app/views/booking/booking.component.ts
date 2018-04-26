@@ -62,12 +62,15 @@ export class BookingComponent {
         // alert(this.router.url);
 
         const reqUrl = this.router.url;
-        if(reqUrl === '/bookings/manage')
+        if(reqUrl === '/bookings/upcoming')
         {
              
-             this.use_url = API_URL+'/Bookings?filter={"where":{"bookingStatus":"done"},"include":["members","artists"]}&access_token='+localStorage.getItem('currentUserToken');
-        }
-        else {
+             this.use_url = API_URL+'/Bookings?filter={"where":{"bookingStatus":"done","bookingDate":{"gte":"'+new Date()+'"}},"include":["members","artists"]}&access_token='+localStorage.getItem('currentUserToken');
+        } else if(reqUrl === '/bookings/previous')
+        {
+             
+             this.use_url = API_URL+'/Bookings?filter={"where":{"bookingStatus":"done","bookingDate":{"lte":"'+new Date()+'"}},"include":["members","artists"]}&access_token='+localStorage.getItem('currentUserToken');
+        } else {
            
              this.use_url = API_URL+'/Bookings?filter={"where":{"bookingStatus":"cancelled"},"include":["members","artists"]}&access_token=' + localStorage.getItem('currentUserToken');
         }

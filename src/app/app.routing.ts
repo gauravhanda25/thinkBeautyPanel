@@ -377,7 +377,19 @@ export const routes: Routes = [
     },
     children: [
       {
-        path: 'manage',
+        path: 'upcoming',
+        component: SimpleLayoutComponent,
+        canActivate: [NgxPermissionsGuard],
+        data: {
+          permissions: {
+            only: ['ARTIST','SALON'],
+            except: ['ADMIN','GUEST']
+          }
+        },
+        loadChildren: './views/booking/booking.module#BookingModule'
+      },
+      {
+        path: 'previous',
         component: SimpleLayoutComponent,
         canActivate: [NgxPermissionsGuard],
         data: {

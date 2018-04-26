@@ -169,8 +169,13 @@ export class FullLayoutComponent {
               icon: 'icon-list',
                     children: [
               {
-              name: 'Bookings',
-              url: '/bookings/manage',
+              name: 'Upcoming Bookings',
+              url: '/bookings/upcoming',
+              icon: 'icon-list',
+            },
+            {
+              name: 'Previous Bookings',
+              url: '/bookings/previous',
               icon: 'icon-list',
             },
               {
@@ -251,8 +256,13 @@ export class FullLayoutComponent {
               icon: 'icon-list',
                     children: [
               {
-              name: 'Bookings',
-              url: '/bookings/manage',
+              name: 'Upcoming Bookings',
+              url: '/bookings/upcoming',
+              icon: 'icon-list',
+            },
+            {
+              name: 'Previous Bookings',
+              url: '/bookings/previous',
               icon: 'icon-list',
             },
               {
