@@ -240,7 +240,7 @@ export const routes: Routes = [
         loadChildren: './views/users/users.module#UsersModule'
       },
       {
-        path: 'rejected',
+        path: 'blocked',
         component: SimpleLayoutComponent,
         canActivate: [NgxPermissionsGuard],
         data: {
@@ -467,6 +467,18 @@ export const routes: Routes = [
           }
         },
         loadChildren: './views/dashboard/dashboard.module#DashboardModule'
+      },
+      {
+        path: 'profile',
+        component: FullLayoutComponent,        
+        canActivate: [NgxPermissionsGuard],
+        data: {
+          permissions: {
+            only: ['ADMIN','ARTIST','SALON'],
+            except: 'GUEST'
+          }
+        },
+        loadChildren: './views/profile/profile.module#ProfileModule'
       },
       {
         path: 'lifetimeRevenue',

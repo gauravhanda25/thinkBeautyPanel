@@ -1,0 +1,422 @@
+  <div class="animated fadeIn">
+  <div class="row">
+    <div class="col-lg-12 mb-4">
+      <div class="card">
+          <div class="card-header">                                    
+              <span *ngIf="editparam.action == 'add'"><i class="fa fa-user"></i> Add New Dealer</span>
+              <span *ngIf="editparam.action == 'edit'"><i class="fa fa-user"></i> Edit Dealer Profile</span>
+          </div>
+          <div class="card-body">  
+            <!-- Nav tabs -->
+          
+                <div><form class="form-horizontal ng-untouched ng-pristine ng-valid" novalidate="" #dealerProfileForm="ngForm">
+                  <div class="form-group row">
+                    <div class="col-md-6">
+                      <label>Name<span class="text-danger">*</span></label> 
+                      <input class="form-control" name="name" placeholder="Name" type="text"  [(ngModel)]="userdata.name" required>
+                    </div>
+                    <div class="col-md-6">
+                      <label>Phone<span class="text-danger">*</span></label> 
+                      <input class="form-control" name="phone" placeholder="(999) 999-9999" type="text"  [(ngModel)]="userdata.phone" required minlength="14" [textMask]="{mask: mask,guide: false}">
+                    </div>
+                  </div> 
+					<div class="form-group row" >
+						<div class="col-md-6">
+						  <label>Username<span class="text-danger">*</span></label>                          
+						  <input class="form-control" name="username" placeholder="User Name" type="text"  [(ngModel)]="userdata.username" readonly required >
+						</div>
+						<div class="col-md-6">
+						  <label>Password</label> 
+						  <input class="form-control" name="password" placeholder="Password" type="password"  [(ngModel)]="userdata.password" > <!-- required = "editparam.action == 'add'"  -->
+						</div>
+					</div> 
+                  <div class="form-group row">
+                    <div class="col-md-6">
+                      <label>Email<span class="text-danger">*</span></label> 
+                      <input class="form-control" name="email" placeholder="abc@xyz.com" type="text"  [(ngModel)]="userdata.email" required  readonly [textMask]="{mask: emailmask }" pattern="^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$">
+                    </div>
+                    <div class="col-md-6">
+                      <label>Website URL<span class="text-danger">*</span></label> 
+                      <input class="form-control" name="website" placeholder="abc.com" type="text"  [(ngModel)]="userdata.website" required>
+                    </div>
+                  </div> 
+                  <div class="form-group row">
+                    <div class="col-md-6">
+                      <label>Dealer #<span class="text-danger">*</span></label> 
+                      <input class="form-control" name="dealerno" placeholder="Dealer #" type="text"  [(ngModel)]="userdata.dealerno" required>
+                    </div>
+                    <div class="col-md-6">
+                      <label># of Salesrep<span class="text-danger">*</span></label> 
+                  <input class="form-control" name="salesrepno" placeholder="# of Salesrep" type="text"  [(ngModel)]="userdata.salesrepno" required pattern="^(0|[1-9][0-9]*)$" (keypress)="salesOnly($event)">
+					   <div id="error_sales" style="display:none;" class="text-danger">Please enter number only</div>
+                    </div>
+                  </div> 
+                  <div class="form-group row">
+                    <div class="col-md-6">
+                      <label>Dealer Size<span class="text-danger">*</span></label> 
+                      <select class="form-control" name="groupsize"  [(ngModel)]="userdata.groupsize" required>
+                        <option value="">Select Dealer Size</option>
+                        <option value="A">A</option>
+                        <option value="B">B</option>
+                        <option value="C">C</option>
+                        <option value="D">D</option>
+                        <option value="E">E</option>
+                      </select>
+                    </div>
+                    <div class="col-md-6">
+                      <label>Marketing #<span class="text-danger">*</span></label> 
+                      <input class="form-control" name="marketingno" placeholder="Marketing #" type="text"  [(ngModel)]="userdata.marketingno" required pattern="^(0|[1-9][0-9]*)$" (keypress)="marketingOnly($event)">
+					   <div id="error_marketing" style="display:none;" class="text-danger">Please enter number only</div>
+                    </div>
+                  </div> 
+                  <div class="form-group row">
+                    <div class="col-md-6">
+                      <label>Sales Local</label> 
+                      <input class="form-control" name="saleslocal" placeholder="Sales Local" type="text"  [(ngModel)]="userdata.saleslocal">
+                    </div>
+                    <!--<div class="col-md-6">
+                      <label>Kit Drop Days<span class="text-danger">*</span></label> 
+                      <select class="form-control" name="kitdropdays"  [(ngModel)]="userdata.kitdropdays" required>
+                        <option value="">Select Days</option>
+                        <option value="1">1</option>
+                        <option value="2">2</option>
+                        <option value="3">3</option>
+                        <option value="4">4</option>
+                        <option value="5">5</option>
+                        <option value="6">6</option>
+                        <option value="7">7</option>
+                        <option value="8">8</option>
+                        <option value="9">9</option>
+                        <option value="10">10</option>
+                      </select>
+                    </div>-->
+                  </div>  
+                  <div class="form-group row">
+                    <div class="col-md-6">
+                      <label>OEM's<span class="text-danger">*</span></label> 
+                      <select style="-webkit-appearance: initial;" class="form-control" name="oem" [disabled] = "1" [(ngModel)]="userdata.oem" (change) = "onChangeOEM()" required>
+                        <option value="">Select OEM's</option>
+                        <option *ngFor="let oem of oems" value="{{oem.id}}">{{oem.name}}</option>
+                      </select>
+                    </div>
+                    <div class="col-md-6">
+                      <label>Brands<span class="text-danger">*</span></label> 
+                      <ng-select class="bootstrap"  name="brand" [disabled] = "1"  placeholder="Select Brands"
+                       [options]="oembrands" [multiple]="true" 
+                       [(ngModel)]="userdata.brand"
+                       (ngModelChange) = "onChangeBrand()" required></ng-select>
+
+                      <!-- <select class="form-control" name="brand"  [(ngModel)]="userdata.brand" (change) = "onChangeBrand()" required>
+                        <option value="">Select Brands</option>
+                        <option *ngFor="let brand of brands" value="{{brand.id}}">{{brand.name}}</option>
+                      </select> -->
+                    </div>
+                  </div>   
+                  <div class="form-group row">
+                    <div class="col-md-6">
+                      <label>Business Centers<span class="text-danger">*</span></label> 
+                      <div class="input-group">
+                        <select style="-webkit-appearance: initial;" class="form-control" name="center" [disabled] = "1" [(ngModel)]="userdata.center" (change) = "onChangeBusinessCenter()" required>
+                          <option value="">Select Business Centers</option>
+                          <option *ngFor="let center of centers" value="{{center.id}}">{{center.brandName}} - {{center.name}}</option>
+                        </select>
+                        <span class="input-group-append">
+                          <button type="button" class="btn btn-info" data-toggle="modal" (click)="centerModal.show()">
+                            View Details
+                          </button>
+                        </span>
+                      </div>
+                    </div>
+                    <div class="col-md-6">
+                      <label>Manufacturer Representative<span class="text-danger">*</span></label> 
+                      <div class="input-group">
+                        <select style="-webkit-appearance: initial;" class="form-control" name="mr" [disabled] = "1" [(ngModel)]="userdata.mr" (change) = "onChangeMR()" required>
+                          <option value="">Select Manufacturer Representative</option>
+                          <option *ngFor="let mr of mrs" value="{{mr.id}}">{{mr.name}}</option>
+                        </select>
+                        <span class="input-group-append">
+                        <button type="button" class="btn btn-info" data-toggle="modal" (click)="mrModal.show()">
+                          View Details
+                        </button></span>
+                      </div>
+                    </div>
+                  </div>  
+                  <div class="form-group row">
+                    <div class="col-md-6">
+                      <label>Auto Groups<span class="text-danger">*</span></label> 
+                      <div class="input-group">
+                        <select style="-webkit-appearance: initial;" class="form-control" name="autogrp" [disabled] = "1" [(ngModel)]="userdata.autogrp" required (change) = "onChangeAutoGrp()">
+                          <option value="">Select Auto Groups</option>
+                          <option *ngFor="let autogrp of autogrps" value="{{autogrp.id}}">{{autogrp.name}}</option>
+                        </select>
+                          <span class="input-group-append">
+                        <button type="button" class="btn btn-info" data-toggle="modal" (click)="autogrpModal.show()">
+                          View Details
+                        </button></span>
+                      </div>
+                    </div>
+                     <div class="col-md-6">
+                      <label>Advertising Agency<span class="text-danger">*</span></label> 
+                      <div class="input-group">
+                        <select style="-webkit-appearance: initial;" class="form-control" name="advagency" [disabled] = "1"  [(ngModel)]="userdata.advagency" required (change) = "onChangeAdvAgency()">
+                          <option value="">Select Advertising Agency</option>
+                          <option *ngFor="let advagency of advagencies" value="{{advagency.id}}">{{advagency.name}}</option>
+                        </select>
+                          <span class="input-group-append">
+                        <button type="button" class="btn btn-info" data-toggle="modal" (click)="advagencyModal.show()">
+                          View Details
+                        </button></span>
+                      </div>
+                    </div>
+                  </div>  
+				  		<div class="form-group row">
+                      <div class="col-md-4" *ngIf="checkVal == 0">
+                        <label>Upload Profile Picture</label>
+                        <input type="file" ng2FileSelect [uploader]="uploaderProfile" accept=".png,.jpg,.jpeg"/><br/>
+                      </div>
+                      <div class="col-md-8 pull-right" >                         
+                        <table class="table col-6">
+                          <thead>
+                            <tr>
+                                <th>Name</th>
+                                <th>Actions</th>
+                            </tr>
+                          </thead>
+                          <tbody>
+						   
+                           <tr *ngIf="checkVal == 1">
+                              <td><img src="{{api_url}}{{proilefiles.filePath}}/download/{{proilefiles.fileName}}" style="width:30%"/></td>
+                              <td nowrap>
+                                <button type="button" class="btn btn-danger btn-sm" (click)="removeEventAttachmentProfile(proilefiles)">
+                                  <span class="fa fa-trash"></span> Remove
+                                </button>
+                              </td>
+                            </tr>
+                            <tr *ngFor="let item of uploaderProfile.queue">
+                              <td><strong>{{ item?.file?.name }}</strong></td>
+                              <td nowrap>
+                                  <span *ngIf="item.isSuccess"><i class="fa fa-check-circle"></i></span>
+                                  <span *ngIf="item.isCancel"><i class="fa fa-ban"></i></span>
+                                  <span *ngIf="item.isError"><i class="fa fa-trash"></i></span>
+                                  <button type="button" class="btn btn-danger btn-sm"
+                                          (click)="item.remove()" [disabled]="item.isSuccess" *ngIf = "!item.isSuccess">
+                                      <span class="fa fa-trash"></span> Remove
+                                  </button>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>             
+                        <div>   
+                        </div>
+                    </div>  
+                   </div>
+                  <div class="form-group row">
+                    <div class="col-md-6">                     
+                        <button class="btn btn-large btn-primary" type="button" *ngIf="editparam.action == 'add'" (click)="saveProfile()" [disabled] = "!dealerProfileForm.form.valid" >Save Dealer Profile</button>               
+                       <button class="btn btn-large btn-primary" type="button" *ngIf="editparam.action == 'edit'" (click)="updateProfile()" [disabled] = "!dealerProfileForm.form.valid" >Update Dealer Profile</button>
+                    </div>
+                  </div>   
+                </form></div>                  
+           
+
+
+             
+
+      
+     
+          </div>   
+      </div>
+    </div><!--/.col-->
+  </div><!--/.row-->
+</div>
+
+<div bsModal #centerModal="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-info" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title">Business Center Details</h4>
+        <button type="button" class="close" (click)="centerModal.hide()" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <table class="table" *ngIf = "centerselected == 1">
+          <tr>
+            <td>Center Name</td>
+            <td>{{centerdetails.name}}</td>
+          </tr>
+          <tr>
+            <td>Address</td>
+            <td>{{centerdetails.address}}, {{centerdetails.city}}, 
+              <select class="form-control" style="display:inline; -webkit-appearance: initial;background: transparent !important; border-color:transparent !important;    padding: 0 !important;    height: auto; width:auto; color:inherit;" [(ngModel)]="centerdetails.state" >
+                <option value="" ></option>
+                <option *ngFor="let province of provinces" value="{{province.id}}">{{province.name}}</option>
+              </select>, {{centerdetails.billpostalcode}}, 
+              <select class="form-control"  style="display:inline; -webkit-appearance: initial;background: transparent !important; border-color:transparent !important;    padding: 0 !important;    height: auto; width:auto;  color:inherit;" [(ngModel)]="centerdetails.country" >
+                <option value="" ></option>
+                <option *ngFor="let country of countries" value="{{country.id}}">{{country.name}}</option>
+              </select>
+            </td>
+          </tr>
+          <tr>
+            <td>Contact Person</td>
+            <td>{{centerdetails.primarycontact.contactperson}}</td>
+          </tr> 
+          <tr>
+            <td>Contact Email</td>
+            <td>{{centerdetails.primarycontact.contactemail}}</td>
+          </tr>
+          <tr>
+            <td>Contact Phone</td>
+            <td>{{centerdetails.primarycontact.contactphone}}</td>
+          </tr>
+        </table>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" (click)="centerModal.hide()">Close</button>
+      </div>
+    </div><!-- /.modal-content -->
+  </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+
+<div bsModal #mrModal="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-info" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title">Manufacturer Details</h4>
+        <button type="button" class="close" (click)="mrModal.hide()" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <table class="table" *ngIf = "mrselected == 1">
+          <tr>
+            <td>MR Name</td>
+            <td>{{mrdetails.name}}</td>
+          </tr>
+          <tr>
+            <td>Address</td>
+            <td>{{mrdetails.address}}, {{mrdetails.city}}, 
+              <select class="form-control" style="display:inline; -webkit-appearance: initial;background: transparent !important; border-color:transparent !important;    padding: 0 !important;    height: auto; width:auto; color:inherit;" [(ngModel)]="mrdetails.state" >
+                <option value="" ></option>
+                <option *ngFor="let province of provinces" value="{{province.id}}">{{province.name}}</option>
+              </select>, {{mrdetails.billpostalcode}}, 
+              <select class="form-control"  style="display:inline; -webkit-appearance: initial;background: transparent !important; border-color:transparent !important;    padding: 0 !important;    height: auto; width:auto;  color:inherit;" [(ngModel)]="mrdetails.country" >
+                <option value="" ></option>
+                <option *ngFor="let country of countries" value="{{country.id}}">{{country.name}}</option>
+              </select>
+            </td>
+          </tr>
+          <tr>
+            <td>Phone No</td>
+            <td>{{mrdetails.phone_no}}</td>
+          </tr>
+        </table>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" (click)="mrModal.hide()">Close</button>
+      </div>
+    </div><!-- /.modal-content -->
+  </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+
+<div bsModal #autogrpModal="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-info" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title">Auto Group Details</h4>
+        <button type="button" class="close" (click)="autogrpModal.hide()" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <table class="table" *ngIf = "autogrpselected == 1">
+          <tr>
+            <td>Auto Group Name</td>
+            <td>{{autogrpdetails.name}}</td>
+          </tr>
+          <tr>
+            <td>Address</td>
+            <td>{{autogrpdetails.address}}, {{autogrpdetails.city}}, 
+              <select class="form-control" style="display:inline; -webkit-appearance: initial;background: transparent !important; border-color:transparent !important;    padding: 0 !important;    height: auto; width:auto; color:inherit;" [(ngModel)]="autogrpdetails.state" >
+                <option value="" ></option>
+                <option *ngFor="let province of provinces" value="{{province.id}}">{{province.name}}</option>
+              </select>,  {{autogrpdetails.billpostalcode}}, 
+              <select class="form-control"  style="display:inline; -webkit-appearance: initial;background: transparent !important; border-color:transparent !important;    padding: 0 !important;    height: auto; width:auto;  color:inherit;" [(ngModel)]="autogrpdetails.country" >
+                <option value="" ></option>
+                <option *ngFor="let country of countries" value="{{country.id}}">{{country.name}}</option>
+              </select>
+            </td>
+          </tr>
+          <tr>
+            <td>Contact Person</td>
+            <td>{{autogrpdetails.primarycontact.contactperson}}</td>
+          </tr> 
+          <tr>
+            <td>Contact Email</td>
+            <td>{{autogrpdetails.primarycontact.contactemail}}</td>
+          </tr>
+          <tr>
+            <td>Contact Phone</td>
+            <td>{{autogrpdetails.primarycontact.contactphone}}</td>
+          </tr>
+        </table>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" (click)="autogrpModal.hide()">Close</button>
+      </div>
+    </div><!-- /.modal-content -->
+  </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+
+<div bsModal #advagencyModal="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-info" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title">Advertising Agency</h4>
+        <button type="button" class="close" (click)="advagencyModal.hide()" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <table class="table" *ngIf = "advagencyselected == 1">
+          <tr>
+            <td>Advertising Agency Name</td>
+            <td>{{advagencydetails.name}}</td>
+          </tr>
+          <tr>
+            <td>Address</td>
+            <td>{{advagencydetails.address}}, {{advagencydetails.city}}, 
+              <select class="form-control" style="display:inline; -webkit-appearance: initial;background: transparent !important; border-color:transparent !important;    padding: 0 !important;    height: auto; width:auto; color:inherit;" [(ngModel)]="advagencydetails.state" >
+                <option value="" ></option>
+                <option *ngFor="let province of provinces" value="{{province.id}}">{{province.name}}</option>
+              </select>,   {{advagencydetails.billpostalcode}}, 
+              <select class="form-control"  style="display:inline; -webkit-appearance: initial;background: transparent !important; border-color:transparent !important;    padding: 0 !important;    height: auto; width:auto;  color:inherit;" [(ngModel)]="advagencydetails.country" >
+                <option value="" ></option>
+                <option *ngFor="let country of countries" value="{{country.id}}">{{country.name}}</option>
+              </select>
+            </td>
+          </tr>
+          <tr>
+            <td>Contact Person</td>
+            <td>{{advagencydetails.primarycontact.contactperson}}</td>
+          </tr> 
+          <tr>
+            <td>Contact Email</td>
+            <td>{{advagencydetails.primarycontact.contactemail}}</td>
+          </tr>
+          <tr>
+            <td>Contact Phone</td>
+            <td>{{advagencydetails.primarycontact.contactphone}}</td>
+          </tr>
+        </table>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" (click)="advagencyModal.hide()">Close</button>
+      </div>
+    </div><!-- /.modal-content -->
+  </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+
+
+<toaster-container [toasterconfig]="toasterconfig"></toaster-container>

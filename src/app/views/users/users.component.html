@@ -42,8 +42,8 @@
                 <td *ngIf="check_account.action == 'active'||check_account.action == 'verify'">{{user.action_on}}</td>
                 <td *ngIf="check_account.action == 'reject'">{{user.action_on}}</td> -->
                 <td>
-                  <a class="btn btn-sm btn-outline-primary " href="#" routerLink='/manageartist/editartist/{{user.id}}' *ngIf="check_account.action == 'active'"><i class="fa fa-edit"></i> </a>                 
-                  <button class="btn btn-sm btn-outline-primary "  (click) ="delartist(user)" *ngIf="check_account.action == 'active'"><i class="fa fa-trash"></i></button>
+                 <!--  <a class="btn btn-sm btn-outline-primary " href="#" routerLink='/manageartist/editartist/{{user.id}}' *ngIf="check_account.action == 'active'"><i class="fa fa-edit"></i> </a>  -->                
+                  <button class="btn btn-sm btn-outline-primary "  (click) ="deluser(user)" *ngIf="check_account.action == 'active'"><i class="fa fa-trash"></i></button>
                   <!-- <button class="btn btn-sm btn-outline-primary " data-toggle="modal" (click)="getUserData(user.id); userModal.show(); " ><i class="fa fa-eye"></i> </button>  -->   
 
                   <button class="btn btn-sm btn-outline-primary " *ngIf="check_account.action == 'active'" (click) ="changeStatus(user, 'reject','block')">Block</button>

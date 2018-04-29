@@ -13,6 +13,10 @@ import { API_URL } from '../../globals';
 
 export class AppHeaderComponent {
 	public data:any;
+    private proilefiles:any;
+    private checkVal:any;
+    private api_url:any = API_URL;
+
 	private users: any;
 	private use_url: any;
 	private artists_requests : any;
@@ -83,6 +87,21 @@ export class AppHeaderComponent {
         if(localStorage.getItem('currentUserRoleId') == "1") {
             this.admin = 1;
         }
+
+        this.http.get(API_URL+'/FileStorages?filter={"where":{"filePath":"/Containers/'+localStorage.getItem('currentUserId')+'","uploadType":"profile","status":"active"}}&access_token='+ localStorage.getItem('currentUserToken'), options)
+        .subscribe(response => {
+            console.log(response.json());   
+        if(response.json().length == 0){
+                    this.checkVal = 0;
+                } else {
+                    this.checkVal = 1;
+                    this.proilefiles = response.json()[0];
+                }
+
+        }, error => {
+            console.log(JSON.stringify(error.json()));
+        });     
+        
 	}
 
 	logout() {

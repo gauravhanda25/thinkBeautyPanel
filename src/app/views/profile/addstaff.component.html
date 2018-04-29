@@ -1,0 +1,503 @@
+<div class="animated fadeIn">
+  <div class="row">
+    <div class="col-lg-12">
+      	<div class="card">         
+          <form autocomplete="off" class="form-horizontal ng-untouched ng-pristine ng-valid" novalidate="" (ngSubmit)="onSubmit()" #adminForm="ngForm" *ngIf="userrole == 'admin'">
+                <div class="card-header">                                    
+                    <span >Edit Admin </span>
+                </div>
+                <div class="card-body">  
+                    <div class="form-group row">
+                        <div class="col-md-6">
+                          <label>Name<span class="text-danger">*</span></label>
+                          <input class="form-control" name="name" placeholder="Name" type="text"  [(ngModel)]="data.name" required>
+                        </div>
+                        <div class="col-md-6">
+                          <label>Email<span class="text-danger">*</span></label>
+                          <input class="form-control" name="email" placeholder="abc@xyz.com" type="text"  [(ngModel)]="data.email" required  pattern="^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$" [textMask]="{mask: emailmask }"> 
+                          <span *ngIf="error" style="color:red;">Email Address already exists. Please use different email</span>
+                        </div>
+                    </div> 
+                    <div class="form-group row">
+                      <!--   <div class="col-md-6" *ngIf="editparam.action == 'add'">
+                          <label>Password<span class="text-danger">*</span></label> 
+                          <input class="form-control" name="password" placeholder="Password" type="password"  [(ngModel)]="data.password" required *ngIf="editparam.action == 'add'"> --> <!-- required = "editparam.action == 'add'"  -->
+                        <!-- </div> -->
+                        <div class="col-md-6">
+                          <label>CPR No.<span class="text-danger">*</span></label> 
+                          <input class="form-control" name="cpr" placeholder="CPR No." type="text"  [(ngModel)]="data.cpr" >  
+                        </div>
+<!--                                               <div class="col-md-6">
+                          <label>Username<span class="text-danger">*</span></label>                          
+                          <input class="form-control" name="username" placeholder="User Name" type="text"  [(ngModel)]="data.username" required >
+                        </div> -->
+<!--                         <div class="col-md-6">
+                          <label>Role<span class="text-danger">*</span></label>
+                          <select class="form-control" name="role_id"  [(ngModel)]="data.role_id" required>
+                            <option value="">Select Role</option>
+                            <option value="1">Admin</option>
+                            <option value="2" >Artist</option>
+                            <option value="3">Salon</option>
+                          </select>
+                        </div> -->
+                        
+                    </div> 
+                    <div class="form-group row" >
+                      <div class="col-md-12"><h5>Address</h5></div>
+                    </div>
+                    <div class="form-group row" >
+              <div class="col-md-6">
+                      <label>Villa No.<span class="text-danger">*</span></label>
+ <input class="form-control" name="villa" placeholder="Villa No." type="text"  [(ngModel)]="data.villa" >  
+                    </div> 
+                                      <div class="col-md-6">
+                      <label>Road No.<span class="text-danger">*</span></label>
+ <input class="form-control" name="road" placeholder="Road No." type="text"  [(ngModel)]="data.road" >  
+                    </div> 
+
+                    </div> 
+                    <div class="form-group row">    
+                       <div class="col-md-6">
+                          <label>Block No.<span class="text-danger">*</span></label>
+     <input class="form-control" name="block" placeholder="Block No." type="text"  [(ngModel)]="data.block" >  
+                        </div>                   
+                       <div class="col-md-6">
+                          <label>City<span class="text-danger">*</span></label>
+     <input class="form-control" name="city" placeholder="City" type="text"  [(ngModel)]="data.city" >  
+                        </div>  
+<!--                         <div class="col-md-6">
+                          <label>State/Province<span class="text-danger">*</span></label> 
+                          <select class="form-control" name="province"  [(ngModel)]="data.province" required>
+                            <option value="" >Select State/Province</option>
+                            <option *ngFor="let province of provinces" value="{{province.id}}">{{province.name}}</option>
+                          </select>
+                        </div> -->
+
+                    </div> 
+            <div class="form-group row">
+               <div class="col-md-6">
+                <label>Country<span class="text-danger">*</span></label> 
+                <select class="form-control" name="country"  [(ngModel)]="data.country" (change) = "onChangeCountry()" required>
+                  <option value="" >Select Country</option>
+                  <option *ngFor="let country of countries" value="{{country.id}}">{{country.name}}</option>
+                </select>
+              </div>
+              <div class="col-md-6">
+                <label>Phone<span class="text-danger">*</span></label>
+                <input class="form-control" name="phone" placeholder="999 99999999" type="text"  [(ngModel)]="data.phone" required [textMask]="{mask: mask}">
+              </div>
+            </div>
+            <div class="form-group row">
+              <div class="col-md-12">
+                <label>Description</label>
+                <input class="form-control" name="description" placeholder="Describe here" type="text"  [(ngModel)]="data.description" >
+              </div>
+            </div>
+            <div class="form-group row">
+                      <div class="col-md-4" *ngIf="checkVal == 0">
+                        <label>Upload Profile Picture</label>
+                        <input type="file" ng2FileSelect [uploader]="uploader" accept=".png,.jpg,.jpeg"/><br/>
+                      </div>
+                      <div class="col-md-8 pull-right" >                         
+                        <table class="table col-6">
+                          <thead>
+                            <tr>
+                                <th>Name</th>
+                                <th>Actions</th>
+                            </tr>
+                          </thead>
+                          <tbody>
+               
+                           <tr *ngIf="checkVal == 1">
+                              <td><img src="{{api_url}}{{proilefiles.filePath}}/download/{{proilefiles.fileName}}" style="width:30%"/></td>
+                              <td nowrap>
+                                <!--<button type="button" class="btn btn-success btn-sm" (click)="downloadEventAttachment(file,eventdata.id[index-1])">
+                                  <span class="fa fa-download"></span> Download
+                                </button>-->
+                                <button type="button" class="btn btn-danger btn-sm" (click)="removeEventAttachment(proilefiles)">
+                                  <span class="fa fa-trash"></span> Remove
+                                </button>
+                              </td>
+                            </tr>
+                            <tr *ngFor="let item of uploader.queue">
+                              <td><strong>{{ item?.file?.name }}</strong></td>
+                              <td nowrap>
+                                  <span *ngIf="item.isSuccess"><i class="fa fa-check-circle"></i></span>
+                                  <span *ngIf="item.isCancel"><i class="fa fa-ban"></i></span>
+                                  <span *ngIf="item.isError"><i class="fa fa-trash"></i></span>
+                                  <button type="button" class="btn btn-danger btn-sm"
+                                          (click)="item.remove()" [disabled]="item.isSuccess" *ngIf = "!item.isSuccess">
+                                      <span class="fa fa-trash"></span> Remove
+                                  </button>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>             
+                        <div>   
+                        </div>
+                    </div>  
+                   </div>   
+
+<!--                     <div class="form-group row">                        
+                        <div class="col-md-6">
+                          <label>Languages<span class="text-danger">*</span></label> 
+                          <input class="form-control" name="languages" placeholder="Languages" type="text"  [(ngModel)]="data.languages" required>
+                        </div>
+                        <div class="col-md-6">
+                          <label>Alternate Phone</label>
+                          <input class="form-control" name="altphone" placeholder="(999) 999-9999" type="text"  [(ngModel)]="data.altphone" [textMask]="{mask: mask}">
+                        </div>
+                    </div>  -->
+                    <div class="form-group row">
+                      <div class="col-md-6">                                   
+                         <button class="btn btn-large btn-primary" type="submit"  [disabled] = "!adminForm.form.valid">Update Admin</button>
+                      </div>
+                    </div> 
+                </div>                 
+              </form>
+
+            <form autocomplete="off" class="form-horizontal ng-untouched ng-pristine ng-valid" novalidate="" (ngSubmit)="onSubmit()" #artistForm="ngForm" *ngIf="userrole == 'artist'">
+                <div class="card-header">                                    
+                    <span >Edit Artist </span>
+                </div>
+                <div class="card-body">  
+                    <div class="form-group row">
+                        <div class="col-md-6">
+                          <label>Name<span class="text-danger">*</span></label>
+                          <input class="form-control" name="name" placeholder="Name" type="text"  [(ngModel)]="data.name" required>
+                        </div>
+                        <div class="col-md-6">
+                          <label>Email<span class="text-danger">*</span></label>
+                          <input class="form-control" name="email" placeholder="abc@xyz.com" type="text"  [(ngModel)]="data.email" required  pattern="^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$" [textMask]="{mask: emailmask }"> 
+                          <span *ngIf="error" style="color:red;">Email Address already exists. Please use different email</span>
+                        </div>
+                    </div> 
+                    <div class="form-group row">
+                      <!--   <div class="col-md-6" *ngIf="editparam.action == 'add'">
+                          <label>Password<span class="text-danger">*</span></label> 
+                          <input class="form-control" name="password" placeholder="Password" type="password"  [(ngModel)]="data.password" required *ngIf="editparam.action == 'add'"> --> <!-- required = "editparam.action == 'add'"  -->
+                        <!-- </div> -->
+                        <div class="col-md-6">
+                          <label>CPR No.<span class="text-danger">*</span></label> 
+                          <input class="form-control" name="cpr" placeholder="CPR No." type="text"  [(ngModel)]="data.cpr" >  
+                        </div>
+<!--                                               <div class="col-md-6">
+                          <label>Username<span class="text-danger">*</span></label>                          
+                          <input class="form-control" name="username" placeholder="User Name" type="text"  [(ngModel)]="data.username" required >
+                        </div> -->
+<!--                         <div class="col-md-6">
+                          <label>Role<span class="text-danger">*</span></label>
+                          <select class="form-control" name="role_id"  [(ngModel)]="data.role_id" required>
+                            <option value="">Select Role</option>
+                            <option value="1">Admin</option>
+                            <option value="2" >Artist</option>
+                            <option value="3">Salon</option>
+                          </select>
+                        </div> -->
+                        
+                    </div> 
+                    <div class="form-group row" >
+                      <div class="col-md-12"><h5>Address</h5></div>
+                    </div>
+                    <div class="form-group row" >
+              <div class="col-md-6">
+                      <label>Villa No.<span class="text-danger">*</span></label>
+ <input class="form-control" name="villa" placeholder="Villa No." type="text"  [(ngModel)]="data.villa" >  
+                    </div> 
+                                      <div class="col-md-6">
+                      <label>Road No.<span class="text-danger">*</span></label>
+ <input class="form-control" name="road" placeholder="Road No." type="text"  [(ngModel)]="data.road" >  
+                    </div> 
+
+                    </div> 
+                    <div class="form-group row">    
+                       <div class="col-md-6">
+                          <label>Block No.<span class="text-danger">*</span></label>
+     <input class="form-control" name="block" placeholder="Block No." type="text"  [(ngModel)]="data.block" >  
+                        </div>                   
+                       <div class="col-md-6">
+                          <label>City<span class="text-danger">*</span></label>
+     <input class="form-control" name="city" placeholder="City" type="text"  [(ngModel)]="data.city" >  
+                        </div>  
+<!--                         <div class="col-md-6">
+                          <label>State/Province<span class="text-danger">*</span></label> 
+                          <select class="form-control" name="province"  [(ngModel)]="data.province" required>
+                            <option value="" >Select State/Province</option>
+                            <option *ngFor="let province of provinces" value="{{province.id}}">{{province.name}}</option>
+                          </select>
+                        </div> -->
+
+                    </div> 
+            <div class="form-group row">
+               <div class="col-md-6">
+                <label>Country<span class="text-danger">*</span></label> 
+                <select class="form-control" name="country"  [(ngModel)]="data.country" (change) = "onChangeCountry()" required>
+                  <option value="" >Select Country</option>
+                  <option *ngFor="let country of countries" value="{{country.id}}">{{country.name}}</option>
+                </select>
+              </div>
+              <div class="col-md-6">
+                <label>Phone<span class="text-danger">*</span></label>
+                <input class="form-control" name="phone" placeholder="999 99999999" type="text"  [(ngModel)]="data.phone" required [textMask]="{mask: mask}">
+              </div>
+            </div>
+            <div class="form-group row">
+              <div class="col-md-6">
+              <label class="col-md-3 col-form-label" for="inline-radios">Profession<span class="text-danger">*</span></label>
+              <div class="col-md-9 col-form-label">
+                <div class="form-check form-check-inline mr-1" id="artist_profession1">
+                  <input class="form-check-input" type="radio" name="artist_profession" id="artist_profession1" value="1"  [(ngModel)]="data.artist_profession" required>
+                  <label class="form-check-label" for="inlineRadio1">Makeup</label>
+                </div>
+                <div class="form-check form-check-inline mr-1">
+                  <input class="form-check-input" type="radio" name="artist_profession" id="iartist_profession2" value="2"  [(ngModel)]="data.artist_profession">
+                  <label class="form-check-label" for="iartist_profession2">Hair</label>
+                </div>
+                <div class="form-check form-check-inline mr-1">
+                  <input class="form-check-input" type="radio" name="artist_profession" id="artist_profession3" value="3"  [(ngModel)]="data.artist_profession">
+                  <label class="form-check-label" for="artist_profession3">Both</label>
+                </div>
+              </div>
+               </div>
+            </div>
+
+            <div class="form-group row">
+              <div class="col-md-12">
+                <label>Description</label>
+                <input class="form-control" name="description" placeholder="Describe here" type="text"  [(ngModel)]="data.description" >
+              </div>
+            </div>
+            <div class="form-group row">
+                      <div class="col-md-4" *ngIf="checkVal == 0">
+                        <label>Upload Profile Picture</label>
+                        <input type="file" ng2FileSelect [uploader]="uploader" accept=".png,.jpg,.jpeg"/><br/>
+                      </div>
+                      <div class="col-md-8 pull-right" >                         
+                        <table class="table col-6">
+                          <thead>
+                            <tr>
+                                <th>Name</th>
+                                <th>Actions</th>
+                            </tr>
+                          </thead>
+                          <tbody>
+               
+                           <tr *ngIf="checkVal == 1">
+                              <td><img src="{{api_url}}{{proilefiles.filePath}}/download/{{proilefiles.fileName}}" style="width:30%"/></td>
+                              <td nowrap>
+                                <!--<button type="button" class="btn btn-success btn-sm" (click)="downloadEventAttachment(file,eventdata.id[index-1])">
+                                  <span class="fa fa-download"></span> Download
+                                </button>-->
+                                <button type="button" class="btn btn-danger btn-sm" (click)="removeEventAttachment(proilefiles)">
+                                  <span class="fa fa-trash"></span> Remove
+                                </button>
+                              </td>
+                            </tr>
+                            <tr *ngFor="let item of uploader.queue">
+                              <td><strong>{{ item?.file?.name }}</strong></td>
+                              <td nowrap>
+                                  <span *ngIf="item.isSuccess"><i class="fa fa-check-circle"></i></span>
+                                  <span *ngIf="item.isCancel"><i class="fa fa-ban"></i></span>
+                                  <span *ngIf="item.isError"><i class="fa fa-trash"></i></span>
+                                  <button type="button" class="btn btn-danger btn-sm"
+                                          (click)="item.remove()" [disabled]="item.isSuccess" *ngIf = "!item.isSuccess">
+                                      <span class="fa fa-trash"></span> Remove
+                                  </button>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>             
+                        <div>   
+                        </div>
+                    </div>  
+                   </div>   
+
+<!--                     <div class="form-group row">                        
+                        <div class="col-md-6">
+                          <label>Languages<span class="text-danger">*</span></label> 
+                          <input class="form-control" name="languages" placeholder="Languages" type="text"  [(ngModel)]="data.languages" required>
+                        </div>
+                        <div class="col-md-6">
+                          <label>Alternate Phone</label>
+                          <input class="form-control" name="altphone" placeholder="(999) 999-9999" type="text"  [(ngModel)]="data.altphone" [textMask]="{mask: mask}">
+                        </div>
+                    </div>  -->
+                    <div class="form-group row">
+                      <div class="col-md-6">                                   
+                         <button class="btn btn-large btn-primary" type="submit"  [disabled] = "!artistForm.form.valid">Update Artist</button>
+                      </div>
+                    </div> 
+                </div>                 
+              </form>
+
+              <form autocomplete="off" class="form-horizontal ng-untouched ng-pristine ng-valid" novalidate="" (ngSubmit)="onSubmit()" #salonForm="ngForm" *ngIf = "userrole == 'salon'">
+                <div class="card-header">                                    
+                    <span>Edit Salon</span>
+                </div>
+                <div class="card-body">  
+                    <div class="form-group row">
+                        <div class="col-md-6">
+                          <label>Salon Name<span class="text-danger">*</span></label>
+                          <input class="form-control" name="name" placeholder="Name" type="text"  [(ngModel)]="data.name" required>
+                        </div>
+                        <div class="col-md-6">
+                          <label>Email<span class="text-danger">*</span></label>
+                          <input class="form-control" name="email" placeholder="abc@xyz.com" type="text"  [(ngModel)]="data.email" required  pattern="^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$" [textMask]="{mask: emailmask }"> 
+                           <span *ngIf="error" style="color:red;">Email Address already exists. Please use different email</span>
+                        </div>
+                    </div> 
+                    <div class="form-group row">
+                                             <!--  <div class="col-md-6" *ngIf="editparam.action == 'add'">
+                          <label>Password<span class="text-danger">*</span></label> 
+                          <input class="form-control" name="password" placeholder="Password" type="password"  [(ngModel)]="data.password" required *ngIf="editparam.action == 'add'"> --> <!-- required = "editparam.action == 'add'"  -->
+                       <!--  </div> -->
+<!--                                               <div class="col-md-6">
+                          <label>Username<span class="text-danger">*</span></label>                          
+                          <input class="form-control" name="username" placeholder="User Name" type="text"  [(ngModel)]="data.username" required >
+                        </div> -->
+<!--                         <div class="col-md-6">
+                          <label>Role<span class="text-danger">*</span></label>
+                          <select class="form-control" name="role_id"  [(ngModel)]="data.role_id" required>
+                            <option value="">Select Role</option>
+                            <option value="1">Admin</option>
+                            <option value="2" >Artist</option>
+                            <option value="3">Salon</option>
+                          </select>
+                        </div> -->
+                        <div class="col-md-6">
+                          <label>Phone<span class="text-danger">*</span></label>
+                          <input class="form-control" name="phone" placeholder="999 99999999" type="text"  [(ngModel)]="data.phone" required [textMask]="{mask: mask}">
+                        </div>
+                    </div> 
+                    <div class="form-group row">
+                        <div class="col-md-6">
+                          <label>Contact Person<span class="text-danger">*</span></label>
+                          <input class="form-control" name="contact_person_name" placeholder="Contact Person Name" type="text"  [(ngModel)]="data.contact_person_name" required>
+                        </div>
+                        <div class="col-md-6">
+                          <label>Contact Mobile<span class="text-danger">*</span></label>
+                          <input class="form-control" name="contact_person_mobile" placeholder="999 99999999" type="text"  [(ngModel)]="data.contact_person_mobile" required [textMask]="{mask: mask}" > 
+                        </div>
+                    </div> 
+                    <div class="form-group row" >
+                      <div class="col-md-12"><h5>Address</h5></div>
+                    </div>
+                    <div class="form-group row" >
+              <div class="col-md-6">
+                      <label>Building No.<span class="text-danger">*</span></label>
+ <input class="form-control" name="villa" placeholder="Building No." type="text"  [(ngModel)]="data.villa" >  
+                    </div> 
+                                      <div class="col-md-6">
+                      <label>Road No.<span class="text-danger">*</span></label>
+ <input class="form-control" name="road" placeholder="Road No." type="text"  [(ngModel)]="data.road" >  
+                    </div> 
+
+                    </div> 
+                    <div class="form-group row">    
+                       <div class="col-md-6">
+                          <label>Block No.<span class="text-danger">*</span></label>
+     <input class="form-control" name="block" placeholder="Block No." type="text"  [(ngModel)]="data.block" >  
+                        </div>                   
+                       <div class="col-md-6">
+                          <label>City<span class="text-danger">*</span></label>
+     <input class="form-control" name="city" placeholder="City" type="text"  [(ngModel)]="data.city" >  
+                        </div>  
+<!--                         <div class="col-md-6">
+                          <label>State/Province<span class="text-danger">*</span></label> 
+                          <select class="form-control" name="province"  [(ngModel)]="data.province" required>
+                            <option value="" >Select State/Province</option>
+                            <option *ngFor="let province of provinces" value="{{province.id}}">{{province.name}}</option>
+                          </select>
+                        </div> -->
+
+                    </div> 
+            <div class="form-group row">
+                                      <div class="col-md-6">
+                          <label>Country<span class="text-danger">*</span></label> 
+                          <select class="form-control" name="country"  [(ngModel)]="data.country" (change) = "onChangeCountry()" required>
+                            <option value="" >Select Country</option>
+                            <option *ngFor="let country of countries" value="{{country.id}}">{{country.name}}</option>
+                          </select>
+                        </div>
+                                                  <div class="col-md-6">
+                          <label>CPR No.<span class="text-danger">*</span></label> 
+                          <input class="form-control" name="cpr" placeholder="CPR No." type="text"  [(ngModel)]="data.cpr" >  
+                        </div>
+
+            </div>
+            
+            <div class="form-group row">
+              <div class="col-md-12">
+                <label>Description</label>
+                <input class="form-control" name="description" placeholder="Describe here" type="text"  [(ngModel)]="data.description" >
+              </div>
+            </div>
+            <div class="form-group row">
+                      <div class="col-md-4" *ngIf="checkVal == 0">
+                        <label>Upload Profile Picture</label>
+                        <input type="file" ng2FileSelect [uploader]="uploader" accept=".png,.jpg,.jpeg"/><br/>
+                      </div>
+                      <div class="col-md-8 pull-right" >                         
+                        <table class="table col-6">
+                          <thead>
+                            <tr>
+                                <th>Name</th>
+                                <th>Actions</th>
+                            </tr>
+                          </thead>
+                          <tbody>
+               
+                           <tr *ngIf="checkVal == 1">
+                              <td><img src="{{api_url}}{{proilefiles.filePath}}/download/{{proilefiles.fileName}}" style="width:30%"/></td>
+                              <td nowrap>
+                                <!--<button type="button" class="btn btn-success btn-sm" (click)="downloadEventAttachment(file,eventdata.id[index-1])">
+                                  <span class="fa fa-download"></span> Download
+                                </button>-->
+                                <button type="button" class="btn btn-danger btn-sm" (click)="removeEventAttachment(proilefiles)">
+                                  <span class="fa fa-trash"></span> Remove
+                                </button>
+                              </td>
+                            </tr>
+                            <tr *ngFor="let item of uploader.queue">
+                              <td><strong>{{ item?.file?.name }}</strong></td>
+                              <td nowrap>
+                                  <span *ngIf="item.isSuccess"><i class="fa fa-check-circle"></i></span>
+                                  <span *ngIf="item.isCancel"><i class="fa fa-ban"></i></span>
+                                  <span *ngIf="item.isError"><i class="fa fa-trash"></i></span>
+                                  <button type="button" class="btn btn-danger btn-sm"
+                                          (click)="item.remove()" [disabled]="item.isSuccess" *ngIf = "!item.isSuccess">
+                                      <span class="fa fa-trash"></span> Remove
+                                  </button>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>             
+                        <div>   
+                        </div>
+                    </div>  
+                   </div>   
+<!--                     <div class="form-group row">                        
+                        <div class="col-md-6">
+                          <label>Languages<span class="text-danger">*</span></label> 
+                          <input class="form-control" name="languages" placeholder="Languages" type="text"  [(ngModel)]="data.languages" required>
+                        </div>
+                        <div class="col-md-6">
+                          <label>Alternate Phone</label>
+                          <input class="form-control" name="altphone" placeholder="(999) 999-9999" type="text"  [(ngModel)]="data.altphone" [textMask]="{mask: mask}">
+                        </div>
+                    </div>  -->
+                    <div class="form-group row">
+                      <div class="col-md-6">                                 
+                         <button class="btn btn-large btn-primary" type="submit"  [disabled] = "!salonForm.form.valid">Update Salon</button>
+                      </div>
+                    </div> 
+                </div>                 
+              </form>
+            </div>
+    </div>    
+  </div>
+  <!--/.row-->
+</div>
+
+
+<toaster-container [toasterconfig]="toasterconfig"></toaster-container>

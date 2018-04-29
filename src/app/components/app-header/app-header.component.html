@@ -8,6 +8,9 @@
   </button>
   
   <ul class="nav navbar-nav ml-auto">
+    <li class="nav-item dropdown" dropdown placement="bottom right">
+     <!--  <span>Hi {{userLoggedInName}} ({{userRoleName}})</span>&nbsp; -->
+    </li>
     <li class="nav-item dropdown d-md-down-none" dropdown placement="bottom right" *ngIf="admin">
       <a class="nav-link" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false" dropdownToggle (click)="removeNotification()">
         <i class="icon-bell"></i><span class="badge badge-pill badge-danger" *ngIf="showNotification && notification_number !=0 ">{{notification_number}}</span>
@@ -24,11 +27,17 @@
       </div>
     </li>
     <li class="nav-item dropdown" dropdown placement="bottom right">
-      <a class="nav-link" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false" dropdownToggle (click)="false">
-        <img src="assets/img/avatars/6.png" class="img-avatar" alt="admin@bootstrapmaster.com"/>
+     <a class="nav-link" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false" dropdownToggle (click)="false" *ngIf="checkVal == 1">
+        <img  src="{{api_url}}{{proilefiles.filePath}}/download/{{proilefiles.fileName}}" class="img-avatar" alt="no image"/>
+      </a>
+       <a class="nav-link" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false" dropdownToggle (click)="false" *ngIf="checkVal == 0">
+     <img  src="assets/img/avatars/6.png" class="img-avatar" alt="no image"/>
       </a>
       <div class="dropdown-menu dropdown-menu-right" *dropdownMenu aria-labelledby="simple-dropdown">       
-        
+        <div class="dropdown-header text-center"><strong>Settings</strong></div>
+    
+        <a class="dropdown-item" href="#" routerLink='/profile/edit'><i class="fa fa-user"></i> Profile</a>
+
         <a class="dropdown-item" style="cursor: pointer;"><i class="fa fa-gear"></i> Settings</a>
         <a class="dropdown-item" (click)="logout()" style="cursor: pointer;"><i class="fa fa-lock"></i> Logout</a>
       </div>
