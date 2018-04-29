@@ -25,7 +25,7 @@
                 <!-- <th><mfDefaultSorter by="created_on">Request Date</mfDefaultSorter></th> -->
                 <!-- <th *ngIf="check_account.action == 'reject'"><mfDefaultSorter by="action_on">Rejection Date</mfDefaultSorter></th>
                 <th *ngIf="check_account.action == 'active'||check_account.action == 'verify' "><mfDefaultSorter by="action_on" >Verification Date</mfDefaultSorter></th> -->
-                <th>Action</th>
+                <th  *ngIf="check_account.action == 'active'" >Action</th>
               </tr>
             </thead>
             <tbody> 
@@ -66,7 +66,7 @@
   <!--/.row-->
 </div>
 
-<div bsModal #userModal="bs-modal" class="modal fade artist-detail-modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+<!-- <div bsModal #userModal="bs-modal" class="modal fade artist-detail-modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
   <div class="modal-dialog modal-primary" role="document">
     <div class="modal-content">
       <div class="modal-header">
@@ -96,7 +96,6 @@
           <tr>
             <td>Address</td>
             <td>
-            <!--   CPR No. {{userDetails.cpr}}<br/> -->
               Villa No.: {{userDetails.villa}}<br/>
               Road No.: {{userDetails.road}}<br/>
               Block No.: {{userDetails.block}}<br/>
@@ -109,9 +108,9 @@
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" (click)="userModal.hide()">Close</button>
       </div>
-    </div><!-- /.modal-content -->
-  </div><!-- /.modal-dialog -->
-</div><!-- /.modal -->
+    </div>
+  </div>
+</div> -->
 
 
 <toaster-container [toasterconfig]="toasterconfig"></toaster-container>
