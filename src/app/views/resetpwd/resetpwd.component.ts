@@ -59,7 +59,7 @@ export class ResetpwdComponent {
 		  	this.http.post(API_URL+'/Members/reset-password' +'?access_token='+ this.token, this.data)
 	        .subscribe(response => {   
 	            this.toasterService.pop('success', 'Success', "Password Reset Successfully.");
-	     		this.router.navigate(['login']);
+	     		this.router.navigate(['/']);
           	}, error => {
           		console.log(JSON.stringify(error.json()));
 				if(error.json().isTrusted){

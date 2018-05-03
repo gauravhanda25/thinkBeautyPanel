@@ -159,6 +159,7 @@ export class LifetimerevenueComponent {
         this.norevenues = 1;
 
         if(this.data.date == ''){
+           
 
         } else {
             this.data.country = '';
