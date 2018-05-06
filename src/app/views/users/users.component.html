@@ -18,14 +18,13 @@
             <thead >
               <tr>
                 <th><mfDefaultSorter by="fullName">Name</mfDefaultSorter></th>
-                <th><mfDefaultSorter by="cpr">DOB</mfDefaultSorter></th>
-                <th><mfDefaultSorter by="country">Country</mfDefaultSorter></th>
-                <th><mfDefaultSorter by="phone">Phone</mfDefaultSorter></th>
+                <th><mfDefaultSorter by="dob">DOB</mfDefaultSorter></th>
+                <th><mfDefaultSorter by="countryname">Country</mfDefaultSorter></th>
+                <th><mfDefaultSorter by="mobile">Phone</mfDefaultSorter></th>
                 <th><mfDefaultSorter by="email">Email</mfDefaultSorter></th>
-                <!-- <th><mfDefaultSorter by="created_on">Request Date</mfDefaultSorter></th> -->
-                <!-- <th *ngIf="check_account.action == 'reject'"><mfDefaultSorter by="action_on">Rejection Date</mfDefaultSorter></th>
-                <th *ngIf="check_account.action == 'active'||check_account.action == 'verify' "><mfDefaultSorter by="action_on" >Verification Date</mfDefaultSorter></th> -->
-                <th  *ngIf="check_account.action == 'active'" >Action</th>
+                <th><mfDefaultSorter by="created_on">Registered Date</mfDefaultSorter></th>
+                <th *ngIf="check_account.action == 'reject'"><mfDefaultSorter by="action_on">Blocked Date</mfDefaultSorter></th>
+                <th>Action</th>
               </tr>
             </thead>
             <tbody> 
@@ -37,16 +36,15 @@
                 <td>{{user.dob}}</td>
                 <td>{{user.countryname}}</td>
                 <td>{{user.mobile}}</td>
-                <td>{{user.email}}</td><!-- 
+                <td>{{user.email}}</td>
                 <td>{{user.created_on}}</td>
-                <td *ngIf="check_account.action == 'active'||check_account.action == 'verify'">{{user.action_on}}</td>
-                <td *ngIf="check_account.action == 'reject'">{{user.action_on}}</td> -->
+                <td *ngIf="check_account.action == 'reject'">{{user.action_on}}</td>
                 <td>
-                 <!--  <a class="btn btn-sm btn-outline-primary " href="#" routerLink='/manageartist/editartist/{{user.id}}' *ngIf="check_account.action == 'active'"><i class="fa fa-edit"></i> </a>  -->                
-                  <button class="btn btn-sm btn-outline-primary "  (click) ="deluser(user)" *ngIf="check_account.action == 'active'"><i class="fa fa-trash"></i></button>
-                  <!-- <button class="btn btn-sm btn-outline-primary " data-toggle="modal" (click)="getUserData(user.id); userModal.show(); " ><i class="fa fa-eye"></i> </button>  -->   
+                  <button class="btn btn-sm btn-outline-primary "  (click) ="deluser(user)" *ngIf="check_account.action == 'active'"><i class="fa fa-trash"></i></button> 
 
                   <button class="btn btn-sm btn-outline-primary " *ngIf="check_account.action == 'active'" (click) ="changeStatus(user, 'reject','block')">Block</button>
+
+                  <button class="btn btn-sm btn-outline-primary " *ngIf="check_account.action == 'reject'" (click) ="changeStatus(user, 'active','unblock')">Unblock</button>
                 </td>
               </tr>
             </tbody>            

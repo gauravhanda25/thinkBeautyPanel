@@ -77,7 +77,7 @@ export class CommissionComponent {
     	
  	}
 	delCommission(delId){
-		if(confirm("Are you sure?")){
+		if(confirm("Are you sure you want to remove this commission?")){
 		
 			let options = new RequestOptions();
 			options.headers = new Headers();

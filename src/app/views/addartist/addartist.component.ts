@@ -98,7 +98,8 @@ export class AddartistComponent {
     		password:'',
     		emailVerified: false,
     		status: 'active',
-    		created_on: today
+    		created_on: today,    		
+    		action_on: today
     	}
 
     	let options = new RequestOptions();
@@ -207,9 +208,6 @@ export class AddartistComponent {
 			if(this.data.password == '') {
 				delete(this.data.password);
 			}
-			console.log(this.data);
-			let where = '{"id": this.editparam.id}';
-			console.log(where);
 
 			this.http.post(API_URL+'/Members/update?where=%7B%22id%22%3A%22'+  this.editparam.id +'%22%7D&access_token='+ localStorage.getItem('currentUserToken'), this.data,  options)
 	        .subscribe(response => {

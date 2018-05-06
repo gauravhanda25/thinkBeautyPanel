@@ -52,6 +52,10 @@ export class LifetimerevenueComponent {
 
     public filterQuery = '';
 
+    private date:any = new Date();
+    private firstDay:any = new Date(this.date.getFullYear(), this.date.getMonth(), 1);
+    private lastDay:any = new Date(this.date.getFullYear(), this.date.getMonth() + 1, 0);
+
     private datePickerConfig: Partial<BsDatepickerConfig>;
     
     constructor(private router:Router, private http: Http, private activatedRoute: ActivatedRoute, toasterService: ToasterService ) { 
@@ -102,7 +106,7 @@ export class LifetimerevenueComponent {
         this.months = ['January','Feburary','March','April','May','June','July','August','September','October','November','December'];
 
         const reqUrl = this.router.url;
-        this.use_url = API_URL+'/Bookings?filter={"where":{"bookingStatus":"done"},"include":["members","artists"]}&access_token='+localStorage.getItem('currentUserToken');
+        this.use_url = API_URL+'/Bookings?filter={"where":{"and":[{"bookingStatus":"done"},{"artistId":"'+localStorage.getItem('currentUserId')+'"}]},"include":["members","artists"]}&access_token='+localStorage.getItem('currentUserToken');
         
 
         this.http.get(this.use_url, options)
@@ -168,7 +172,7 @@ export class LifetimerevenueComponent {
             let date = moment(this.data.date).format('YYYY-MM-DD');
             console.log(date);
 
-            this.use_url = API_URL+'/Bookings?filter={"where":{"and":[{"bookingStatus":"done"},{"bookingDate":"'+date+'"}]},"include":["members","artists"]}&access_token='+localStorage.getItem('currentUserToken');
+            this.use_url = API_URL+'/Bookings?filter={"where":{"and":[{"bookingStatus":"done"},{"artistId":"'+localStorage.getItem('currentUserId')+'"}]},"include":["members","artists"]}&access_token='+localStorage.getItem('currentUserToken');
         
 
             this.http.get(this.use_url, options)
@@ -216,7 +220,7 @@ export class LifetimerevenueComponent {
         options.headers.append('Content-Type', 'application/json');
         options.headers.append('Accept', 'application/json');
 
-        this.use_url = API_URL+'/Bookings?filter={"where":{"bookingStatus":"done"},"include":["members","artists"]}&access_token='+localStorage.getItem('currentUserToken');
+        this.use_url = API_URL+'/Bookings?filter={"where":{"and":[{"bookingStatus":"done"},{"artistId":"'+localStorage.getItem('currentUserId')+'"}]},"include":["members","artists"]}&access_token='+localStorage.getItem('currentUserToken');
         
 
         this.http.get(this.use_url, options)

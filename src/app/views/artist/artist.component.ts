@@ -83,7 +83,7 @@ export class ArtistComponent {
                 action: 'active',
                 actionName : 'Block'
             }
-             this.use_url = API_URL+'/Members?filter={"where":{"role_id":2, "status" : "active"}}&access_token='+localStorage.getItem('currentUserToken');
+             this.use_url = API_URL+'/Members?filter={"where":{"and":[{"role_id":2},{"or":[{"status" : "active"},{"status":"block"}]}]}}&access_token='+localStorage.getItem('currentUserToken');
         } 
         else if(reqUrl === '/manageartist/verified')
         {
@@ -213,12 +213,14 @@ export class ArtistComponent {
 
                 this.toasterService.pop('success', 'Success ', "Artist Record updated successfully.");
                 //this.router.navigate(['artist']);  
-                const index: number = this.users.indexOf(artist);
 
-                if (index !== -1) {
-                 this.users.splice(index, 1);
-                }
-                   
+                if(action != 'block' && action != "unblock") {
+                    const index: number = this.users.indexOf(artist);
+
+                    if (index !== -1) {
+                     this.users.splice(index, 1);
+                    }
+                }  
             }, error => {
                 this.toasterService.pop('error', 'Error ',  error.json().error.message);
                 console.log(JSON.stringify(error.json()));

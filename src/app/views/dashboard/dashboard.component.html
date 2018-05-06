@@ -134,15 +134,15 @@
         <div class="card-body pb-0">
           <div class="form-group row">
             <div class="col-sm-9"><h4 class="mb-0" >Total</h4></div>
-            <div class="col-sm-3"><h4 class="mb-0" >0</h4></div>
+            <div class="col-sm-3"><h4 class="mb-0" >{{total_bookings}}</h4></div>
           </div>          
           <div class="form-group row" style="margin-top:15px;">
             <div class="col-sm-6 text-center"><h6>Till Date</h6></div>
             <div class="col-sm-6 text-center"><h6>Upcoming</h6></div>
-            <div class="col-sm-6 text-center"><h6 style="background:#ccc;">(01-Mar to 04-Mar)</h6></div>
-            <div class="col-sm-6 text-center"><h6  style="background:#ccc;">(05-Mar to 31-Mar)</h6></div>
-            <div class="col-sm-6 text-center"><h6>2</h6></div>
-            <div class="col-sm-6 text-center"><h6>0</h6></div>
+            <div class="col-sm-6 text-center"><h6 style="background:#ccc;">({{this.firstDayDisplay}} to {{this.dateDisplay}})</h6></div>
+            <div class="col-sm-6 text-center"><h6  style="background:#ccc;">({{this.dateDisplay}} to {{this.lastDayDisplay}})</h6></div>
+            <div class="col-sm-6 text-center"><h6>{{till_bookings}}</h6></div>
+            <div class="col-sm-6 text-center"><h6>{{upcoming_bookings}}</h6></div>
           </div>
         </div>      
       </div>
@@ -157,7 +157,7 @@
             <div class="col-sm-12 text-center"><h2 class="mb-0" >Total</h2></div>
           </div>          
           <div class="form-group row">
-            <div class="col-sm-12 text-center"><h1 class="mb-0" >0</h1></div>
+            <div class="col-sm-12 text-center"><h1 class="mb-0" >{{month_revenue}}</h1></div>
           </div>
         </div> 
         <!-- <div class="card-body pb-0">
@@ -186,7 +186,7 @@
             <div class="col-sm-12 text-center"><h2 class="mb-0" >Total</h2></div>
           </div>          
           <div class="form-group row">
-            <div class="col-sm-12 text-center"><h1 class="mb-0" >0</h1></div>
+            <div class="col-sm-12 text-center"><h1 class="mb-0" >{{total_revenue}}</h1></div>
           </div>
         </div> 
         <!-- <div class="card-body pb-0">

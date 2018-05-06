@@ -79,7 +79,7 @@ export class SalonComponent {
                 action: 'active',
                 actionName : 'Block'
             }
-            this.use_url = API_URL+'/Members?filter={"where":{"role_id":3, "status" : "active"}}&access_token='+localStorage.getItem('currentUserToken');
+            this.use_url = API_URL+'/Members?filter={"where":{"and":[{"role_id":3},{"or":[{"status" : "active"},{"status":"block"}]}]}}&access_token='+localStorage.getItem('currentUserToken');
         } 
         else if(reqUrl === '/managesalon/verified')
         {
@@ -213,12 +213,14 @@ export class SalonComponent {
 
                 this.toasterService.pop('success', 'Success ', "Salon Record updated successfully.");
                 //this.router.navigate(['artist']);  
-                const index: number = this.users.indexOf(salon);
+                
+                if(action != 'block' && action != "unblock") {    
+                    const index: number = this.users.indexOf(salon);
 
-                if (index !== -1) {
-                 this.users.splice(index, 1);
+                    if (index !== -1) {
+                     this.users.splice(index, 1);
+                    }
                 }
-                   
             }, error => {
                 this.toasterService.pop('error', 'Error ',  error.json().error.message);
                 console.log(JSON.stringify(error.json()));

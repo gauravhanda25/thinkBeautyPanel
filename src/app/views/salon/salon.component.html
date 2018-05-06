@@ -52,7 +52,11 @@
                   <a class="btn btn-sm btn-outline-primary " href="#" routerLink='/managesalon/editsalon/{{user.id}}' *ngIf="check_account.action == 'active'"><i class="fa fa-edit"></i> </a>                 
                   <button class="btn btn-sm btn-outline-primary " (click) ="delsalon(user)" *ngIf="check_account.action == 'active'"><i class="fa fa-trash"></i></button>
                   <button class="btn btn-sm btn-outline-primary " data-toggle="modal" (click)="getSalonData(user.id); salonModal.show(); " ><i class="fa fa-eye"></i> </button> 
-                  <button class="btn btn-sm btn-outline-primary " *ngIf="check_account.action == 'active'" (click) ="changeStatus(user, 'inactive','block')">Block</button>
+                 
+                 <button class="btn btn-sm btn-outline-primary " *ngIf="user.status == 'active'" (click) ="changeStatus(user, 'block','block')">Block</button>
+
+                  <button class="btn btn-sm btn-outline-primary " *ngIf="user.status == 'block'" (click) ="changeStatus(user, 'active','unblock')">Unblock</button>
+
 
                   <button class="btn btn-sm btn-outline-primary " *ngIf="check_account.action == 'inactive'" (click) ="changeStatus(user, 'verify','verify')">Verify</button>
 
@@ -60,7 +64,7 @@
 
                   <button class="btn btn-sm btn-outline-primary " *ngIf="check_account.action == 'inactive' || check_account.action == 'verify'" (click) ="changeStatus(user, 'reject','reject')">Reject</button>
 
-                  <button class="btn btn-sm btn-outline-primary " *ngIf="check_account.action == 'reject'" (click) ="changeStatus(user, 'inactive','activate')">Activate</button>
+                  <button class="btn btn-sm btn-outline-primary " *ngIf="check_account.action == 'reject'" (click) ="changeStatus(user, 'active','activate')">Activate</button>
                 </td>
               </tr>
             </tbody>            
