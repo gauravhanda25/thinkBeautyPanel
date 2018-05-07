@@ -197,7 +197,7 @@ export class AddartistavailComponent {
       options.headers.append('Content-Type', 'application/json');
       options.headers.append('Accept', 'application/json');
 
-      this.data.date = moment(this.data.date).format('DD/MM/YYYY');
+      //this.data.date = moment(this.data.date).format('DD/MM/YYYY');
 
       this.http.get(API_URL+'/Artistavailabilities?filter={"where":{"and":[{"memberId":"'+localStorage.getItem('currentUserId')+'"},{"date":"'+this.data.date+'"}]}}&access_token='+ localStorage.getItem('currentUserToken'), options)
       .subscribe(response => {
@@ -217,6 +217,12 @@ export class AddartistavailComponent {
         if(new Date(this.am_pm_to_hours(this.data.breakfrom)) > new Date(this.am_pm_to_hours(this.data.breakto)) && this.data.breakfrom!= '' && this.data.breakto != '') {
           $('.preloader').hide(); 
             this.toasterService.pop('error', 'Time invalid', "Break End Time is less than the Break Start Time"); 
+            return;        
+        }
+
+        if(this.data.breakfrom == this.data.hoursfrom && this.data.breakto == this.data.hoursto  && this.data.hoursfrom!= '' && this.data.hoursto != '' && this.data.breakfrom!= '' && this.data.breakto != '' ) {
+          $('.preloader').hide(); 
+            this.toasterService.pop('error', 'Time invalid', "Complete Work time is not available for break time. "); 
             return;        
         }
 
@@ -267,7 +273,7 @@ export class AddartistavailComponent {
       options.headers.append('Accept', 'application/json');
 
 
-      this.data.date = moment(this.data.date).format('DD/MM/YYYY');
+     // this.data.date = moment(this.data.date).format('DD/MM/YYYY');
       
       this.http.get(API_URL+'/Artistavailabilities?filter={"where":{"and":[{"memberId":"'+localStorage.getItem('currentUserId')+'"},{"date":"'+this.data.date+'"},{"id":{"neq":"'+this.editparam.id+'"}}]}}&access_token='+ localStorage.getItem('currentUserToken'), options)
       .subscribe(response => {
@@ -288,6 +294,13 @@ export class AddartistavailComponent {
             this.toasterService.pop('error', 'Time invalid', "For Break, End Time should always be greater than the Start Time"); 
             return;        
         }
+
+        if(this.data.breakfrom == this.data.hoursfrom && this.data.breakto == this.data.hoursto  && this.data.hoursfrom!= '' && this.data.hoursto != '' && this.data.breakfrom!= '' && this.data.breakto != '' ) {
+          $('.preloader').hide(); 
+            this.toasterService.pop('error', 'Time invalid', "Complete Work time is not available for break time. "); 
+            return;        
+        }
+
 
         if((new Date(this.am_pm_to_hours(this.data.breakfrom)) < new Date(this.am_pm_to_hours(this.data.hoursfrom)) || new Date(this.am_pm_to_hours(this.data.breakfrom)) > new Date(this.am_pm_to_hours(this.data.hoursto)) || new Date(this.am_pm_to_hours(this.data.breakto)) < new Date(this.am_pm_to_hours(this.data.hoursfrom)) || new Date(this.am_pm_to_hours(this.data.breakto)) > new Date(this.am_pm_to_hours(this.data.hoursto))) && this.data.hoursfrom!= '' && this.data.hoursto != '' && this.data.breakfrom!= '' && this.data.breakto != '' ) {
           $('.preloader').hide(); 

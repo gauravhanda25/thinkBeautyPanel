@@ -301,6 +301,12 @@ export class ArtistavailComponent {
           this.toasterService.pop('error', 'Time invalid', "For Break, End Time should always be greater than the Start Time"); 
           return;        
       }
+
+      if(data.breakfrom == data.hoursfrom && data.breakto == data.hoursto  && data.hoursfrom!= '' && data.hoursto != '' && data.breakfrom!= '' && data.breakto != '' ) {
+          $('.preloader').hide(); 
+            this.toasterService.pop('error', 'Time invalid', "Complete Work time is not available for break time. "); 
+            return;        
+        }
       
       if((new Date(this.am_pm_to_hours(data.breakfrom)) < new Date(this.am_pm_to_hours(data.hoursfrom)) || new Date(this.am_pm_to_hours(data.breakfrom)) > new Date(this.am_pm_to_hours(data.hoursto)) || new Date(this.am_pm_to_hours(data.breakto)) < new Date(this.am_pm_to_hours(data.hoursfrom)) || new Date(this.am_pm_to_hours(data.breakto)) > new Date(this.am_pm_to_hours(data.hoursto))) && data.hoursfrom!= '' && data.hoursto != '' && data.breakfrom!= '' && data.breakto != '' ) {
           $('.preloader').hide(); 
@@ -340,6 +346,13 @@ export class ArtistavailComponent {
           this.toasterService.pop('error', 'Time invalid', "For Break, End Time should always be greater than the Start Time"); 
           return;        
       }
+      
+       if(data.breakfrom == data.hoursfrom && data.breakto == data.hoursto  && data.hoursfrom!= '' && data.hoursto != '' && data.breakfrom!= '' && data.breakto != '' ) {
+          $('.preloader').hide(); 
+            this.toasterService.pop('error', 'Time invalid', "Complete Work time is not available for break time. "); 
+            return;        
+        }
+      
       
       if((new Date(this.am_pm_to_hours(data.breakfrom)) < new Date(this.am_pm_to_hours(data.hoursfrom)) || new Date(this.am_pm_to_hours(data.breakfrom)) > new Date(this.am_pm_to_hours(data.hoursto)) || new Date(this.am_pm_to_hours(data.breakto)) < new Date(this.am_pm_to_hours(data.hoursfrom)) || new Date(this.am_pm_to_hours(data.breakto)) > new Date(this.am_pm_to_hours(data.hoursto))) && data.hoursfrom!= '' && data.hoursto != '' && data.breakfrom!= '' && data.breakto != '' ) {
           $('.preloader').hide(); 

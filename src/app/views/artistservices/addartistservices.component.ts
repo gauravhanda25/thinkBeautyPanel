@@ -123,6 +123,10 @@ export class AddartistservicesComponent {
     private makeupAsProfesion:any = 0;
     private hairAsProfesion:any = 0;
 
+    private serviceActive:any = 0;
+    private cancelServiceUrl:any = '/myservices';
+
+
     constructor(private NgxRolesService: NgxRolesService, private NgxPermissionsService: NgxPermissionsService, @Inject(Http) private http: Http, @Inject(Router)private router:Router, private activatedRoute: ActivatedRoute,toasterService: ToasterService) {
 		//console.log(localStorage.getItem('currentUserRoleId'));
         $('.preloader').show();
@@ -166,6 +170,11 @@ export class AddartistservicesComponent {
 
 		this.toasterService = toasterService;
 		
+    this.activatedRoute.params.subscribe((params) => {
+          let service = params['service'];
+          this.serviceActive = service;
+      });
+
     this.filesdata = {
         file:''
       }
@@ -268,6 +277,35 @@ export class AddartistservicesComponent {
     	this.servicetypes.push({label: "GCC", value: "GCC"});
         this.servicetypes = [...this.servicetypes];
   	}
+
+    emptyCourseForm(){
+      this.course = { 
+        name: '',       
+        price:'',
+        description: '' ,
+        guestno: '',
+        location: '',
+        startfrom: '',
+        endon: '',
+        timeslotFrom: '',
+        timeslotTo: '',
+        memberId: localStorage.getItem('currentUserId'),
+        memberType: (localStorage.getItem('currentUserRole') == 'SALON' ? 'salon' : 'artist')
+      }
+    }
+
+    tabSelected(tab) {
+      if(tab == 'makeup'){
+        this.cancelServiceUrl = "/myservices/makeup";
+      } else if(tab == 'nails'){        
+        this.cancelServiceUrl = "/myservices/nails";
+      } else if(tab == 'hair'){
+        this.cancelServiceUrl = "/myservices/hair";
+      } else if(tab == 'course'){
+        this.cancelServiceUrl = "/myservices/course";
+      }
+    }
+
 
     autoCompleteCallback1(selectedData:any) {
       if(selectedData.data != undefined) {
@@ -621,9 +659,19 @@ export class AddartistservicesComponent {
       
       if(new Date(this.am_pm_to_hours(this.course.timeslotFrom)) > new Date(this.am_pm_to_hours(this.course.timeslotTo)) && this.course.timeslotFrom != '' && this.course.timeslotTo != '') {
           $('.preloader').hide(); 
-          this.toasterService.pop('error', 'Time invalid', "Course End Time is less than the Start Time"); 
+          this.toasterService.pop('error', 'Time invalid', "Course end time should always be greater than start time"); 
           return;        
       }
+
+
+     
+      if(moment(this.course.startfrom).format('DD/MM/YYYY') > moment(this.course.endon).format('DD/MM/YYYY')){
+        this.toasterService.pop('error', 'Date invalid ',  'End date cannot be less than start date.');
+        $('.preloader').hide();
+        return false;
+      }
+
+
 
       for(let i=0; i<this.coursesData.length; i++) {
       
@@ -634,7 +682,6 @@ export class AddartistservicesComponent {
           this.toasterService.pop('error', 'Error', "Course already added for same date and time."); 
           return;        
         }
-
       }
 
 
@@ -646,11 +693,11 @@ export class AddartistservicesComponent {
         return;        
       } 
 
-      /* if(this.uploader.queue.length == 0){
+       if(this.uploader.queue.length == 0){
         $('.preloader').hide(); 
           this.toasterService.pop('error', 'Error', "Please select the Course Image"); 
          return;    
-      }  */
+      }  
 
       this.course.location =  this.locationSelected;
       this.locationSelected = '';
@@ -730,11 +777,20 @@ export class AddartistservicesComponent {
         options.headers.append('Accept', 'application/json');
 
            
-      if(new Date(this.am_pm_to_hours(this.course.timeslotFrom)) > new Date(this.am_pm_to_hours(this.course.timeslotTo)) && this.course.timeslotFrom != '' && this.course.timeslotTo != '') {
+      if(new Date(this.am_pm_to_hours(course.timeslotFrom)) > new Date(this.am_pm_to_hours(course.timeslotTo)) && course.timeslotFrom != '' && course.timeslotTo != '') {
           $('.preloader').hide(); 
-          this.toasterService.pop('error', 'Time invalid', "Course End Time is less than the Start Time"); 
+          this.toasterService.pop('error', 'Time invalid', "Course end time should always be greater than start time"); 
           return;        
       }
+
+      
+      if(moment(course.startfrom).format('DD/MM/YYYY') > moment(course.endon).format('DD/MM/YYYY')){
+        this.toasterService.pop('error', 'Date invalid ',  'End date cannot be less than start date.');
+        $('.preloader').hide();
+        return false;
+      }
+
+
 
       for(let i=0; i<this.coursesData.length; i++) {
       
@@ -761,11 +817,11 @@ export class AddartistservicesComponent {
         locationVal = this.userSettings.inputString;
       }
 
-      /* if(this.uploader.queue.length == 0  && course.images.length == 0){
+       if(this.uploader.queue.length == 0  && course.images.length == 0){
         $('.preloader').hide(); 
           this.toasterService.pop('error', 'Error', "Please select the Course Image"); 
          return;    
-      }  */
+      }  
 
         this.coursedetaildata = { 
       		name: course.name,   		
@@ -926,13 +982,15 @@ export class AddartistservicesComponent {
       this.http.delete(API_URL+'/Containers/'+ file.memberId +'/files/'+  file.fileName + '?access_token='+localStorage.getItem('currentUserToken'), options)
         .subscribe(response => {
           console.log(response.json());
-          this.toasterService.pop('success', 'Success ', "Gallery Uploaded file "+file.fileName+" deleted successfully.");
-
-         this.photoexist = 0;
 
           this.http.post(API_URL+'/FileStorages/update?where={"id":"'+file.id+'"}&access_token='+ localStorage.getItem('currentUserToken'), {"status":"inactive"}, options)
           .subscribe(findres => {
 
+              this.toasterService.pop('success', 'Success ', "Gallery Uploaded file "+file.fileName+" deleted successfully.");
+
+             this.photoexist = 0;
+
+              this.getAllArtistCourseData();
 
           }, error => {
               console.log(JSON.stringify(error.json()));

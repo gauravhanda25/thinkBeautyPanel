@@ -143,10 +143,10 @@ export class AddartistvacationComponent {
       options.headers.append('Content-Type', 'application/json');
       options.headers.append('Accept', 'application/json');
 
-      this.data.starton = moment(this.data.starton).format('DD/MM/YYYY');
-      this.data.endon = moment(this.data.endon).format('DD/MM/YYYY');
+    //  this.data.starton = moment(this.data.starton).format('DD/MM/YYYY');
+    //  this.data.endon = moment(this.data.endon).format('DD/MM/YYYY');
 
-      this.http.get(API_URL+'/Artistavailabilities?filter={"where":{"and":[{"memberId":"'+localStorage.getItem('currentUserId')+'"},{"date":{"between":["'+this.data.starton+'","'+this.data.endon+'"]}}]}}&access_token='+ localStorage.getItem('currentUserToken'), options)
+      this.http.get(API_URL+'/Artistavailabilities?filter={"where":{"and":[{"memberId":"'+localStorage.getItem('currentUserId')+'"},{"date":{"between":["'+ new Date(this.data.starton)+'","'+ new Date(this.data.endon)+'"]}}]}}&access_token='+ localStorage.getItem('currentUserToken'), options)
       .subscribe(response => {
         console.log(response.json());
         if(response.json().length != 0) {
@@ -186,10 +186,10 @@ export class AddartistvacationComponent {
       options.headers.append('Content-Type', 'application/json');
       options.headers.append('Accept', 'application/json');
 
-      this.data.starton = moment(this.data.starton).format('DD/MM/YYYY');
-      this.data.endon = moment(this.data.endon).format('DD/MM/YYYY');
+     // this.data.starton = moment(this.data.starton).format('DD/MM/YYYY');
+     // this.data.endon = moment(this.data.endon).format('DD/MM/YYYY');
 
-      this.http.get(API_URL+'/Artistavailabilities?filter={"where":{"and":[{"memberId":"'+localStorage.getItem('currentUserId')+'"},{"date":{"between":["'+this.data.starton+'","'+this.data.endon+'"]}}]}}&access_token='+ localStorage.getItem('currentUserToken'), options)
+      this.http.get(API_URL+'/Artistavailabilities?filter={"where":{"and":[{"memberId":"'+localStorage.getItem('currentUserId')+'"},{"date":{"between":["'+ new Date(this.data.starton)+'","'+ new Date(this.data.endon)+'"]}}]}}&access_token='+ localStorage.getItem('currentUserToken'), options)
       .subscribe(response => {
         console.log(response.json());
         if(response.json().length != 0) {

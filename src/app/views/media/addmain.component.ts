@@ -99,8 +99,32 @@ private memberType:any;
          console.log(this.mainImagesCount = storageRes.json().length);
 
          this.uploader = new FileUploader({url: API_URL+'/Containers/'+this.loggedInUserId+'/upload?access_token='+localStorage.getItem('currentUserToken'),
-          allowedMimeType: ['image/gif','image/jpeg','image/png'], queueLimit: (4- parseInt(this.mainImagesCount)) });
+          allowedMimeType: ['image/gif','image/jpeg','image/png'] , queueLimit: (4- parseInt(this.mainImagesCount))});   //, queueLimit: (4- parseInt(this.mainImagesCount))
 
+          this.uploader.onSuccessItem = (item:any, response:any, status:any, headers:any) => {
+            console.log("ImageUpload:uploaded:", item, status);
+            if(status == "200"){
+              let fileStorageData = {
+                memberId: this.loggedInUserId,
+                memberType: (localStorage.getItem('currentUserRoleId') == "2" ? "artist" : "salon"),
+                filePath: '/Containers/'+this.loggedInUserId,
+                fileName: item.file.name,
+                uploadType: 'main' ,       
+                status: 'active',  
+                created_by: this.loggedInUserId
+              }
+
+              this.http.post(API_URL+'/FileStorages?access_token='+ localStorage.getItem('currentUserToken'), fileStorageData ,  options)
+              .subscribe(storageRes => {
+                console.log(storageRes.json());
+              }, error => {
+                  console.log(JSON.stringify(error.json()));
+              });
+
+            } else {
+              this.toasterService.pop('error', 'Error ',  "File: "+item.file.name+" not uploaded successfully");
+            }
+        };
        }, error => {
           console.log(JSON.stringify(error.json()));
        });
@@ -123,33 +147,8 @@ private memberType:any;
         
       });
 
-      this.uploader = new FileUploader({url: API_URL+'/Containers/'+this.loggedInUserId+'/upload?access_token='+localStorage.getItem('currentUserToken'),
-          allowedMimeType: ['image/gif','image/jpeg','image/png'], queueLimit: 0 });
+    // this.uploader = new FileUploader({url: API_URL+'/Containers/'+this.loggedInUserId+'/upload?access_token='+localStorage.getItem('currentUserToken'),allowedMimeType: ['image/gif','image/jpeg','image/png'] }); //, queueLimit: 0
 
-      this.uploader.onSuccessItem = (item:any, response:any, status:any, headers:any) => {
-        console.log("ImageUpload:uploaded:", item, status);
-        if(status == "200"){
-          let fileStorageData = {
-            memberId: this.loggedInUserId,
-            memberType: (localStorage.getItem('currentUserRoleId') == "2" ? "artist" : "salon"),
-            filePath: '/Containers/'+this.loggedInUserId,
-            fileName: item.file.name,
-            uploadType: 'main' ,       
-            status: 'active',  
-            created_by: this.loggedInUserId
-          }
-
-          this.http.post(API_URL+'/FileStorages?access_token='+ localStorage.getItem('currentUserToken'), fileStorageData ,  options)
-          .subscribe(storageRes => {
-            console.log(storageRes.json());
-          }, error => {
-              console.log(JSON.stringify(error.json()));
-          });
-
-        } else {
-          this.toasterService.pop('error', 'Error ',  "File: "+item.file.name+" not uploaded successfully");
-        }
-    };
 
 
     console.log(this.uploader);

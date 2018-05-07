@@ -28,6 +28,13 @@ const routes: Routes = [
 			}
 		},
 		{
+			path: 'addartistservices/:service',
+			component: AddartistservicesComponent,
+			data: {
+			  title: "Add New Service"
+			}
+		},
+		{
 			 path: 'editartistservices/:id',
 			component: AddartistservicesComponent,
 			data: {

@@ -126,7 +126,7 @@
         </div>         
       </div>
     </div> --><!--/.col-->
-    <div class="col-md-4" *ngIf="role=='ARTIST'">
+    <div class="col-md-4" *ngIf="role=='ARTIST' || role=='SALON'">
       <div class="card">
          <div class="card-header bg-success"  style="background-color: #8a7541  !important;">
             <h4>Bookings</h4>
@@ -147,7 +147,7 @@
         </div>      
       </div>
     </div><!--/.col-->
-    <div class="col-md-4" *ngIf="role=='ARTIST'">
+    <div class="col-md-4" *ngIf="role=='ARTIST' || role=='SALON'">
       <div class="card">
          <div class="card-header bg-primary"  style="background-color: #8c7f5f !important;">
             <h4>Current Month Revenue</h4>
@@ -176,7 +176,7 @@
         </div>   -->         
       </div>
     </div><!--/.col-->
-    <div class="col-md-4" *ngIf="role=='ARTIST'">
+    <div class="col-md-4" *ngIf="role=='ARTIST' || role=='SALON'">
       <div class="card">
          <div class="card-header bg-primary"  style="background-color: #8c7f5f !important;">
             <h4>Lifetime Revenue</h4>

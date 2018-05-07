@@ -89,8 +89,9 @@ export class ArtistservicesComponent {
 
     public loggedInUserId:any = localStorage.getItem('currentUserId');
 
-    private courseActive:any = 0;
+    private courseActive:any = 1;
 	   
+     private addeditserviceUrl:any = "addartistservices";
 
   // Timepicker
 
@@ -131,6 +132,8 @@ export class ArtistservicesComponent {
     private profession_vals: any;
     private makeupAsProfesion:any = 0;
     private hairAsProfesion:any = 0;
+
+    private serviceActive:any;
 	  
     private datePickerConfig: Partial<BsDatepickerConfig>;
     
@@ -176,6 +179,11 @@ export class ArtistservicesComponent {
     });
 
 		this.toasterService = toasterService;
+
+     this.activatedRoute.params.subscribe((params) => {
+          let service = params['service'];
+          this.serviceActive = service;
+      });
 
     this.filesdata = {
         file:''
@@ -267,13 +275,37 @@ export class ArtistservicesComponent {
     	this.getAllArtistCourseData();
   	}
 
-
+    emptyCourseForm(){
+      this.course = { 
+        name: '',       
+        price:'',
+        description: '' ,
+        guestno: '',
+        location: '',
+        startfrom: '',
+        endon: '',
+        timeslotFrom: '',
+        timeslotTo: '',
+        memberId: localStorage.getItem('currentUserId'),
+        memberType: (localStorage.getItem('currentUserRole') == 'SALON' ? 'salon' : 'artist')
+      }
+    }
 
     tabSelected(tab) {
       if(tab == 'course') {
         this.courseActive = 1;
       } else {      
         this.courseActive = 0;
+      }
+
+      if(tab == 'makeup'){
+        this.addeditserviceUrl = "addartistservices/makeup";
+      } else if(tab == 'nails'){        
+        this.addeditserviceUrl = "addartistservices/nails";
+      } else if(tab == 'hair'){
+        this.addeditserviceUrl = "addartistservices/hair";
+      } else if(tab == 'course'){
+        this.addeditserviceUrl = "addartistservices/course";
       }
     }
 
@@ -633,12 +665,19 @@ export class ArtistservicesComponent {
    
       if(new Date(this.am_pm_to_hours(this.course.timeslotFrom)) > new Date(this.am_pm_to_hours(this.course.timeslotTo)) && this.course.timeslotFrom != '' && this.course.timeslotTo != '') {
           $('.preloader').hide(); 
-          this.toasterService.pop('error', 'Time invalid', "Course End Time is less than the Start Time"); 
+          this.toasterService.pop('error', 'Time invalid', "Course end time should always be greater than start time"); 
           return;        
       }
 
+      if(moment(this.course.startfrom).format('DD/MM/YYYY') > moment(this.course.endon).format('DD/MM/YYYY')){
+        this.toasterService.pop('error', 'Date invalid ',  'End date cannot be less than start date.');
+        $('.preloader').hide();
+        return false;
+      }
+
+
       for(let i=0; i<this.coursesData.length; i++) {
-      /*
+      
         if((moment(this.course.startfrom).format('DD/MM/YYYY') < moment(this.coursesData[i].startfrom).format('DD/MM/YYYY') && moment(this.course.endon).format('DD/MM/YYYY') <  moment(this.coursesData[i].startfrom).format('DD/MM/YYYY')) || (moment(this.course.endon).format('DD/MM/YYYY') > moment(this.coursesData[i].startfrom).format('DD/MM/YYYY') && moment(this.course.startfrom).format('DD/MM/YYYY') >  moment(this.coursesData[i].endon).format('DD/MM/YYYY'))) {
 
         } else {
@@ -646,7 +685,7 @@ export class ArtistservicesComponent {
           this.toasterService.pop('error', 'Error', "Course already added for same date and time."); 
           return;        
         }
-        */
+        
 
       }
 
@@ -657,11 +696,11 @@ export class ArtistservicesComponent {
         return;        
       } 
 
-     /* if(this.uploader.queue.length == 0){
+      if(this.uploader.queue.length == 0){
         $('.preloader').hide(); 
           this.toasterService.pop('error', 'Error', "Please select the Course Image"); 
          return;    
-      }*/
+      }
 
       this.course.location =  this.locationSelected;
 
@@ -730,6 +769,8 @@ export class ArtistservicesComponent {
         $(".closeModalButton").click();
        this.getAllArtistCourseData();
 
+        // window.location.reload(true);
+
 	    }, error => {
 	        console.log(JSON.stringify(error.json()));
 	    });
@@ -746,20 +787,28 @@ export class ArtistservicesComponent {
    
       if(new Date(this.am_pm_to_hours(course.timeslotFrom)) > new Date(this.am_pm_to_hours(course.timeslotTo)) && course.timeslotFrom != '' && course.timeslotTo != '') {
         $('.preloader').hide(); 
-        this.toasterService.pop('error', 'Time invalid', "Course End Time is less than the Start Time"); 
+        this.toasterService.pop('error', 'Time invalid', "Course end time should always be greater than start time"); 
         return;        
+      }
+
+
+      
+      if(moment(course.startfrom).format('DD/MM/YYYY') > moment(course.endon).format('DD/MM/YYYY')){
+        this.toasterService.pop('error', 'Date invalid ',  'End date cannot be less than start date.');
+        $('.preloader').hide();
+        return false;
       }
 
       for(let i=0; i<this.coursesData.length; i++) {
 
-       /* 
+        
         if((((moment(course.startfrom).format('DD/MM/YYYY') < moment(this.coursesData[i].startfrom).format('DD/MM/YYYY') && moment(course.endon).format('DD/MM/YYYY') <  moment(this.coursesData[i].startfrom).format('DD/MM/YYYY')) || (moment(course.endon).format('DD/MM/YYYY') > moment(this.coursesData[i].startfrom).format('DD/MM/YYYY') && moment(course.startfrom).format('DD/MM/YYYY') >  moment(this.coursesData[i].endon).format('DD/MM/YYYY'))) && course.id != this.coursesData[i].id) || course.id == this.coursesData[i].id) {
 
         } else {
           $('.preloader').hide(); 
           this.toasterService.pop('error', 'Error', "Course already added for same date and time."); 
           return;        
-        } */
+        } 
 
       }
 
@@ -776,11 +825,11 @@ export class ArtistservicesComponent {
         locationVal = this.userSettings.inputString;
       }
 
-      /* if(this.uploader.queue.length == 0 && course.images.length == 0){
+       if(this.uploader.queue.length == 0 && course.images.length == 0){
         $('.preloader').hide(); 
           this.toasterService.pop('error', 'Error', "Please select the Course Image"); 
          return;    
-      }  */
+      }  
 
 
       //alert(this.locationSelected);
@@ -861,6 +910,8 @@ export class ArtistservicesComponent {
 		    this.toasterService.pop('success', 'Success', "Course updated successfully");
   		
   		  this.getAllArtistCourseData();
+
+        // window.location.reload(true);
 
 	    }, error => {
 	        console.log(JSON.stringify(error.json()));
@@ -943,13 +994,15 @@ export class ArtistservicesComponent {
       this.http.delete(API_URL+'/Containers/'+ file.memberId +'/files/'+  file.fileName + '?access_token='+localStorage.getItem('currentUserToken'), options)
         .subscribe(response => {
           console.log(response.json());
-          this.toasterService.pop('success', 'Success ', "Gallery Uploaded file "+file.fileName+" deleted successfully.");
-
-         this.photoexist = 0;
 
           this.http.post(API_URL+'/FileStorages/update?where={"id":"'+file.id+'"}&access_token='+ localStorage.getItem('currentUserToken'), {"status":"inactive"}, options)
           .subscribe(findres => {
 
+              this.toasterService.pop('success', 'Success ', "Gallery Uploaded file "+file.fileName+" deleted successfully.");
+
+             this.photoexist = 0;
+
+              this.getAllArtistCourseData();
 
           }, error => {
               console.log(JSON.stringify(error.json()));

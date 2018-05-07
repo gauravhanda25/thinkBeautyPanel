@@ -555,6 +555,19 @@ export const routes: Routes = [
       },
 
       {
+        path: 'myservices/:service',
+        component: FullLayoutComponent,        
+        canActivate: [NgxPermissionsGuard],
+        data: {
+          permissions: {
+            only: ['ARTIST','SALON'],
+            except: ['ADMIN','GUEST']
+          }
+        },
+        loadChildren: './views/artistservices/artistservices.module#ArtistservicesModule'
+      },
+
+      {
         path: 'schedule',
         component: FullLayoutComponent,        
         canActivate: [NgxPermissionsGuard],
