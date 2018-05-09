@@ -95,7 +95,7 @@ export class AddartistComponent {
     		road:'',
     		city:'',
     		cpr:'',
-    		password:'',
+    		//password:'',
     		emailVerified: false,
     		status: 'active',
     		created_on: today,    		
@@ -183,9 +183,9 @@ export class AddartistComponent {
 		this.data.role_id = parseInt(this.data.role_id);
 		
 		if(this.editparam.id  == undefined){
-			if(this.data.password == '') {
-				this.data.password = this.randomPassword(8);
-			}
+			// if(this.data.password == '') {
+				// this.data.password = this.randomPassword(8);
+			// }
 
 			this.http.post(API_URL+'/Members?access_token='+localStorage.getItem('currentUserToken'), this.data,  options)
 	        .subscribe(response => {
@@ -205,9 +205,9 @@ export class AddartistComponent {
 			
 		} else {
 
-			if(this.data.password == '') {
-				delete(this.data.password);
-			}
+			// if(this.data.password == '') {
+				// delete(this.data.password);
+			// }
 
 			this.http.post(API_URL+'/Members/update?where=%7B%22id%22%3A%22'+  this.editparam.id +'%22%7D&access_token='+ localStorage.getItem('currentUserToken'), this.data,  options)
 	        .subscribe(response => {

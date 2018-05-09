@@ -382,8 +382,8 @@ export const routes: Routes = [
         canActivate: [NgxPermissionsGuard],
         data: {
           permissions: {
-            only: ['ARTIST','SALON'],
-            except: ['ADMIN','GUEST']
+            only: ['ARTIST','SALON','ADMIN'],
+            except: ['GUEST']
           }
         },
         loadChildren: './views/booking/booking.module#BookingModule'
@@ -394,8 +394,8 @@ export const routes: Routes = [
         canActivate: [NgxPermissionsGuard],
         data: {
           permissions: {
-            only: ['ARTIST','SALON'],
-            except: ['ADMIN','GUEST']
+            only: ['ARTIST','SALON','ADMIN'],
+            except: ['GUEST']
           }
         },
         loadChildren: './views/booking/booking.module#BookingModule'
@@ -406,8 +406,8 @@ export const routes: Routes = [
         canActivate: [NgxPermissionsGuard],
         data: {
           permissions: {
-            only: ['ARTIST','SALON'],
-            except: ['ADMIN','GUEST']
+            only: ['ARTIST','SALON','ADMIN'],
+            except: ['GUEST']
           }
         },
         loadChildren: './views/booking/booking.module#BookingModule'

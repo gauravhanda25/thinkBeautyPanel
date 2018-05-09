@@ -59,22 +59,13 @@ export class NailartistComponent {
         // alert(this.router.url);
 
 
-        this.http.get(API_URL+'/Members?filter={"where":{"created_by":"'+localStorage.getItem('currentUserId')+'", "status" : "active"}}&access_token='+localStorage.getItem('currentUserToken'), options)
+        this.http.get(API_URL+'/employees?filter={"where":{"created_by":"'+localStorage.getItem('currentUserId')+'", "status" : "active"}}&access_token='+localStorage.getItem('currentUserToken'), options)
         .subscribe(response => {
             console.log(response.json());       
             this.users = response.json();    
 
             if(this.users.length !=0) {
                 for(let i=0; i< this.users.length; i++ ) {
-                   /* this.http.get(API_URL+'/Members/'+this.users[i].id+'/roles?access_token='+ localStorage.getItem('currentUserToken'), options)
-                    .subscribe(response => {
-                        console.log(response.json());       
-                        this.users[i].role = response.json()[0].name;  
-                    }, error => {
-                        console.log(JSON.stringify(error.json()));
-                    });  
-
-                    */
 
                     this.http.get(API_URL+'/Countries/'+this.users[i].country+'?access_token='+ localStorage.getItem('currentUserToken'), options)
                     .subscribe(response => {
@@ -117,7 +108,7 @@ export class NailartistComponent {
             options.headers.append('Content-Type', 'application/json');
             options.headers.append('Accept', 'application/json');
 
-            this.http.delete(API_URL+'/Members/'+ nailartist.id +'?access_token='+ localStorage.getItem('currentUserToken'), options)
+            this.http.delete(API_URL+'/employees/'+ nailartist.id +'?access_token='+ localStorage.getItem('currentUserToken'), options)
             .subscribe(response => {
                 console.log(response.json()); 
                 localStorage.setItem('noticemessage', 'artistdelete');

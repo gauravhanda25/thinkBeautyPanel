@@ -101,12 +101,33 @@ export class FullLayoutComponent {
         }
             ]
         }, 
-
         {
-          name: 'Services',
-          url: '/',
-          icon: 'icon-settings',
-          children: [
+            name: 'Manage Bookings',
+            url: '/bookings',
+            icon: 'icon-list',
+                  children: [
+            {
+            name: 'Upcoming Bookings',
+            url: '/bookings/upcoming',
+            icon: 'icon-list',
+          },
+          {
+            name: 'Previous Bookings',
+            url: '/bookings/previous',
+            icon: 'icon-list',
+          },
+            {
+            name: 'Cancelled Bookings',
+            url: '/bookings/cancelled',
+            icon: 'icon-list',
+          }
+              ]
+          }, 
+          {
+            name: 'Services',
+            url: '/',
+            icon: 'icon-settings',
+            children: [
             {
               name: 'Makeup',
               url: '/makeup',

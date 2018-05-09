@@ -93,7 +93,7 @@ export class AddnailartistComponent {
     		road:'',
     		city:'',
     		cpr:'',
-    		password:'',
+    		// password:'',
     		emailVerified: false,
     		status: 'active',
     		created_on: today,
@@ -130,7 +130,7 @@ export class AddnailartistComponent {
 	        options.headers.append('Content-Type', 'application/json');
 	        options.headers.append('Accept', 'application/json');
 
-	    	this.http.get(API_URL+'/Members/'+ this.editparam.id +'?access_token='+ localStorage.getItem('currentUserToken'), options)
+	    	this.http.get(API_URL+'/employees/'+ this.editparam.id +'?access_token='+ localStorage.getItem('currentUserToken'), options)
 	        .subscribe(response => {
 	        	console.log(response.json());	
 	        	this.data = response.json();
@@ -181,11 +181,11 @@ export class AddnailartistComponent {
 		this.data.role_id = parseInt(this.data.role_id);
 		
 		if(this.editparam.id  == undefined){
-			if(this.data.password == '') {
-				this.data.password = this.randomPassword(8);
-			}
+			// if(this.data.password == '') {
+				// this.data.password = this.randomPassword(8);
+			// }
 
-			this.http.post(API_URL+'/Members?access_token='+localStorage.getItem('currentUserToken'), this.data,  options)
+			this.http.post(API_URL+'/employees?access_token='+localStorage.getItem('currentUserToken'), this.data,  options)
 	        .subscribe(response => {
 	        	console.log(response.json());   
     			localStorage.setItem('noticemessage', 'artistadd');
@@ -203,14 +203,14 @@ export class AddnailartistComponent {
 			
 		} else {
 
-			if(this.data.password == '') {
-				delete(this.data.password);
-			}
+			// if(this.data.password == '') {
+				// delete(this.data.password);
+			// }
 			console.log(this.data);
 			let where = '{"id": this.editparam.id}';
 			console.log(where);
 
-			this.http.post(API_URL+'/Members/update?where=%7B%22id%22%3A%22'+  this.editparam.id +'%22%7D&access_token='+ localStorage.getItem('currentUserToken'), this.data,  options)
+			this.http.post(API_URL+'/employees/update?where=%7B%22id%22%3A%22'+  this.editparam.id +'%22%7D&access_token='+ localStorage.getItem('currentUserToken'), this.data,  options)
 	        .subscribe(response => {
 	        	console.log(response.json());	
     			localStorage.setItem('noticemessage', 'artistupdate');

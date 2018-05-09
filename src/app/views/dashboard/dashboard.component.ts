@@ -161,7 +161,7 @@ export class DashboardComponent {
         });
 
         
-        this.use_url = API_URL+'/Bookings?filter={"where":{"and":[{"bookingStatus":"done"},{"bookingDate":{"between":["'+new Date()+'","'+this.lastDay+'"]}},{"artistId":"'+localStorage.getItem('currentUserId')+'"}],"include":["members","artists"]}&access_token='+localStorage.getItem('currentUserToken');
+        this.use_url = API_URL+'/Bookings?filter={"where":{"and":[{"bookingStatus":"done"},{"bookingDate":{"between":["'+new Date()+'","'+this.lastDay+'"]}},{"artistId":"'+localStorage.getItem('currentUserId')+'"}]},"include":["members","artists"]}&access_token='+localStorage.getItem('currentUserToken');
 
         this.http.get(this.use_url, options)
         .subscribe(response => {
@@ -185,7 +185,7 @@ export class DashboardComponent {
 
 
         
-        this.use_url = API_URL+'/Bookings?filter={"where":{"and":[{"bookingStatus":"done"},{"bookingDate":{"between":["'+this.firstDay+'","'+this.lastDay+'"]}},{"artistId":"'+localStorage.getItem('currentUserId')+'"}],"include":["members","artists"]}&access_token=' + localStorage.getItem('currentUserToken');       
+        this.use_url = API_URL+'/Bookings?filter={"where":{"and":[{"bookingStatus":"done"},{"bookingDate":{"between":["'+this.firstDay+'","'+this.lastDay+'"]}},{"artistId":"'+localStorage.getItem('currentUserId')+'"}]},"include":["members","artists"]}&access_token=' + localStorage.getItem('currentUserToken');       
 
         this.http.get(this.use_url, options)
         .subscribe(response => {
