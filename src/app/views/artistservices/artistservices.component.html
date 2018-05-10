@@ -315,17 +315,6 @@
                                           </div>
                                         </div>
                               </div> 
-                              <div class="form-group">
-                                <div class="col-md-6" >
-                                            <label>FIXED CHARGE</label>
-                                            <div class="input-group">
-                                    <div class="input-group-prepend">
-                                      <span class="input-group-text">{{currency}}</span>
-                                    </div>
-                                            <input class="form-control" name="fixedcharge"  type="number" (keypress) = "numericOnly($event)"    [(ngModel)]="data.fixedcharge"  pattern="^(0|[1-9][0-9]*)$" placeholder="" required>
-                                          </div>
-                                        </div>
-                              </div>
 
                               </div>
                                        <!-- <div class="form-group row" *ngIf="makeupservicesData[subservice.id] != ''">
@@ -372,17 +361,6 @@
                                               <input class="form-control" name="price" type="number" (keypress) = "numericOnly($event)"  [(ngModel)]="makeupservicesData[subservice.id]['gcc'].price"  value="{{makeupservicesData[subservice.id].price}}" placeholder="" pattern="^(0|[1-9][0-9]*)$" required>
                                             </div>
                                         </div>
-                                      </div>
-                                      <div class="form-group">
-                                        <div class="col-md-6" >
-                                                    <label>FIXED CHARGE</label>
-                                                    <div class="input-group">
-                                            <div class="input-group-prepend">
-                                              <span class="input-group-text">{{currency}}</span>
-                                            </div>
-                                                    <input class="form-control" name="fixedcharge"  type="number" (keypress) = "numericOnly($event)"    [(ngModel)]="makeupservicesData[subservice.id]['gcc'].fixedcharge" value="{{makeupservicesData[subservice.id].fixedcharge}}" pattern="^(0|[1-9][0-9]*)$" placeholder="" required>
-                                                  </div>
-                                                </div>
                                       </div>
 
                                       </div> 
@@ -801,17 +779,6 @@
                                           </div>
                                         </div>
                               </div> 
-                              <div class="form-group">
-                                <div class="col-md-6" >
-                                            <label>FIXED CHARGE</label>
-                                            <div class="input-group">
-                                    <div class="input-group-prepend">
-                                      <span class="input-group-text">{{currency}}</span>
-                                    </div>
-                                            <input class="form-control" name="fixedcharge"  type="number" (keypress) = "numericOnly($event)"    [(ngModel)]="data.fixedcharge" pattern="^(0|[1-9][0-9]*)$" placeholder="" required>
-                                          </div>
-                                        </div>
-                              </div>
                             </div>
                                    <div *ngIf="hairservicesData[subservice.id]['gcc'] != ''"> <div class="form-group row" >
                                         <div class="col-md-6">
@@ -850,17 +817,6 @@
                                             </div>
                                         </div>
                                       </div>
-                                      <div class="form-group">
-                                <div class="col-md-6" >
-                                            <label>FIXED CHARGE</label>
-                                            <div class="input-group">
-                                    <div class="input-group-prepend">
-                                      <span class="input-group-text">{{currency}}</span>
-                                    </div>
-                                            <input class="form-control" name="fixedcharge"  type="number" (keypress) = "numericOnly($event)"    [(ngModel)]="hairservicesData[subservice.id]['gcc'].fixedcharge" value="{{hairservicesData[subservice.id].fixedcharge}}" pattern="^(0|[1-9][0-9]*)$" placeholder="" required>
-                                          </div>
-                                        </div>
-                              </div>
                                     </div> 
                                       <div class="form-group row">
                                         <div class="col-md-12">     

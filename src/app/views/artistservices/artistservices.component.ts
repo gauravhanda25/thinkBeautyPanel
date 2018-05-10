@@ -223,7 +223,6 @@ export class ArtistservicesComponent {
 		
     	this.data = {
         price:'',
-        fixedcharge:'',
         duration:'',
         memberId: localStorage.getItem('currentUserId'),
         memberType: (localStorage.getItem('currentUserRole') == 'SALON' ? 'salon' : 'artist'),
@@ -527,7 +526,6 @@ export class ArtistservicesComponent {
 
         this.data = {
         price:'',
-        fixedcharge:'',
         duration:'',
         memberId: localStorage.getItem('currentUserId'),
         memberType: (localStorage.getItem('currentUserRole') == 'SALON' ? 'salon' : 'artist'),
@@ -557,7 +555,6 @@ export class ArtistservicesComponent {
         this.data = { 
           price: artistSubserviceId.price,
           duration: artistSubserviceId.duration,
-          fixedcharge: (artistSubserviceId.fixedcharge != undefined) ? artistSubserviceId.fixedcharge : '',
           servicetype: serviceType
         }
 
@@ -568,7 +565,6 @@ export class ArtistservicesComponent {
 
        this.data = {
         price:'',
-        fixedcharge:'',
         duration:'',
         memberId: localStorage.getItem('currentUserId'),
         memberType: (localStorage.getItem('currentUserRole') == 'SALON' ? 'salon' : 'artist'),

@@ -504,6 +504,18 @@ export const routes: Routes = [
         },
         loadChildren: './views/commission/commission.module#CommissionModule'
       },
+      {
+        path: 'fixedcharge',
+        component: FullLayoutComponent,        
+        canActivate: [NgxPermissionsGuard],
+        data: {
+          permissions: {
+            only: ['ARTIST','SALON'],
+            except: 'GUEST'
+          }
+        },
+        loadChildren: './views/fixedcharge/fixedcharge.module#FixedchargeModule'
+      },
 
       {
         path: 'makeup',

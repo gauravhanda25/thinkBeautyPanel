@@ -233,6 +233,10 @@ export class FullLayoutComponent {
               name: "What's New",
               url: '/updates/manage',
               icon: 'icon-list',
+            },{
+              name: 'Fixed Charge',
+              url: '/fixedcharge',
+              icon: 'icon-list',
             }
 
             ];
@@ -315,7 +319,12 @@ export class FullLayoutComponent {
                   icon: 'icon-camera',
                 }
               ]
+            },{
+              name: 'Fixed Charge',
+              url: '/fixedcharge',
+              icon: 'icon-list',
             }
+
           ];
       	} 
 
