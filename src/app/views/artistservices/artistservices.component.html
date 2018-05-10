@@ -943,7 +943,7 @@
                                     </div>
                                 </div>      
                                 <div class="form-group row" >                               
-                                          <div class="col-md-6">                                    
+                                          <div class="col-md-3">                                    
                                             <label>Time</label> 
 
                                              <!-- <timepicker [(ngModel)]="coursedetail.timeslotFrom" (change)="changed()" [hourStep]="hstep" [minuteStep]="mstep" required [showMeridian]="ismeridian" [readonlyInput]="!isEnabled"></timepicker> -->
@@ -1047,7 +1047,7 @@
                                   <option  value="11:45pm">11:45pm</option> -->
                                 </select>
                                            </div>
-                                           <div class="col-md-6">
+                                           <div class="col-md-3">
                                             <label>&nbsp;</label>
                                             <!-- <timepicker [(ngModel)]="coursedetail.timeslotTo" (change)="changed()" [hourStep]="hstep" [minuteStep]="mstep" [showMeridian]="ismeridian" required [readonlyInput]="!isEnabled"></timepicker> -->
                                             <select class="form-control" name="oursetimeslotTo" [(ngModel)]="coursedetail.timeslotTo" required >
@@ -1150,6 +1150,15 @@
                                   <option  value="11:45pm">11:45pm</option> -->
                                 </select>
                                     </div>
+                                      <div class="col-md-6">                                    
+                                        <label>Course Type </label>
+                                        <select class="form-control" name="courseType" [(ngModel)]="coursedetail.courseType" required >
+                                          <option value=''>Course Type</option>
+                                          <option value='makeup' *ngIf="loginUserRole == 'artist'  && makeupAsProfesion == 1">Makeup</option>
+                                          <option value='hair' *ngIf="loginUserRole == 'artist'  && hairAsProfesion == 1">Hair</option>
+                                          <option value='nails' *ngIf="loginUserRole == 'salon'">Nails</option>
+                                        </select>
+                                  </div>
                                         </div>
                                       <div class="form-group" *ngIf="coursedetail.images.length > 0  ">
                                         <div class= "row">
@@ -1325,7 +1334,7 @@
                             </div>
                         </div>                        
                         <div class="form-group row" >                         
-                                  <div class="col-md-6">                                    
+                                  <div class="col-md-3">                                    
                                     <label>Time</label>                                    
                                     <!-- <input class="form-control" name="timeslotFrom" type="text"  [(ngModel)]="course.timeslotFrom"  value="" placeholder="From" > -->
 
@@ -1431,7 +1440,7 @@
                                   <option  value="11:45pm">11:45pm</option> -->
                         </select>
                                   </div>
-                                  <div class="col-md-6">
+                                  <div class="col-md-3">
                                     <label>&nbsp;</label>
                                    <!--  <input class="form-control" name="timeslotTo" type="text"  [(ngModel)]="course.timeslotTo"  value="" placeholder="To" > -->
 
@@ -1537,6 +1546,15 @@
                                   <option  value="11:45pm">11:45pm</option> -->
                         </select>
                             </div>
+                            <div class="col-md-6">                                    
+                                <label>Course Type </label>
+                                <select class="form-control" name="courseType" [(ngModel)]="course.courseType" required >
+                                  <option value=''>Course Type</option>
+                                  <option value='makeup' *ngIf="loginUserRole == 'artist'  && makeupAsProfesion == 1">Makeup</option>
+                                  <option value='hair' *ngIf="loginUserRole == 'artist'  && hairAsProfesion == 1">Hair</option>
+                                  <option value='nails' *ngIf="loginUserRole == 'salon'">Nails</option>
+                                </select>
+                          </div>
                                 </div>
 
                                 <div class="form-group row">

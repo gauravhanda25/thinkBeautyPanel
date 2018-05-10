@@ -66,6 +66,10 @@ export class AddartistservicesComponent {
   private today: any = new Date();
 
   private locationSelected:any = '';
+   private latSelected:any = '';
+  private lngSelected:any = '';
+  private countrySelected:any = '';
+
   private userSettings: any = {};
 
 	private toasterService: ToasterService;
@@ -228,10 +232,14 @@ export class AddartistservicesComponent {
     		description: '' ,
     		guestno: '',
         location: '',
+         latitude: '',
+        longitude: '',
+        loc_country:'',
         startfrom: '',
         endon: '',
-    		timeslotFrom: '',
-    		timeslotTo: '',
+        timeslotFrom: '',
+        timeslotTo: '',
+        courseType: '',
         memberId: localStorage.getItem('currentUserId'),
         memberType: (localStorage.getItem('currentUserRole') == 'SALON' ? 'salon' : 'artist')
     	}
@@ -242,10 +250,14 @@ export class AddartistservicesComponent {
     		description: '' ,
     		guestno: '',
         location: '',
+         latitude: '',
+        longitude: '',
+        loc_country:'',
         startfrom: '',
         endon: '',
-    		timeslotFrom: '',
-    		timeslotTo: '',
+        timeslotFrom: '',
+        timeslotTo: '',
+        courseType: '',
         memberId: localStorage.getItem('currentUserId'),
         memberType: (localStorage.getItem('currentUserRole') == 'SALON' ? 'salon' : 'artist')
     	}
@@ -284,10 +296,14 @@ export class AddartistservicesComponent {
         description: '' ,
         guestno: '',
         location: '',
+         latitude: '',
+        longitude: '',
+        loc_country:'',
         startfrom: '',
         endon: '',
         timeslotFrom: '',
         timeslotTo: '',
+        courseType: '',
         memberId: localStorage.getItem('currentUserId'),
         memberType: (localStorage.getItem('currentUserRole') == 'SALON' ? 'salon' : 'artist')
       }
@@ -307,10 +323,23 @@ export class AddartistservicesComponent {
 
 
     autoCompleteCallback1(selectedData:any) {
+      console.log(selectedData);
       if(selectedData.data != undefined) {
         this.locationSelected = selectedData.data.formatted_address;
+        this.latSelected = selectedData.data.geometry.location.lat;
+        this.lngSelected = selectedData.data.geometry.location.lng;
+        this.countrySelected = '';
+        
+        for(let i in selectedData.data.address_components){
+          if(selectedData.data.address_components[i].types.indexOf('country') > -1){
+            this.countrySelected = selectedData.data.address_components[i].long_name;
+          }
+        }
       } else {
-        this.locationSelected = '';     
+        this.locationSelected = '';
+        this.latSelected = '';
+        this.lngSelected = '';
+        this.countrySelected = '';
       }
     }
 
@@ -661,7 +690,7 @@ export class AddartistservicesComponent {
 
 
      
-      if(moment(this.course.startfrom).format('DD/MM/YYYY') > moment(this.course.endon).format('DD/MM/YYYY')){
+       if(moment(this.course.startfrom).isAfter(moment(this.course.endon))) {
         this.toasterService.pop('error', 'Date invalid ',  'End date cannot be less than start date.');
         $('.preloader').hide();
         return false;
@@ -671,7 +700,9 @@ export class AddartistservicesComponent {
 
       for(let i=0; i<this.coursesData.length; i++) {
       
-        if((moment(this.course.startfrom).format('DD/MM/YYYY') < moment(this.coursesData[i].startfrom).format('DD/MM/YYYY') && moment(this.course.endon).format('DD/MM/YYYY') <  moment(this.coursesData[i].startfrom).format('DD/MM/YYYY')) || (moment(this.course.endon).format('DD/MM/YYYY') > moment(this.coursesData[i].startfrom).format('DD/MM/YYYY') && moment(this.course.startfrom).format('DD/MM/YYYY') >  moment(this.coursesData[i].endon).format('DD/MM/YYYY'))) {
+       if((moment(this.course.startfrom).isBefore(moment(this.coursesData[i].startfrom)) && moment(this.course.endon).isBefore(moment(this.coursesData[i].startfrom))) || (moment(this.course.endon).isAfter(moment(this.coursesData[i].endon)) && moment(this.course.startfrom).isAfter( moment(this.coursesData[i].endon)))) {
+
+
 
         } else {
           $('.preloader').hide(); 
@@ -696,7 +727,15 @@ export class AddartistservicesComponent {
       }  
 
       this.course.location =  this.locationSelected;
+      this.course.latitude = this.latSelected;
+      this.course.longitude = this.lngSelected;
+      this.course.loc_country = this.countrySelected;
+
+
       this.locationSelected = '';
+      this.latSelected = '';
+      this.lngSelected = '';
+      this.countrySelected = '';
 
     	this.http.post(API_URL+'/Artistcourses?access_token='+ localStorage.getItem('currentUserToken'), this.course, options)
         .subscribe(res => {
@@ -745,10 +784,14 @@ export class AddartistservicesComponent {
 	    		description: '' ,
 	    		guestno: '',
           location: '',
+          latitude: '',
+          longitude: '',
+          loc_country:'',
           startfrom: '',
           endon: '',
-	    		timeslotFrom: '',
-	    		timeslotTo: '',
+          timeslotFrom: '',
+          timeslotTo: '',
+          courseType: '',
           memberId: localStorage.getItem('currentUserId'),
           memberType: (localStorage.getItem('currentUserRole') == 'SALON' ? 'salon' : 'artist')
 	    	}
@@ -780,7 +823,7 @@ export class AddartistservicesComponent {
       }
 
       
-      if(moment(course.startfrom).format('DD/MM/YYYY') > moment(course.endon).format('DD/MM/YYYY')){
+      if(moment(course.startfrom).isAfter(moment(course.endon)))  {
         this.toasterService.pop('error', 'Date invalid ',  'End date cannot be less than start date.');
         $('.preloader').hide();
         return false;
@@ -790,7 +833,7 @@ export class AddartistservicesComponent {
 
       for(let i=0; i<this.coursesData.length; i++) {
       
-         if((((moment(course.startfrom).format('DD/MM/YYYY') < moment(this.coursesData[i].startfrom).format('DD/MM/YYYY') && moment(course.endon).format('DD/MM/YYYY') <  moment(this.coursesData[i].startfrom).format('DD/MM/YYYY')) || (moment(course.endon).format('DD/MM/YYYY') > moment(this.coursesData[i].startfrom).format('DD/MM/YYYY') && moment(course.startfrom).format('DD/MM/YYYY') >  moment(this.coursesData[i].endon).format('DD/MM/YYYY'))) && course.id != this.coursesData[i].id) || course.id == this.coursesData[i].id) {
+        if(((moment(course.startfrom).isBefore(moment(this.coursesData[i].startfrom)) && moment(course.endon).isBefore(moment(this.coursesData[i].startfrom))) || (moment(course.endon).isAfter(moment(this.coursesData[i].endon)) && moment(course.startfrom).isAfter( moment(this.coursesData[i].endon))) && course.id != this.coursesData[i].id) || course.id == this.coursesData[i].id) {
 
         } else {
           $('.preloader').hide(); 
@@ -802,15 +845,26 @@ export class AddartistservicesComponent {
 
       // alert(this.userSettings.inputString);
 
-     let locationVal:any = '';
+           let locationVal:any = '';
+      let latitudeVal:any = '';
+      let longitudeVal:any = '';
+      let loc_countryVal:any = '';
+
       if(this.locationSelected == '' && this.userSettings.inputString == '') {
           $('.preloader').hide(); 
           this.toasterService.pop('error', 'Error', "Please select the location"); 
         return;        
       } else if(this.locationSelected != '') {
         locationVal = this.locationSelected;
+        latitudeVal = this.latSelected;
+        longitudeVal = this.lngSelected;
+        loc_countryVal = this.countrySelected;
+
       } else if(this.userSettings.inputString != '') {
         locationVal = this.userSettings.inputString;
+        latitudeVal = course.latSelected;
+        longitudeVal = course.lngSelected;
+        loc_countryVal = course.countrySelected;
       }
 
        if(this.uploader.queue.length == 0  && course.images.length == 0){
@@ -825,10 +879,14 @@ export class AddartistservicesComponent {
       		description: course.description ,
       		guestno: course.guestno,
           location: locationVal,
-          startfrom: course.startfrom,
-          endon: course.endon,
-      		timeslotFrom: course.timeslotFrom,
-      		timeslotTo: course.timeslotTo,
+          latitude: latitudeVal,
+          longitude: longitudeVal,
+          loc_country: loc_countryVal,
+          startfrom:  course.startfrom,
+          endon:  course.endon,
+          timeslotFrom: course.timeslotFrom,
+          timeslotTo: course.timeslotTo,
+          courseType: course.courseType,
           memberId: localStorage.getItem('currentUserId'),
           memberType: (localStorage.getItem('currentUserRole') == 'SALON' ? 'salon' : 'artist')
       	}
@@ -884,10 +942,14 @@ export class AddartistservicesComponent {
 	    		description: '' ,
 	    		guestno: '',
           location: '',
+           latitude: '',
+          longitude: '',
+          loc_country:'',
           startfrom: '',
           endon: '',
 	    		timeslotFrom: '',
 	    		timeslotTo: '',
+           courseType: '',
           memberId: localStorage.getItem('currentUserId'),
           memberType: (localStorage.getItem('currentUserRole') == 'SALON' ? 'salon' : 'artist'),
 	    	}
