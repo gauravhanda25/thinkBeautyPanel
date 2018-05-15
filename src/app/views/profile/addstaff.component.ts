@@ -119,9 +119,9 @@ export class AddstaffComponent {
     		//created_on: today
     	}
 
-    	this.professions.push({label: "Makeup", value: 1});
-    	this.professions.push({label: "Hair", value: 2});
-    	this.professions.push({label: "Microblading", value: 3});
+    	this.professions.push({label: "Makeup", value: "1"});
+    	this.professions.push({label: "Hair", value: "2"});
+    	this.professions.push({label: "Microblading", value: "3"});
         this.professions = [...this.professions];
 
     	let options = new RequestOptions();
