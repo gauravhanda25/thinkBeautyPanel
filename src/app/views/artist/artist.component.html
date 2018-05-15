@@ -17,7 +17,7 @@
               </div>
             </div>
           </div>
-          <table class="table table-striped" [mfData]="users | dataFilter : filterQuery" #mf="mfDataTable" [mfRowsOnPage]="10">
+          <table class="table table-striped" [mfData]="users | dataFilter : filterQuery" #mf="mfDataTable">
             <thead >
               <tr>
                 <th><mfDefaultSorter by="name">Name</mfDefaultSorter></th>
@@ -28,9 +28,9 @@
                 <th><mfDefaultSorter by="country">Country</mfDefaultSorter></th>
                 <th><mfDefaultSorter by="phone">Phone</mfDefaultSorter></th>
                 <th><mfDefaultSorter by="email">Email</mfDefaultSorter></th>
-                <th><mfDefaultSorter by="created_on">Request Date</mfDefaultSorter></th>
+                <th><mfDefaultSorter by="created">Request Date</mfDefaultSorter></th>
                 <th *ngIf="check_account.action == 'reject'"><mfDefaultSorter by="action_on">Rejection Date</mfDefaultSorter></th>
-                <th *ngIf="check_account.action == 'active'||check_account.action == 'verify' "><mfDefaultSorter by="action_on" >Verification Date</mfDefaultSorter></th>
+                <th *ngIf="check_account.action == 'active'||check_account.action == 'verify' "><mfDefaultSorter by="modified" >Verification Date</mfDefaultSorter></th>
                 <th>Action</th>
               </tr>
             </thead>
@@ -70,11 +70,11 @@
               </tr>
             </tbody>            
             <tfoot>
-              <tr>
+             <!--  <tr>
                 <td colspan="7">
                   <mfBootstrapPaginator [rowsOnPageSet]="[5,10,15]"></mfBootstrapPaginator>
                 </td>
-              </tr>
+              </tr> -->
             </tfoot>
           </table>          
         </div>

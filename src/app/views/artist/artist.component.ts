@@ -13,6 +13,8 @@ import { NgModule } from '@angular/core';
 import { ModalDirective } from 'ngx-bootstrap/modal';
 import * as moment from 'moment';
 
+import * as $ from 'jquery';
+
 
 // Toastr
 import { ToasterModule, ToasterService, ToasterConfig }  from 'angular2-toaster/angular2-toaster';
@@ -44,7 +46,9 @@ export class ArtistComponent {
     public filterQuery = '';
 
     constructor(private router:Router, private http: Http, private activatedRoute: ActivatedRoute, toasterService: ToasterService ) { 
-        this.profession_vals = ['Make Up', 'Hair', 'Make Up & Hair'];
+
+        $('.preloader').show();
+        this.profession_vals = ['Make Up', 'Hair', 'Makeup, Hair & Microblading','Microblading'];
         this.toasterService = toasterService;
 
         this.nousers = 1;
@@ -68,7 +72,7 @@ export class ArtistComponent {
         this.changeAllStatuses();
         const reqUrl = this.router.url;
         if(reqUrl === '/manageartist/newrequests'){
-             this.use_url = API_URL+'/Members?filter={"where":{"role_id":2, "status" : "inactive"}}&access_token='+localStorage.getItem('currentUserToken');
+             this.use_url = API_URL+'/Members?filter={"where":{"role_id":2, "status" : "inactive"},"order":"created DESC"}&access_token='+localStorage.getItem('currentUserToken');
              
              this.check_account = {
                 id: '',
@@ -83,7 +87,7 @@ export class ArtistComponent {
                 action: 'active',
                 actionName : 'Block'
             }
-             this.use_url = API_URL+'/Members?filter={"where":{"and":[{"role_id":2},{"or":[{"status" : "active"},{"status":"block"}]}]}}&access_token='+localStorage.getItem('currentUserToken');
+             this.use_url = API_URL+'/Members?filter={"where":{"and":[{"role_id":2},{"or":[{"status" : "active"},{"status":"block"}]}]},"order":"modified DESC"}&access_token='+localStorage.getItem('currentUserToken');
         } 
         else if(reqUrl === '/manageartist/verified')
         {
@@ -92,7 +96,7 @@ export class ArtistComponent {
                 action: 'verify',
                 actionName : 'Verify'
             }
-             this.use_url = API_URL+'/Members?filter={"where":{"role_id":2, "status" : "verify"}}&access_token='+localStorage.getItem('currentUserToken');
+             this.use_url = API_URL+'/Members?filter={"where":{"role_id":2, "status" : "verify"},"order":"modified DESC"}&access_token='+localStorage.getItem('currentUserToken');
         } 
         else {
             this.check_account = {
@@ -100,13 +104,15 @@ export class ArtistComponent {
                 action: 'reject',
                 actionName : 'Block'
             }
-             this.use_url = API_URL+'/Members?filter={"where":{"role_id":2, "status" : "reject"}}&access_token=' + localStorage.getItem('currentUserToken');
+             this.use_url = API_URL+'/Members?filter={"where":{"role_id":2, "status" : "reject"},"order":"modified DESC"}&access_token=' + localStorage.getItem('currentUserToken');
         }
 
         this.http.get(this.use_url, options)
         .subscribe(response => {
             console.log(response.json());       
             this.users = response.json();    
+
+            $('.preloader').hide();
 
             if(this.users.length !=0) {
                 for(let i=0; i< this.users.length; i++ ) {
@@ -157,12 +163,15 @@ export class ArtistComponent {
             }
 
         }, error => {
+
+            $('.preloader').hide(); 
             console.log(JSON.stringify(error.json()));
         });    	        
 
  	}
 
     getArtistData(artistId) {
+        $('.preloader').show();
         let options = new RequestOptions();
         options.headers = new Headers();
         options.headers.append('Content-Type', 'application/json');
@@ -172,12 +181,15 @@ export class ArtistComponent {
         .subscribe(response => {
             console.log(response.json());       
             this.artistDetails = response.json();  
+            $('.preloader').hide();
         }, error => {
+            $('.preloader').hide();
             console.log(JSON.stringify(error.json()));
         }); 
     }
 
     changeStatus(artist, status, action) {
+        $('.preloader').show();
         let options = new RequestOptions();
         options.headers = new Headers();
         options.headers.append('Content-Type', 'application/json');
@@ -210,8 +222,19 @@ export class ArtistComponent {
 
             this.http.post(API_URL+'/Members/update?where={"id":"'+  artist.id +'"}&access_token='+ localStorage.getItem('currentUserToken'), artist,  options)
             .subscribe(response => {
-
-                this.toasterService.pop('success', 'Success ', "Artist Record updated successfully.");
+                if(status == "verify"){
+                    this.toasterService.pop('success', 'Success ', artist.name+" has been successfully verified.");
+                } else if(status == "active"){
+                     this.toasterService.pop('success', 'Success ', artist.name+" has been successfully registered with Think Beauty.");
+                } else if(status == "reject"){
+                     this.toasterService.pop('success', 'Success ', artist.name+"  has been rejected. Please go to rejected artists section to activate the rejected artist.");
+                } else if(status == "block"){
+                     this.toasterService.pop('success', 'Success ', artist.name+" has been blocked. Please go to registered artists section to unblock the blocked artist.");
+                } else {
+                   this.toasterService.pop('success', 'Success ', artist.name+" has been successfully updated"); 
+                }
+                
+                $('.preloader').hide();
                 //this.router.navigate(['artist']);  
 
                 if(action != 'block' && action != "unblock") {
@@ -225,6 +248,8 @@ export class ArtistComponent {
                 this.toasterService.pop('error', 'Error ',  error.json().error.message);
                 console.log(JSON.stringify(error.json()));
             });
+        } else {
+            $('.preloader').hide();            
         }
     } 
 
@@ -247,6 +272,7 @@ export class ArtistComponent {
         });
     }
     delartist(artist) {
+        $('.preloader').show();
         if(confirm("Are you sure you want to delete the selected Artist?")){
             let options = new RequestOptions();
             options.headers = new Headers();
@@ -257,6 +283,7 @@ export class ArtistComponent {
             .subscribe(response => {
                 console.log(response.json()); 
                 this.toasterService.pop('success', 'Success ', "Artist Record deleted successfully.");
+                $('.preloader').hide();
                 //this.router.navigate(['artist']);
 
                 const index: number = this.users.indexOf(artist);
@@ -268,7 +295,9 @@ export class ArtistComponent {
             }, error => {
                 console.log(JSON.stringify(error.json()));
             });     
-        }     
+        }  else {
+            $('.preloader').hide();
+        }
     }
 
 
