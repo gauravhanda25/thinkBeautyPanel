@@ -43,8 +43,10 @@ import { Ng4GeoautocompleteModule } from 'ng4-geoautocomplete';
 export class AddartistservicesComponent {
 
   private makeupservices: any;
+  private microbladingservices: any;
 	private photoexist: any;
 	private makeupservicesData:any;
+  private microbladingservicesData:any;
 	private nailsservices: any;
 	private nailsservicesData:any;
 	private hairservices: any;
@@ -125,6 +127,7 @@ export class AddartistservicesComponent {
 
     private profession_vals: any;
     private makeupAsProfesion:any = 0;
+    private microbladingAsProfesion:any = 0;
     private hairAsProfesion:any = 0;
 
     private serviceActive:any = 0;
@@ -267,6 +270,7 @@ export class AddartistservicesComponent {
       console.log(r.json());
         if(r.json().length != 0){
           this.makeupAsProfesion = (r.json()[0].artist_profession == 1 || r.json()[0].artist_profession == 3) ? 1 : 0;
+          this.microbladingAsProfesion = (r.json()[0].artist_profession == 4 || r.json()[0].artist_profession == 3) ? 1 : 0;
           this.hairAsProfesion = (r.json()[0].artist_profession == 2 || r.json()[0].artist_profession == 3) ? 1 : 0;
         }
       }, error => {
@@ -312,6 +316,8 @@ export class AddartistservicesComponent {
     tabSelected(tab) {
       if(tab == 'makeup'){
         this.cancelServiceUrl = "/myservices/makeup";
+      } else if(tab == 'microblading'){        
+        this.cancelServiceUrl = "/myservices/microblading";
       } else if(tab == 'nails'){        
         this.cancelServiceUrl = "/myservices/nails";
       } else if(tab == 'hair'){
@@ -451,6 +457,45 @@ export class AddartistservicesComponent {
 	    }, error => {
 	        console.log(JSON.stringify(error.json()));
 	    });
+
+        
+        this.http.get(API_URL+'/Microbladings?access_token='+ localStorage.getItem('currentUserToken'), options)
+        .subscribe(response => {
+          //console.log(response.json()); 
+          this.microbladingservices = response.json();
+
+          this.microbladingservicesData = [];
+
+          for(let ser in this.microbladingservices) {
+            this.http.get(API_URL+'/Artistservices?filter={"where":{"and":[{"subserviceId":"'+this.microbladingservices[ser].id+'"},{"memberId":"'+localStorage.getItem('currentUserId')+'"}]}}&access_token='+ localStorage.getItem('currentUserToken'), options)
+            .subscribe(r => {
+
+              console.log(r.json());
+
+
+              if(r.json().length != 0){
+                this.microbladingservicesData[this.microbladingservices[ser].id] = r.json();
+                 this.microbladingservicesData[response.json()[ser].id]['home'] = [];
+                 this.microbladingservicesData[response.json()[ser].id]['salon'] = [];
+                 this.microbladingservicesData[response.json()[ser].id]['gcc'] = [];
+                for(let i in r.json()){
+                  this.microbladingservicesData[response.json()[ser].id][r.json()[i].servicetype] = r.json()[i];            
+                }
+                console.log(this.microbladingservicesData);
+              } else {
+                this.microbladingservicesData[this.microbladingservices[ser].id] = {};
+                 this.microbladingservicesData[response.json()[ser].id]['home'] = [];
+                 this.microbladingservicesData[response.json()[ser].id]['salon'] = [];
+                 this.microbladingservicesData[response.json()[ser].id]['gcc'] = [];
+              }
+              console.log(this.microbladingservicesData);
+          }, error => {
+              console.log(JSON.stringify(error.json()));
+          });
+      }
+      }, error => {
+          console.log(JSON.stringify(error.json()));
+      });
 
 	    this.http.get(API_URL+'/Nails?access_token='+ localStorage.getItem('currentUserToken'), options)
         .subscribe(response => {

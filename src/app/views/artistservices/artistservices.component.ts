@@ -42,11 +42,17 @@ import { Ng4GeoautocompleteModule } from 'ng4-geoautocomplete';
 @Injectable()
 export class ArtistservicesComponent {
 
+  private userSettings: any = {};
+
   private makeupservices: any;
-	private userSettings: any = {};
 	private makeupservicesData:any;
 	private makeup:any = [];
 	private nomakeup:any = 0;
+
+  private microbladingservicesData:any;
+  private microbladingservices: any;
+  private microblading:any = [];
+  private nomicroblading:any = 0;
 	
 	private nailsservices: any;
 	private nailsservicesData:any;
@@ -57,6 +63,7 @@ export class ArtistservicesComponent {
 	private hairservicesData:any;
 	private hair:any = [];
 	private nohair:any = 0;
+
   private currency:any = localStorage.getItem('currentUserCurrency');
 
 	private data: any;
@@ -135,6 +142,7 @@ export class ArtistservicesComponent {
     private profession_vals: any;
     private makeupAsProfesion:any = 0;
     private hairAsProfesion:any = 0;
+    private microbladingAsProfesion:any = 0;
 
     private serviceActive:any;
 	  
@@ -275,6 +283,7 @@ export class ArtistservicesComponent {
       console.log(r.json());
         if(r.json().length != 0){
           this.makeupAsProfesion = (r.json()[0].artist_profession == 1 || r.json()[0].artist_profession == 3) ? 1 : 0;
+          this.microbladingAsProfesion = (r.json()[0].artist_profession == 4 || r.json()[0].artist_profession == 3) ? 1 : 0;
           this.hairAsProfesion = (r.json()[0].artist_profession == 2 || r.json()[0].artist_profession == 3) ? 1 : 0;
         }
       }, error => {
@@ -314,6 +323,8 @@ export class ArtistservicesComponent {
 
       if(tab == 'makeup'){
         this.addeditserviceUrl = "addartistservices/makeup";
+      } else  if(tab == 'microblading'){
+        this.addeditserviceUrl = "addartistservices/microblading";
       } else if(tab == 'nails'){        
         this.addeditserviceUrl = "addartistservices/nails";
       } else if(tab == 'hair'){
@@ -450,6 +461,45 @@ export class ArtistservicesComponent {
 	        console.log(JSON.stringify(error.json()));
 	    });
 
+      this.http.get(API_URL+'/Microbladings?access_token='+ localStorage.getItem('currentUserToken'), options)
+      .subscribe(response => {
+        this.microbladingservices = response.json();
+        console.log(response.json());
+        this.microbladingservicesData = [];
+        this.microblading = [];
+        this.nomicroblading = 0;
+
+        let removedata:any = 0;
+
+        for(let ser in response.json()) {
+          this.http.get(API_URL+'/Artistservices?filter={"where":{"and":[{"subserviceId":"'+response.json()[parseInt(ser)-removedata].id+'"},{"memberId":"'+localStorage.getItem('currentUserId')+'"}]}}&access_token='+ localStorage.getItem('currentUserToken'), options)
+          .subscribe(r => {
+            console.log(r.json());
+            if(r.json().length != 0) {
+               this.microbladingservicesData[response.json()[ser].id] = r.json();
+               this.microbladingservicesData[response.json()[ser].id]['home'] = [];
+               this.microbladingservicesData[response.json()[ser].id]['salon'] = [];
+               this.microbladingservicesData[response.json()[ser].id]['gcc'] = [];
+              for(let i in r.json()){
+                this.microbladingservicesData[response.json()[ser].id][r.json()[i].servicetype] = r.json()[i];            
+              }
+                this.microblading.push(response.json()[ser]);
+                this.nomicroblading = 1;    
+
+              console.log(this.microbladingservicesData);
+            } else if(r.json().length == 0){
+              this.microbladingservicesData[response.json()[ser].id] = '';
+              delete this.microbladingservices[ser];
+            }
+
+          }, error => {
+              console.log(JSON.stringify(error.json()));
+          });
+        }
+      }, error => {
+          console.log(JSON.stringify(error.json()));
+      });
+      
 	    this.http.get(API_URL+'/Nails?access_token='+ localStorage.getItem('currentUserToken'), options)
       .subscribe(response => {
         this.nailsservices = response.json();

@@ -829,6 +829,370 @@
 	                    </div>
 	                    </div>		  
               		</tab>
+              		<tab heading="Microblading" *ngIf="loginUserRole == 'artist'  && microbladingAsProfesion == 1" [active]="serviceActive == 'microblading'" (select)="tabSelected('microblading')"> 
+	                  <div class="form-group row"  *ngFor = "let subservice of microbladingservices">
+	                    <div class="col-md-4 service-card card-body">
+	                       <h6>{{subservice.name}}
+		                   </h6>
+	                       
+
+	                       <span class="pull-right">
+	                       		<button class="btn btn-sm btn-outline-primary" type="button" data-toggle="modal" (click)="microbladingModal.show()" *ngIf="microbladingservicesData[subservice.id]['home'] == '' && microbladingservicesData[subservice.id]['salon'] == '' && microbladingservicesData[subservice.id]['gcc'] == '' "><span class="fa fa-plus"></span></button>
+	                       		<button class="btn btn-sm btn-outline-primary" type="button"  *ngIf="microbladingservicesData[subservice.id]['home'] != '' || microbladingservicesData[subservice.id]['salon'] != '' || microbladingservicesData[subservice.id]['gcc'] != ''  " data-toggle="modal" (click)="microbladingModal.show()"  ><span class="fa fa-pencil"></span></button>
+	                       		<button class="btn btn-sm btn-outline-primary" type="button"  *ngIf="microbladingservicesData[subservice.id]['home'] != '' || microbladingservicesData[subservice.id]['salon'] != '' || microbladingservicesData[subservice.id]['gcc'] != ''  " (click)="delsubservicedata(microbladingservicesData[subservice.id])" ><span class="fa fa-trash"></span></button>
+	                       </span>
+
+	                       <div class="clearfix"></div>
+	                       
+	                       <div class="" *ngIf="microbladingservicesData[subservice.id]">
+                            <div class="col-sm-12 row" *ngIf="microbladingservicesData[subservice.id]['home'] != ''">
+                              <div class="col-sm-3"><span><strong>Home</strong></span>:</div>
+                              <div class="col-sm-9"> <span >{{currency}} {{microbladingservicesData[subservice.id]['home'].price}} for</span>
+                               <span >{{microbladingservicesData[subservice.id]['home'].duration}}</span></div>
+                               <!-- <span *ngIf="microbladingservicesData[subservice.id]">{{microbladingservicesData[subservice.id].servicetype}}
+                               </span> -->
+                            </div>
+                            <div class="col-sm-12  row" *ngIf="microbladingservicesData[subservice.id]['salon']!= ''">
+                             <div class="col-sm-3"> <span><strong>Salon</strong></span>:</div>
+                              <div class="col-sm-9"> <span >{{currency}} {{microbladingservicesData[subservice.id]['salon'].price}} for</span>
+                               <span >{{microbladingservicesData[subservice.id]['salon'].duration}}</span></div>
+                               <!-- <span *ngIf="microbladingservicesData[subservice.id]">{{microbladingservicesData[subservice.id].servicetype}}
+                               </span> -->
+                            </div>
+                            <div class="col-sm-12 row" *ngIf="microbladingservicesData[subservice.id]['gcc'] != ''">
+                              <div class="col-sm-3"><span><strong>GCC</strong></span>:</div>
+                              <div class="col-sm-9"> <span >{{currency}} {{microbladingservicesData[subservice.id]['gcc'].price}} for</span>
+                               <span >{{microbladingservicesData[subservice.id]['gcc'].duration}}</span></div>
+                               <!-- <span *ngIf="microbladingservicesData[subservice.id]">{{microbladingservicesData[subservice.id].servicetype}}
+                               </span> -->
+                            </div>
+                         </div>
+	                        <div bsModal #microbladingModal="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+	                          <div class="modal-dialog modal-primary" role="document">
+	                            <div class="modal-content">
+	                              <div class="modal-body">
+	                              	<h5>{{subservice.name}}</h5>  
+	                              	<button type="button" class="btn btn-default pull-right closeModalButton" (click)="microbladingModal.hide()" style="margin-right:5px;" >Cancel</button>                       
+	                              </div>
+	                              <div class="card-body" style="border-top:1px solid #c2cfd6;"> 
+	                              	<tabset>
+                						<tab heading="Home"> 
+			                              	<form autocomplete="off" class="form-horizontal ng-untouched ng-pristine ng-valid" novalidate="" #homeServiceForm="ngForm">
+			                              	<!-- <div class="form-group row" *ngIf="microbladingservicesData[subservice.id] == ''">
+				                                <div class="col-md-6">
+							                      <label>Service type<span class="text-danger">*</span></label> 
+							                      <ng-select class="bootstrap"  name="servicetype"  placeholder="Select Service Type"
+							                       [options]="servicetypes" [multiple]="true" 
+							                       [(ngModel)]="data.servicetype" required></ng-select>
+							                    </div>
+				                            </div> -->
+				                            <div *ngIf="microbladingservicesData[subservice.id]['home'] == ''"><div class="form-group row" >
+
+				                                <div class="col-md-6" >
+				                                  <label>DURATION</label>
+				                                  <select class="form-control" name="duration" [(ngModel)]="data.duration" required>
+				                                  	<option value="">Duration</option>
+				                                  	<option value="15 mins">15 mins</option>
+				                                  	<option value="30 mins">30 mins</option>
+				                                  	<option value="45 mins">45 mins</option>
+				                                  	<option value="1 hr">1 hr</option>
+				                                  	<option value="1 hr 15 mins">1 hr 15 mins</option>
+				                                  	<option value="1 hr 30 mins">1 hr 30 mins</option>
+				                                  	<option value="1 hr 45 mins">1 hr 45 mins</option>
+				                                  	<option value="2 hrs">2 hrs</option>
+				                                  	<option value="2 hrs 15 mins">2 hrs 15 mins</option>
+				                                  	<option value="2 hrs 30 mins">2 hrs 30 mins</option>
+				                                  	<option value="2 hrs 45 mins">2 hrs 45 mins</option>
+				                                  	<option value="3 hrs">3 hrs</option>
+				                                  	<option value="3 hrs 15 mins">3 hrs 15 mins</option>
+				                                  	<option value="3 hrs 30 mins">3 hrs 30 mins</option>
+				                                  	<option value="3 hrs 45 mins">3 hrs 45 mins</option>
+				                                  	<option value="4 hrs">4 hrs</option>
+				                                  	<option value="5 hrs">5 hrs</option>
+				                                  	<option value="6 hrs">6 hrs</option>
+				                                  	<option value="7 hrs">7 hrs</option>
+				                                  	<option value="8 hrs">8 hrs</option>
+				                                  </select>
+				                                  <!-- <input class="form-control" name="duration" type="text"  [(ngModel)]="data.duration" placeholder="e.g. 12 mins OR 1 hrs"  > -->
+				                                </div>
+				                                <div class="col-md-6" >
+				                                  	<label>PRICE</label>
+				                                  	<div class="input-group">
+									                  <div class="input-group-prepend">
+									                    <span class="input-group-text">{{currency}}</span>
+									                  </div>
+				                                 	  <input class="form-control" name="price" type="number" (keypress) = "numericOnly($event)"   [(ngModel)]="data.price"  placeholder="" pattern="^(0|[1-9][0-9]*)$" required>
+				                                 	</div>
+				                                </div>
+							                </div> </div>
+			                                 <!-- <div class="form-group row" *ngIf="microbladingservicesData[subservice.id] != ''">
+				                                <div class="col-md-6">
+							                      <label>Service type<span class="text-danger">*</span></label> 
+							                      <ng-select class="bootstrap"  name="servicetype"  placeholder="Select Service Type"  [options]="servicetypes" [multiple]="true" 
+							                       [(ngModel)]="microbladingservicesData[subservice.id].servicetype"  required></ng-select>
+							                    </div>
+				                            </div> -->
+				                           <div *ngIf="microbladingservicesData[subservice.id]['home'] != ''"> <div class="form-group row" >
+				                                <div class="col-md-6">
+				                                  <label>DURATION</label>
+				                                  <select class="form-control" name="duration"  [(ngModel)]="microbladingservicesData[subservice.id]['home'].duration" required>
+				                                  	<option value="">Duration</option>
+				                                  	<option value="15 mins">15 mins</option>
+				                                  	<option value="30 mins">30 mins</option>
+				                                  	<option value="45 mins">45 mins</option>
+				                                  	<option value="1 hr">1 hr</option>
+				                                  	<option value="1 hr 15 mins">1 hr 15 mins</option>
+				                                  	<option value="1 hr 30 mins">1 hr 30 mins</option>
+				                                  	<option value="1 hr 45 mins">1 hr 45 mins</option>
+				                                  	<option value="2 hrs">2 hrs</option>
+				                                  	<option value="2 hrs 15 mins">2 hrs 15 mins</option>
+				                                  	<option value="2 hrs 30 mins">2 hrs 30 mins</option>
+				                                  	<option value="2 hrs 45 mins">2 hrs 45 mins</option>
+				                                  	<option value="3 hrs">3 hrs</option>
+				                                  	<option value="3 hrs 15 mins">3 hrs 15 mins</option>
+				                                  	<option value="3 hrs 30 mins">3 hrs 30 mins</option>
+				                                  	<option value="3 hrs 45 mins">3 hrs 45 mins</option>
+				                                  	<option value="4 hrs">4 hrs</option>
+				                                  	<option value="5 hrs">5 hrs</option>
+				                                  	<option value="6 hrs">6 hrs</option>
+				                                  	<option value="7 hrs">7 hrs</option>
+				                                  	<option value="8 hrs">8 hrs</option>
+				                                  </select>
+				                                 <!--  <input class="form-control" name="duration" type="text"  [(ngModel)]="microbladingservicesData[subservice.id].duration" placeholder="e.g. 12 mins OR 1 hrs" value="{{microbladingservicesData[subservice.id].duration}}" > -->
+				                                </div>
+				                                <div class="col-md-6">
+				                                 	<label>PRICE</label>
+				                                  	<div class="input-group">
+									                  <div class="input-group-prepend">
+									                    <span class="input-group-text">{{currency}}</span>
+									                  </div>
+				                                  	  <input class="form-control" name="price"  type="number" (keypress) = "numericOnly($event)"    [(ngModel)]="microbladingservicesData[subservice.id]['home'].price"  value="{{microbladingservicesData[subservice.id].price}}" placeholder="" pattern="^(0|[1-9][0-9]*)$" required>
+				                                  	</div>
+				                                </div>
+			                                </div> </div>
+			                                <div class="form-group row">
+			                                	<div class="col-md-12">			
+					                                <button class="btn btn-primary pull-right" type="button" (click)="savesubservicedata(subservice.id,1,'home')" [disabled] = "!homeServiceForm.form.valid" style="margin-right:5px;" *ngIf="microbladingservicesData[subservice.id]['home']== ''" >Save</button> 
+					                                <button class="btn btn-primary pull-right" type="button" (click)="updatesubservicedata(microbladingservicesData[subservice.id]['home'],'home')" style="margin-right:5px;" *ngIf="microbladingservicesData[subservice.id]['home'] != ''" [disabled] = "!homeServiceForm.form.valid" >Update</button>       
+			                                	</div>
+			                                </div>
+			                            </form>
+			                        </tab>
+			                        <tab heading="Salon"> 
+			                              	<form autocomplete="off" class="form-horizontal ng-untouched ng-pristine ng-valid" novalidate="" #salonServiceForm="ngForm">
+			                              	<!-- <div class="form-group row" *ngIf="microbladingservicesData[subservice.id] == ''">
+				                                <div class="col-md-6">
+							                      <label>Service type<span class="text-danger">*</span></label> 
+							                      <ng-select class="bootstrap"  name="servicetype"  placeholder="Select Service Type"
+							                       [options]="servicetypes" [multiple]="true" 
+							                       [(ngModel)]="data.servicetype" required></ng-select>
+							                    </div>
+				                            </div> -->
+				                            <div *ngIf="microbladingservicesData[subservice.id]['salon'] == ''"><div class="form-group row">
+
+				                                <div class="col-md-6" >
+				                                  <label>DURATION</label>
+				                                  <select class="form-control" name="duration" [(ngModel)]="data.duration" required>
+				                                  	<option value="">Duration</option>
+				                                  	<option value="15 mins">15 mins</option>
+				                                  	<option value="30 mins">30 mins</option>
+				                                  	<option value="45 mins">45 mins</option>
+				                                  	<option value="1 hr">1 hr</option>
+				                                  	<option value="1 hr 15 mins">1 hr 15 mins</option>
+				                                  	<option value="1 hr 30 mins">1 hr 30 mins</option>
+				                                  	<option value="1 hr 45 mins">1 hr 45 mins</option>
+				                                  	<option value="2 hrs">2 hrs</option>
+				                                  	<option value="2 hrs 15 mins">2 hrs 15 mins</option>
+				                                  	<option value="2 hrs 30 mins">2 hrs 30 mins</option>
+				                                  	<option value="2 hrs 45 mins">2 hrs 45 mins</option>
+				                                  	<option value="3 hrs">3 hrs</option>
+				                                  	<option value="3 hrs 15 mins">3 hrs 15 mins</option>
+				                                  	<option value="3 hrs 30 mins">3 hrs 30 mins</option>
+				                                  	<option value="3 hrs 45 mins">3 hrs 45 mins</option>
+				                                  	<option value="4 hrs">4 hrs</option>
+				                                  	<option value="5 hrs">5 hrs</option>
+				                                  	<option value="6 hrs">6 hrs</option>
+				                                  	<option value="7 hrs">7 hrs</option>
+				                                  	<option value="8 hrs">8 hrs</option>
+				                                  </select>
+				                                  <!-- <input class="form-control" name="duration" type="text"  [(ngModel)]="data.duration" placeholder="e.g. 12 mins OR 1 hrs"  > -->
+				                                </div>
+				                                <div class="col-md-6" >
+				                                  	<label>PRICE </label>
+				                                  	<div class="input-group">
+									                  <div class="input-group-prepend">
+									                    <span class="input-group-text">{{currency}}</span>
+									                  </div>
+				                                 	  <input class="form-control" name="price"  type="number" (keypress) = "numericOnly($event)"    [(ngModel)]="data.price"  placeholder="" pattern="^(0|[1-9][0-9]*)$" required>
+				                                 	</div>
+				                                </div>
+							                </div> </div>
+			                                 <!-- <div class="form-group row" *ngIf="microbladingservicesData[subservice.id] != ''">
+				                                <div class="col-md-6">
+							                      <label>Service type<span class="text-danger">*</span></label> 
+							                      <ng-select class="bootstrap"  name="servicetype"  placeholder="Select Service Type"  [options]="servicetypes" [multiple]="true" 
+							                       [(ngModel)]="microbladingservicesData[subservice.id].servicetype"  required></ng-select>
+							                    </div>
+				                            </div> -->
+				                           <div *ngIf="microbladingservicesData[subservice.id]['salon'] != ''"> <div class="form-group row" >
+				                                <div class="col-md-6">
+				                                  <label>DURATION</label>
+				                                  <select class="form-control" name="duration"  [(ngModel)]="microbladingservicesData[subservice.id]['salon'].duration" required>
+				                                  	<option value="">Duration</option>
+				                                  	<option value="15 mins">15 mins</option>
+				                                  	<option value="30 mins">30 mins</option>
+				                                  	<option value="45 mins">45 mins</option>
+				                                  	<option value="1 hr">1 hr</option>
+				                                  	<option value="1 hr 15 mins">1 hr 15 mins</option>
+				                                  	<option value="1 hr 30 mins">1 hr 30 mins</option>
+				                                  	<option value="1 hr 45 mins">1 hr 45 mins</option>
+				                                  	<option value="2 hrs">2 hrs</option>
+				                                  	<option value="2 hrs 15 mins">2 hrs 15 mins</option>
+				                                  	<option value="2 hrs 30 mins">2 hrs 30 mins</option>
+				                                  	<option value="2 hrs 45 mins">2 hrs 45 mins</option>
+				                                  	<option value="3 hrs">3 hrs</option>
+				                                  	<option value="3 hrs 15 mins">3 hrs 15 mins</option>
+				                                  	<option value="3 hrs 30 mins">3 hrs 30 mins</option>
+				                                  	<option value="3 hrs 45 mins">3 hrs 45 mins</option>
+				                                  	<option value="4 hrs">4 hrs</option>
+				                                  	<option value="5 hrs">5 hrs</option>
+				                                  	<option value="6 hrs">6 hrs</option>
+				                                  	<option value="7 hrs">7 hrs</option>
+				                                  	<option value="8 hrs">8 hrs</option>
+				                                  </select>
+				                                 <!--  <input class="form-control" name="duration" type="text"  [(ngModel)]="microbladingservicesData[subservice.id].duration" placeholder="e.g. 12 mins OR 1 hrs" value="{{microbladingservicesData[subservice.id].duration}}" > -->
+				                                </div>
+				                                <div class="col-md-6">
+				                                 	<label>PRICE</label>
+				                                  	<div class="input-group">
+									                  <div class="input-group-prepend">
+									                    <span class="input-group-text">{{currency}}</span>
+									                  </div>
+				                                  	  <input class="form-control" name="price"  type="number" (keypress) = "numericOnly($event)"    [(ngModel)]="microbladingservicesData[subservice.id]['salon'].price"  value="{{microbladingservicesData[subservice.id].price}}" placeholder="" pattern="^(0|[1-9][0-9]*)$" required>
+				                                  	</div>
+				                                </div>
+			                                </div> </div>
+
+			                                <div class="form-group row">
+			                                	<div class="col-md-12">			
+					                                <button class="btn btn-primary pull-right" type="button" (click)="savesubservicedata(subservice.id,1,'salon')" [disabled] = "!salonServiceForm.form.valid" style="margin-right:5px;" *ngIf="microbladingservicesData[subservice.id]['salon']== ''" >Save</button> 
+					                                <button class="btn btn-primary pull-right" type="button" (click)="updatesubservicedata(microbladingservicesData[subservice.id]['salon'],'salon')" style="margin-right:5px;" *ngIf="microbladingservicesData[subservice.id]['salon'] != ''" [disabled] = "!salonServiceForm.form.valid" >Update</button>       
+			                                	</div>
+			                                </div>
+			                            </form>
+			                        </tab>
+			                        <tab heading="GCC"> 
+			                              	<form autocomplete="off" class="form-horizontal ng-untouched ng-pristine ng-valid" novalidate="" #gccServiceForm="ngForm">
+			                              	<!-- <div class="form-group row" *ngIf="microbladingservicesData[subservice.id] == ''">
+				                                <div class="col-md-6">
+							                      <label>Service type<span class="text-danger">*</span></label> 
+							                      <ng-select class="bootstrap"  name="servicetype"  placeholder="Select Service Type"
+							                       [options]="servicetypes" [multiple]="true" 
+							                       [(ngModel)]="data.servicetype" required></ng-select>
+							                    </div>
+				                            </div> -->
+				                            <div *ngIf="microbladingservicesData[subservice.id]['gcc'] == ''"><div class="form-group row">
+
+				                                <div class="col-md-6" >
+				                                  <label>DURATION</label>
+				                                  <select class="form-control" name="duration" [(ngModel)]="data.duration" required>
+				                                  	<option value="">Duration</option>
+				                                  	<option value="15 mins">15 mins</option>
+				                                  	<option value="30 mins">30 mins</option>
+				                                  	<option value="45 mins">45 mins</option>
+				                                  	<option value="1 hr">1 hr</option>
+				                                  	<option value="1 hr 15 mins">1 hr 15 mins</option>
+				                                  	<option value="1 hr 30 mins">1 hr 30 mins</option>
+				                                  	<option value="1 hr 45 mins">1 hr 45 mins</option>
+				                                  	<option value="2 hrs">2 hrs</option>
+				                                  	<option value="2 hrs 15 mins">2 hrs 15 mins</option>
+				                                  	<option value="2 hrs 30 mins">2 hrs 30 mins</option>
+				                                  	<option value="2 hrs 45 mins">2 hrs 45 mins</option>
+				                                  	<option value="3 hrs">3 hrs</option>
+				                                  	<option value="3 hrs 15 mins">3 hrs 15 mins</option>
+				                                  	<option value="3 hrs 30 mins">3 hrs 30 mins</option>
+				                                  	<option value="3 hrs 45 mins">3 hrs 45 mins</option>
+				                                  	<option value="4 hrs">4 hrs</option>
+				                                  	<option value="5 hrs">5 hrs</option>
+				                                  	<option value="6 hrs">6 hrs</option>
+				                                  	<option value="7 hrs">7 hrs</option>
+				                                  	<option value="8 hrs">8 hrs</option>
+				                                  </select>
+				                                  <!-- <input class="form-control" name="duration" type="text"  [(ngModel)]="data.duration" placeholder="e.g. 12 mins OR 1 hrs"  > -->
+				                                </div>
+				                                <div class="col-md-6" >
+				                                  	<label>PRICE</label>
+				                                  	<div class="input-group">
+									                  <div class="input-group-prepend">
+									                    <span class="input-group-text">{{currency}}</span>
+									                  </div>
+				                                 	  <input class="form-control" name="price"  type="number" (keypress) = "numericOnly($event)"    [(ngModel)]="data.price" pattern="^(0|[1-9][0-9]*)$" placeholder="" required>
+				                                 	</div>
+				                                </div>
+							                </div> 
+
+							            	</div>
+			                                 <!-- <div class="form-group row" *ngIf="microbladingservicesData[subservice.id] != ''">
+				                                <div class="col-md-6">
+							                      <label>Service type<span class="text-danger">*</span></label> 
+							                      <ng-select class="bootstrap"  name="servicetype"  placeholder="Select Service Type"  [options]="servicetypes" [multiple]="true" 
+							                       [(ngModel)]="microbladingservicesData[subservice.id].servicetype"  required></ng-select>
+							                    </div>
+				                            </div> -->
+				                           <div *ngIf="microbladingservicesData[subservice.id]['gcc'] != ''"> <div class="form-group row" >
+				                                <div class="col-md-6">
+				                                  <label>DURATION </label>
+				                                  <select class="form-control" name="duration"  [(ngModel)]="microbladingservicesData[subservice.id]['gcc'].duration" required>
+				                                  	<option value="">Duration</option>
+				                                  	<option value="15 mins">15 mins</option>
+				                                  	<option value="30 mins">30 mins</option>
+				                                  	<option value="45 mins">45 mins</option>
+				                                  	<option value="1 hr">1 hr</option>
+				                                  	<option value="1 hr 15 mins">1 hr 15 mins</option>
+				                                  	<option value="1 hr 30 mins">1 hr 30 mins</option>
+				                                  	<option value="1 hr 45 mins">1 hr 45 mins</option>
+				                                  	<option value="2 hrs">2 hrs</option>
+				                                  	<option value="2 hrs 15 mins">2 hrs 15 mins</option>
+				                                  	<option value="2 hrs 30 mins">2 hrs 30 mins</option>
+				                                  	<option value="2 hrs 45 mins">2 hrs 45 mins</option>
+				                                  	<option value="3 hrs">3 hrs</option>
+				                                  	<option value="3 hrs 15 mins">3 hrs 15 mins</option>
+				                                  	<option value="3 hrs 30 mins">3 hrs 30 mins</option>
+				                                  	<option value="3 hrs 45 mins">3 hrs 45 mins</option>
+				                                  	<option value="4 hrs">4 hrs</option>
+				                                  	<option value="5 hrs">5 hrs</option>
+				                                  	<option value="6 hrs">6 hrs</option>
+				                                  	<option value="7 hrs">7 hrs</option>
+				                                  	<option value="8 hrs">8 hrs</option>
+				                                  </select>
+				                                 <!--  <input class="form-control" name="duration" type="text"  [(ngModel)]="microbladingservicesData[subservice.id].duration" placeholder="e.g. 12 mins OR 1 hrs" value="{{microbladingservicesData[subservice.id].duration}}" > -->
+				                                </div>
+				                                <div class="col-md-6">
+				                                 	<label>PRICE </label>
+				                                  	<div class="input-group">
+									                  <div class="input-group-prepend">
+									                    <span class="input-group-text">{{currency}}</span>
+									                  </div>
+				                                  	  <input class="form-control" name="price"  type="number" (keypress) = "numericOnly($event)"    [(ngModel)]="microbladingservicesData[subservice.id]['gcc'].price"  value="{{microbladingservicesData[subservice.id].price}}" placeholder="" pattern="^(0|[1-9][0-9]*)$" required>
+				                                  	</div>
+				                                </div>
+			                                </div>
+			                            </div> 
+			                                <div class="form-group row">
+			                                	<div class="col-md-12">			
+					                                <button class="btn btn-primary pull-right" type="button" (click)="savesubservicedata(subservice.id,1,'gcc')" [disabled] = "!gccServiceForm.form.valid" style="margin-right:5px;" *ngIf="microbladingservicesData[subservice.id]['gcc']== ''" >Save</button> 
+					                                <button class="btn btn-primary pull-right" type="button" (click)="updatesubservicedata(microbladingservicesData[subservice.id]['gcc'],'gcc')" style="margin-right:5px;" *ngIf="microbladingservicesData[subservice.id]['gcc'] != ''" [disabled] = "!gccServiceForm.form.valid" >Update</button>    
+			                                	</div>
+			                                </div>
+			                            </form>
+			                        </tab>
+			                    </tabset></div>
+	                              </div>
+	                            </div><!-- /.modal-content -->
+	                          </div><!-- /.modal-dialog -->
+	                        </div><!-- /.modal -->
+	                    </div>		  
+              		</tab>
               		<tab heading = "Courses" *ngIf = "loginUserRole == 'artist' || loginUserRole == 'salon'" (select)="tabSelected('course')">
                     <div class="form-group row"><div class="col-md-12"><button type="button" class="btn btn-sm btn-primary pull-right" data-toggle="modal" (click)="emptyCourseForm();courseModal.show()"><span class="fa fa-plus"></span> Add New Course</button></div></div>
 

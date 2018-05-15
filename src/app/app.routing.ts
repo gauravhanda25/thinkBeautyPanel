@@ -528,6 +528,17 @@ export const routes: Routes = [
         },
         loadChildren: './views/makeup/makeup.module#MakeupModule'
       },
+       {
+        path: 'microblading',
+        component: FullLayoutComponent,        
+        canActivate: [NgxPermissionsGuard],
+        data: {
+          permissions: {
+            only: ['ADMIN']
+          }
+        },
+        loadChildren: './views/microblading/microblading.module#MicrobladingModule'
+      },
 
       {
         path: 'hair',

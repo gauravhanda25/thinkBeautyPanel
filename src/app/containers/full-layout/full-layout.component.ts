@@ -142,6 +142,11 @@ export class FullLayoutComponent {
               name: 'Nails',
               url: '/nails',
               icon: 'icon-list',
+            },
+            {
+              name: 'Microblading',
+              url: '/microblading',
+              icon: 'icon-list',
             }
           ]
         },{
