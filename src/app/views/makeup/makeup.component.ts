@@ -10,6 +10,7 @@ import { NgxPermissionsService, NgxRolesService } from 'ngx-permissions';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { NgModule } from '@angular/core';
+import * as $ from 'jquery';
 
 // Toastr
 import { ToasterModule, ToasterService, ToasterConfig }  from 'angular2-toaster/angular2-toaster';
@@ -65,6 +66,8 @@ export class MakeupComponent {
  	}
 	delmakeup(delId){
 		//console.log(delId);
+
+		$('.preloader').show();
 		if(confirm("Are you sure?")){
 		
 			let options = new RequestOptions();
@@ -75,6 +78,7 @@ export class MakeupComponent {
 			this.http.delete(API_URL+'/Makeups/'+delId.id+'?access_token='+ localStorage.getItem('currentUserToken'), options)
 			.subscribe(response => {				
 				this.toasterService.pop('success', 'Success ', "Makeup Record deleted successfully.");
+				$('.preloader').hide();
 				const index: number = this.data.indexOf(delId);
 				if (index !== -1) {
 					this.data.splice(index, 1);
@@ -86,6 +90,7 @@ export class MakeupComponent {
 				console.log(JSON.stringify(error.json()));
 			});
 		} else {
+				$('.preloader').hide();
 				return false;
 		}
 	}

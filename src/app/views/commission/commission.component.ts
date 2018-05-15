@@ -12,6 +12,7 @@ import { FormsModule } from '@angular/forms';
 import { NgModule } from '@angular/core';
 
 import * as moment from 'moment';
+import * as $ from 'jquery';
 
 // Toastr
 import { ToasterModule, ToasterService, ToasterConfig }  from 'angular2-toaster/angular2-toaster';
@@ -77,6 +78,7 @@ export class CommissionComponent {
     	
  	}
 	delCommission(delId){
+		$('.preloader').show();
 		if(confirm("Are you sure you want to remove this commission?")){
 		
 			let options = new RequestOptions();
@@ -87,6 +89,7 @@ export class CommissionComponent {
 			this.http.post(API_URL+'/Commissions/update?where={"id":"'+ delId.id +'"}&access_token='+ localStorage.getItem('currentUserToken'), {"active":0} ,options)    
 			.subscribe(response => {
 				this.toasterService.pop('success', 'Success ', "Commission Record deleted successfully.");
+				$('.preloader').hide();
 				const index: number = this.commissions.indexOf(delId);
 				if (index !== -1) {
 					this.commissions.splice(index, 1);
@@ -99,6 +102,7 @@ export class CommissionComponent {
 			});
 
 		} else {
+				$('.preloader').hide();
 				return false;
 		}
 	}
