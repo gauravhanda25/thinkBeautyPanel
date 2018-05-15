@@ -269,9 +269,9 @@ export class AddartistservicesComponent {
       .subscribe(r => {
       console.log(r.json());
         if(r.json().length != 0){
-          this.makeupAsProfesion = (r.json()[0].artist_profession == 1 || r.json()[0].artist_profession == 3) ? 1 : 0;
-          this.microbladingAsProfesion = (r.json()[0].artist_profession == 4 || r.json()[0].artist_profession == 3) ? 1 : 0;
-          this.hairAsProfesion = (r.json()[0].artist_profession == 2 || r.json()[0].artist_profession == 3) ? 1 : 0;
+           this.makeupAsProfesion = (r.json()[0].artist_profession).indexOf(1) != -1 ? 1 : 0;
+          this.microbladingAsProfesion = (r.json()[0].artist_profession).indexOf(3) != -1 ? 1 : 0;
+          this.hairAsProfesion = (r.json()[0].artist_profession).indexOf(2) != -1 ? 1 : 0;
         }
       }, error => {
         console.log(JSON.stringify(error.json()));

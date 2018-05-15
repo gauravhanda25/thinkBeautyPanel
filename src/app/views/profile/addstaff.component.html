@@ -244,7 +244,8 @@
             <div class="form-group row">
               <div class="col-md-6">
               <label class="col-md-3 col-form-label" for="inline-radios">Profession<span class="text-danger">*</span></label>
-              <div class="col-md-9 col-form-label">
+               <ng-select class="bootstrap"  name="artist_profession"  placeholder="Select Artist Profession"  [options]="professions" [multiple]="true"  [(ngModel)]="data.artist_profession" required></ng-select>
+              <!-- <div class="col-md-9 col-form-label">
                 <div class="form-check form-check-inline mr-1" id="artist_profession1">
                   <input class="form-check-input" type="radio" name="artist_profession" id="artist_profession1" value="1"  [(ngModel)]="data.artist_profession" required>
                   <label class="form-check-label" for="inlineRadio1">Makeup</label>
@@ -257,7 +258,7 @@
                   <input class="form-check-input" type="radio" name="artist_profession" id="artist_profession3" value="3"  [(ngModel)]="data.artist_profession">
                   <label class="form-check-label" for="artist_profession3">Both</label>
                 </div>
-              </div>
+              </div> -->
                </div>
             </div>
 

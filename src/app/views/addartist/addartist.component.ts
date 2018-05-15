@@ -10,6 +10,7 @@ import { NgxPermissionsService, NgxRolesService } from 'ngx-permissions';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { NgModule } from '@angular/core';
+import {IOption} from 'ng-select';
 
 import { TextMaskModule } from 'angular2-text-mask';
 import emailMask from 'text-mask-addons/dist/emailMask';
@@ -31,6 +32,8 @@ export class AddartistComponent {
   	private editparam: any;
   	private countries: any;
   	private provinces: any;
+  	
+	public professions: Array<IOption> = [];
   	public mask = [/[1-9]/, /\d/, /\d/, ' ',/\d/, /\d/, /\d/, /\d/, /\d/, /\d/, /\d/, /\d/];
   	public emailmask = emailMask;
 
@@ -90,7 +93,7 @@ export class AddartistComponent {
     		block:'',
     		phone:'',
     		role_id:2,
-    		artist_profession:'',
+    		artist_profession:[],
     		villa:'',
     		road:'',
     		city:'',
@@ -101,6 +104,11 @@ export class AddartistComponent {
     		created_on: today,    		
     		action_on: today
     	}
+
+    	this.professions.push({label: "Makeup", value: 1});
+    	this.professions.push({label: "Hair", value: 2});
+    	this.professions.push({label: "Microblading", value: 3});
+        this.professions = [...this.professions];
 
     	let options = new RequestOptions();
         options.headers = new Headers();
@@ -181,6 +189,7 @@ export class AddartistComponent {
 		console.log(this.editparam.id);
 
 		this.data.role_id = parseInt(this.data.role_id);
+
 		
 		if(this.editparam.id  == undefined){
 			if(this.data.password == '') {

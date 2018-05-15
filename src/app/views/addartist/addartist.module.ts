@@ -13,6 +13,11 @@ import emailMask from 'text-mask-addons/dist/emailMask';
 // Toastr
 import { ToasterModule, ToasterService} from 'angular2-toaster/angular2-toaster';
 
+
+// Ng2-select
+import { SelectModule } from 'ng-select';
+
+
 //Routing
 import { AddartistRoutingModule } from './addartist-routing.module';
 
@@ -21,6 +26,7 @@ import { AddartistRoutingModule } from './addartist-routing.module';
   	FormsModule,
     ChartsModule,
     CommonModule,
+    SelectModule,
     BsDropdownModule,
     TextMaskModule,
     ButtonsModule.forRoot(),

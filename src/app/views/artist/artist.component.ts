@@ -48,7 +48,7 @@ export class ArtistComponent {
     constructor(private router:Router, private http: Http, private activatedRoute: ActivatedRoute, toasterService: ToasterService ) { 
 
         $('.preloader').show();
-        this.profession_vals = ['Make Up', 'Hair', 'Makeup, Hair & Microblading','Microblading'];
+        this.profession_vals = ['Make Up', 'Hair','Microblading'];
         this.toasterService = toasterService;
 
         this.nousers = 1;
@@ -125,6 +125,11 @@ export class ArtistComponent {
                         this.users[i].action_on = moment(this.users[i].action_on).format('DD MMMM YYYY');
                     } else {
                        this.users[i].action_on = ''; 
+                    }
+
+                    this.users[i].professions = []
+                    for(let p=0; p< this.users[i].artist_profession.length; p++){
+                        this.users[i].professions.push(this.profession_vals[(this.users[i].artist_profession[p])-1]);
                     }
 
                     this.http.get(API_URL+'/Members/'+this.users[i].id+'/roles?access_token='+ localStorage.getItem('currentUserToken'), options)
