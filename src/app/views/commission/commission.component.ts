@@ -61,10 +61,10 @@ export class CommissionComponent {
 			 if(response.json().length !=0) {
 				this.commissions = response.json();
                 for(let i=0; i< this.commissions.length; i++ ) {
-					if(this.commissions[i].created_on != '' && this.commissions[i].created_on != undefined) {
-		                this.commissions[i].created_on = moment(this.commissions[i].created_on).format('DD MMMM YYYY');
+					if(this.commissions[i].created != '' && this.commissions[i].created != undefined) {
+		                this.commissions[i].created = moment(this.commissions[i].created).format('DD MMMM YYYY');
 		            } else {
-		               this.commissions[i].created_on = ''; 
+		               this.commissions[i].created = ''; 
 		            }
 		        }
 		    } else {

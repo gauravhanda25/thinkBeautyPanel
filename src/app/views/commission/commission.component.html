@@ -23,7 +23,7 @@
               <tr>
 				        <th><mfDefaultSorter by="price">Price Range</mfDefaultSorter></th>
                 <th><mfDefaultSorter by="commission">Commission (%)</mfDefaultSorter></th>
-                <th><mfDefaultSorter by="">Created On</mfDefaultSorter></th>
+                <th><mfDefaultSorter by="created">Created On</mfDefaultSorter></th>
                 <th>Action</th>
               </tr>
             </thead>
@@ -34,7 +34,7 @@
               <tr *ngFor="let commission of mf.data">
                 <td>{{commission.price}}</td>
                 <td>{{commission.commission}}</td>
-                <td>{{commission.created_on}}</td>
+                <td>{{commission.created}}</td>
               
                 <td>
                   <a class="btn btn-small btn-outline-primary " href="#" routerLink='editcommission/{{commission.id}}'><i class="fa fa-edit"></i> </a>

@@ -47,8 +47,8 @@
                 <td>{{user.countryname}}</td>
                 <td>{{user.phone}}</td>
                 <td>{{user.email}}</td>
-                <td>{{user.created_on}}</td>
-                <td *ngIf="check_account.action == 'active'||check_account.action == 'verify'">{{user.action_on}}</td>
+                <td>{{user.created}}</td>
+                <td *ngIf="check_account.action == 'active'||check_account.action == 'verify'">{{user.modified}}</td>
                 <td *ngIf="check_account.action == 'reject'">{{user.action_on}}</td>
                 <td>
                   <a class="btn btn-sm btn-outline-primary " href="#" routerLink='/manageartist/editartist/{{user.id}}' *ngIf="check_account.action == 'active'"><i class="fa fa-edit"></i> </a>                 

@@ -116,15 +116,15 @@ export class ArtistComponent {
 
             if(this.users.length !=0) {
                 for(let i=0; i< this.users.length; i++ ) {
-                    if(this.users[i].created_on != '' && this.users[i].created_on != undefined) {
-                        this.users[i].created_on = moment(this.users[i].created_on).format('DD MMMM YYYY');
+                    if(this.users[i].created != '' && this.users[i].created != undefined) {
+                        this.users[i].created = moment(this.users[i].created).format('DD MMMM YYYY');
                     } else {
-                       this.users[i].created_on = ''; 
+                       this.users[i].created = ''; 
                     }
-                    if(this.users[i].action_on != ''  && this.users[i].action_on != undefined) {
-                        this.users[i].action_on = moment(this.users[i].action_on).format('DD MMMM YYYY');
+                    if(this.users[i].modified != ''  && this.users[i].modified != undefined) {
+                        this.users[i].modified = moment(this.users[i].modified).format('DD MMMM YYYY');
                     } else {
-                       this.users[i].action_on = ''; 
+                       this.users[i].modified = ''; 
                     }
 
                     this.users[i].professions = []
