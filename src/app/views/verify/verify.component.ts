@@ -31,6 +31,8 @@ export class VerifyComponent {
 	        this.token = params.token;
 	    });
 
+	    this.onSubmit();
+
 	  }
 
 
@@ -41,12 +43,11 @@ export class VerifyComponent {
 
 		  	this.http.get(API_URL+'/Members/confirm' +'?uid='+this.id+'&token='+ this.token)
 	        .subscribe(response => {
-	        	
-     		this.error = 0;
-     		this.success = 1;
-     		this.router.navigate(['login']);
-				
-	           
+		        console.log(response.json());
+	     		this.error = 0;
+	     		this.success = 1;
+				this.router.navigate(['artist']);
+					
           	}, error => {
           		this.error = 1;
      			this.success = 0;

@@ -8,7 +8,7 @@ const routes: Routes = [
     path: '',
     component: UpdatesComponent,
     data: {
-      title: 'Manage Updatess'
+      title: 'Manage Updates'
     }
   }
 ];
