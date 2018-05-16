@@ -65,7 +65,7 @@ export class LoginComponent {
 	 		// console.log(this.data.password);
 	 		// console.log(JSON.stringify(this.data));
 		
-	     if((this.data.username).match(/^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$/)){
+	     if((this.data.username).match(/^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,5}$/)){
           this.data.email = this.data.username;
           delete this.data.username;
        } else {
