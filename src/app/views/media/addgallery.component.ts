@@ -109,6 +109,12 @@ export class AddgalleryComponent {
 
       this.uploader = new FileUploader({url: API_URL+'/Containers/'+this.loggedInUserId+'/upload?access_token='+localStorage.getItem('currentUserToken'),
       allowedMimeType: ['image/gif','image/jpeg','image/png'] });
+      
+      this.uploader.onAfterAddingFile = function(item) {
+        var fileExtension = '.' + item.file.name.split('.').pop();
+
+        item.file.name = item.file.name + new Date().getTime() + fileExtension;
+      };
 
       this.uploader.onSuccessItem = (item:any, response:any, status:any, headers:any) => {
         console.log("ImageUpload:uploaded:", item, status);
@@ -125,7 +131,8 @@ export class AddgalleryComponent {
 
           this.http.post(API_URL+'/FileStorages?access_token='+ localStorage.getItem('currentUserToken'), fileStorageData ,  options)
           .subscribe(storageRes => {
-            console.log(storageRes.json());
+            console.log(storageRes.json());            
+            this.router.navigate(['/media/gallery']);
           }, error => {
               console.log(JSON.stringify(error.json()));
           });

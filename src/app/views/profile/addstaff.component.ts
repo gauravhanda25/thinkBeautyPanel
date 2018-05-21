@@ -281,7 +281,7 @@ export class AddstaffComponent {
 
 
 
-			
+				this.router.navigate(['dashboard']);
 				this.toasterService.pop('success', 'Success ', "Profile updated successfully.");	
            	
 	    }, error => {

@@ -853,7 +853,7 @@ export class ArtistservicesComponent {
         $(".closeModalButton").click();
        this.getAllArtistCourseData();
 
-        // window.location.reload(true);
+        window.location.reload(true);
 
 	    }, error => {
 	        console.log(JSON.stringify(error.json()));
@@ -1014,7 +1014,7 @@ export class ArtistservicesComponent {
   		
   		  this.getAllArtistCourseData();
 
-        // window.location.reload(true);
+        window.location.reload(true);
 
 	    }, error => {
 	        console.log(JSON.stringify(error.json()));

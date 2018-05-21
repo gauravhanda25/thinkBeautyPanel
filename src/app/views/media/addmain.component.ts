@@ -99,7 +99,14 @@ private memberType:any;
          console.log(this.mainImagesCount = storageRes.json().length);
 
          this.uploader = new FileUploader({url: API_URL+'/Containers/'+this.loggedInUserId+'/upload?access_token='+localStorage.getItem('currentUserToken'),
-          allowedMimeType: ['image/gif','image/jpeg','image/png'] , queueLimit: (4- parseInt(this.mainImagesCount))});   //, queueLimit: (4- parseInt(this.mainImagesCount))
+          allowedMimeType: ['image/gif','image/jpeg','image/png'] , queueLimit: (4- parseInt(this.mainImagesCount))});   
+        
+
+          this.uploader.onAfterAddingFile = function(item) {
+            var fileExtension = '.' + item.file.name.split('.').pop();
+
+            item.file.name = item.file.name + new Date().getTime() + fileExtension;
+          };
 
           this.uploader.onSuccessItem = (item:any, response:any, status:any, headers:any) => {
             console.log("ImageUpload:uploaded:", item, status);
@@ -117,6 +124,8 @@ private memberType:any;
               this.http.post(API_URL+'/FileStorages?access_token='+ localStorage.getItem('currentUserToken'), fileStorageData ,  options)
               .subscribe(storageRes => {
                 console.log(storageRes.json());
+
+                this.router.navigate(['/media/main']);
               }, error => {
                   console.log(JSON.stringify(error.json()));
               });
@@ -152,6 +161,11 @@ private memberType:any;
 
 
     console.log(this.uploader);
+
+}
+
+imagesNoCheck() {
+  
 
 }
 

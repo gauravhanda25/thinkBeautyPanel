@@ -27,6 +27,7 @@ export class AddfixedchargeComponent {
 	private data: any;
   	private error: number;
   	private editparam: any;
+  	private countries:any;
  	private currency:any = localStorage.getItem('currentUserCurrency');
 	private toasterService: ToasterService;
 
@@ -38,24 +39,13 @@ export class AddfixedchargeComponent {
     constructor(private NgxRolesService: NgxRolesService, private NgxPermissionsService: NgxPermissionsService, @Inject(Http) private http: Http, @Inject(Router)private router:Router, private activatedRoute: ActivatedRoute, toasterService: ToasterService) {
 		//console.log(localStorage.getItem('currentUserRoleId'));
 			
-	     if(localStorage.getItem('currentUserRoleId') == "1"){
-        localStorage.setItem('currentUserRole', "ADMIN");
-      } else if(localStorage.getItem('currentUserRoleId') == "2"){
-        localStorage.setItem('currentUserRole', "TRAINER");
-      } else if(localStorage.getItem('currentUserRoleId') == "3"){
-        localStorage.setItem('currentUserRole', "REGIONAL");
-      } else if(localStorage.getItem('currentUserRoleId') == "4"){
-        localStorage.setItem('currentUserRole', "ACCOUNT");
-      } else if(localStorage.getItem('currentUserRoleId') == "5"){
-        localStorage.setItem('currentUserRole', "DEALER");
-      } else if(localStorage.getItem('currentUserRoleId') == "6"){
-        localStorage.setItem('currentUserRole', "SUPPLIER");
-      } else if(localStorage.getItem('currentUserRoleId') == "7"){
-        localStorage.setItem('currentUserRole', "SALES");
-      } else if(localStorage.getItem('currentUserRoleId') == "8"){
-        localStorage.setItem('currentUserRole', "PRODCORD");
-      }
-
+	    if(localStorage.getItem('currentUserRoleId') == "1"){
+	      localStorage.setItem('currentUserRole', "ADMIN");
+	    } else if(localStorage.getItem('currentUserRoleId') == "2"){
+	      localStorage.setItem('currentUserRole', "ARTIST");
+	    } else if(localStorage.getItem('currentUserRoleId') == "3"){
+	      localStorage.setItem('currentUserRole', "SALON");
+	    } 
 
 	   this.NgxRolesService.flushRoles();
 
@@ -95,6 +85,7 @@ export class AddfixedchargeComponent {
 	        memberId: localStorage.getItem('currentUserId'),
 	        memberType: (localStorage.getItem('currentUserRole') == 'SALON' ? 'salon' : 'artist'),
     		fixedcharge:'',
+    		country: '',
     		created_by:localStorage.getItem('currentUserId'),
     		created_on:today,
     	}
@@ -109,12 +100,16 @@ export class AddfixedchargeComponent {
 	        this.editparam.id = id;
 	    });
 
-	    if(this.editparam.id != undefined) {
-	    	let options = new RequestOptions();
-	        options.headers = new Headers();
-	        options.headers.append('Content-Type', 'application/json');
-	        options.headers.append('Accept', 'application/json');
+	    this.http.get(API_URL+'/Countries?filter={"order":"name ASC"}&access_token='+ localStorage.getItem('currentUserToken'), options)
+        .subscribe(response => {
+        	console.log(response.json());	
+        	this.countries = response.json();
+	    }, error => {
+	        console.log(JSON.stringify(error.json()));
+	    });
 
+	    if(this.editparam.id != undefined) {
+	    	
 	    	this.http.get(API_URL+'/Fixedcharges/'+ this.editparam.id +'?access_token='+ localStorage.getItem('currentUserToken'), options)
 	        .subscribe(response => {
 	        	this.data = response.json();

@@ -22,6 +22,7 @@
             <thead>
               <tr>
                 <th><mfDefaultSorter by="fixedcharge">Fixed Charge</mfDefaultSorter></th>
+                <th><mfDefaultSorter by="countries.name">Country</mfDefaultSorter></th>
                 <th><mfDefaultSorter by="">Created On</mfDefaultSorter></th>
                 <th>Action</th>
               </tr>
@@ -32,6 +33,7 @@
               </tr>
               <tr *ngFor="let fixedcharge of mf.data">
                 <td>{{fixedcharge.fixedcharge}}</td>
+                <td>{{fixedcharge.countries.name}}</td>
                 <td>{{fixedcharge.created_on}}</td>
               
                 <td>

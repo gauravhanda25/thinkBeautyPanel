@@ -55,7 +55,7 @@ export class FixedchargeComponent {
 		options.headers.append('Content-Type', 'application/json');
 		options.headers.append('Accept', 'application/json');
 
-		this.http.get(API_URL+'/Fixedcharges?filter={"where":{"and":[{"active":{"neq":0}},{"memberId":"'+localStorage.getItem('currentUserId')+'"}]}}&access_token='+localStorage.getItem('currentUserToken'), options)
+		this.http.get(API_URL+'/Fixedcharges?filter={"where":{"and":[{"active":{"neq":0}},{"memberId":"'+localStorage.getItem('currentUserId')+'"}]},"include":["countries"]}&access_token='+localStorage.getItem('currentUserToken'), options)
 		.subscribe(response => {   
 			console.log(response.json());   
 			 if(response.json().length !=0) {
