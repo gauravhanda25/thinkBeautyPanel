@@ -241,8 +241,9 @@ export class AddstaffComponent {
         .subscribe(response => {
         	console.log(response.json());	
 
-				this.uploader.options.url = API_URL+'/Containers/'+localStorage.getItem('currentUserId')+'/upload?access_token='+ localStorage.getItem('currentUserToken');
-
+			this.uploader.options.url = API_URL+'/Containers/'+localStorage.getItem('currentUserId')+'/upload?access_token='+ localStorage.getItem('currentUserToken');
+			
+			if(this.uploader.queue.length != 0) {	
               for(let val of this.uploader.queue){
                 val.url = API_URL+'/Containers/'+localStorage.getItem('currentUserId')+'/upload?access_token='+ localStorage.getItem('currentUserToken');
 
@@ -267,6 +268,9 @@ export class AddstaffComponent {
                       this.http.post(API_URL+'/FileStorages?access_token='+ localStorage.getItem('currentUserToken'), fileStorageData ,  options)
                       .subscribe(storageRes => {
                         console.log(storageRes.json());
+
+
+						this.router.navigate(['dashboard']);
                       }, error => {
                           console.log(JSON.stringify(error.json()));
                       });
@@ -278,10 +282,11 @@ export class AddstaffComponent {
                 };
 
               }
+             } else {
+             	this.router.navigate(['dashboard']);
+             }
 
 
-
-				this.router.navigate(['dashboard']);
 				this.toasterService.pop('success', 'Success ', "Profile updated successfully.");	
            	
 	    }, error => {

@@ -125,7 +125,7 @@ private memberType:any;
               .subscribe(storageRes => {
                 console.log(storageRes.json());
 
-                this.router.navigate(['/media/main']);
+                // this.router.navigate(['/media/main']);
               }, error => {
                   console.log(JSON.stringify(error.json()));
               });
@@ -133,6 +133,10 @@ private memberType:any;
             } else {
               this.toasterService.pop('error', 'Error ',  "File: "+item.file.name+" not uploaded successfully");
             }
+        };
+
+        this.uploader.onCompleteAll = () => {
+          this.router.navigate(['/media/main']);
         };
        }, error => {
           console.log(JSON.stringify(error.json()));

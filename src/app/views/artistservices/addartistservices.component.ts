@@ -311,6 +311,19 @@ export class AddartistservicesComponent {
         memberId: localStorage.getItem('currentUserId'),
         memberType: (localStorage.getItem('currentUserRole') == 'SALON' ? 'salon' : 'artist')
       }
+
+      this.locationSelected = '';
+      this.latSelected = '';
+      this.lngSelected = '';
+      this.countrySelected = '';
+
+      this.userSettings.inputString = '';
+      this.userSettings = Object.assign({},this.userSettings);
+
+      $('input[type="file"]').val('');
+
+       this.uploader = new FileUploader({url: '',
+      allowedMimeType: ['image/gif','image/jpeg','image/png'] });
     }
 
     tabSelected(tab) {
@@ -386,6 +399,9 @@ export class AddartistservicesComponent {
            this.http.get(API_URL+'/FileStorages?filter={"where":{"and":[{"memberType":"'+this.coursesData[index].memberType+'"},{"uploadType":"course"},{"memberId":"'+this.loggedInUserId+'"},{"status":"active"},{"courseId":"'+this.coursesData[index].id+'"}]}}&access_token='+ localStorage.getItem('currentUserToken'), options)
            .subscribe(storageRes => {
              this.coursesData[index].images = storageRes.json();
+             if(parseInt(index)+1 == this.coursesData.length){
+                $('.preloader').hide();
+              }
            }, error => {
               console.log(JSON.stringify(error.json()));
            });
@@ -394,10 +410,10 @@ export class AddartistservicesComponent {
             }
         	} else {
         		this.coursesData = '';
+            $('.preloader').hide();
         	}
 
         	console.log(this.coursesData,this.coursedetaildata);
-        $('.preloader').hide();
 	    }, error => {
 	        console.log(JSON.stringify(error.json()));
 	    });
@@ -812,6 +828,8 @@ export class AddartistservicesComponent {
                   this.http.post(API_URL+'/FileStorages?access_token='+ localStorage.getItem('currentUserToken'), fileStorageData ,  options)
                   .subscribe(storageRes => {
                     console.log(storageRes.json());
+                    this.getAllArtistCourseData();
+                    this.uploader = new FileUploader({url: '',allowedMimeType: ['image/gif','image/jpeg','image/png'] });
                   }, error => {
                       console.log(JSON.stringify(error.json()));
                   });
@@ -844,7 +862,6 @@ export class AddartistservicesComponent {
 			this.toasterService.pop('success', 'Success', "Course saved successfully");
     		
           $(".closeModalButton").click();
-    		this.getAllArtistCourseData();
 
 	    }, error => {
 	        console.log(JSON.stringify(error.json()));
@@ -945,7 +962,7 @@ export class AddartistservicesComponent {
 
         this.uploader.options.url = API_URL+'/Containers/'+this.loggedInUserId+'/upload?access_token='+ localStorage.getItem('currentUserToken');
 
-
+        if(this.uploader.queue.length != 0) {
           for(let val of this.uploader.queue){
             val.url = API_URL+'/Containers/'+this.loggedInUserId+'/upload?access_token='+ localStorage.getItem('currentUserToken');
 
@@ -969,6 +986,8 @@ export class AddartistservicesComponent {
               this.http.post(API_URL+'/FileStorages?access_token='+ localStorage.getItem('currentUserToken'), fileStorageData ,  options)
               .subscribe(storageRes => {
                 console.log(storageRes.json());
+                this.getAllArtistCourseData();
+                this.uploader = new FileUploader({url: '',allowedMimeType: ['image/gif','image/jpeg','image/png'] });
               }, error => {
                   console.log(JSON.stringify(error.json()));
               });
@@ -976,9 +995,13 @@ export class AddartistservicesComponent {
             } else {
               this.toasterService.pop('error', 'Error ',  "File: "+item.file.name+" not uploaded successfully");
             }
-        };
+         };
 
           }
+           } else {
+          this.getAllArtistCourseData();
+        }
+
 
           $(".closeModalButton").click();
 	    	this.coursedetaildata = { 
@@ -1001,7 +1024,6 @@ export class AddartistservicesComponent {
 
 			this.toasterService.pop('success', 'Success', "Course updated successfully");
     		
-    		this.getAllArtistCourseData();
 
 	    }, error => {
 	        console.log(JSON.stringify(error.json()));

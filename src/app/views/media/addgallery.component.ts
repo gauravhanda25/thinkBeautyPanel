@@ -131,8 +131,10 @@ export class AddgalleryComponent {
 
           this.http.post(API_URL+'/FileStorages?access_token='+ localStorage.getItem('currentUserToken'), fileStorageData ,  options)
           .subscribe(storageRes => {
-            console.log(storageRes.json());            
-            this.router.navigate(['/media/gallery']);
+            console.log(storageRes.json());  
+
+            //this.router.navigate(['/media/gallery']);
+
           }, error => {
               console.log(JSON.stringify(error.json()));
           });
@@ -140,6 +142,10 @@ export class AddgalleryComponent {
         } else {
           this.toasterService.pop('error', 'Error ',  "File: "+item.file.name+" not uploaded successfully");
         }
+    };
+
+    this.uploader.onCompleteAll = () => {
+      this.router.navigate(['/media/gallery']);
     };
 
 }
