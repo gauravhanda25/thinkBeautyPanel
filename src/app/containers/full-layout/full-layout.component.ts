@@ -138,11 +138,11 @@ export class FullLayoutComponent {
               url: '/hair',
               icon: 'icon-list',
             },
-            {
+            /* {
               name: 'Nails',
               url: '/nails',
               icon: 'icon-list',
-            },
+            }, */
             {
               name: 'Microblading',
               url: '/microblading',

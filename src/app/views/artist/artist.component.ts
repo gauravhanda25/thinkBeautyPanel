@@ -184,8 +184,16 @@ export class ArtistComponent {
 
         this.http.get(API_URL+'/Members/'+artistId+'?filter={"include":"countries"}&access_token='+ localStorage.getItem('currentUserToken'), options)
         .subscribe(response => {
-            console.log(response.json());       
-            this.artistDetails = response.json();  
+           // console.log(response.json());       
+            this.artistDetails = response.json();
+            
+            this.artistDetails.professions = [];
+            for(let p=0; p< this.artistDetails.artist_profession.length; p++) {
+                this.artistDetails.professions.push(this.profession_vals[(this.artistDetails.artist_profession[p])-1]);
+            }
+
+           // console.log(this.artistDetails);
+
             $('.preloader').hide();
         }, error => {
             $('.preloader').hide();

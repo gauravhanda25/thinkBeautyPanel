@@ -8,75 +8,80 @@
         <div class="card-header">
           <i class="fa fa-users"></i> Artist
         </div>
-        <div class="card-body table-responsive">
+        <div class="card-body">
           <div class="row mb-3">
-            <div class="col-md-4 offset-md-8">
+            <div class="col-md-4">
+              <h4>Total Records: {{users.length}}</h4>
+            </div>
+            <div class="col-md-4 offset-md-4">
               <div class="input-group">
                 <div class="input-group-prepend"><span class="input-group-text"><i class="fa fa-search"></i></span></div>
-                <input type="text" class="form-control" [(ngModel)]="filterQuery" placeholder="Search by name"/>
+                <input type="text" class="form-control" [(ngModel)]="filterQuery" placeholder="Search by name/phone no"/>
               </div>
             </div>
           </div>
-          <table class="table table-striped" [mfData]="users | dataFilter : filterQuery" #mf="mfDataTable">
-            <thead >
-              <tr>
-                <th><mfDefaultSorter by="name">Name</mfDefaultSorter></th>
-                <th><mfDefaultSorter by="cpr">National ID</mfDefaultSorter></th>
-                <th><mfDefaultSorter by="role">Role</mfDefaultSorter></th>
-                <th><mfDefaultSorter by="professions">Profession</mfDefaultSorter></th>
-                <th><mfDefaultSorter by="province">City</mfDefaultSorter></th>
-                <th><mfDefaultSorter by="country">Country</mfDefaultSorter></th>
-                <th><mfDefaultSorter by="phone">Phone</mfDefaultSorter></th>
-                <th><mfDefaultSorter by="email">Email</mfDefaultSorter></th>
-                <th><mfDefaultSorter by="created">Request Date</mfDefaultSorter></th>
-                <th *ngIf="check_account.action == 'reject'"><mfDefaultSorter by="action_on">Rejection Date</mfDefaultSorter></th>
-                <th *ngIf="check_account.action == 'active'||check_account.action == 'verify' "><mfDefaultSorter by="modified" >Verification Date</mfDefaultSorter></th>
-                <th>Action</th>
-              </tr>
-            </thead>
-            <tbody> 
-              <tr *ngIf = "nousers == 0">
-                <td colspan="12">No Artist Records</td>
-              </tr>
-              <tr *ngFor="let user of mf.data" >
-                <td>{{user.name}}</td>
-                <td>{{user.cpr}}</td>
-                <td>{{user.role}}</td>
-                <td>{{user.professions}}</td>
-                <td>{{user.city}}</td>
-                <td>{{user.countryname}}</td>
-                <td>{{user.phone}}</td>
-                <td>{{user.email}}</td>
-                <td>{{user.created}}</td>
-                <td *ngIf="check_account.action == 'active'||check_account.action == 'verify'">{{user.modified}}</td>
-                <td *ngIf="check_account.action == 'reject'">{{user.action_on}}</td>
-                <td>
-                  <a class="btn btn-sm btn-outline-primary " href="#" routerLink='/manageartist/editartist/{{user.id}}' *ngIf="check_account.action == 'active'"><i class="fa fa-edit"></i> </a>                 
-                  <button class="btn btn-sm btn-outline-primary "  (click) ="delartist(user)" *ngIf="check_account.action == 'active'"><i class="fa fa-trash"></i></button>
-                  <button class="btn btn-sm btn-outline-primary " data-toggle="modal" (click)="getArtistData(user.id); artistModal.show(); " ><i class="fa fa-eye"></i> </button>    
+          <div  class="table-responsive">
+            <table class="table table-striped" [mfData]="users | dataFilter : filterQuery" #mf="mfDataTable">
+              <thead >
+                <tr>
+                  <th><mfDefaultSorter by="name">Name</mfDefaultSorter></th>
+                  <th><mfDefaultSorter by="cpr">National ID</mfDefaultSorter></th>
+                  <th><mfDefaultSorter by="role">Role</mfDefaultSorter></th>
+                  <th><mfDefaultSorter by="professions">Profession</mfDefaultSorter></th>
+                  <th><mfDefaultSorter by="province">City</mfDefaultSorter></th>
+                  <th><mfDefaultSorter by="country">Country</mfDefaultSorter></th>
+                  <th><mfDefaultSorter by="phone">Phone</mfDefaultSorter></th>
+                  <th><mfDefaultSorter by="email">Email</mfDefaultSorter></th>
+                  <th><mfDefaultSorter by="created">Request Date</mfDefaultSorter></th>
+                  <th *ngIf="check_account.action == 'reject'"><mfDefaultSorter by="action_on">Rejection Date</mfDefaultSorter></th>
+                  <th *ngIf="check_account.action == 'active'||check_account.action == 'verify' "><mfDefaultSorter by="modified" >Verification Date</mfDefaultSorter></th>
+                  <th>Action</th>
+                </tr>
+              </thead>
+              <tbody> 
+                <tr *ngIf = "nousers == 0">
+                  <td colspan="12">No Artist Records</td>
+                </tr>
+                <tr *ngFor="let user of mf.data" >
+                  <td>{{user.name}}</td>
+                  <td>{{user.cpr}}</td>
+                  <td>{{user.role}}</td>
+                  <td>{{user.professions}}</td>
+                  <td>{{user.city}}</td>
+                  <td>{{user.countryname}}</td>
+                  <td>{{user.phone}}</td>
+                  <td>{{user.email}}</td>
+                  <td>{{user.created}}</td>
+                  <td *ngIf="check_account.action == 'active'||check_account.action == 'verify'">{{user.modified}}</td>
+                  <td *ngIf="check_account.action == 'reject'">{{user.modified}}</td>
+                  <td>
+                    <a class="btn btn-sm btn-outline-primary " href="#" routerLink='/manageartist/editartist/{{user.id}}' *ngIf="check_account.action == 'active'"><i class="fa fa-edit"></i> </a>                 
+                    <button class="btn btn-sm btn-outline-primary "  (click) ="delartist(user)" *ngIf="check_account.action == 'active'"><i class="fa fa-trash"></i></button>
+                    <button class="btn btn-sm btn-outline-primary " data-toggle="modal" (click)="getArtistData(user.id); artistModal.show(); " ><i class="fa fa-eye"></i> </button>    
 
-                  <button class="btn btn-sm btn-outline-primary " *ngIf="user.status == 'active'" (click) ="changeStatus(user, 'block','block')">Block</button>
+                    <button class="btn btn-sm btn-outline-primary " *ngIf="user.status == 'active'" (click) ="changeStatus(user, 'block','block')">Block</button>
 
-                  <button class="btn btn-sm btn-outline-primary " *ngIf="user.status == 'block'" (click) ="changeStatus(user, 'active','unblock')">Unblock</button>
+                    <button class="btn btn-sm btn-outline-primary " *ngIf="user.status == 'block'" (click) ="changeStatus(user, 'active','unblock')">Unblock</button>
 
-                  <button class="btn btn-sm btn-outline-primary " *ngIf="check_account.action == 'inactive'" (click) ="changeStatus(user, 'verify','verify')">Verify</button>
+                    <button class="btn btn-sm btn-outline-primary " *ngIf="check_account.action == 'inactive'" (click) ="changeStatus(user, 'verify','verify')">Verify</button>
 
-                  <button class="btn btn-sm btn-outline-primary " *ngIf="check_account.action == 'verify'" (click) ="changeStatus(user, 'active','accept')">Accept</button>
+                    <button class="btn btn-sm btn-outline-primary " *ngIf="check_account.action == 'verify'" (click) ="changeStatus(user, 'active','accept')">Accept</button>
 
-                  <button class="btn btn-sm btn-outline-primary " *ngIf="check_account.action == 'inactive' || check_account.action == 'verify'" (click) ="changeStatus(user, 'reject','reject')">Reject</button>
+                    <button class="btn btn-sm btn-outline-primary " *ngIf="check_account.action == 'inactive' || check_account.action == 'verify'" (click) ="changeStatus(user, 'reject','reject')">Reject</button>
 
-                  <button class="btn btn-sm btn-outline-primary " *ngIf="check_account.action == 'reject'" (click) ="changeStatus(user, 'active','activate')">Activate</button>
-                </td>
-              </tr>
-            </tbody>            
-            <tfoot>
-             <!--  <tr>
-                <td colspan="7">
-                  <mfBootstrapPaginator [rowsOnPageSet]="[5,10,15]"></mfBootstrapPaginator>
-                </td>
-              </tr> -->
-            </tfoot>
-          </table>          
+                    <button class="btn btn-sm btn-outline-primary " *ngIf="check_account.action == 'reject'" (click) ="changeStatus(user, 'active','activate')">Activate</button>
+                  </td>
+                </tr>
+              </tbody>            
+              <tfoot>
+               <!--  <tr>
+                  <td colspan="7">
+                    <mfBootstrapPaginator [rowsOnPageSet]="[5,10,15]"></mfBootstrapPaginator>
+                  </td>
+                </tr> -->
+              </tfoot>
+            </table>   
+          </div>
         </div>
       </div>
     </div>
@@ -101,6 +106,10 @@
             <td>{{artistDetails.name}}</td>
           </tr>
           <tr>
+            <td>National ID</td>
+            <td>{{artistDetails.cpr}}</td>
+          </tr>
+          <tr>
             <td>Phone</td>
             <td>{{artistDetails.phone}}</td>
           </tr>
@@ -110,7 +119,7 @@
           </tr>
           <tr>
             <td>Profession</td>
-            <td>{{profession_vals[(artistDetails.artist_profession)-1]}}</td>
+            <td>{{artistDetails.professions}}</td>
           </tr>
           <tr>
             <td>Address</td>

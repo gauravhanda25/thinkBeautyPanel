@@ -6,8 +6,11 @@
           <i class="fa fa-users"></i> Manage Users
         </div>
         <div class="card-body table-responsive">
-          <div class="row mb-3">
-            <div class="col-md-4 offset-md-8">
+          <div class="row mb-3">            
+            <div class="col-md-4">
+              <h4>Total Records: {{users.length}}</h4>
+            </div>
+            <div class="col-md-4 offset-md-4">
               <div class="input-group">
                 <div class="input-group-prepend"><span class="input-group-text"><i class="fa fa-search"></i></span></div>
                 <input type="text" class="form-control" [(ngModel)]="filterQuery" placeholder="Search by name or country"/>
