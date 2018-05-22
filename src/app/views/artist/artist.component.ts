@@ -34,6 +34,8 @@ export class ArtistComponent {
     private check_account: any;
     private profession_vals: any;
     private artistDetails:any = [];
+    private countries:any;
+    private countryFilter:any = '';
 
     private toasterService: ToasterService;
 
@@ -69,10 +71,18 @@ export class ArtistComponent {
         options.headers.append('Accept', 'application/json');
         // alert(this.router.url);
 
+        this.http.get(API_URL+'/Countries?filter={"order":"name ASC"}&access_token='+ localStorage.getItem('currentUserToken'), options)
+        .subscribe(response => {
+            console.log(response.json());   
+            this.countries = response.json();
+        }, error => {
+            console.log(JSON.stringify(error.json()));
+        });
+
         this.changeAllStatuses();
         const reqUrl = this.router.url;
         if(reqUrl === '/manageartist/newrequests'){
-             this.use_url = API_URL+'/Members?filter={"where":{"role_id":2, "status" : "inactive"},"order":"created DESC"}&access_token='+localStorage.getItem('currentUserToken');
+             this.use_url = API_URL+'/Members?filter={"where":{"role_id":2, "status" : "inactive"},"include":["countries"],"order":"created DESC"}&access_token='+localStorage.getItem('currentUserToken');
              
              this.check_account = {
                 id: '',
@@ -87,7 +97,7 @@ export class ArtistComponent {
                 action: 'active',
                 actionName : 'Block'
             }
-             this.use_url = API_URL+'/Members?filter={"where":{"and":[{"role_id":2},{"or":[{"status" : "active"},{"status":"block"}]}]},"order":"modified DESC"}&access_token='+localStorage.getItem('currentUserToken');
+             this.use_url = API_URL+'/Members?filter={"where":{"and":[{"role_id":2},{"or":[{"status" : "active"},{"status":"block"}]}]},"include":["countries"],"order":"modified DESC"}&access_token='+localStorage.getItem('currentUserToken');
         } 
         else if(reqUrl === '/manageartist/verified')
         {
@@ -96,7 +106,7 @@ export class ArtistComponent {
                 action: 'verify',
                 actionName : 'Verify'
             }
-             this.use_url = API_URL+'/Members?filter={"where":{"role_id":2, "status" : "verify"},"order":"modified DESC"}&access_token='+localStorage.getItem('currentUserToken');
+             this.use_url = API_URL+'/Members?filter={"where":{"role_id":2, "status" : "verify"},"include":["countries"],"order":"modified DESC"}&access_token='+localStorage.getItem('currentUserToken');
         } 
         else {
             this.check_account = {
@@ -104,7 +114,7 @@ export class ArtistComponent {
                 action: 'reject',
                 actionName : 'Block'
             }
-             this.use_url = API_URL+'/Members?filter={"where":{"role_id":2, "status" : "reject"},"order":"modified DESC"}&access_token=' + localStorage.getItem('currentUserToken');
+             this.use_url = API_URL+'/Members?filter={"where":{"role_id":2, "status" : "reject"},"include":["countries"],"order":"modified DESC"}&access_token=' + localStorage.getItem('currentUserToken');
         }
 
         this.http.get(this.use_url, options)
@@ -140,13 +150,13 @@ export class ArtistComponent {
                         console.log(JSON.stringify(error.json()));
                     });  
 
-                    this.http.get(API_URL+'/Countries/'+this.users[i].country+'?access_token='+ localStorage.getItem('currentUserToken'), options)
+                    /*this.http.get(API_URL+'/Countries/'+this.users[i].country+'?access_token='+ localStorage.getItem('currentUserToken'), options)
                     .subscribe(response => {
                         console.log(response.json());       
                         this.users[i].countryname = response.json().name;  
                     }, error => {
                         console.log(JSON.stringify(error.json()));
-                    });  
+                    });  */
 
                 }
             } else {
@@ -174,6 +184,115 @@ export class ArtistComponent {
         });    	        
 
  	}
+
+    onChangeFilter() {
+        $('.preloader').show();
+        let options = new RequestOptions();
+        options.headers = new Headers();
+        options.headers.append('Content-Type', 'application/json');
+        options.headers.append('Accept', 'application/json');
+
+        let includeCondition:any;
+        let countryInWhere:any;
+
+        if(this.countryFilter != ''){
+            includeCondition = '"include":[{"relation": "countries","scope":{"where":{"id": "'+this.countryFilter+'"}}}]';
+            countryInWhere = ',{"country":"'+this.countryFilter+'"}';
+        } else {
+            includeCondition = '"include":["countries"]';
+            countryInWhere = '';
+        }
+
+        console.log(includeCondition);
+
+        const reqUrl = this.router.url;
+        if(reqUrl === '/manageartist/newrequests'){
+             this.use_url = API_URL+'/Members?filter={"where":{"role_id":2, "status" : "inactive" '+countryInWhere+'},'+includeCondition+',"order":"created DESC"}&access_token='+localStorage.getItem('currentUserToken');
+             
+             this.check_account = {
+                id: '',
+                action: 'inactive',
+                actionName : 'Verify'
+            }
+        }
+        else if(reqUrl === '/manageartist/registered')
+        {
+              this.check_account = {
+                id: '',
+                action: 'active',
+                actionName : 'Block'
+            }
+             this.use_url = API_URL+'/Members?filter={"where":{"and":[{"role_id":2},{"or":[{"status" : "active"},{"status":"block"}]}'+countryInWhere+']},'+includeCondition+',"order":"modified DESC"}&access_token='+localStorage.getItem('currentUserToken');
+        } 
+        else if(reqUrl === '/manageartist/verified')
+        {
+              this.check_account = {
+                id: '',
+                action: 'verify',
+                actionName : 'Verify'
+            }
+             this.use_url = API_URL+'/Members?filter={"where":{"role_id":2, "status" : "verify"'+countryInWhere+'},'+includeCondition+',"order":"modified DESC"}&access_token='+localStorage.getItem('currentUserToken');
+        } 
+        else {
+            this.check_account = {
+                id: '',
+                action: 'reject',
+                actionName : 'Block'
+            }
+             this.use_url = API_URL+'/Members?filter={"where":{"role_id":2, "status" : "reject"'+countryInWhere+'},'+includeCondition+',"order":"modified DESC"}&access_token=' + localStorage.getItem('currentUserToken');
+        }
+
+        this.users = [];
+        this.http.get(this.use_url, options)
+        .subscribe(response => {
+            console.log(response.json());       
+            this.users = response.json();    
+
+            $('.preloader').hide();
+
+            if(this.users.length !=0) {
+                for(let i=0; i< this.users.length; i++ ) {
+                    if(this.users[i].created != '' && this.users[i].created != undefined) {
+                        this.users[i].created = moment(this.users[i].created).format('DD MMMM YYYY');
+                    } else {
+                       this.users[i].created = ''; 
+                    }
+                    if(this.users[i].modified != ''  && this.users[i].modified != undefined) {
+                        this.users[i].modified = moment(this.users[i].modified).format('DD MMMM YYYY');
+                    } else {
+                       this.users[i].modified = ''; 
+                    }
+
+                    this.users[i].professions = []
+                    for(let p=0; p< this.users[i].artist_profession.length; p++){
+                        this.users[i].professions.push(this.profession_vals[(this.users[i].artist_profession[p])-1]);
+                    }
+
+                    this.http.get(API_URL+'/Members/'+this.users[i].id+'/roles?access_token='+ localStorage.getItem('currentUserToken'), options)
+                    .subscribe(response => {
+                        console.log(response.json());       
+                        this.users[i].role = response.json()[0].name;  
+                    }, error => {
+                        console.log(JSON.stringify(error.json()));
+                    });  
+
+                   /* this.http.get(API_URL+'/Countries/'+this.users[i].country+'?access_token='+ localStorage.getItem('currentUserToken'), options)
+                    .subscribe(response => {
+                        console.log(response.json());       
+                        this.users[i].countryname = response.json().name;  
+                    }, error => {
+                        console.log(JSON.stringify(error.json()));
+                    });  */
+
+                }
+            } else {
+                this.nousers = 0;
+            } 
+        }, error => {
+            $('.preloader').hide(); 
+            console.log(JSON.stringify(error.json()));
+        });  
+    }
 
     getArtistData(artistId) {
         $('.preloader').show();
