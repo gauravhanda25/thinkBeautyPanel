@@ -12,6 +12,7 @@ import { FormsModule } from '@angular/forms';
 import { NgModule } from '@angular/core';
 import { ModalDirective } from 'ngx-bootstrap/modal';
 import * as moment from 'moment';
+import * as $ from 'jquery';
 
 // Toastr
 import { ToasterModule, ToasterService, ToasterConfig }  from 'angular2-toaster/angular2-toaster';
@@ -30,6 +31,8 @@ export class UsersComponent {
     private use_url: any;
     private check_account: any;
     private userDetails:any = [];
+    private countries:any;
+    private countryFilter:any = '';
 
     private toasterService: ToasterService;
 
@@ -62,9 +65,19 @@ export class UsersComponent {
         options.headers.append('Accept', 'application/json');
         // alert(this.router.url);
 
+        this.http.get(API_URL+'/Countries?filter={"order":"name ASC"}&access_token='+ localStorage.getItem('currentUserToken'), options)
+        .subscribe(response => {
+            console.log(response.json());   
+            this.countries = response.json();
+        }, error => {
+            console.log(JSON.stringify(error.json()));
+        });
+
+
+
         const reqUrl = this.router.url;
         if(reqUrl === '/manageusers/newrequests'){
-             this.use_url = API_URL+'/Members?filter={"where":{"role_id":4, "status" : "inactive"}}&access_token='+localStorage.getItem('currentUserToken');
+             this.use_url = API_URL+'/Members?filter={"where":{"role_id":4, "status" : "inactive"},"include":["countries"]}&access_token='+localStorage.getItem('currentUserToken');
              
              this.check_account = {
                 id: '',
@@ -79,7 +92,7 @@ export class UsersComponent {
                 action: 'active',
                 actionName : 'Block'
             }
-             this.use_url = API_URL+'/Members?filter={"where":{"role_id":4, "status" : {"neq":"reject"}}}&access_token='+localStorage.getItem('currentUserToken');
+             this.use_url = API_URL+'/Members?filter={"where":{"role_id":4, "status" : {"neq":"reject"}},"include":["countries"]}&access_token='+localStorage.getItem('currentUserToken');
         }
         else {
             this.check_account = {
@@ -87,7 +100,7 @@ export class UsersComponent {
                 action: 'reject',
                 actionName : 'Block'
             }
-             this.use_url = API_URL+'/Members?filter={"where":{"role_id":4, "status" : "reject"}}&access_token=' + localStorage.getItem('currentUserToken');
+             this.use_url = API_URL+'/Members?filter={"where":{"role_id":4, "status" : "reject"},"include":["countries"]}&access_token=' + localStorage.getItem('currentUserToken');
         }
 
         this.http.get(this.use_url, options)
@@ -108,13 +121,13 @@ export class UsersComponent {
                         console.log(JSON.stringify(error.json()));
                     });  
 
-                    this.http.get(API_URL+'/Countries/'+this.users[i].country+'?access_token='+ localStorage.getItem('currentUserToken'), options)
+                   /* this.http.get(API_URL+'/Countries/'+this.users[i].country+'?access_token='+ localStorage.getItem('currentUserToken'), options)
                     .subscribe(response => {
                         console.log(response.json());       
                         this.users[i].countryname = response.json().name;  
                     }, error => {
                         console.log(JSON.stringify(error.json()));
-                    });  
+                    });  */
 
                 }
             } else {
@@ -140,6 +153,90 @@ export class UsersComponent {
         });    	        
 
  	}
+
+     onChangeFilter() {
+        $('.preloader').show();
+        let options = new RequestOptions();
+        options.headers = new Headers();
+        options.headers.append('Content-Type', 'application/json');
+        options.headers.append('Accept', 'application/json');
+
+        let includeCondition:any;
+        let countryInWhere:any;
+
+        if(this.countryFilter != ''){
+            includeCondition = '"include":[{"relation": "countries","scope":{"where":{"id": "'+this.countryFilter+'"}}}]';
+            countryInWhere = ',"country":"'+this.countryFilter+'"';
+        } else {
+            includeCondition = '"include":["countries"]';
+            countryInWhere = '';
+        }
+
+        const reqUrl = this.router.url;
+        if(reqUrl === '/manageusers/newrequests'){
+             this.use_url = API_URL+'/Members?filter={"where":{"role_id":4, "status" : "inactive"'+countryInWhere+'},'+includeCondition+'}&access_token='+localStorage.getItem('currentUserToken');
+             
+             this.check_account = {
+                id: '',
+                action: 'inactive',
+                actionName : 'Verify'
+            }
+        }
+        else if(reqUrl === '/manageusers/registered')
+        {
+              this.check_account = {
+                id: '',
+                action: 'active',
+                actionName : 'Block'
+            }
+             this.use_url = API_URL+'/Members?filter={"where":{"role_id":4,"status" : {"neq":"reject"}'+countryInWhere+'},'+includeCondition+'}&access_token='+localStorage.getItem('currentUserToken');
+        }
+        else {
+            this.check_account = {
+                id: '',
+                action: 'reject',
+                actionName : 'Block'
+            }
+             this.use_url = API_URL+'/Members?filter={"where":{"role_id":4, "status" : "reject"'+countryInWhere+'},'+includeCondition+'}&access_token=' + localStorage.getItem('currentUserToken');
+        }
+
+        this.http.get(this.use_url, options)
+        .subscribe(response => {
+            console.log(response.json());       
+            this.users = response.json();    
+
+            if(this.users.length !=0) {
+                for(let i=0; i< this.users.length; i++ ) {
+                    this.users[i].created_on = moment(this.users[i].created).format('DD MMMM YYYY');
+                    this.users[i].action_on = moment(this.users[i].action_on).format('DD MMMM YYYY');
+
+                    this.http.get(API_URL+'/Members/'+this.users[i].id+'/roles?access_token='+ localStorage.getItem('currentUserToken'), options)
+                    .subscribe(response => {
+                        console.log(response.json());       
+                        this.users[i].role = response.json()[0].name;  
+                    }, error => {
+                        console.log(JSON.stringify(error.json()));
+                    });  
+
+                   /* this.http.get(API_URL+'/Countries/'+this.users[i].country+'?access_token='+ localStorage.getItem('currentUserToken'), options)
+                    .subscribe(response => {
+                        console.log(response.json());       
+                        this.users[i].countryname = response.json().name;  
+                    }, error => {
+                        console.log(JSON.stringify(error.json()));
+                    });  */
+
+                }
+                $('.preloader').hide();
+            } else {
+                this.nousers = 0;
+                $('.preloader').hide();
+            } 
+        }, error => {
+            $('.preloader').hide(); 
+            console.log(JSON.stringify(error.json()));
+        });  
+    }
 
     getUserData(userId) {
         let options = new RequestOptions();

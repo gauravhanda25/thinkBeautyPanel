@@ -36,6 +36,7 @@ export class ArtistComponent {
     private artistDetails:any = [];
     private countries:any;
     private countryFilter:any = '';
+    private professionFilter:any = '';
 
     private toasterService: ToasterService;
 
@@ -194,6 +195,7 @@ export class ArtistComponent {
 
         let includeCondition:any;
         let countryInWhere:any;
+        let professionInWhere:any;
 
         if(this.countryFilter != ''){
             includeCondition = '"include":[{"relation": "countries","scope":{"where":{"id": "'+this.countryFilter+'"}}}]';
@@ -203,11 +205,17 @@ export class ArtistComponent {
             countryInWhere = '';
         }
 
+         if(this.professionFilter != ''){
+            professionInWhere = ',{"artist_profession":{"inq":"'+this.professionFilter+'"}}';
+        } else {
+            professionInWhere = '';
+        }
+
         console.log(includeCondition);
 
         const reqUrl = this.router.url;
         if(reqUrl === '/manageartist/newrequests'){
-             this.use_url = API_URL+'/Members?filter={"where":{"role_id":2, "status" : "inactive" '+countryInWhere+'},'+includeCondition+',"order":"created DESC"}&access_token='+localStorage.getItem('currentUserToken');
+             this.use_url = API_URL+'/Members?filter={"where":{"role_id":2, "status" : "inactive" '+countryInWhere+professionInWhere+'},'+includeCondition+',"order":"created DESC"}&access_token='+localStorage.getItem('currentUserToken');
              
              this.check_account = {
                 id: '',
@@ -222,7 +230,7 @@ export class ArtistComponent {
                 action: 'active',
                 actionName : 'Block'
             }
-             this.use_url = API_URL+'/Members?filter={"where":{"and":[{"role_id":2},{"or":[{"status" : "active"},{"status":"block"}]}'+countryInWhere+']},'+includeCondition+',"order":"modified DESC"}&access_token='+localStorage.getItem('currentUserToken');
+             this.use_url = API_URL+'/Members?filter={"where":{"and":[{"role_id":2},{"or":[{"status" : "active"},{"status":"block"}]}'+countryInWhere+professionInWhere+']},'+includeCondition+',"order":"modified DESC"}&access_token='+localStorage.getItem('currentUserToken');
         } 
         else if(reqUrl === '/manageartist/verified')
         {
@@ -231,7 +239,7 @@ export class ArtistComponent {
                 action: 'verify',
                 actionName : 'Verify'
             }
-             this.use_url = API_URL+'/Members?filter={"where":{"role_id":2, "status" : "verify"'+countryInWhere+'},'+includeCondition+',"order":"modified DESC"}&access_token='+localStorage.getItem('currentUserToken');
+             this.use_url = API_URL+'/Members?filter={"where":{"role_id":2, "status" : "verify"'+countryInWhere+professionInWhere+'},'+includeCondition+',"order":"modified DESC"}&access_token='+localStorage.getItem('currentUserToken');
         } 
         else {
             this.check_account = {
@@ -239,7 +247,7 @@ export class ArtistComponent {
                 action: 'reject',
                 actionName : 'Block'
             }
-             this.use_url = API_URL+'/Members?filter={"where":{"role_id":2, "status" : "reject"'+countryInWhere+'},'+includeCondition+',"order":"modified DESC"}&access_token=' + localStorage.getItem('currentUserToken');
+             this.use_url = API_URL+'/Members?filter={"where":{"role_id":2, "status" : "reject"'+countryInWhere+professionInWhere+'},'+includeCondition+',"order":"modified DESC"}&access_token=' + localStorage.getItem('currentUserToken');
         }
 
         this.users = [];

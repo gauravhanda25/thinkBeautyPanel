@@ -10,8 +10,16 @@
         </div>
         <div class="card-body">
           <div class="row mb-3">
-            <div class="col-md-6">
+            <div class="col-md-4">
               <h4>Total Records: {{users.length}}</h4>
+            </div>
+            <div class="col-md-2">
+              <select class="form-control" name="profession"  [(ngModel)]="professionFilter" (change) = "onChangeFilter()">
+                <option value="" >All Professions</option>
+                <option value="1">Makeup</option>
+                <option value="2">Hair</option>
+                <option value="3">Microblading</option>
+              </select> 
             </div>
             <div class="col-md-2">
                <select class="form-control" name="country"  [(ngModel)]="countryFilter" (change) = "onChangeFilter()">

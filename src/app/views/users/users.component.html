@@ -7,10 +7,16 @@
         </div>
         <div class="card-body table-responsive">
           <div class="row mb-3">            
-            <div class="col-md-4">
+            <div class="col-md-6">
               <h4>Total Records: {{users.length}}</h4>
             </div>
-            <div class="col-md-4 offset-md-4">
+            <div class="col-md-2">
+               <select class="form-control" name="country"  [(ngModel)]="countryFilter" (change) = "onChangeFilter()">
+                  <option value="" >All Countries</option>
+                  <option *ngFor="let country of countries" value="{{country.id}}">{{country.name}}</option>
+                </select> 
+            </div>
+            <div class="col-md-4 ">
               <div class="input-group">
                 <div class="input-group-prepend"><span class="input-group-text"><i class="fa fa-search"></i></span></div>
                 <input type="text" class="form-control" [(ngModel)]="filterQuery" placeholder="Search by name or country"/>
@@ -37,7 +43,7 @@
               <tr *ngFor="let user of mf.data" >
                 <td>{{user.fullName}}</td>
                 <td>{{user.dob}}</td>
-                <td>{{user.countryname}}</td>
+                <td>{{user?.countries?.name}}</td>
                 <td>{{user.mobile}}</td>
                 <td>{{user.email}}</td>
                 <td>{{user.created_on}}</td>
