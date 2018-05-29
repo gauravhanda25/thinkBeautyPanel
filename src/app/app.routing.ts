@@ -415,7 +415,43 @@ export const routes: Routes = [
     ]
   },
   {
-    path: 'terms/:termtype',
+    path: 'terms/cancellation',
+    component: FullLayoutComponent,        
+    canActivate: [NgxPermissionsGuard],
+    data: {
+      permissions: {
+        only: ['ADMIN'],
+        except: 'GUEST'
+      }
+    },
+    loadChildren: './views/terms/terms.module#TermsModule'
+  },
+  {
+    path: 'terms/booking',
+    component: FullLayoutComponent,        
+    canActivate: [NgxPermissionsGuard],
+    data: {
+      permissions: {
+        only: ['ADMIN'],
+        except: 'GUEST'
+      }
+    },
+    loadChildren: './views/terms/terms.module#TermsModule'
+  },
+  {
+    path: 'terms/userreg',
+    component: FullLayoutComponent,        
+    canActivate: [NgxPermissionsGuard],
+    data: {
+      permissions: {
+        only: ['ADMIN'],
+        except: 'GUEST'
+      }
+    },
+    loadChildren: './views/terms/terms.module#TermsModule'
+  },
+  {
+    path: 'terms/artistreg',
     component: FullLayoutComponent,        
     canActivate: [NgxPermissionsGuard],
     data: {

@@ -23,7 +23,7 @@ import { ToasterModule, ToasterService, ToasterConfig }  from 'angular2-toaster/
 })
 export class TermsComponent {
 	
-  	private terms: any;
+  	private terms: any = [];
     private delparam: any;
 	private nocr: any;
     private use_url: any;
@@ -71,6 +71,7 @@ export class TermsComponent {
         } 
 
 
+        this.terms = [];
 		this.http.get(API_URL+'/StaticPages?filter={"where":{"pagetype":"'+this.pagetype+'","active":{"neq":0}}}&access_token='+localStorage.getItem('currentUserToken'), options)
 		.subscribe(response => {   
 			console.log(response.json());   
