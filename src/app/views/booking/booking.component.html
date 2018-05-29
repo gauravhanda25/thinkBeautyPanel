@@ -5,35 +5,42 @@
         <div class="card-header">
           <i class="fa fa-users"></i> Manage Bookings
         </div>
-        <div class="card-body table-responsive">
+        <div class="card-body">
           <div class="row mb-3">
             <div class="col-md-4">
-              <h4>Total Records: {{users.length}}</h4>
+              <h4>Total Records: {{bookings.length}}</h4>
             </div>
-            <div class="col-md-4 offset-md-8">
+            <div class="col-md-2  offset-md-2">
+               <select class="form-control" name="country"  [(ngModel)]="countryFilter" (change) = "onChangeFilter()">
+                  <option value="" >All Countries</option>
+                  <option *ngFor="let country of countries" value="{{country.id}}">{{country.name}}</option>
+                </select> 
+            </div>
+            <div class="col-md-4">
               <div class="input-group">
                 <div class="input-group-prepend"><span class="input-group-text"><i class="fa fa-search"></i></span></div>
-                <input type="text" class="form-control" [(ngModel)]="filterQuery" placeholder="Search by name"/>
+                <input type="text" class="form-control" [(ngModel)]="filterQuery" placeholder="Search by customer, service or artist name"/>
               </div>
             </div>
           </div>
+          <div class="table-responsive">
           <table class="table table-striped" [mfData]="bookings | dataFilter : filterQuery" #mf="mfDataTable" [mfRowsOnPage]="10">
             <thead >
               <tr>
-                <th><mfDefaultSorter by="">Artist Name</mfDefaultSorter></th>
-                <th><mfDefaultSorter by="">Artist Country</mfDefaultSorter></th>
-                <th><mfDefaultSorter by="">Service</mfDefaultSorter></th>                
-                <th><mfDefaultSorter by="">Customer Name</mfDefaultSorter></th>
-                <th><mfDefaultSorter by="">Customer Country</mfDefaultSorter></th>
-                <th><mfDefaultSorter by="">Customer Phone</mfDefaultSorter></th><!-- 
+                <th><mfDefaultSorter by="artists.name">Artist Name</mfDefaultSorter></th>
+                <th><mfDefaultSorter by="artists.countries.name">Artist Country</mfDefaultSorter></th>
+                <th><mfDefaultSorter by="service">Service</mfDefaultSorter></th>                
+                <th><mfDefaultSorter by="members.name">Customer Name</mfDefaultSorter></th>
+                <th><mfDefaultSorter by="members.countries.name">Customer Country</mfDefaultSorter></th>
+                <th><mfDefaultSorter by="members.mobile">Customer Phone</mfDefaultSorter></th><!-- 
                 <th><mfDefaultSorter by=""># of Persons</mfDefaultSorter></th>         
                 <th><mfDefaultSorter by="">Transaction Id</mfDefaultSorter></th> -->
-                <th><mfDefaultSorter by="">Date of Booking</mfDefaultSorter></th><!-- 
+                <th><mfDefaultSorter by="bookingDate">Date of Booking</mfDefaultSorter></th><!-- 
                 <th><mfDefaultSorter by="">Booking Time</mfDefaultSorter></th>
                 <th><mfDefaultSorter by="">Service Price</mfDefaultSorter></th>
                 <th><mfDefaultSorter by="">Total Price</mfDefaultSorter></th>
                 <th><mfDefaultSorter by="">Phone</mfDefaultSorter></th> -->
-                <th><mfDefaultSorter by="">Created On</mfDefaultSorter></th>
+                <th><mfDefaultSorter by="created">Created On</mfDefaultSorter></th>
                 <th>Action</th>
               </tr>
             </thead>
@@ -63,7 +70,8 @@
                 </td>
               </tr>
             </tfoot>
-          </table>          
+          </table>    
+          </div>      
         </div>
       </div>
     </div>
