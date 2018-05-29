@@ -1,0 +1,51 @@
+<div class="animated fadeIn">
+  <div class="row">
+    <div class="col-lg-12">
+      <a class="btn btn-large btn-primary pull-right" href="#" routerLink='addterms' style="margin-bottom:5px"><i class="fa fa-user-plus"></i> Add New</a>
+    </div>
+    <div class="clearfix"></div>
+    <div class="col-lg-12">
+      <div class="card">
+        <div class="card-header">
+          <i class="fa fa-align-justify"></i> Terms and Conditions
+        </div>
+        <div class="card-body">
+          <table class="table table-striped"  [mfData]="terms | dataFilter : filterQuery" #mf="mfDataTable" [mfRowsOnPage]="10">
+            <thead>
+              <tr>
+				        <th><mfDefaultSorter by="termstext">Terms and conditions</mfDefaultSorter></th>
+                <th><mfDefaultSorter by="created_on">Created On</mfDefaultSorter></th>
+                <th>Action</th>
+              </tr>
+            </thead>
+            <tbody> 
+			         <tr *ngIf = "nocr == 0">
+                <td colspan="7">No terms and condiitons</td>
+              </tr>
+              <tr *ngFor="let term of mf.data">
+                <td>{{term.termstext}}</td>
+                <td>{{term.created_on}}</td>
+              
+                <td>
+                  <a class="btn btn-sm btn-outline-primary " href="#" routerLink='editterms/{{term.id}}'><i class="fa fa-edit"></i> </a>
+                  <button class="btn btn-sm btn-outline-primary " (click) ="delTerms(term)"><i class="fa fa-trash"></i></button>
+				 
+                </td>
+              </tr>
+            </tbody>
+			<tfoot>
+              <tr>
+                <td colspan="7">
+                  <mfBootstrapPaginator [rowsOnPageSet]="[5,10,15]"></mfBootstrapPaginator>
+                </td>
+              </tr>
+            </tfoot>
+          </table>
+        </div>
+      </div>
+    </div>
+    <!--/.col-->
+  </div>
+  <!--/.row-->
+</div>
+<toaster-container [toasterconfig]="toasterconfig"></toaster-container>

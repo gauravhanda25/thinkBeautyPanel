@@ -149,10 +149,38 @@ export class FullLayoutComponent {
               icon: 'icon-list',
             }
           ]
-        },{
+        },
+        {
           name: 'Commission',
           url: '/commission',
           icon: 'icon-list',
+        },
+         {
+            name: 'Terms and Conditions',
+            url: '/',
+            icon: 'icon-list',
+            children: [
+            {
+              name: 'Cancellation',
+              url: '/terms/cancellation',
+              icon: 'icon-list',
+            },
+            {
+              name: 'Booking',
+              url: '/terms/booking',
+              icon: 'icon-list',
+            },
+             {
+              name: 'User Registration',
+              url: '/terms/userreg',
+              icon: 'icon-list',
+            }, 
+            {
+              name: 'Artist Registration',
+              url: '/terms/artistreg',
+              icon: 'icon-list',
+            }
+          ]
         }];
       	    } else if(localStorage.getItem('currentUserRoleId') == "2"){
       	      localStorage.setItem('currentUserRole', "ARTIST");
