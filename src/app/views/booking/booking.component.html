@@ -7,6 +7,9 @@
         </div>
         <div class="card-body table-responsive">
           <div class="row mb-3">
+            <div class="col-md-4">
+              <h4>Total Records: {{users.length}}</h4>
+            </div>
             <div class="col-md-4 offset-md-8">
               <div class="input-group">
                 <div class="input-group-prepend"><span class="input-group-text"><i class="fa fa-search"></i></span></div>
@@ -18,18 +21,19 @@
             <thead >
               <tr>
                 <th><mfDefaultSorter by="">Artist Name</mfDefaultSorter></th>
-                <th><mfDefaultSorter by="">User Name</mfDefaultSorter></th>
-                <th><mfDefaultSorter by="">Service Type</mfDefaultSorter></th>
+                <th><mfDefaultSorter by="">Artist Country</mfDefaultSorter></th>
+                <th><mfDefaultSorter by="">Service</mfDefaultSorter></th>                
+                <th><mfDefaultSorter by="">Customer Name</mfDefaultSorter></th>
+                <th><mfDefaultSorter by="">Customer Country</mfDefaultSorter></th>
+                <th><mfDefaultSorter by="">Customer Phone</mfDefaultSorter></th><!-- 
                 <th><mfDefaultSorter by=""># of Persons</mfDefaultSorter></th>         
-                <th><mfDefaultSorter by="">Transaction Id</mfDefaultSorter></th>
-                <th><mfDefaultSorter by="">Booking Date</mfDefaultSorter></th>
+                <th><mfDefaultSorter by="">Transaction Id</mfDefaultSorter></th> -->
+                <th><mfDefaultSorter by="">Date of Booking</mfDefaultSorter></th><!-- 
                 <th><mfDefaultSorter by="">Booking Time</mfDefaultSorter></th>
                 <th><mfDefaultSorter by="">Service Price</mfDefaultSorter></th>
                 <th><mfDefaultSorter by="">Total Price</mfDefaultSorter></th>
-                <th><mfDefaultSorter by="">Phone</mfDefaultSorter></th>
+                <th><mfDefaultSorter by="">Phone</mfDefaultSorter></th> -->
                 <th><mfDefaultSorter by="">Created On</mfDefaultSorter></th>
-                <!-- <th *ngIf="check_account.action == 'reject'"><mfDefaultSorter by="action_on">Rejection Date</mfDefaultSorter></th>
-                <th *ngIf="check_account.action == 'active'||check_account.action == 'verify' "><mfDefaultSorter by="action_on" >Verification Date</mfDefaultSorter></th> -->
                 <th>Action</th>
               </tr>
             </thead>
@@ -38,26 +42,23 @@
                 <td colspan="12">No Booking Records</td>
               </tr>
               <tr *ngFor="let booking of mf.data" >
-                <td>{{booking.artists.name}}</td>
-                <td>{{booking.members.name}}</td>
-                <td>{{booking.serviceType}}</td>
-                <td>{{booking.artistServiceId.persons}}</td>
-                <td>{{booking.transactionId}}</td>
-                <td>{{booking.bookingDate}}</td>
-                <td>{{booking.bookingStartTime}} - {{booking.bookingEndTime}}</td>
-                <td>{{booking.servicePrice}}</td>
-                <td>{{booking.totalPrice}}</td>
-                <td>{{booking.mobile}}</td> 
-                <td>{{booking.created}}</td>
+                <td>{{booking?.artists?.name}}</td>
+                <td>{{booking?.artists?.countries?.name}}</td>
+                <td>{{booking?.service}}</td>
+                <td>{{booking?.members?.name}}</td>
+                <td>{{booking?.members?.countries?.name}}</td>
+                <td>{{booking?.members?.mobile}}</td>
+                <td>{{booking?.bookingDate}}</td>
+                <td>{{booking?.created}}</td>
                 <td>       
                   <button class="btn btn-sm btn-outline-primary " data-toggle="modal" (click)="getBookingData(booking.id); bookingModal.show(); " ><i class="fa fa-eye"></i> </button>
-                  <button class="btn btn-sm btn-outline-primary "  (click) ="cancelBooking(booking)" *ngIf="booking.bookingStatus == 'done'">Cancel</button>
+                  <button class="btn btn-sm btn-outline-primary "  (click) ="cancelBooking(booking)" *ngIf="booking.bookingStatus != 'cancelled'">Cancel</button>
                 </td>
               </tr>
             </tbody>            
             <tfoot>
               <tr>
-                <td colspan="7">
+                <td colspan="12">
                   <mfBootstrapPaginator [rowsOnPageSet]="[5,10,15]"></mfBootstrapPaginator>
                 </td>
               </tr>
@@ -84,38 +85,85 @@
         <table class="table" >
           <tr>
             <td>Artist Name</td>
-            <td>{{bookingDetails.artists.name}}</td>
+            <td>{{bookingDetails?.artists?.name}}</td>
           </tr>
           <tr>
-            <td>User Name</td>
-            <td>{{bookingDetails.members.name}}</td>
+            <td>Artist Country</td>
+            <td>{{bookingDetails?.artists?.countries?.name}}</td>
           </tr>
-          <!-- <tr>
+          <tr>
             <td>Service</td>
-            <td>{{bookingDetails.artistServiceId}}</td>
-          </tr> -->
-          <tr>
-            <td>Transaction ID</td>
-            <td>{{bookingDetails.transactionId}}</td>
+            <td>{{bookingDetails?.service}}</td>
+          </tr>
+           <tr>
+            <td>Type of Service</td>
+            <td>{{bookingDetails?.servicetype}}</td>
           </tr>
           <tr>
-            <td>Booking Date</td>
-            <td>{{bookingDetails.bookingDate}}</td>
+            <td>Service Name</td>            
+            <td><!-- {{bookingDetails?.artistServiceId[0]?.subserviceId}} --></td>
           </tr>
           <tr>
-            <td>Service Price</td>
-            <td>{{bookingDetails.servicePrice}}</td>
+            <td>Service Price with Currency</td>            
+            <td><!-- {{bookingDetails?.artistServiceId[0]?.subserviceId}} --></td>
           </tr>
           <tr>
-            <td>Total Price</td>
-            <td>{{bookingDetails.totalPrice}}</td>
+            <td>Number of persons</td>            
+            <td><!-- {{bookingDetails?.artistServiceId[0]?.persons}} --></td>
+          </tr>           
+          <tr>
+            <td>Commission</td>            
+            <td><!-- {{bookingDetails?.artists?.commissions?.price}} --></td>
           </tr>
           <tr>
-            <td>Phone</td>
-            <td>
-             {{bookingDetails.mobile}}
-            </td>
+            <td>Total Price</td>            
+            <td><!-- {{bookingDetails?.artistServiceId[0]?.subserviceId}} --></td>
           </tr>
+          <tr>
+            <td>Fixed Charge</td>            
+            <td><!-- {{bookingDetails?.artistServiceId[0]?.subserviceId}} --></td>
+          </tr>
+          <tr>
+            <td>Voucher Applied</td>            
+            <td><!-- {{bookingDetails?.artistServiceId[0]?.subserviceId}} --></td>
+          </tr>
+          <tr *ngIf="">
+            <td>Voucher code</td>            
+            <td><!-- {{bookingDetails?.artistServiceId[0]?.subserviceId}} --></td>
+          </tr>
+          <tr>
+            <td>Discounted Price</td>            
+            <td><!-- {{bookingDetails?.artistServiceId[0]?.subserviceId}} --></td>
+          </tr>
+          <tr>
+            <td>Amount Paid</td>            
+            <td><!-- {{bookingDetails?.artistServiceId[0]?.subserviceId}} --></td>
+          </tr>
+          <tr>
+            <td>Amount Remaining</td>            
+            <td><!-- {{bookingDetails?.artistServiceId[0]?.subserviceId}} --></td>
+          </tr>
+          <tr>
+            <td>Customer Name</td>
+            <td>{{bookingDetails?.members?.name}}</td>
+          </tr>
+          <tr>
+            <td>Customer Country</td>
+            <td>{{bookingDetails?.members?.countries?.name}}</td>
+          </tr>
+          <tr>
+            <td>Customer Phone</td>
+            <td>{{bookingDetails?.members?.mobile}}</td>
+          </tr>
+          <tr>
+            <td>Booking Address</td>
+            <td><!-- {{bookingDetails?.bookingDate}} --></td>
+          </tr>
+          <tr>
+            <td>Date of Booking</td>
+            <td>{{bookingDetails?.bookingDate}}</td>
+          </tr>
+
         </table>     
       </div>
       <div class="modal-footer">

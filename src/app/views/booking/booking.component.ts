@@ -62,17 +62,29 @@ export class BookingComponent {
         // alert(this.router.url);
 
         const reqUrl = this.router.url;
-        if(reqUrl === '/bookings/upcoming')
-        {
-             
-             this.use_url = API_URL+'/Bookings?filter={"where":{"and":[{"bookingStatus":"done"},{"bookingDate":{"gte":"'+new Date()+'"}},{"artistId":"'+localStorage.getItem('currentUserId')+'"}],"include":["members","artists"]}&access_token='+localStorage.getItem('currentUserToken');
-        } else if(reqUrl === '/bookings/previous')
-        {
-             
-             this.use_url = API_URL+'/Bookings?filter={"where":{"and":[{"bookingStatus":"done"},{"bookingDate":{"lte":"'+new Date()+'"}},{"artistId":"'+localStorage.getItem('currentUserId')+'"}]},"include":["members","artists"]}&access_token='+localStorage.getItem('currentUserToken');
+        if(localStorage.getItem('currentUserRoleId') != "1") {
+            if(reqUrl === '/bookings/upcoming')  {
+                 
+                 this.use_url = API_URL+'/Bookings?filter={"where":{"and":[{"bookingDate":{"gte":"'+new Date()+'"}},{"artistId":"'+localStorage.getItem('currentUserId')+'"}]},"include":[{"relation":"members", "scope":{"include":{"relation":"countries"}}},{"relation":"artists", "scope":{"include":{"relation":"countries"}}}]}&access_token='+localStorage.getItem('currentUserToken');
+            } else if(reqUrl === '/bookings/previous') {
+                 
+                 this.use_url = API_URL+'/Bookings?filter={"where":{"and":[{"bookingDate":{"lte":"'+new Date()+'"}},{"artistId":"'+localStorage.getItem('currentUserId')+'"}]},"include":[{"relation":"members", "scope":{"include":{"relation":"countries"}}},{"relation":"artists", "scope":{"include":{"relation":"countries"}}}]}&access_token='+localStorage.getItem('currentUserToken');
+            } else {
+               
+                 this.use_url = API_URL+'/Bookings?filter={"where":{"and":[{"bookingStatus":"cancelled"},{"artistId":"'+localStorage.getItem('currentUserId')+'"}]},"include":[{"relation":"members","scope":{"include":{"relation":"countries"}}},{"relation":"artists", "scope":{"include":{"relation":"countries"}}}]}&access_token=' +localStorage.getItem('currentUserToken');
+            }
         } else {
-           
-             this.use_url = API_URL+'/Bookings?filter={"where":{"and":[{"bookingStatus":"cancelled"},{"artistId":"'+localStorage.getItem('currentUserId')+'"}]},"include":["members","artists"]}&access_token=' + localStorage.getItem('currentUserToken');
+
+            if(reqUrl === '/bookings/upcoming')  {
+                 
+                 this.use_url = API_URL+'/Bookings?filter={"where":{"and":[{"bookingDate":{"gte":"'+new Date()+'"}}]},"include":[{"relation":"members", "scope":{"include":{"relation":"countries"}}},{"relation":"artists", "scope":{"include":{"relation":"countries"}}}]}&access_token='+localStorage.getItem('currentUserToken');
+            } else if(reqUrl === '/bookings/previous') {
+                 
+                 this.use_url = API_URL+'/Bookings?filter={"where":{"and":[{"bookingDate":{"lte":"'+new Date()+'"}}]},"include":[{"relation":"members", "scope":{"include":{"relation":"countries"}}},{"relation":"artists", "scope":{"include":{"relation":"countries"}}}]}&access_token='+localStorage.getItem('currentUserToken');
+            } else {
+               
+                 this.use_url = API_URL+'/Bookings?filter={"where":{"and":[{"bookingStatus":"cancelled"}]},"include":[{"relation":"members", "scope":{"include":{"relation":"countries"}}},{"relation":"artists", "scope":{"include":{"relation":"countries"}}}]}&access_token=' + localStorage.getItem('currentUserToken');
+            }
         }
 
         this.http.get(this.use_url, options)
@@ -84,15 +96,6 @@ export class BookingComponent {
                 for(let i=0; i< this.bookings.length; i++ ) {
                    this.bookings[i].created = moment(this.bookings[i].created).format('DD/MM/YYYY');
                    this.bookings[i].bookingDate = moment(this.bookings[i].bookingDate).format('DD/MM/YYYY');
-
-                   /* this.http.get(API_URL+'/Artistservices?filter={"where":{"id":"'+ this.bookings[i].artistServiceId+'"}}&access_token=' + localStorage.getItem('currentUserToken'), options)
-                    .subscribe(response => {
-                        this.bookings[i].serviceName = response.json()[0].serviceType;
-                    }, error => {
-                        console.log(JSON.stringify(error.json()));
-                    }); 
-
-                    */
                 }
             } else {
                 this.nobookings = 0;
@@ -124,10 +127,11 @@ export class BookingComponent {
         options.headers.append('Content-Type', 'application/json');
         options.headers.append('Accept', 'application/json');
 
-        this.http.get(API_URL+'/Bookings/'+bookingId+'?access_token='+ localStorage.getItem('currentUserToken'), options)
+        this.http.get(API_URL+'/Bookings/'+bookingId+'?filter={"include":[{"relation":"members", "scope":{"include":{"relation":"countries"}}},{"relation":"artists", "scope":{"include":{"relation":"countries"}}}]}&access_token='+ localStorage.getItem('currentUserToken'), options)
         .subscribe(response => {
             console.log(response.json());       
             this.bookingDetails = response.json();  
+            this.bookingDetails.bookingDate = moment(this.bookingDetails.bookingDate).format('DD/MM/YYYY');
         }, error => {
             console.log(JSON.stringify(error.json()));
         }); 
@@ -135,18 +139,13 @@ export class BookingComponent {
 
     cancelBooking(booking) {
         if(confirm("Are you sure you want to cancel the selected Booking?")){
-            let options = new RequestOptions();
-            options.headers = new Headers();
-            options.headers.append('Content-Type', 'application/json');
-            options.headers.append('Accept', 'application/json');
-
             let cancellationPostData:any = {
                 bookingId: booking.id,
                 userId: booking.userId,
             }
 
 
-            this.http.post(API_URL+'/Bookings/cancelBooking?access_token='+ localStorage.getItem('currentUserToken'), cancellationPostData, options)
+            this.http.get(API_URL+'/Bookings/cancelBooking?access_token='+ localStorage.getItem('currentUserToken'), cancellationPostData)
             .subscribe(response => {
                 console.log(response.json()); 
                 this.toasterService.pop('success', 'Success ', "Booking Record cancelled successfully.");
