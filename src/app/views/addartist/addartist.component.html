@@ -62,11 +62,15 @@
                        <div class="col-md-6">
                           <label>Block No.<span class="text-danger">*</span></label>
      <input class="form-control" name="block" placeholder="Block No." type="text"  [(ngModel)]="data.block" >  
-                        </div>                   
-                       <div class="col-md-6">
-                          <label>City<span class="text-danger">*</span></label>
-     <input class="form-control" name="city" placeholder="City" type="text"  [(ngModel)]="data.city" >  
-                        </div>  
+                        </div>   
+                        <div class="col-md-6">
+                          <label>Country<span class="text-danger">*</span></label> 
+                          <select class="form-control" name="country"  [(ngModel)]="data.country" (change) = "onChangeCountry()" required>
+                            <option value="" >Select Country</option>
+                            <option *ngFor="let country of countries" value="{{country.id}}">{{country.name}}</option>
+                          </select>
+                        </div>                
+                      
 <!--                         <div class="col-md-6">
                           <label>State/Province<span class="text-danger">*</span></label> 
                           <select class="form-control" name="province"  [(ngModel)]="data.province" required>
@@ -77,13 +81,13 @@
 
                     </div> 
             <div class="form-group row">
-               <div class="col-md-6">
-                <label>Country<span class="text-danger">*</span></label> 
-                <select class="form-control" name="country"  [(ngModel)]="data.country" (change) = "onChangeCountry()" required>
-                  <option value="" >Select Country</option>
-                  <option *ngFor="let country of countries" value="{{country.id}}">{{country.name}}</option>
-                </select>
-              </div>
+                <div class="col-md-6">
+                    <label>City<span class="text-danger">*</span></label>
+                    <select class="form-control" name="city"  [(ngModel)]="data.city" required>
+                            <option value="" >Select City</option>
+                            <option *ngFor="let city of provinces" value="{{city.id}}">{{city.name}}</option>
+                          </select>
+                </div>  
               <div class="col-md-6">
                 <label>Phone<span class="text-danger">*</span></label>
                 <input class="form-control" name="phone" placeholder="999 99999999" type="text"  [(ngModel)]="data.phone" required [textMask]="{mask: mask,guide:false}">
