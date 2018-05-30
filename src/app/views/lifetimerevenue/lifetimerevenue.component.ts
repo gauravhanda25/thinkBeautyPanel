@@ -61,10 +61,10 @@ export class LifetimerevenueComponent {
     constructor(private router:Router, private http: Http, private activatedRoute: ActivatedRoute, toasterService: ToasterService ) { 
         this.toasterService = toasterService;
 
-    this.datePickerConfig = Object.assign({},
-    {
-      showWeekNumbers: false
-    });
+        this.datePickerConfig = Object.assign({},
+        {
+          showWeekNumbers: false
+        });
 
         this.norevenues = 1;
         
@@ -106,8 +106,11 @@ export class LifetimerevenueComponent {
         this.months = ['January','Feburary','March','April','May','June','July','August','September','October','November','December'];
 
         const reqUrl = this.router.url;
-        this.use_url = API_URL+'/Bookings?filter={"where":{"and":[{"bookingStatus":"done"},{"artistId":"'+localStorage.getItem('currentUserId')+'"}]},"include":["members","artists"]}&access_token='+localStorage.getItem('currentUserToken');
-        
+        if(localStorage.getItem('currentUserRoleId') != "1") {
+            this.use_url = API_URL+'/Bookings?filter={"where":{"and":[{"bookingStatus":{"neq":cancelled"}},{"artistId":"'+localStorage.getItem('currentUserId')+'"}]},"include":[{"relation":"members", "scope":{"include":{"relation":"countries"}}},{"relation":"artists", "scope":{"include":{"relation":"countries"}}}],"order":"bookingDate DESC"}&access_token='+localStorage.getItem('currentUserToken');
+        } else {
+            this.use_url = API_URL+'/Bookings?filter={"where":{"and":[{"bookingStatus":{"neq":cancelled"}}]},"include":[{"relation":"members", "scope":{"include":{"relation":"countries"}}},{"relation":"artists", "scope":{"include":{"relation":"countries"}}}],"order":"bookingDate DESC"}&access_token=' + localStorage.getItem('currentUserToken');
+        }
 
         this.http.get(this.use_url, options)
         .subscribe(response => {
@@ -120,13 +123,6 @@ export class LifetimerevenueComponent {
                    this.revenues[i].bookingDate = moment(this.revenues[i].bookingDate).format('DD/MM/YYYY');
 
                    this.total_revenue = this.total_revenue + parseInt(this.revenues[i].servicePrice);
-
-                    this.http.get(API_URL+'/Countries?filter={"where":{"id":"'+ this.revenues[i].members.country+'"}}&access_token=' + localStorage.getItem('currentUserToken'), options)
-                    .subscribe(response => {
-                        this.revenues[i].countryname = response.json()[0].name;
-                    }, error => {
-                        console.log(JSON.stringify(error.json()));
-                    }); 
                 }
             } else {
                 this.norevenues = 0;

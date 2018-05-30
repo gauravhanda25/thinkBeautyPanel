@@ -535,8 +535,8 @@ export const routes: Routes = [
         canActivate: [NgxPermissionsGuard],
         data: {
           permissions: {
-            only: ['ARTIST','SALON'],
-            except: ['GUEST','ADMIN']
+            only: ['ARTIST','SALON','ADMIN'],
+            except: ['GUEST']
           }
         },
         loadChildren: './views/lifetimerevenue/lifetimerevenue.module#LifetimerevenueModule'

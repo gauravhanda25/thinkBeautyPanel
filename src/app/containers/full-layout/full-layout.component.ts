@@ -124,6 +124,11 @@ export class FullLayoutComponent {
               ]
           }, 
           {
+              name: 'Lifetime Revenue',
+              url: '/lifetimeRevenue',
+              icon: 'icon-list'
+            }, 
+          {
             name: 'Services',
             url: '/',
             icon: 'icon-settings',
