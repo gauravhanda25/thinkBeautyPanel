@@ -565,7 +565,18 @@ export const routes: Routes = [
         },
         loadChildren: './views/fixedcharge/fixedcharge.module#FixedchargeModule'
       },
-
+      {
+        path: 'faq',
+        component: FullLayoutComponent,        
+        canActivate: [NgxPermissionsGuard],
+        data: {
+          permissions: {
+            only: ['ADMIN'],
+            except: 'GUEST'
+          }
+        },
+        loadChildren: './views/faq/faq.module#FaqModule'
+      },
       {
         path: 'makeup',
         component: FullLayoutComponent,        
