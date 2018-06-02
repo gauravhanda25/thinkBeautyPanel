@@ -8,7 +8,7 @@
         <div class="card-body">
           <div class="row mb-3">
             <div class="col-md-4">
-              <h4>Total Records: {{bookings.length}}</h4>
+              <h4>Total Records: {{bookings?.length}}</h4>
             </div>
             <div class="col-md-2  offset-md-2">
                <select class="form-control" name="country"  [(ngModel)]="countryFilter" (change) = "onChangeFilter()">
@@ -32,14 +32,8 @@
                 <th><mfDefaultSorter by="service">Service</mfDefaultSorter></th>                
                 <th><mfDefaultSorter by="members.name">Customer Name</mfDefaultSorter></th>
                 <th><mfDefaultSorter by="members.countries.name">Customer Country</mfDefaultSorter></th>
-                <th><mfDefaultSorter by="members.mobile">Customer Phone</mfDefaultSorter></th><!-- 
-                <th><mfDefaultSorter by=""># of Persons</mfDefaultSorter></th>         
-                <th><mfDefaultSorter by="">Transaction Id</mfDefaultSorter></th> -->
-                <th><mfDefaultSorter by="bookingDate">Date of Booking</mfDefaultSorter></th><!-- 
-                <th><mfDefaultSorter by="">Booking Time</mfDefaultSorter></th>
-                <th><mfDefaultSorter by="">Service Price</mfDefaultSorter></th>
-                <th><mfDefaultSorter by="">Total Price</mfDefaultSorter></th>
-                <th><mfDefaultSorter by="">Phone</mfDefaultSorter></th> -->
+                <th><mfDefaultSorter by="members.mobile">Customer Phone</mfDefaultSorter></th>
+                <th><mfDefaultSorter by="bookingDate">Date of Booking</mfDefaultSorter></th>
                 <th><mfDefaultSorter by="created">Created On</mfDefaultSorter></th>
                 <th>Action</th>
               </tr>
@@ -81,7 +75,7 @@
 </div>
 
 <div bsModal #bookingModal="bs-modal" class="modal fade artist-detail-modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-  <div class="modal-dialog modal-primary" role="document">
+  <div class="modal-dialog modal-primary" role="document" style="max-width:60%">
     <div class="modal-content">
       <div class="modal-header">
         <h4 class="modal-title">Booking Details</h4>
@@ -108,48 +102,45 @@
             <td>{{bookingDetails?.servicetype}}</td>
           </tr>
           <tr>
-            <td>Service Name</td>            
-            <td><!-- {{bookingDetails?.artistServiceId[0]?.subserviceId}} --></td>
-          </tr>
-          <tr>
-            <td>Service Price with Currency</td>            
-            <td><!-- {{bookingDetails?.artistServiceId[0]?.subserviceId}} --></td>
-          </tr>
-          <tr>
-            <td>Number of persons</td>            
-            <td><!-- {{bookingDetails?.artistServiceId[0]?.persons}} --></td>
-          </tr>           
-          <tr>
-            <td>Commission</td>            
-            <td><!-- {{bookingDetails?.artists?.commissions?.price}} --></td>
-          </tr>
-          <tr>
-            <td>Total Price</td>            
-            <td><!-- {{bookingDetails?.artistServiceId[0]?.subserviceId}} --></td>
+            <td>Service Details</td>
+            <td>
+              <table class="table">
+                <tr>
+                  <th>Service Name</th>          
+                  <th>Service Price with Currency</th> 
+                  <th>Number of persons</th>        
+                  <th>Commission</th>   
+                  <th>Total Price</th>  
+                </tr>
+                <tr *ngFor="let serviceDetails of bookingDetails.artistSubServiceDetails">                 
+                  <td>{{serviceDetails.name}}</td> 
+                  <td>{{bookingDetails.currency}} {{serviceDetails.price}}</td>
+                  <td>{{serviceDetails.persons}}</td>
+                  <td>{{bookingDetails.commission}}</td>
+                  <td>{{serviceDetails.price + bookingDetails.commission}} </td>
+                </tr>
+              </table>
+            </td>
           </tr>
           <tr>
             <td>Fixed Charge</td>            
-            <td><!-- {{bookingDetails?.artistServiceId[0]?.subserviceId}} --></td>
+            <td>{{bookingDetails?.fixedcharge}}</td>
           </tr>
-          <tr>
-            <td>Voucher Applied</td>            
-            <td><!-- {{bookingDetails?.artistServiceId[0]?.subserviceId}} --></td>
-          </tr>
-          <tr *ngIf="">
+          <tr *ngIf="bookingDetails?.voucherId">
             <td>Voucher code</td>            
-            <td><!-- {{bookingDetails?.artistServiceId[0]?.subserviceId}} --></td>
+            <td>{{bookingDetails?.voucherId}}</td>
           </tr>
           <tr>
             <td>Discounted Price</td>            
-            <td><!-- {{bookingDetails?.artistServiceId[0]?.subserviceId}} --></td>
+            <td></td>
           </tr>
-          <tr>
+          <tr *ngIf="bookingDetails?.amountPaid">
             <td>Amount Paid</td>            
-            <td><!-- {{bookingDetails?.artistServiceId[0]?.subserviceId}} --></td>
+            <td>{{bookingDetails?.amountPaid}}</td>
           </tr>
-          <tr>
+          <tr *ngIf="bookingDetails?.amountRemaining">
             <td>Amount Remaining</td>            
-            <td><!-- {{bookingDetails?.artistServiceId[0]?.subserviceId}} --></td>
+            <td>{{bookingDetails?.amountRemaining}}</td>
           </tr>
           <tr>
             <td>Customer Name</td>
@@ -165,7 +156,7 @@
           </tr>
           <tr>
             <td>Booking Address</td>
-            <td><!-- {{bookingDetails?.bookingDate}} --></td>
+            <td>{{bookingDetails?.address}}</td>
           </tr>
           <tr>
             <td>Date of Booking</td>

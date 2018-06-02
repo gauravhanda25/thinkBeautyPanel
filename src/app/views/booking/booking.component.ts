@@ -104,8 +104,8 @@ export class BookingComponent {
 
             if(this.bookings.length !=0) {
                 for(let i=0; i< this.bookings.length; i++ ) {
-                   this.bookings[i].created = moment(this.bookings[i].created).format('DD/MM/YYYY');
-                   this.bookings[i].bookingDate = moment(this.bookings[i].bookingDate).format('DD/MM/YYYY');
+                   this.bookings[i].created = moment(this.bookings[i].created).format('DD MMMM YYYY');
+                   this.bookings[i].bookingDate = moment(this.bookings[i].bookingDate).format('DD MMMM YYYY');                   
                 }
             } else {
                 this.nobookings = 0;
@@ -182,8 +182,8 @@ export class BookingComponent {
 
             if(this.bookings.length !=0) {
                 for(let i=0; i< this.bookings.length; i++ ) {
-                   this.bookings[i].created = moment(this.bookings[i].created).format('DD/MM/YYYY');
-                   this.bookings[i].bookingDate = moment(this.bookings[i].bookingDate).format('DD/MM/YYYY');
+                   this.bookings[i].created = moment(this.bookings[i].created).format('DD MMMM YYYY');
+                   this.bookings[i].bookingDate = moment(this.bookings[i].bookingDate).format('DD MMMM YYYY');
                 }
             } else {
                 this.nobookings = 0;
@@ -206,7 +206,50 @@ export class BookingComponent {
         .subscribe(response => {
             console.log(response.json());       
             this.bookingDetails = response.json();  
-            this.bookingDetails.bookingDate = moment(this.bookingDetails.bookingDate).format('DD/MM/YYYY');
+            this.bookingDetails.bookingDate = moment(this.bookingDetails.bookingDate).format('DD MMMM YYYY');
+
+            this.http.get(API_URL+'/Commissions?filter={"where":{"price":"all"}}&access_token='+ localStorage.getItem('currentUserToken'), options)
+            .subscribe(commissionRes => { 0;
+                 this.bookingDetails.commission = 0;
+                 this.bookingDetails.commission = parseInt(commissionRes.json()[0].commission);
+             }, error => {
+                console.log(JSON.stringify(error.json()));
+            }); 
+
+            this.http.get(API_URL+'/Fixedcharges?filter={"where":{"country":"this.bookingDetails.memberId","memberId":"this.bookingDetails.artistId"}}&access_token='+ localStorage.getItem('currentUserToken'), options)
+            .subscribe(fixedchargeRes => { 
+                this.bookingDetails.fixedcharge = 0 ;
+                 this.bookingDetails.fixedcharge = parseInt(fixedchargeRes.json()[0].fixedcharge);
+             }, error => {
+                console.log(JSON.stringify(error.json()));
+            }); 
+
+
+
+            if(this.bookingDetails.artists.countries.name == "Bahrain") {
+              this.bookingDetails.currency = "BHD";
+            } else {
+              this.bookingDetails.currency = "KWD";
+            }
+
+            this.bookingDetails.artistSubServiceDetails = [];
+
+            for(let service of this.bookingDetails.artistServiceId){                
+                this.http.get(API_URL+'/Artistservices?filter={"where":{"subserviceId":"'+service.subserviceId+'","memberId":"'+this.bookingDetails.artistId+'","servicetype":"'+this.bookingDetails.servicetype+'"}}&access_token='+ localStorage.getItem('currentUserToken'), options)
+                .subscribe(servicetypesRes => {
+                    console.log(servicetypesRes.json());
+
+                     this.bookingDetails.artistSubServiceDetails.push({
+                        name: service.subServiceName,
+                        price: parseInt(servicetypesRes.json()[0].price) ,
+                        duration: servicetypesRes.json()[0].duration,
+                        persons: service.persons,
+                     });
+
+                 }, error => {
+                    console.log(JSON.stringify(error.json()));
+                }); 
+            }
         }, error => {
             console.log(JSON.stringify(error.json()));
         }); 
