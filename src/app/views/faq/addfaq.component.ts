@@ -82,6 +82,7 @@ export class AddfaqComponent {
     	this.data = {  
     		ques:'',
     		ans: '',
+    		language: '',
     		created_by:localStorage.getItem('currentUserId'),
     		created_on:today,
     	}

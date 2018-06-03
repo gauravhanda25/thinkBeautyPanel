@@ -25,6 +25,7 @@ export class FaqComponent {
   	private faqs: any;
     private delparam: any;
 	private nocr: any;
+    private languageFilter:any = '';
 
 	private toasterService: ToasterService;
     public toasterconfig : ToasterConfig =
@@ -76,6 +77,51 @@ export class FaqComponent {
 		});
     	
  	}
+
+ 	onChangeFilter() {
+        let options = new RequestOptions();
+        options.headers = new Headers();
+        options.headers.append('Content-Type', 'application/json');
+        options.headers.append('Accept', 'application/json');
+
+        let languageInWhere:any;
+
+        if(this.languageFilter != ''){
+           languageInWhere = ',{"language":"'+this.languageFilter+'"}';
+        } else {
+            languageInWhere = '';
+        }
+
+        this.use_url =  API_URL+'/faqs?filter={"where":{"and":[{"active":{"neq":0}}'+languageInWhere+']}}&access_token='+localStorage.getItem('currentUserToken');
+		
+       
+        this.faqs = [];
+        this.nocr = 1;
+        
+        this.http.get(this.use_url, options)
+        .subscribe(response => {
+            if(response.json().length !=0) {
+				this.faqs = response.json();
+                for(let i=0; i< this.faqs.length; i++ ) {
+					if(this.faqs[i].created_on != '' && this.faqs[i].created_on != undefined) {
+		                this.faqs[i].created_on = moment(this.faqs[i].created_on).format('DD MMMM YYYY');
+		            } else {
+		               this.faqs[i].created_on = ''; 
+		            }
+		        }
+            } else {
+			 	this.nocr = 0;
+		    }
+
+           
+        }, error => {
+            console.log(JSON.stringify(error.json()));
+        });             
+
+    }
+
+
+
 	delfaq(delId){
 		if(confirm("Are you sure you want to remove this FAQ?")){
 		
