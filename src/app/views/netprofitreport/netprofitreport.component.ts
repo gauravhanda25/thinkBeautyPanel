@@ -22,11 +22,11 @@ import { BsDatepickerModule, BsDatepickerConfig } from 'ngx-bootstrap';
 
 
 @Component({
-  templateUrl: 'lifetimerevenue.component.html',
+  templateUrl: 'netprofitreport.component.html',
   styleUrls: ['../../../scss/vendors/toastr/toastr.scss', '../../../scss/vendors/bs-datepicker/bs-datepicker.scss'],
   encapsulation: ViewEncapsulation.None
 })
-export class LifetimerevenueComponent {
+export class NetprofitreportComponent {
 	
   	private revenues: any = [];
     private delparam: any;
@@ -122,7 +122,7 @@ export class LifetimerevenueComponent {
                    this.revenues[i].created = moment(this.revenues[i].created).format('DD MMMM YYYY');
                    this.revenues[i].bookingDate = moment(this.revenues[i].bookingDate).format('DD MMMM YYYY');
 
-                     this.revenues[i].artistSubServiceDetails = [];
+                    this.revenues[i].artistSubServiceDetails = [];
 
                     for(let service of this.revenues[i].artistServiceId) {   
                                   
@@ -235,7 +235,7 @@ export class LifetimerevenueComponent {
                    this.revenues[i].created = moment(this.revenues[i].created).format('DD MMMM YYYY');
                    this.revenues[i].bookingDate = moment(this.revenues[i].bookingDate).format('DD MMMM YYYY');
 
-                    this.revenues[i].artistSubServiceDetails = [];
+                     this.revenues[i].artistSubServiceDetails = [];
 
                     for(let service of this.revenues[i].artistServiceId) {   
                                   

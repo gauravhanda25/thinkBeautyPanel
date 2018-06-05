@@ -235,7 +235,7 @@ export class BookingComponent {
             this.bookingDetails.artistSubServiceDetails = [];
 
             for(let service of this.bookingDetails.artistServiceId){                
-                this.http.get(API_URL+'/Artistservices?filter={"where":{"subserviceId":"'+service.subserviceId+'","memberId":"'+this.bookingDetails.artistId+'","servicetype":"'+this.bookingDetails.servicetype+'"}}&access_token='+ localStorage.getItem('currentUserToken'), options)
+                this.http.get(API_URL+'/Artistservices?filter={"where":{"subserviceId":"'+service.subserviceId+'","memberId":"'+this.bookingDetails.artistId+'","servicetype":"'+this.bookingDetails.serviceType+'"}}&access_token='+ localStorage.getItem('currentUserToken'), options)
                 .subscribe(servicetypesRes => {
                     console.log(servicetypesRes.json());
 

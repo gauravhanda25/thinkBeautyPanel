@@ -127,7 +127,12 @@ export class FullLayoutComponent {
               name: 'Lifetime Revenue',
               url: '/lifetimeRevenue',
               icon: 'icon-list'
-            }, 
+            },
+          {
+              name: 'Net Profit Report',
+              url: '/netprofitreport',
+              icon: 'icon-list'
+            },  
           {
             name: 'Services',
             url: '/',
@@ -253,6 +258,11 @@ export class FullLayoutComponent {
               url: '/lifetimeRevenue',
               icon: 'icon-list'
             }, 
+             {
+              name: 'Net Profit Report',
+              url: '/netprofitreport',
+              icon: 'icon-list'
+            }, 
             {
               name: 'Upload',
               url: '/media',
@@ -343,7 +353,12 @@ export class FullLayoutComponent {
               name: 'Lifetime Revenue',
               url: '/lifetimeRevenue',
               icon: 'icon-list'
-            }, 
+            },
+             {
+              name: 'Net Profit Report',
+              url: '/netprofitreport',
+              icon: 'icon-list'
+            },  
             {
               name: 'Upload',
               url: '/media',

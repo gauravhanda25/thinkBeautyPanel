@@ -542,6 +542,18 @@ export const routes: Routes = [
         loadChildren: './views/lifetimerevenue/lifetimerevenue.module#LifetimerevenueModule'
       },
       {
+        path: 'netprofitreport',
+        component: FullLayoutComponent,        
+        canActivate: [NgxPermissionsGuard],
+        data: {
+          permissions: {
+            only: ['ARTIST','SALON','ADMIN'],
+            except: ['GUEST']
+          }
+        },
+        loadChildren: './views/netprofitreport/netprofitreport.module#NetprofitreportModule'
+      },
+      {
         path: 'commission',
         component: FullLayoutComponent,        
         canActivate: [NgxPermissionsGuard],

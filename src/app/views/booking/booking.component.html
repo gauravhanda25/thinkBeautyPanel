@@ -30,7 +30,7 @@
                 <th><mfDefaultSorter by="artists.name">Artist Name</mfDefaultSorter></th>
                 <th><mfDefaultSorter by="artists.countries.name">Artist Country</mfDefaultSorter></th>
                 <th><mfDefaultSorter by="service">Service</mfDefaultSorter></th>                
-                <th><mfDefaultSorter by="members.name">Customer Name</mfDefaultSorter></th>
+                <th><mfDefaultSorter by="members.fullName">Customer Name</mfDefaultSorter></th>
                 <th><mfDefaultSorter by="members.countries.name">Customer Country</mfDefaultSorter></th>
                 <th><mfDefaultSorter by="members.mobile">Customer Phone</mfDefaultSorter></th>
                 <th><mfDefaultSorter by="bookingDate">Date of Booking</mfDefaultSorter></th>
@@ -46,7 +46,7 @@
                 <td>{{booking?.artists?.name}}</td>
                 <td>{{booking?.artists?.countries?.name}}</td>
                 <td>{{booking?.service}}</td>
-                <td>{{booking?.members?.name}}</td>
+                <td>{{booking?.members?.fullName}}</td>
                 <td>{{booking?.members?.countries?.name}}</td>
                 <td>{{booking?.members?.mobile}}</td>
                 <td>{{booking?.bookingDate}}</td>
@@ -99,7 +99,7 @@
           </tr>
            <tr>
             <td>Type of Service</td>
-            <td>{{bookingDetails?.servicetype}}</td>
+            <td>{{bookingDetails?.serviceType}}</td>
           </tr>
           <tr>
             <td>Service Details</td>
@@ -144,7 +144,7 @@
           </tr>
           <tr>
             <td>Customer Name</td>
-            <td>{{bookingDetails?.members?.name}}</td>
+            <td>{{bookingDetails?.members?.fullName}}</td>
           </tr>
           <tr>
             <td>Customer Country</td>

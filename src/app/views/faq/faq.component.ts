@@ -92,13 +92,13 @@ export class FaqComponent {
             languageInWhere = '';
         }
 
-        this.use_url =  API_URL+'/faqs?filter={"where":{"and":[{"active":{"neq":0}}'+languageInWhere+']}}&access_token='+localStorage.getItem('currentUserToken');
+        let use_url =  API_URL+'/faqs?filter={"where":{"and":[{"active":{"neq":0}}'+languageInWhere+']}}&access_token='+localStorage.getItem('currentUserToken');
 		
        
         this.faqs = [];
         this.nocr = 1;
         
-        this.http.get(this.use_url, options)
+        this.http.get(use_url, options)
         .subscribe(response => {
             if(response.json().length !=0) {
 				this.faqs = response.json();
