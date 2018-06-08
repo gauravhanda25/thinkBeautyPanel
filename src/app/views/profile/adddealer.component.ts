@@ -266,7 +266,7 @@ export class AdddealerComponent {
     this.uploaderProfile.onAfterAddingFile = function(item) {
       var fileExtension = '.' + item.file.name.split('.').pop();
 
-      item.file.name = item.file.name + new Date().getTime() + fileExtension;
+      item.file.name = item.file.name.split('.')[0] + new Date().getTime() + fileExtension;
     };
     	this.http.get(API_URL+'/Oems?access_token='+ localStorage.getItem('currentUserToken'), options)
         .subscribe(response => {

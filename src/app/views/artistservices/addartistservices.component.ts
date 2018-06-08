@@ -216,7 +216,13 @@ export class AddartistservicesComponent {
 
       this.uploader = new FileUploader({url: '',
       allowedMimeType: ['image/gif','image/jpeg','image/png'] });
-    
+      
+      this.uploader.onAfterAddingFile = function(item) {
+        var fileExtension = '.' + item.file.name.split('.').pop();
+
+        item.file.name = item.file.name.split('.')[0] + new Date().getTime() + fileExtension;
+      };
+
 
     
     	this.data = {

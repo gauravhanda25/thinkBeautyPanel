@@ -30,7 +30,7 @@
             <div class="col-md-3">
                <select class="form-control" name="month"  [(ngModel)]="data.month" (change) = "onChangeFilter()">
                   <option value="" >Select Month</option>
-                  <option *ngFor="let month of months" value="{{month}}">{{month}}</option>
+                  <option *ngFor="let month of months; let i= index;" value="{{i}}">{{month}}</option>
                 </select> 
             </div>
             <div class="col-md-2">
