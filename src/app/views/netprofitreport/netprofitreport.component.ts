@@ -123,6 +123,7 @@ export class NetprofitreportComponent {
                    this.revenues[i].bookingDate = moment(this.revenues[i].bookingDate).format('DD MMMM YYYY');
 
                     this.revenues[i].artistSubServiceDetails = [];
+                     this.revenues[i].totalServicePrice = 0;
 
                     for(let service of this.revenues[i].artistServiceId) {   
                                   
@@ -137,6 +138,8 @@ export class NetprofitreportComponent {
                                     persons: service.persons,
                                  });
                                   this.total_revenue = parseInt(this.total_revenue) + (this.revenues[i].artistSubServiceDetails[0].price);
+
+                                  this.revenues[i].totalServicePrice += this.revenues[i].artistSubServiceDetails[0].price;
                    
                             }  else {
                                 this.revenues[i].artistSubServiceDetails.push({
@@ -146,7 +149,8 @@ export class NetprofitreportComponent {
                                     persons: 0,
                                  });
                                   this.total_revenue = parseInt(this.total_revenue) + (this.revenues[i].artistSubServiceDetails[0].price);
-                   
+
+                                  this.revenues[i].totalServicePrice += this.revenues[i].artistSubServiceDetails[0].price;                   
                             }
                             
 
@@ -156,6 +160,7 @@ export class NetprofitreportComponent {
                         }); 
                     }
 
+                    
                     
 
                     this.http.get(API_URL+'/Commissions?filter={"where":{"price":"all"}}&access_token='+ localStorage.getItem('currentUserToken'), options)
@@ -235,7 +240,8 @@ export class NetprofitreportComponent {
                    this.revenues[i].created = moment(this.revenues[i].created).format('DD MMMM YYYY');
                    this.revenues[i].bookingDate = moment(this.revenues[i].bookingDate).format('DD MMMM YYYY');
 
-                     this.revenues[i].artistSubServiceDetails = [];
+                    this.revenues[i].artistSubServiceDetails = [];
+                     this.revenues[i].totalServicePrice = 0;
 
                     for(let service of this.revenues[i].artistServiceId) {   
                                   
@@ -250,6 +256,8 @@ export class NetprofitreportComponent {
                                     persons: service.persons,
                                  });
                                   this.total_revenue = parseInt(this.total_revenue) + (this.revenues[i].artistSubServiceDetails[0].price);
+
+                                  this.revenues[i].totalServicePrice += this.revenues[i].artistSubServiceDetails[0].price;
                    
                             }  else {
                                 this.revenues[i].artistSubServiceDetails.push({
@@ -259,7 +267,8 @@ export class NetprofitreportComponent {
                                     persons: 0,
                                  });
                                   this.total_revenue = parseInt(this.total_revenue) + (this.revenues[i].artistSubServiceDetails[0].price);
-                   
+
+                                  this.revenues[i].totalServicePrice += this.revenues[i].artistSubServiceDetails[0].price;                   
                             }
                             
 
@@ -328,7 +337,8 @@ export class NetprofitreportComponent {
                    this.revenues[i].created = moment(this.revenues[i].created).format('DD MMMM YYYY');
                    this.revenues[i].bookingDate = moment(this.revenues[i].bookingDate).format('DD MMMM YYYY');
 
-                     this.revenues[i].artistSubServiceDetails = [];
+                    this.revenues[i].artistSubServiceDetails = [];
+                     this.revenues[i].totalServicePrice = 0;
 
                     for(let service of this.revenues[i].artistServiceId) {   
                                   
@@ -343,6 +353,8 @@ export class NetprofitreportComponent {
                                     persons: service.persons,
                                  });
                                   this.total_revenue = parseInt(this.total_revenue) + (this.revenues[i].artistSubServiceDetails[0].price);
+
+                                  this.revenues[i].totalServicePrice += this.revenues[i].artistSubServiceDetails[0].price;
                    
                             }  else {
                                 this.revenues[i].artistSubServiceDetails.push({
@@ -352,7 +364,8 @@ export class NetprofitreportComponent {
                                     persons: 0,
                                  });
                                   this.total_revenue = parseInt(this.total_revenue) + (this.revenues[i].artistSubServiceDetails[0].price);
-                   
+
+                                  this.revenues[i].totalServicePrice += this.revenues[i].artistSubServiceDetails[0].price;                   
                             }
                             
 
@@ -360,9 +373,7 @@ export class NetprofitreportComponent {
                          }, error => {
                             console.log(JSON.stringify(error.json()));
                         }); 
-                    }
-
-                    
+                    }                  
 
                     this.http.get(API_URL+'/Commissions?filter={"where":{"price":"all"}}&access_token='+ localStorage.getItem('currentUserToken'), options)
                     .subscribe(commissionRes => { 0;

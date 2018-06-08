@@ -75,12 +75,12 @@
                 <td>{{revenue?.artists?.name}}</td>
                 <td>{{revenue.service}}</td>
                 <td>{{revenue.serviceType}}</td> 
-                <td>{{revenue.currency}} {{revenue?.artistSubServiceDetails[0]?.price}} </td>
+                <td>{{revenue.currency}} {{revenue?.totalServicePrice}} </td>
                 <td>{{revenue.commission}}</td>
                 <td>{{revenue.bookingDate}}</td>
-                <td>{{revenue.currency}} {{revenue?.artistSubServiceDetails[0]?.price + revenue.commission}} </td>
+                <td>{{revenue.currency}} {{revenue?.totalServicePrice + revenue.commission}} </td>
                 <td> N/A </td>
-                <td>{{revenue.currency}} {{revenue?.artistSubServiceDetails[0]?.price + revenue.commission}} </td>
+                <td>{{revenue.currency}} {{revenue?.totalServicePrice + revenue.commission}} </td>
                 <td>{{revenue.currency}}  {{revenue.commission}}</td>                
                 <td>{{revenue.created}}</td>
                 <!-- <td>       
