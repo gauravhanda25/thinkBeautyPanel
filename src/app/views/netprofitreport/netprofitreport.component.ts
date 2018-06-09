@@ -195,7 +195,6 @@ export class NetprofitreportComponent {
         });   	        
 
  	}
-
     onChangeFilter(){
         let options = new RequestOptions();
         options.headers = new Headers();
@@ -219,9 +218,9 @@ export class NetprofitreportComponent {
             this.use_url = API_URL+'/Bookings?filter={"where":{"and":[{"bookingStatus":{"neq":"cancelled"}}'+dateFilter+']},"include":[{"relation":"members", "scope":{"include":{"relation":"countries"}}},{"relation":"artists", "scope":{"include":{"relation":"countries"}}}],"order":"bookingDate DESC"}&access_token=' + localStorage.getItem('currentUserToken');
         }
 
-        console.log(this.use_url);
+        // console.log(this.use_url);
 
-        let removeNo:any = 0;
+        let removeNo:number = 0;
 
         this.http.get(this.use_url, options)
         .subscribe(response => {   
@@ -229,47 +228,46 @@ export class NetprofitreportComponent {
 
             if(this.revenues.length !=0) {
                 for(let i=0; i< response.json().length; i++ ) {
-                    console.log(i,parseInt(i)-removeNo,this.revenues.length);
 
-                    if((this.data.country != '' && this.revenues[parseInt(i)-removeNo].members.country != this.data.country) || (this.data.year != '' && moment(this.revenues[parseInt(i)-removeNo].bookingDate).year() != this.data.year) || (this.data.month != '' && moment(this.revenues[parseInt(i)-removeNo].bookingDate).month() != this.data.month) ){
+                    if((this.data.country != '' && this.revenues[i-removeNo].members.country != this.data.country) || (this.data.year != '' && moment(this.revenues[i-removeNo].bookingDate).year() != this.data.year) || (this.data.month != '' && moment(this.revenues[i-removeNo].bookingDate).month() != this.data.month) ){
 
-                        this.revenues.splice(parseInt(i)-removeNo,1);
+                        this.revenues.splice(i-removeNo,1);
                         removeNo = removeNo + 1;
                         continue;
                     }
 
-                   this.revenues[parseInt(i)-removeNo].created = moment(this.revenues[parseInt(i)-removeNo].created).format('DD MMMM YYYY');
-                   this.revenues[parseInt(i)-removeNo].bookingDate = moment(this.revenues[parseInt(i)-removeNo].bookingDate).format('DD MMMM YYYY');
+                   this.revenues[i-removeNo].created = moment(this.revenues[i-removeNo].created).format('DD MMMM YYYY');
+                   this.revenues[i-removeNo].bookingDate = moment(this.revenues[i-removeNo].bookingDate).format('DD MMMM YYYY');
 
-                   this.revenues[parseInt(i)-removeNo].artistSubServiceDetails = [];
-                    this.revenues[parseInt(i)-removeNo].totalServicePrice = 0;
-                    if(this.revenues[parseInt(i)-removeNo].artistServiceId.length != 0) {
-                        for(let service of this.revenues[parseInt(i)-removeNo].artistServiceId) {   
+                   this.revenues[i-removeNo].artistSubServiceDetails = [];
+                    this.revenues[i-removeNo].totalServicePrice = 0;
+                    if(this.revenues[i-removeNo].artistServiceId.length != 0) {
+                        for(let service of this.revenues[i-removeNo].artistServiceId) {   
                                       
-                            this.http.get(API_URL+'/Artistservices?filter={"where":{"subserviceId":"'+service.subserviceId+'","memberId":"'+this.revenues[parseInt(i)-removeNo].artistId+'","servicetype":"'+this.revenues[parseInt(i)-removeNo].serviceType+'"}}&access_token='+ localStorage.getItem('currentUserToken'), options)
+                            this.http.get(API_URL+'/Artistservices?filter={"where":{"subserviceId":"'+service.subserviceId+'","memberId":"'+this.revenues[i-removeNo].artistId+'","servicetype":"'+this.revenues[i-removeNo].serviceType+'"}}&access_token='+ localStorage.getItem('currentUserToken'), options)
                             .subscribe(servicetypesRes => {
                             
                                 if(servicetypesRes.json().length != 0) {
-                                     this.revenues[parseInt(i)-removeNo].artistSubServiceDetails.push({
+                                     this.revenues[i-removeNo].artistSubServiceDetails.push({
                                         name: service.subServiceName,
                                         price: parseInt(servicetypesRes.json()[0].price) ,
                                         duration: servicetypesRes.json()[0].duration,
                                         persons: service.persons,
                                      });
-                                      this.total_revenue = parseInt(this.total_revenue) + (this.revenues[parseInt(i)-removeNo].artistSubServiceDetails[0].price);
+                                      this.total_revenue = parseInt(this.total_revenue) + (this.revenues[i-removeNo].artistSubServiceDetails[0].price);
 
-                                      this.revenues[parseInt(i)-removeNo].totalServicePrice += this.revenues[parseInt(i)-removeNo].artistSubServiceDetails[0].price;
+                                      this.revenues[i-removeNo].totalServicePrice += this.revenues[i-removeNo].artistSubServiceDetails[0].price;
                        
                                 }  else {
-                                    this.revenues[parseInt(i)-removeNo].artistSubServiceDetails.push({
+                                    this.revenues[i-removeNo].artistSubServiceDetails.push({
                                         name: service.subServiceName,
                                         price: parseInt("0") ,
                                         duration: 0,
                                         persons: 0,
                                      });
-                                      this.total_revenue = parseInt(this.total_revenue) + (this.revenues[parseInt(i)-removeNo].artistSubServiceDetails[0].price);
+                                      this.total_revenue = parseInt(this.total_revenue) + (this.revenues[i-removeNo].artistSubServiceDetails[0].price);
 
-                                      this.revenues[parseInt(i)-removeNo].totalServicePrice += this.revenues[parseInt(i)-removeNo].artistSubServiceDetails[0].price;                   
+                                      this.revenues[i-removeNo].totalServicePrice += this.revenues[i-removeNo].artistSubServiceDetails[0].price;                   
                                 }
                                 
                             }, error => {
@@ -279,17 +277,17 @@ export class NetprofitreportComponent {
                     }
                     this.http.get(API_URL+'/Commissions?filter={"where":{"price":"all"}}&access_token='+ localStorage.getItem('currentUserToken'), options)
                     .subscribe(commissionRes => { 0;
-                         this.revenues[parseInt(i)-removeNo].commission = 0;
-                         this.revenues[parseInt(i)-removeNo].commission = parseInt(commissionRes.json()[0].commission);
+                         this.revenues[i-removeNo].commission = 0;
+                         this.revenues[i-removeNo].commission = parseInt(commissionRes.json()[0].commission);
                      }, error => {
                         console.log(JSON.stringify(error.json()));
                     }); 
 
 
-                    if(this.revenues[parseInt(i)-removeNo].artists.countries.name == "Bahrain") {
-                      this.revenues[parseInt(i)-removeNo].currency = "BHD";
+                    if(this.revenues[i-removeNo].artists.countries.name == "Bahrain") {
+                      this.revenues[i-removeNo].currency = "BHD";
                     } else {
-                      this.revenues[parseInt(i)-removeNo].currency = "KWD";
+                      this.revenues[i-removeNo].currency = "KWD";
                     }
 
                 }
