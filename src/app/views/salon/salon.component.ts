@@ -143,11 +143,11 @@ export class SalonComponent {
                 console.log(localStorage.getItem('noticemessage'));
 
                 if(localStorage.getItem('noticemessage') == "salonadd") {
-                    this.toasterService.pop('success', 'Success ', "Salon Record added successfully."); 
+                    this.toasterService.clear();	this.toasterService.pop('success', 'Success ', "Salon Record added successfully."); 
                 } else if(localStorage.getItem('noticemessage') == "salonupdate") {
-                    this.toasterService.pop('success', 'Success ', "Salon Record updated successfully.");
+                    this.toasterService.clear();	this.toasterService.pop('success', 'Success ', "Salon Record updated successfully.");
                 }  else if(localStorage.getItem('noticemessage') == "salondelete") {
-                    this.toasterService.pop('success', 'Success ', "Salon Record deleted successfully.");
+                    this.toasterService.clear();	this.toasterService.pop('success', 'Success ', "Salon Record deleted successfully.");
                 }
 
                 localStorage.setItem('noticemessage', null);
@@ -211,7 +211,7 @@ export class SalonComponent {
             this.http.post(API_URL+'/Members/update?where={"id":"'+  salon.id +'"}&access_token='+ localStorage.getItem('currentUserToken'), salon,  options)
             .subscribe(response => {
 
-                this.toasterService.pop('success', 'Success ', "Salon Record updated successfully.");
+                this.toasterService.clear();	this.toasterService.pop('success', 'Success ', "Salon Record updated successfully.");
                 //this.router.navigate(['artist']);  
                 
                 if(action != 'block' && action != "unblock") {    
@@ -222,7 +222,7 @@ export class SalonComponent {
                     }
                 }
             }, error => {
-                this.toasterService.pop('error', 'Error ',  error.json().error.message);
+                this.toasterService.clear();	this.toasterService.pop('error', 'Error ',  error.json().error.message);
                 console.log(JSON.stringify(error.json()));
             });
         }
@@ -237,7 +237,7 @@ export class SalonComponent {
             this.http.delete(API_URL+'/Members/'+ salon.id +'?access_token='+ localStorage.getItem('currentUserToken'), options)
             .subscribe(response => {
                 console.log(response.json()); 
-                this.toasterService.pop('success', 'Success ', "Salon Record deleted successfully.");
+                this.toasterService.clear();	this.toasterService.pop('success', 'Success ', "Salon Record deleted successfully.");
                 //this.router.navigate(['salon']);
 
                 const index: number = this.users.indexOf(salon);

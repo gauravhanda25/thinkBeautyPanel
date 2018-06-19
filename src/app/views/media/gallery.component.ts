@@ -98,9 +98,9 @@ getImage(images) {
     this.http.get(API_URL+'/Containers/'+file.memberId+'/download/'+file.fileName+ '?access_token='+localStorage.getItem('currentUserToken'), options)
     .subscribe(response => {    
       window.open(API_URL+'/Containers/'+file.memberId+'/download/'+file.fileName);
-      this.toasterService.pop('success', 'Success ', "Gallery downloaded file "+file.fileName+" successfully.");
+      this.toasterService.clear();	this.toasterService.pop('success', 'Success ', "Gallery downloaded file "+file.fileName+" successfully.");
     }, error => {
-          this.toasterService.pop('error', 'Error ',  "Gallery downloaded file "+file.fileName+"  failed.");
+          this.toasterService.clear();	this.toasterService.pop('error', 'Error ',  "Gallery downloaded file "+file.fileName+"  failed.");
         console.log(JSON.stringify(error.json()));
     });
 
@@ -116,7 +116,7 @@ getImage(images) {
       this.http.delete(API_URL+'/Containers/'+ file.memberId +'/files/'+  file.fileName + '?access_token='+localStorage.getItem('currentUserToken'), options)
         .subscribe(response => {
           console.log(response.json());
-          this.toasterService.pop('success', 'Success ', "Gallery Uploaded file "+file.fileName+" deleted successfully.");
+          this.toasterService.clear();	this.toasterService.pop('success', 'Success ', "Gallery Uploaded file "+file.fileName+" deleted successfully.");
 
           const index: number = this.galleryImages.indexOf(file);
           console.log(index);
@@ -132,7 +132,7 @@ getImage(images) {
               console.log(JSON.stringify(error.json()));
           });
       }, error => {
-            this.toasterService.pop('error', 'Error ',  "Gallery Uploaded file "+file.fileName+" deletion failed.");
+            this.toasterService.clear();	this.toasterService.pop('error', 'Error ',  "Gallery Uploaded file "+file.fileName+" deletion failed.");
           console.log(JSON.stringify(error.json()));
       });
   }

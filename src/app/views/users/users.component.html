@@ -19,7 +19,7 @@
             <div class="col-md-4 ">
               <div class="input-group">
                 <div class="input-group-prepend"><span class="input-group-text"><i class="fa fa-search"></i></span></div>
-                <input type="text" class="form-control" [(ngModel)]="filterQuery" placeholder="Search by name or country"/>
+                <input type="text" class="form-control" [(ngModel)]="filterQuery" placeholder="Search by name or phone no."/>
               </div>
             </div>
           </div>
@@ -37,8 +37,8 @@
               </tr>
             </thead>
             <tbody> 
-              <tr *ngIf = "nousers == 0">
-                <td colspan="12">No User Records</td>
+              <tr *ngIf = "mf.data.length == 0">
+                <td colspan="12">No results found.</td>
               </tr>
               <tr *ngFor="let user of mf.data" >
                 <td>{{user.fullName}}</td>

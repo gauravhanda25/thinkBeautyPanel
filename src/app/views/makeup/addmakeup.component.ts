@@ -121,10 +121,10 @@ export class AddmakeupComponent {
 				onHideCallback: (toast) => this.router.navigate(['makeup'])  
 			  };
 			   
-			  this.toasterService.pop(toast);	
+			  this.toasterService.clear();	this.toasterService.pop(toast);	
 				   
 			}, error => {
-				this.toasterService.pop('error', 'Error ',  error.json().error.message);
+				this.toasterService.clear();	this.toasterService.pop('error', 'Error ',  error.json().error.message);
 				console.log(JSON.stringify(error.json()));
 			});
 			
@@ -140,9 +140,9 @@ export class AddmakeupComponent {
 				onHideCallback: (toast) => this.router.navigate(['makeup'])  
 			  };
 			   
-			  this.toasterService.pop(toast);	
+			  this.toasterService.clear();	this.toasterService.pop(toast);	
 		    }, error => {
-				this.toasterService.pop('error', 'Error ',  error.json().error.message);
+				this.toasterService.clear();	this.toasterService.pop('error', 'Error ',  error.json().error.message);
 		        console.log(JSON.stringify(error.json()));
 		    });
 		}    

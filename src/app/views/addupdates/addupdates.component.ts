@@ -136,7 +136,7 @@ export class AddupdatesComponent {
 		   		this.router.navigate(['updates/manage']);  			
 			       
 		    }, error => {
-               	this.toasterService.pop('error', 'Error ',  error.json().error.message);
+               	this.toasterService.clear();	this.toasterService.pop('error', 'Error ',  error.json().error.message);
 		    	
 		        console.log(JSON.stringify(error.json()));
 		    });
@@ -151,7 +151,7 @@ export class AddupdatesComponent {
     			this.router.navigate(['updates/manage']);  
                	
 		    }, error => {
-                this.toasterService.pop('error', 'Error ',  error.json().error.message);
+                this.toasterService.clear();	this.toasterService.pop('error', 'Error ',  error.json().error.message);
 		    	
 		        console.log(JSON.stringify(error.json()));
 		    });

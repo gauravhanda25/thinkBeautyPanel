@@ -204,10 +204,10 @@ export class AddartistComponent {
 			       
 		    }, error => {
                 if(error.json().error.statusCode == "422") {
-                	this.toasterService.pop('error', 'Error ',  "Email Address already exists. Please use different email");
+                	this.toasterService.clear();	this.toasterService.pop('error', 'Error ',  "Email Address already exists. Please use different email");
                 	this.error = 1;
 		    	} else {
-                	this.toasterService.pop('error', 'Error ',  error.json().error.message);
+                	this.toasterService.clear();	this.toasterService.pop('error', 'Error ',  error.json().error.message);
 		    	}
 		        console.log(JSON.stringify(error.json()));
 		    });
@@ -226,10 +226,10 @@ export class AddartistComponent {
                	
 		    }, error => {
 		    	if(error.json().error.statusCode == "422") {
-                	this.toasterService.pop('error', 'Error ',  "Email Address already exists. Please use different email");
+                	this.toasterService.clear();	this.toasterService.pop('error', 'Error ',  "Email Address already exists. Please use different email");
                 	this.error = 1;
 		    	} else {
-                	this.toasterService.pop('error', 'Error ',  error.json().error.message);
+                	this.toasterService.clear();	this.toasterService.pop('error', 'Error ',  error.json().error.message);
 		    	}
 		        console.log(JSON.stringify(error.json()));
 		    });

@@ -95,11 +95,11 @@ export class LandingComponent {
                 console.log(localStorage.getItem('noticemessage'));
 
                 if(localStorage.getItem('noticemessage') == "landingadd") {
-                    this.toasterService.pop('success', 'Success ', "Landing Record added successfully."); 
+                    this.toasterService.clear();	this.toasterService.pop('success', 'Success ', "Landing Record added successfully."); 
                 } else if(localStorage.getItem('noticemessage') == "landingupdate") {
-                    this.toasterService.pop('success', 'Success ', "Landing Record updated successfully.");
+                    this.toasterService.clear();	this.toasterService.pop('success', 'Success ', "Landing Record updated successfully.");
                 }  else if(localStorage.getItem('noticemessage') == "landingdelete") {
-                    this.toasterService.pop('success', 'Success ', "Landing Record deleted successfully.");
+                    this.toasterService.clear();	this.toasterService.pop('success', 'Success ', "Landing Record deleted successfully.");
                 }
 
                 localStorage.setItem('noticemessage', null);

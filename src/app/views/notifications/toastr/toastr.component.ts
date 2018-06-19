@@ -21,23 +21,23 @@ export class ToastrComponent {
   }
 
   showSuccess() {
-    this.toasterService.pop('success', 'Success Toaster', 'This is toaster description');
+    this.toasterService.clear();	this.toasterService.pop('success', 'Success Toaster', 'This is toaster description');
   }
 
   showError() {
-    this.toasterService.pop('error', 'Error Toaster', 'This is toaster description');
+    this.toasterService.clear();	this.toasterService.pop('error', 'Error Toaster', 'This is toaster description');
   }
 
   showWarning() {
-    this.toasterService.pop('warning', 'Warning Toaster', 'This is toaster description');
+    this.toasterService.clear();	this.toasterService.pop('warning', 'Warning Toaster', 'This is toaster description');
   }
 
   showInfo() {
-    this.toasterService.pop('info', 'Info Toaster', 'This is toaster description');
+    this.toasterService.clear();	this.toasterService.pop('info', 'Info Toaster', 'This is toaster description');
   }
 
   showPrimary() {
-    this.toasterService.pop('primary', 'Primary Toaster', 'This is toaster description');
+    this.toasterService.clear();	this.toasterService.pop('primary', 'Primary Toaster', 'This is toaster description');
   }
 
 }

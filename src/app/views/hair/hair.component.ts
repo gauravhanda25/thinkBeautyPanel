@@ -77,7 +77,7 @@ export class HairComponent {
 
 			this.http.delete(API_URL+'/Hairs/'+delId.id+'?access_token='+ localStorage.getItem('currentUserToken'), options)
 			.subscribe(response => {				
-				this.toasterService.pop('success', 'Success ', "Hair Record deleted successfully.");
+				this.toasterService.clear();	this.toasterService.pop('success', 'Success ', "Hair Record deleted successfully.");
 				$('.preloader').hide();
 				const index: number = this.data.indexOf(delId);
 				if (index !== -1) {

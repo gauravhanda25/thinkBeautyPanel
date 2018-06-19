@@ -138,11 +138,11 @@ export class UsersComponent {
                 console.log(localStorage.getItem('noticemessage'));
 
                 if(localStorage.getItem('noticemessage') == "artistadd") {
-                    this.toasterService.pop('success', 'Success ', "Artist Record added successfully."); 
+                    this.toasterService.clear();	this.toasterService.pop('success', 'Success ', "Artist Record added successfully."); 
                 } else if(localStorage.getItem('noticemessage') == "artistupdate") {
-                    this.toasterService.pop('success', 'Success ', "Artist Record updated successfully.");
+                    this.toasterService.clear();	this.toasterService.pop('success', 'Success ', "Artist Record updated successfully.");
                 }  else if(localStorage.getItem('noticemessage') == "artistdelete") {
-                    this.toasterService.pop('success', 'Success ', "Artist Record deleted successfully.");
+                    this.toasterService.clear();	this.toasterService.pop('success', 'Success ', "Artist Record deleted successfully.");
                 }
 
                 localStorage.setItem('noticemessage', null);
@@ -285,7 +285,7 @@ export class UsersComponent {
             this.http.post(API_URL+'/Members/update?where={"id":"'+  user.id +'"}&access_token='+ localStorage.getItem('currentUserToken'), user,  options)
             .subscribe(response => {
 
-                this.toasterService.pop('success', 'Success ', "User Record updated successfully.");
+                this.toasterService.clear();	this.toasterService.pop('success', 'Success ', "User Record updated successfully.");
                 //this.router.navigate(['user']);  
                 const index: number = this.users.indexOf(user);
 
@@ -294,7 +294,7 @@ export class UsersComponent {
                 }
                    
             }, error => {
-                this.toasterService.pop('error', 'Error ',  error.json().error.message);
+                this.toasterService.clear();	this.toasterService.pop('error', 'Error ',  error.json().error.message);
                 console.log(JSON.stringify(error.json()));
             });
         }
@@ -310,7 +310,7 @@ export class UsersComponent {
             this.http.delete(API_URL+'/Members/'+ user.id +'?access_token='+ localStorage.getItem('currentUserToken'), options)
             .subscribe(response => {
                 console.log(response.json()); 
-                this.toasterService.pop('success', 'Success ', "User Record deleted successfully.");
+                this.toasterService.clear();	this.toasterService.pop('success', 'Success ', "User Record deleted successfully.");
                 //this.router.navigate(['user']);
 
                 const index: number = this.users.indexOf(user);

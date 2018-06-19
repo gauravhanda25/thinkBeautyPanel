@@ -131,7 +131,7 @@ export class LoginComponent {
       				localStorage.setItem('currentUserRole', "SALON");
       			} 
           } else {
-            this.toasterService.pop('error', 'Login Error ', "Username or password doesn't match!");
+            this.toasterService.clear();	this.toasterService.pop('error', 'Login Error ', "Username or password doesn't match!");
           }
 
           this.NgxRolesService.flushRoles();
@@ -143,7 +143,7 @@ export class LoginComponent {
   				} else {
              	 //this.error = 1;
                this.toasterService.clear(toast.toastId, toast.toastContainerId);
-               this.toasterService.pop('error', 'Login Error ', "Username or password doesn't match!");
+               this.toasterService.clear();	this.toasterService.pop('error', 'Login Error ', "Username or password doesn't match!");
             		//console.log(this.error);
              	}
 			       
@@ -152,9 +152,9 @@ export class LoginComponent {
               this.toasterService.clear(toast.toastId, toast.toastContainerId);
               console.log(JSON.stringify(error.json()));
               if(error.json().isTrusted){
-                this.toasterService.pop('error', 'Login Error ', "API not working.");
+                this.toasterService.clear();	this.toasterService.pop('error', 'Login Error ', "API not working.");
               } else {
-                this.toasterService.pop('error', 'Login Error ', error.json().error.message);
+                this.toasterService.clear();	this.toasterService.pop('error', 'Login Error ', error.json().error.message);
               }             
           });
 	  }

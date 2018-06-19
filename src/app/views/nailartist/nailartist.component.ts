@@ -84,11 +84,11 @@ export class NailartistComponent {
                 console.log(localStorage.getItem('noticemessage'));
 
                 if(localStorage.getItem('noticemessage') == "artistadd") {
-                    this.toasterService.pop('success', 'Success ', "Nail Artist Record added successfully."); 
+                    this.toasterService.clear();	this.toasterService.pop('success', 'Success ', "Nail Artist Record added successfully."); 
                 } else if(localStorage.getItem('noticemessage') == "artistupdate") {
-                    this.toasterService.pop('success', 'Success ', "Nail Artist Record updated successfully.");
+                    this.toasterService.clear();	this.toasterService.pop('success', 'Success ', "Nail Artist Record updated successfully.");
                 }  else if(localStorage.getItem('noticemessage') == "artistdelete") {
-                    this.toasterService.pop('success', 'Success ', "Nail Artist Record deleted successfully.");
+                    this.toasterService.clear();	this.toasterService.pop('success', 'Success ', "Nail Artist Record deleted successfully.");
                 }
 
                 localStorage.setItem('noticemessage', null);
@@ -112,7 +112,7 @@ export class NailartistComponent {
             .subscribe(response => {
                 console.log(response.json()); 
                 localStorage.setItem('noticemessage', 'artistdelete');
-                this.toasterService.pop('success', 'Success ', "Nail Artist Record deleted successfully.");
+                this.toasterService.clear();	this.toasterService.pop('success', 'Success ', "Nail Artist Record deleted successfully.");
 
                 const index: number = this.users.indexOf(nailartist);
                 console.log(index);

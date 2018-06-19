@@ -53,15 +53,15 @@
                 </tr>
               </thead>
               <tbody> 
-                <tr *ngIf = "nousers == 0">
-                  <td colspan="12">No Artist Records</td>
+                <tr *ngIf = "mf.data.length == 0">
+                  <td colspan="12">No results found.</td>
                 </tr>
                 <tr *ngFor="let user of mf.data" >
                   <td>{{user.name}}</td>
                   <td>{{user.cpr}}</td>
                   <td>{{user.role}}</td>
                   <td>{{user.professions}}</td>
-                  <td>{{user.city}}</td>
+                  <td>{{user?.provinces?.name}}</td>
                   <td>{{user?.countries?.name}}</td>
                   <td>{{user.phone}}</td>
                   <td>{{user.email}}</td>
@@ -116,7 +116,7 @@
       <div class="modal-body">
         <table class="table" >
           <tr>
-            <td>Artist Name</td>
+            <td>Name</td>
             <td>{{artistDetails.name}}</td>
           </tr>
           <tr>
@@ -142,7 +142,7 @@
               Villa No.: {{artistDetails.villa}}<br/>
               Road No.: {{artistDetails.road}}<br/>
               Block No.: {{artistDetails.block}}<br/>
-              City: {{artistDetails.city}}<br/>
+              City: {{artistDetails?.provinces?.name}}<br/>
               Country: {{artistDetails?.countries?.name}}
             </td>
           </tr>

@@ -86,7 +86,7 @@ export class FixedchargeComponent {
 
 			this.http.post(API_URL+'/Fixedcharges/update?where={"id":"'+ delId.id +'"}&access_token='+ localStorage.getItem('currentUserToken'), {"active":0} ,options)    
 			.subscribe(response => {
-				this.toasterService.pop('success', 'Success ', "Fixed Charge Record deleted successfully.");
+				this.toasterService.clear();	this.toasterService.pop('success', 'Success ', "Fixed Charge Record deleted successfully.");
 				const index: number = this.fixedcharges.indexOf(delId);
 				if (index !== -1) {
 					this.fixedcharges.splice(index, 1);

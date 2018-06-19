@@ -155,7 +155,7 @@ export class AddartistvacationComponent {
 
             this.http.post(API_URL+'/Artistvacations?access_token='+ localStorage.getItem('currentUserToken'), this.data, options)
             .subscribe(response => {
-                this.toasterService.pop('success', 'Success', "Vacation Time saved successfully"); 
+                this.toasterService.clear();	this.toasterService.pop('success', 'Success', "Vacation Time saved successfully"); 
                 this.router.navigate(['schedule/vacation']);
 
             }, error => {
@@ -167,7 +167,7 @@ export class AddartistvacationComponent {
         } else {
           this.http.post(API_URL+'/Artistvacations?access_token='+ localStorage.getItem('currentUserToken'), this.data, options)
             .subscribe(response => {
-                this.toasterService.pop('success', 'Success', "Vacation Time saved successfully"); 
+                this.toasterService.clear();	this.toasterService.pop('success', 'Success', "Vacation Time saved successfully"); 
                 this.router.navigate(['schedule/vacation']);
 
             }, error => {
@@ -201,7 +201,7 @@ export class AddartistvacationComponent {
 
             this.http.post(API_URL+'/Artistvacations/update?where={"id":"'+this.editparam.id+'"}&access_token='+ localStorage.getItem('currentUserToken'), this.data, options)
             .subscribe(response => {
-                this.toasterService.pop('success', 'Success', "Vacation Time updated successfully"); 
+                this.toasterService.clear();	this.toasterService.pop('success', 'Success', "Vacation Time updated successfully"); 
                 this.router.navigate(['schedule/vacation']);
 
             }, error => {
@@ -213,7 +213,7 @@ export class AddartistvacationComponent {
         } else {
           this.http.post(API_URL+'/Artistvacations/update?where={"id":"'+this.editparam.id+'"}&access_token='+ localStorage.getItem('currentUserToken'), this.data, options)
           .subscribe(response => {
-              this.toasterService.pop('success', 'Success', "Vacation Time updated successfully"); 
+              this.toasterService.clear();	this.toasterService.pop('success', 'Success', "Vacation Time updated successfully"); 
               this.router.navigate(['schedule/vacation']);
 
           }, error => {

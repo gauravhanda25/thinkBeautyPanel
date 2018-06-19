@@ -153,7 +153,7 @@ export class AddartistgccComponent {
 
 	    	this.http.post(API_URL+'/Artistgcc?access_token='+ localStorage.getItem('currentUserToken'), this.data, options)
 	      .subscribe(response => {
-				    this.toasterService.pop('success', 'Success', "GCC Availability saved successfully"); 
+				    this.toasterService.clear();	this.toasterService.pop('success', 'Success', "GCC Availability saved successfully"); 
             this.router.navigate(['schedule/gcc']);
 
 		    }, error => {
@@ -174,7 +174,7 @@ export class AddartistgccComponent {
 
         this.http.post(API_URL+'/Artistgcc/update?where={"id":"'+this.editparam.id+'"}&access_token='+ localStorage.getItem('currentUserToken'), this.data, options)
         .subscribe(response => {
-            this.toasterService.pop('success', 'Success', "GCC Availability updated successfully"); 
+            this.toasterService.clear();	this.toasterService.pop('success', 'Success', "GCC Availability updated successfully"); 
             this.router.navigate(['schedule/gcc']);
 
         }, error => {

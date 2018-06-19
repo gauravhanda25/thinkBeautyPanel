@@ -131,7 +131,7 @@ private memberType:any;
               });
 
             } else {
-              this.toasterService.pop('error', 'Error ',  "File: "+item.file.name+" not uploaded successfully");
+              this.toasterService.clear();	this.toasterService.pop('error', 'Error ',  "File: "+item.file.name+" not uploaded successfully");
             }
         };
 

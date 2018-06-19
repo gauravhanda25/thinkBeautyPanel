@@ -78,11 +78,11 @@ export class UpdatesComponent {
                 console.log(localStorage.getItem('noticemessage'));
 
                 if(localStorage.getItem('noticemessage') == "newadd") {
-                    this.toasterService.pop('success', 'Success ', "Record added successfully."); 
+                    this.toasterService.clear();	this.toasterService.pop('success', 'Success ', "Record added successfully."); 
                 } else if(localStorage.getItem('noticemessage') == "newupdate") {
-                    this.toasterService.pop('success', 'Success ', "Record updated successfully.");
+                    this.toasterService.clear();	this.toasterService.pop('success', 'Success ', "Record updated successfully.");
                 }  else if(localStorage.getItem('noticemessage') == "newdelete") {
-                    this.toasterService.pop('success', 'Success ', "Record deleted successfully.");
+                    this.toasterService.clear();	this.toasterService.pop('success', 'Success ', "Record deleted successfully.");
                 }
 
                 localStorage.setItem('noticemessage', null);
@@ -105,7 +105,7 @@ export class UpdatesComponent {
             this.http.delete(API_URL+'/Updates/'+ update.id +'?access_token='+ localStorage.getItem('currentUserToken'), options)
             .subscribe(response => {
                 console.log(response.json()); 
-                this.toasterService.pop('success', 'Success ', "Record deleted successfully.");
+                this.toasterService.clear();	this.toasterService.pop('success', 'Success ', "Record deleted successfully.");
 
                 const index: number = this.updates.indexOf(update);
                 console.log(index);

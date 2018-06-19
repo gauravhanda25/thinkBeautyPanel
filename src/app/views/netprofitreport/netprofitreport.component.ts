@@ -181,11 +181,11 @@ export class NetprofitreportComponent {
                 console.log(localStorage.getItem('noticemessage'));
 
                 if(localStorage.getItem('noticemessage') == "revenueadd") {
-                    this.toasterService.pop('success', 'Success ', "Revenue Record added successfully."); 
+                    this.toasterService.clear();	this.toasterService.pop('success', 'Success ', "Revenue Record added successfully."); 
                 } else if(localStorage.getItem('noticemessage') == "revenueupdate") {
-                    this.toasterService.pop('success', 'Success ', "Revenue Record updated successfully.");
+                    this.toasterService.clear();	this.toasterService.pop('success', 'Success ', "Revenue Record updated successfully.");
                 }  else if(localStorage.getItem('noticemessage') == "revenuedelete") {
-                    this.toasterService.pop('success', 'Success ', "Revenue Record deleted successfully.");
+                    this.toasterService.clear();	this.toasterService.pop('success', 'Success ', "Revenue Record deleted successfully.");
                 }
 
                 localStorage.setItem('noticemessage', null);

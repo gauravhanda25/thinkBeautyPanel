@@ -76,7 +76,7 @@ export class MicrobladingComponent {
 
 			this.http.delete(API_URL+'/Microbladings/'+delId.id+'?access_token='+ localStorage.getItem('currentUserToken'), options)
 			.subscribe(response => {				
-				this.toasterService.pop('success', 'Success ', "Microblading Record deleted successfully.");
+				this.toasterService.clear();	this.toasterService.pop('success', 'Success ', "Microblading Record deleted successfully.");
 				$('.preloader').hide();
 				const index: number = this.data.indexOf(delId);
 				if (index !== -1) {

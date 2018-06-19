@@ -83,7 +83,7 @@ export class ArtistComponent {
         this.changeAllStatuses();
         const reqUrl = this.router.url;
         if(reqUrl === '/manageartist/newrequests'){
-             this.use_url = API_URL+'/Members?filter={"where":{"role_id":2, "status" : "inactive"},"include":["countries"],"order":"created DESC"}&access_token='+localStorage.getItem('currentUserToken');
+             this.use_url = API_URL+'/Members?filter={"where":{"role_id":2, "status" : "inactive"},"include":["countries","provinces"],"order":"created DESC"}&access_token='+localStorage.getItem('currentUserToken');
              
              this.check_account = {
                 id: '',
@@ -98,7 +98,7 @@ export class ArtistComponent {
                 action: 'active',
                 actionName : 'Block'
             }
-             this.use_url = API_URL+'/Members?filter={"where":{"and":[{"role_id":2},{"or":[{"status" : "active"},{"status":"block"}]}]},"include":["countries"],"order":"modified DESC"}&access_token='+localStorage.getItem('currentUserToken');
+             this.use_url = API_URL+'/Members?filter={"where":{"and":[{"role_id":2},{"or":[{"status" : "active"},{"status":"block"}]}]},"include":["countries","provinces"],"order":"modified DESC"}&access_token='+localStorage.getItem('currentUserToken');
         } 
         else if(reqUrl === '/manageartist/verified')
         {
@@ -107,7 +107,7 @@ export class ArtistComponent {
                 action: 'verify',
                 actionName : 'Verify'
             }
-             this.use_url = API_URL+'/Members?filter={"where":{"role_id":2, "status" : "verify"},"include":["countries"],"order":"modified DESC"}&access_token='+localStorage.getItem('currentUserToken');
+             this.use_url = API_URL+'/Members?filter={"where":{"role_id":2, "status" : "verify"},"include":["countries","provinces"],"order":"modified DESC"}&access_token='+localStorage.getItem('currentUserToken');
         } 
         else {
             this.check_account = {
@@ -115,7 +115,7 @@ export class ArtistComponent {
                 action: 'reject',
                 actionName : 'Block'
             }
-             this.use_url = API_URL+'/Members?filter={"where":{"role_id":2, "status" : "reject"},"include":["countries"],"order":"modified DESC"}&access_token=' + localStorage.getItem('currentUserToken');
+             this.use_url = API_URL+'/Members?filter={"where":{"role_id":2, "status" : "reject"},"include":["countries","provinces"],"order":"modified DESC"}&access_token=' + localStorage.getItem('currentUserToken');
         }
 
         this.http.get(this.use_url, options)
@@ -168,11 +168,11 @@ export class ArtistComponent {
                 console.log(localStorage.getItem('noticemessage'));
 
                 if(localStorage.getItem('noticemessage') == "artistadd") {
-                    this.toasterService.pop('success', 'Success ', "Artist Record added successfully."); 
+                    this.toasterService.clear();	this.toasterService.pop('success', 'Success ', "Artist Record added successfully."); 
                 } else if(localStorage.getItem('noticemessage') == "artistupdate") {
-                    this.toasterService.pop('success', 'Success ', "Artist Record updated successfully.");
+                    this.toasterService.clear();	this.toasterService.pop('success', 'Success ', "Artist Record updated successfully.");
                 }  else if(localStorage.getItem('noticemessage') == "artistdelete") {
-                    this.toasterService.pop('success', 'Success ', "Artist Record deleted successfully.");
+                    this.toasterService.clear();	this.toasterService.pop('success', 'Success ', "Artist Record deleted successfully.");
                 }
 
                 localStorage.setItem('noticemessage', null);
@@ -198,20 +198,20 @@ export class ArtistComponent {
         let professionInWhere:any;
 
         if(this.countryFilter != ''){
-            includeCondition = '"include":[{"relation": "countries","scope":{"where":{"id": "'+this.countryFilter+'"}}}]';
-            countryInWhere = ',{"country":"'+this.countryFilter+'"}';
+            includeCondition = '"include":[{"relation": "countries","scope":{"where":{"id": "'+this.countryFilter+'"}}},"provinces"]';
+            countryInWhere = ',"country":"'+this.countryFilter+'"';
         } else {
-            includeCondition = '"include":["countries"]';
+            includeCondition = '"include":["countries","provinces"]';
             countryInWhere = '';
         }
 
          if(this.professionFilter != ''){
-            professionInWhere = ',{"artist_profession":{"inq":"'+this.professionFilter+'"}}';
+            professionInWhere = ',"artist_profession":{"inq":"'+this.professionFilter+'"}';
         } else {
             professionInWhere = '';
         }
 
-        console.log(includeCondition);
+        // console.log(includeCondition);
 
         const reqUrl = this.router.url;
         if(reqUrl === '/manageartist/newrequests'){
@@ -309,7 +309,7 @@ export class ArtistComponent {
         options.headers.append('Content-Type', 'application/json');
         options.headers.append('Accept', 'application/json');
 
-        this.http.get(API_URL+'/Members/'+artistId+'?filter={"include":"countries"}&access_token='+ localStorage.getItem('currentUserToken'), options)
+        this.http.get(API_URL+'/Members/'+artistId+'?filter={"include":["countries","provinces"]}&access_token='+ localStorage.getItem('currentUserToken'), options)
         .subscribe(response => {
            // console.log(response.json());       
             this.artistDetails = response.json();
@@ -363,15 +363,15 @@ export class ArtistComponent {
             this.http.post(API_URL+'/Members/update?where={"id":"'+  artist.id +'"}&access_token='+ localStorage.getItem('currentUserToken'), artist,  options)
             .subscribe(response => {
                 if(status == "verify"){
-                    this.toasterService.pop('success', 'Success ', artist.name+" has been successfully verified.");
+                    this.toasterService.clear();	this.toasterService.pop('success', 'Success ', artist.name+" has been successfully verified.");
                 } else if(status == "active"){
-                     this.toasterService.pop('success', 'Success ', artist.name+" has been successfully registered with Think Beauty.");
+                     this.toasterService.clear();	this.toasterService.pop('success', 'Success ', artist.name+" has been successfully registered with Think Beauty.");
                 } else if(status == "reject"){
-                     this.toasterService.pop('success', 'Success ', artist.name+"  has been rejected. Please go to rejected artists section to activate the rejected artist.");
+                     this.toasterService.clear();	this.toasterService.pop('success', 'Success ', artist.name+"  has been rejected. Please go to rejected artists section to activate the rejected artist.");
                 } else if(status == "block"){
-                     this.toasterService.pop('success', 'Success ', artist.name+" has been blocked. Please go to registered artists section to unblock the blocked artist.");
+                     this.toasterService.clear();	this.toasterService.pop('success', 'Success ', artist.name+" has been blocked. Please go to registered artists section to unblock the blocked artist.");
                 } else {
-                   this.toasterService.pop('success', 'Success ', artist.name+" has been successfully updated"); 
+                   this.toasterService.clear();	this.toasterService.pop('success', 'Success ', artist.name+" has been successfully updated"); 
                 }
                 
                 $('.preloader').hide();
@@ -385,7 +385,7 @@ export class ArtistComponent {
                     }
                 }  
             }, error => {
-                this.toasterService.pop('error', 'Error ',  error.json().error.message);
+                this.toasterService.clear();	this.toasterService.pop('error', 'Error ',  error.json().error.message);
                 console.log(JSON.stringify(error.json()));
             });
         } else {
@@ -407,7 +407,7 @@ export class ArtistComponent {
             console.log("status changed");
                
         }, error => {
-            this.toasterService.pop('error', 'Error ',  error.json().error.message);
+            this.toasterService.clear();	this.toasterService.pop('error', 'Error ',  error.json().error.message);
             
         });
     }
@@ -422,7 +422,7 @@ export class ArtistComponent {
             this.http.delete(API_URL+'/Members/'+ artist.id +'?access_token='+ localStorage.getItem('currentUserToken'), options)
             .subscribe(response => {
                 console.log(response.json()); 
-                this.toasterService.pop('success', 'Success ', "Artist Record deleted successfully.");
+                this.toasterService.clear();	this.toasterService.pop('success', 'Success ', "Artist Record deleted successfully.");
                 $('.preloader').hide();
                 //this.router.navigate(['artist']);
 

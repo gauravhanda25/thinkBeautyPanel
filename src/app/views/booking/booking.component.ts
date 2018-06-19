@@ -115,11 +115,11 @@ export class BookingComponent {
                 console.log(localStorage.getItem('noticemessage'));
 
                 if(localStorage.getItem('noticemessage') == "bookingadd") {
-                    this.toasterService.pop('success', 'Success ', "Booking Record added successfully."); 
+                    this.toasterService.clear();	this.toasterService.pop('success', 'Success ', "Booking Record added successfully."); 
                 } else if(localStorage.getItem('noticemessage') == "bookingupdate") {
-                    this.toasterService.pop('success', 'Success ', "Booking Record updated successfully.");
+                    this.toasterService.clear();	this.toasterService.pop('success', 'Success ', "Booking Record updated successfully.");
                 }  else if(localStorage.getItem('noticemessage') == "bookingdelete") {
-                    this.toasterService.pop('success', 'Success ', "Booking Record deleted successfully.");
+                    this.toasterService.clear();	this.toasterService.pop('success', 'Success ', "Booking Record deleted successfully.");
                 }
 
                 localStorage.setItem('noticemessage', null);
@@ -266,7 +266,7 @@ export class BookingComponent {
             this.http.get(API_URL+'/Bookings/cancelBooking?access_token='+ localStorage.getItem('currentUserToken'), cancellationPostData)
             .subscribe(response => {
                 console.log(response.json()); 
-                this.toasterService.pop('success', 'Success ', "Booking Record cancelled successfully.");
+                this.toasterService.clear();	this.toasterService.pop('success', 'Success ', "Booking Record cancelled successfully.");
                 //this.router.navigate(['user']);
 
                 const index: number = this.bookings.indexOf(booking);

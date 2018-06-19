@@ -127,9 +127,9 @@ export class ProfileComponent {
                 console.log(localStorage.getItem('noticemessage'));
 
                 if(localStorage.getItem('noticemessage') == "staffadd") {
-                    this.toasterService.pop('success', 'Success ', "Staff Record added successfully."); 
+                    this.toasterService.clear();	this.toasterService.pop('success', 'Success ', "Staff Record added successfully."); 
                 } else if(localStorage.getItem('noticemessage') == "staffupdate") {
-                    this.toasterService.pop('success', 'Success ', "Staff Record updated successfully.");
+                    this.toasterService.clear();	this.toasterService.pop('success', 'Success ', "Staff Record updated successfully.");
                 }  
 
                 localStorage.setItem('noticemessage', null);
@@ -151,7 +151,7 @@ export class ProfileComponent {
             this.http.delete(API_URL+'/Members/'+ staff.id +'?access_token='+ localStorage.getItem('currentUserToken'), options)
             .subscribe(response => {
                 console.log(response.json()); 
-                this.toasterService.pop('success', 'Success ', "Staff Record deleted successfully.");
+                this.toasterService.clear();	this.toasterService.pop('success', 'Success ', "Staff Record deleted successfully.");
                 //this.router.navigate(['staff']);
 
                 const index: number = this.users.indexOf(staff);

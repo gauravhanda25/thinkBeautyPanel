@@ -140,7 +140,7 @@ export class AddfixedchargeComponent {
 				onHideCallback: (toast) => this.router.navigate(['fixedcharge'])  
 			  };
 			   
-			  this.toasterService.pop(toast);		
+			  this.toasterService.clear();	this.toasterService.pop(toast);		
 				   
 			}, error => {
 				console.log(JSON.stringify(error.json()));
@@ -158,7 +158,7 @@ export class AddfixedchargeComponent {
 				onHideCallback: (toast) => this.router.navigate(['fixedcharge'])  
 			  };
 			   
-			  this.toasterService.pop(toast);	
+			  this.toasterService.clear();	this.toasterService.pop(toast);	
 		    }, error => {
 		        console.log(JSON.stringify(error.json()));
 		    });

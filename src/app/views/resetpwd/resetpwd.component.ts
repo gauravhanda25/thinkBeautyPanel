@@ -58,18 +58,18 @@ export class ResetpwdComponent {
 
 		  	this.http.post(API_URL+'/Members/reset-password' +'?access_token='+ this.token, this.data)
 	        .subscribe(response => {   
-	            this.toasterService.pop('success', 'Success', "Password Reset Successfully.");
+	            this.toasterService.clear();	this.toasterService.pop('success', 'Success', "Password Reset Successfully.");
 	     		this.router.navigate(['/']);
           	}, error => {
           		console.log(JSON.stringify(error.json()));
 				if(error.json().isTrusted){
-					this.toasterService.pop('error', 'Error ', "API not working.");
+					this.toasterService.clear();	this.toasterService.pop('error', 'Error ', "API not working.");
 				} else {				
-                	this.toasterService.pop('error', 'Error ', error.json().error.message);
+                	this.toasterService.clear();	this.toasterService.pop('error', 'Error ', error.json().error.message);
                 }
           	});
 		} else {
-            this.toasterService.pop('error', 'Information Mismatch ', "Password and confirm password doesn't match");
+            this.toasterService.clear();	this.toasterService.pop('error', 'Information Mismatch ', "Password and confirm password doesn't match");
 		}
 	}
 }

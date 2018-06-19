@@ -88,7 +88,7 @@ export class CommissionComponent {
 
 			this.http.post(API_URL+'/Commissions/update?where={"id":"'+ delId.id +'"}&access_token='+ localStorage.getItem('currentUserToken'), {"active":0} ,options)    
 			.subscribe(response => {
-				this.toasterService.pop('success', 'Success ', "Commission Record deleted successfully.");
+				this.toasterService.clear();	this.toasterService.pop('success', 'Success ', "Commission Record deleted successfully.");
 				$('.preloader').hide();
 				const index: number = this.commissions.indexOf(delId);
 				if (index !== -1) {

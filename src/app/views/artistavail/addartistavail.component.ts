@@ -206,38 +206,38 @@ export class AddartistavailComponent {
           console.log(response.json());
         if(response.json().length != 0) { 
           $('.preloader').hide(); 
-          this.toasterService.pop('error', 'Date Invalid', "Availability for this date already added."); 
+          this.toasterService.clear();	this.toasterService.pop('error', 'Date Invalid', "Availability for this date already added."); 
           return; 
         } 
 
         if(new Date(this.am_pm_to_hours(this.data.hoursfrom)) > new Date(this.am_pm_to_hours(this.data.hoursto)) && this.data.hoursfrom != '' && this.data.hoursto != '') {
           $('.preloader').hide(); 
-          this.toasterService.pop('error', 'Time invalid', "Work End Time is less than the Work Start Time"); 
+          this.toasterService.clear();	this.toasterService.pop('error', 'Time invalid', "Work End Time is less than the Work Start Time"); 
             return;        
         }
 
         if(new Date(this.am_pm_to_hours(this.data.breakfrom)) > new Date(this.am_pm_to_hours(this.data.breakto)) && this.data.breakfrom!= '' && this.data.breakto != '') {
           $('.preloader').hide(); 
-            this.toasterService.pop('error', 'Time invalid', "Break End Time is less than the Break Start Time"); 
+            this.toasterService.clear();	this.toasterService.pop('error', 'Time invalid', "Break End Time is less than the Break Start Time"); 
             return;        
         }
 
         if(this.data.breakfrom == this.data.hoursfrom && this.data.breakto == this.data.hoursto  && this.data.hoursfrom!= '' && this.data.hoursto != '' && this.data.breakfrom!= '' && this.data.breakto != '' ) {
           $('.preloader').hide(); 
-            this.toasterService.pop('error', 'Time invalid', "Complete Work time is not available for break time. "); 
+            this.toasterService.clear();	this.toasterService.pop('error', 'Time invalid', "Complete Work time is not available for break time. "); 
             return;        
         }
 
         if((new Date(this.am_pm_to_hours(this.data.breakfrom)) < new Date(this.am_pm_to_hours(this.data.hoursfrom)) || new Date(this.am_pm_to_hours(this.data.breakfrom)) > new Date(this.am_pm_to_hours(this.data.hoursto)) || new Date(this.am_pm_to_hours(this.data.breakto)) < new Date(this.am_pm_to_hours(this.data.hoursfrom)) || new Date(this.am_pm_to_hours(this.data.breakto)) > new Date(this.am_pm_to_hours(this.data.hoursto))) && this.data.hoursfrom!= '' && this.data.hoursto != '' && this.data.breakfrom!= '' && this.data.breakto != '' ) {
           $('.preloader').hide(); 
-            this.toasterService.pop('error', 'Time invalid', "Break Time must be in between Work Time"); 
+            this.toasterService.clear();	this.toasterService.pop('error', 'Time invalid', "Break Time must be in between Work Time"); 
             return;        
         }
 
 
         this.http.post(API_URL+'/Artistavailabilities?access_token='+ localStorage.getItem('currentUserToken'), this.data, options)
         .subscribe(response => {
-            this.toasterService.pop('success', 'Success', "Availability saved successfully"); 
+            this.toasterService.clear();	this.toasterService.pop('success', 'Success', "Availability saved successfully"); 
             this.router.navigate(['schedule/work']);
         }, error => {
             console.log(JSON.stringify(error.json()));
@@ -258,7 +258,7 @@ export class AddartistavailComponent {
 
         this.http.post(API_URL+'/Artistavailabilities/update?where={"and":[{"memberId":"'+localStorage.getItem('currentUserId')+'"},{"days":"'+this.data.days+'"}]}&access_token='+ localStorage.getItem('currentUserToken'), this.data, options)
         .subscribe(response => {
-            this.toasterService.pop('success', 'Success', "Break saved successfully"); 
+            this.toasterService.clear();	this.toasterService.pop('success', 'Success', "Break saved successfully"); 
             this.router.navigate(['schedule/work']);
         }, error => {
             console.log(JSON.stringify(error.json()));
@@ -283,31 +283,31 @@ export class AddartistavailComponent {
         console.log(response.json());
         if(response.json().length != 0) {
           $('.preloader').hide(); 
-          this.toasterService.pop('error', 'Date Invalid', "Availability for this date already added."); 
+          this.toasterService.clear();	this.toasterService.pop('error', 'Date Invalid', "Availability for this date already added."); 
           return; 
         } 
         if(new Date(this.am_pm_to_hours(this.data.hoursfrom)) > new Date(this.am_pm_to_hours(this.data.hoursto)) && this.data.hoursfrom != '' && this.data.hoursto != '') {
           $('.preloader').hide(); 
-            this.toasterService.pop('error', 'Time invalid', "For Work, End Time should always be greater than the Start Time"); 
+            this.toasterService.clear();	this.toasterService.pop('error', 'Time invalid', "For Work, End Time should always be greater than the Start Time"); 
             return;        
         }
 
         if(new Date(this.am_pm_to_hours(this.data.breakfrom)) > new Date(this.am_pm_to_hours(this.data.breakto)) && this.data.breakfrom!= '' && this.data.breakto != '') {
           $('.preloader').hide(); 
-            this.toasterService.pop('error', 'Time invalid', "For Break, End Time should always be greater than the Start Time"); 
+            this.toasterService.clear();	this.toasterService.pop('error', 'Time invalid', "For Break, End Time should always be greater than the Start Time"); 
             return;        
         }
 
         if(this.data.breakfrom == this.data.hoursfrom && this.data.breakto == this.data.hoursto  && this.data.hoursfrom!= '' && this.data.hoursto != '' && this.data.breakfrom!= '' && this.data.breakto != '' ) {
           $('.preloader').hide(); 
-            this.toasterService.pop('error', 'Time invalid', "Complete Work time is not available for break time. "); 
+            this.toasterService.clear();	this.toasterService.pop('error', 'Time invalid', "Complete Work time is not available for break time. "); 
             return;        
         }
 
 
         if((new Date(this.am_pm_to_hours(this.data.breakfrom)) < new Date(this.am_pm_to_hours(this.data.hoursfrom)) || new Date(this.am_pm_to_hours(this.data.breakfrom)) > new Date(this.am_pm_to_hours(this.data.hoursto)) || new Date(this.am_pm_to_hours(this.data.breakto)) < new Date(this.am_pm_to_hours(this.data.hoursfrom)) || new Date(this.am_pm_to_hours(this.data.breakto)) > new Date(this.am_pm_to_hours(this.data.hoursto))) && this.data.hoursfrom!= '' && this.data.hoursto != '' && this.data.breakfrom!= '' && this.data.breakto != '' ) {
           $('.preloader').hide(); 
-            this.toasterService.pop('error', 'Time invalid', "Break Time must be in between Work Time"); 
+            this.toasterService.clear();	this.toasterService.pop('error', 'Time invalid', "Break Time must be in between Work Time"); 
             return;        
         }
 
@@ -315,7 +315,7 @@ export class AddartistavailComponent {
 
         this.http.post(API_URL+'/Artistavailabilities/update?where={"id":"'+this.editparam.id+'"}&access_token='+ localStorage.getItem('currentUserToken'), this.data, options)
         .subscribe(response => {
-            this.toasterService.pop('success', 'Success', "Availability updated successfully"); 
+            this.toasterService.clear();	this.toasterService.pop('success', 'Success', "Availability updated successfully"); 
             this.router.navigate(['schedule/work']);
         }, error => {
             console.log(JSON.stringify(error.json()));

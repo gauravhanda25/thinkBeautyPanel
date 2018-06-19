@@ -528,7 +528,7 @@ export class AdddealerComponent {
 
           if(localStorage.getItem('noticemessage') == "dealeradd") {
            //   alert("Dealer Profile added successfully.");
-             this.toasterService.pop('success', 'Success ', "Dealer Profile added successfully."); 
+             this.toasterService.clear();	this.toasterService.pop('success', 'Success ', "Dealer Profile added successfully."); 
           } 
 
           localStorage.setItem('noticemessage', null);
@@ -588,7 +588,7 @@ export class AdddealerComponent {
         this.http.delete(API_URL+'/Events/'+ data.id[removeVal-1] +'?access_token='+ localStorage.getItem('currentUserToken'), options)
         .subscribe(response => {
             console.log(response.json()); 
-            this.toasterService.pop('success', 'Success ', "Dealer Event deleted successfully.");
+            this.toasterService.clear();	this.toasterService.pop('success', 'Success ', "Dealer Event deleted successfully.");
 
 
             if(this.noofevents.length != 0){
@@ -728,7 +728,7 @@ export class AdddealerComponent {
         this.http.delete(API_URL+'/contacts/'+ data.id[removeVal-1] +'?access_token='+ localStorage.getItem('currentUserToken'), options)
         .subscribe(response => {
             console.log(response.json()); 
-            this.toasterService.pop('success', 'Success ', "Dealer Contact deleted successfully.");
+            this.toasterService.clear();	this.toasterService.pop('success', 'Success ', "Dealer Contact deleted successfully.");
 
         		if(this.noofcontacts.length != 0){
         			var index = this.noofcontacts.indexOf(removeVal);
@@ -1080,10 +1080,10 @@ export class AdddealerComponent {
             onHideCallback: (toast) => this.router.navigate(['dealers/editdealer/'+response.json().id])  
           };
            
-          this.toasterService.pop(toast);
+          this.toasterService.clear();	this.toasterService.pop(toast);
 
         }, error => {
-            this.toasterService.pop('error', 'Error ',  error.json().error.message);
+            this.toasterService.clear();	this.toasterService.pop('error', 'Error ',  error.json().error.message);
 	        console.log(JSON.stringify(error.json()));
 	    });
 	}
@@ -1136,15 +1136,15 @@ export class AdddealerComponent {
 				
 
                     } else {
-                      this.toasterService.pop('error', 'Error ',  "File: "+item.file.name+" not uploaded successfully");
+                      this.toasterService.clear();	this.toasterService.pop('error', 'Error ',  "File: "+item.file.name+" not uploaded successfully");
                     }
                 };
 
               }
-        	this.toasterService.pop('success', 'Success ', "Dealer Profile updated successfully.");		
+        	this.toasterService.clear();	this.toasterService.pop('success', 'Success ', "Dealer Profile updated successfully.");		
 
 	    }, error => {
-            this.toasterService.pop('error', 'Error ',  error.json().error.message);
+            this.toasterService.clear();	this.toasterService.pop('error', 'Error ',  error.json().error.message);
 	        console.log(JSON.stringify(error.json()));
 	    });
 	}
@@ -1161,19 +1161,19 @@ export class AdddealerComponent {
 		.subscribe(response => {
 		  console.log(response.json());
 		  this.checkVal = 0;
-		  this.toasterService.pop('success', 'Success ', "Profile image file "+file.fileName+" deleted successfully.");
+		  this.toasterService.clear();	this.toasterService.pop('success', 'Success ', "Profile image file "+file.fileName+" deleted successfully.");
 
 		  this.http.delete(API_URL+'/FileStorages/'+  file.id + '?access_token='+localStorage.getItem('currentUserToken'), options)
       .subscribe(response => {
         console.log(response.json());
         this.checkVal = 0;
       }, error => {
-          this.toasterService.pop('error', 'Error ',  "Profile image file "+file.fileName+" deletion failed.");
+          this.toasterService.clear();	this.toasterService.pop('error', 'Error ',  "Profile image file "+file.fileName+" deletion failed.");
         console.log(JSON.stringify(error.json()));
       });
 
 		}, error => {
-			  this.toasterService.pop('error', 'Error ',  "Profile image file "+file.fileName+" deletion failed.");
+			  this.toasterService.clear();	this.toasterService.pop('error', 'Error ',  "Profile image file "+file.fileName+" deletion failed.");
 			console.log(JSON.stringify(error.json()));
 		});
 
@@ -1240,10 +1240,10 @@ export class AdddealerComponent {
                   this.contactdata.id.push(response.json().id);
 
                  if(this.contactdata.contactperson.length == (parseInt(key)+1)) {
-                    this.toasterService.pop('success', 'Success ', "Dealer Contacts updated successfully."); 
+                    this.toasterService.clear();	this.toasterService.pop('success', 'Success ', "Dealer Contacts updated successfully."); 
                  }
               }, error => {
-                this.toasterService.pop('error', 'Error ',  error.json().error.message);
+                this.toasterService.clear();	this.toasterService.pop('error', 'Error ',  error.json().error.message);
                 console.log(JSON.stringify(error.json()));
             });
          }
@@ -1259,7 +1259,7 @@ export class AdddealerComponent {
         } 
 
       }, error => {
-        this.toasterService.pop('error', 'Error ',  error.json().error.message);
+        this.toasterService.clear();	this.toasterService.pop('error', 'Error ',  error.json().error.message);
         console.log(JSON.stringify(error.json()));
     });
 	}
@@ -1275,9 +1275,9 @@ export class AdddealerComponent {
 
     this.http.get(API_URL+'/Containers/event_'+eventId +'/download/'+  file.name + '?access_token='+localStorage.getItem('currentUserToken'), options)
     .subscribe(response => {
-      this.toasterService.pop('success', 'Success ', "Dealer downloaded file "+file.name+" successfully.");
+      this.toasterService.clear();	this.toasterService.pop('success', 'Success ', "Dealer downloaded file "+file.name+" successfully.");
     }, error => {
-          this.toasterService.pop('error', 'Error ',  "Dealer downloaded file "+file.name+"  failed.");
+          this.toasterService.clear();	this.toasterService.pop('error', 'Error ',  "Dealer downloaded file "+file.name+"  failed.");
         console.log(JSON.stringify(error.json()));
     });
 
@@ -1294,7 +1294,7 @@ export class AdddealerComponent {
     this.http.delete(API_URL+'/Containers/event_'+eventId+'/files/'+  file.name + '?access_token='+localStorage.getItem('currentUserToken'), options)
     .subscribe(response => {
       console.log(response.json());
-      this.toasterService.pop('success', 'Success ', "Dealer Uploaded file "+file.name+" deleted successfully.");
+      this.toasterService.clear();	this.toasterService.pop('success', 'Success ', "Dealer Uploaded file "+file.name+" deleted successfully.");
 
       const index: number = this.eventfiles.indexOf(file);
       console.log(index);
@@ -1302,7 +1302,7 @@ export class AdddealerComponent {
        this.eventfiles.splice(index, 1);
       }   
     }, error => {
-          this.toasterService.pop('error', 'Error ',  "Dealer Uploaded file "+file.name+" deletion failed.");
+          this.toasterService.clear();	this.toasterService.pop('error', 'Error ',  "Dealer Uploaded file "+file.name+" deletion failed.");
         console.log(JSON.stringify(error.json()));
     });
 
@@ -1381,7 +1381,7 @@ export class AdddealerComponent {
             this.eventdata.eventend[key] = moment(this.eventdata.eventend[key]).format("M/DD/YYYY");
 
             if(this.eventdata.eventname.length == (parseInt(key)+1)) {
-              this.toasterService.pop('success', 'Success ', "Dealer Events updated successfully."); 
+              this.toasterService.clear();	this.toasterService.pop('success', 'Success ', "Dealer Events updated successfully."); 
             }   
 
             for(let i=0; i<this.eventForm.length; i++){
@@ -1396,7 +1396,7 @@ export class AdddealerComponent {
 
 
           }, error => {
-                this.toasterService.pop('error', 'Error ',  error.json().error.message);
+                this.toasterService.clear();	this.toasterService.pop('error', 'Error ',  error.json().error.message);
             console.log(JSON.stringify(error.json()));
         });
         
@@ -1429,10 +1429,10 @@ export class AdddealerComponent {
     this.http.patch(API_URL+'/Members/'+this.editparam.id +'?access_token='+ localStorage.getItem('currentUserToken'), this.settingsdata,  options)
         .subscribe(response => {
         	console.log(response.json());	
-        	this.toasterService.pop('success', 'Success ', "Dealer Settings updated successfully.");		
+        	this.toasterService.clear();	this.toasterService.pop('success', 'Success ', "Dealer Settings updated successfully.");		
 
 	    }, error => {
-            this.toasterService.pop('error', 'Error ',  error.json().error.message);
+            this.toasterService.clear();	this.toasterService.pop('error', 'Error ',  error.json().error.message);
 	        console.log(JSON.stringify(error.json()));
 	    });
 	}
@@ -1454,15 +1454,15 @@ export class AdddealerComponent {
         	this.http.post(API_URL+'/Containers/'+this.containerdata.name+'/upload?access_token='+localStorage.getItem('currentUserToken'), this.filesdata,  options)
 	        .subscribe(response => {
 	        	console.log(response.json());
-        		this.toasterService.pop('success', 'Success ', "Dealer Uploads updated successfully.");
+        		this.toasterService.clear();	this.toasterService.pop('success', 'Success ', "Dealer Uploads updated successfully.");
 	        	
 	        }, error => {
-                this.toasterService.pop('error', 'Error ',  "Dealer Uploads not updated successfully.");
+                this.toasterService.clear();	this.toasterService.pop('error', 'Error ',  "Dealer Uploads not updated successfully.");
 		        console.log(JSON.stringify(error.json()));
 		    });
 
         }, error => {
-            this.toasterService.pop('error', 'Error ',  error.json().error.message);
+            this.toasterService.clear();	this.toasterService.pop('error', 'Error ',  error.json().error.message);
 	        console.log(JSON.stringify(error.json()));
 	    });
 
@@ -1479,9 +1479,9 @@ export class AdddealerComponent {
 
     this.http.get(API_URL+'/Containers/'+ this.editparam.id +'/download/'+  file.name + '?access_token='+localStorage.getItem('currentUserToken'), options)
     .subscribe(response => {
-      this.toasterService.pop('success', 'Success ', "Dealer downloaded file "+file.name+" successfully.");
+      this.toasterService.clear();	this.toasterService.pop('success', 'Success ', "Dealer downloaded file "+file.name+" successfully.");
     }, error => {
-          this.toasterService.pop('error', 'Error ',  "Dealer downloaded file "+file.name+"  failed.");
+          this.toasterService.clear();	this.toasterService.pop('error', 'Error ',  "Dealer downloaded file "+file.name+"  failed.");
         console.log(JSON.stringify(error.json()));
     });
 
@@ -1498,7 +1498,7 @@ export class AdddealerComponent {
     this.http.delete(API_URL+'/Containers/'+ this.editparam.id +'/files/'+  file.name + '?access_token='+localStorage.getItem('currentUserToken'), options)
     .subscribe(response => {
       console.log(response.json());
-      this.toasterService.pop('success', 'Success ', "Dealer Uploaded file "+file.name+" deleted successfully.");
+      this.toasterService.clear();	this.toasterService.pop('success', 'Success ', "Dealer Uploaded file "+file.name+" deleted successfully.");
 
       const index: number = this.files.indexOf(file);
       console.log(index);
@@ -1506,7 +1506,7 @@ export class AdddealerComponent {
        this.files.splice(index, 1);
       }   
     }, error => {
-          this.toasterService.pop('error', 'Error ',  "Dealer Uploaded file "+file.name+" deletion failed.");
+          this.toasterService.clear();	this.toasterService.pop('error', 'Error ',  "Dealer Uploaded file "+file.name+" deletion failed.");
         console.log(JSON.stringify(error.json()));
     });
 
@@ -1522,9 +1522,9 @@ export class AdddealerComponent {
 
     this.http.get(API_URL+'/Containers/'+ this.editparam.id +'/download/'+  file.name + '?access_token='+localStorage.getItem('currentUserToken'), options)
     .subscribe(response => {
-      this.toasterService.pop('success', 'Success ', "Dealer downloaded file "+file.name+" successfully.");
+      this.toasterService.clear();	this.toasterService.pop('success', 'Success ', "Dealer downloaded file "+file.name+" successfully.");
     }, error => {
-          this.toasterService.pop('error', 'Error ',  "Dealer downloaded file "+file.name+"  failed.");
+          this.toasterService.clear();	this.toasterService.pop('error', 'Error ',  "Dealer downloaded file "+file.name+"  failed.");
         console.log(JSON.stringify(error.json()));
     });
 
@@ -1544,9 +1544,9 @@ export class AdddealerComponent {
     .subscribe(response => {
       console.log(response.json());
       this.fileRemove = 1;
-      this.toasterService.pop('success', 'Success ', "Dealer Uploaded file "+item.file.name+" deleted successfully.");
+      this.toasterService.clear();	this.toasterService.pop('success', 'Success ', "Dealer Uploaded file "+item.file.name+" deleted successfully.");
     }, error => {
-          this.toasterService.pop('error', 'Error ',  "Dealer Uploaded file "+item.file.name+" deletion failed.");
+          this.toasterService.clear();	this.toasterService.pop('error', 'Error ',  "Dealer Uploaded file "+item.file.name+" deletion failed.");
         console.log(JSON.stringify(error.json()));
     });
 
@@ -1604,15 +1604,15 @@ export class AdddealerComponent {
       	this.http.post(API_URL+'/Containers/'+this.containerdata.name+'/upload?access_token='+localStorage.getItem('currentUserToken'), this.formData,  options)
         .subscribe(response => {
         	console.log(response.json());
-      		this.toasterService.pop('success', 'Success ', "Dealer Uploads updated successfully.");
+      		this.toasterService.clear();	this.toasterService.pop('success', 'Success ', "Dealer Uploads updated successfully.");
         	
         }, error => {
-              this.toasterService.pop('error', 'Error ',  "Dealer Uploads not updated successfully.");
+              this.toasterService.clear();	this.toasterService.pop('error', 'Error ',  "Dealer Uploads not updated successfully.");
   	        console.log(JSON.stringify(error.json()));
   	    });
 
       }, error => {
-          this.toasterService.pop('error', 'Error ',  error.json().error.message);
+          this.toasterService.clear();	this.toasterService.pop('error', 'Error ',  error.json().error.message);
           console.log(JSON.stringify(error.json()));
       });
 */
@@ -1643,11 +1643,11 @@ export class AdddealerComponent {
 
 		this.http.post(API_URL+'/addresses/upsertWithWhere?where=%7B%22memberId%22%3A%22'+  this.editparam.id+'%22%7D&access_token='+ localStorage.getItem('currentUserToken'), this.addressdata,  options)
         .subscribe(response => {
-        	this.toasterService.pop('success', 'Success ', "Dealer Address updated successfully.");
+        	this.toasterService.clear();	this.toasterService.pop('success', 'Success ', "Dealer Address updated successfully.");
         	console.log(response.json());		
 
 	    }, error => {
-            this.toasterService.pop('error', 'Error ',  error.json().error.message);
+            this.toasterService.clear();	this.toasterService.pop('error', 'Error ',  error.json().error.message);
 	        console.log(JSON.stringify(error.json()));
 	    });
 	}

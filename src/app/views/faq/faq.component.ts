@@ -132,7 +132,7 @@ export class FaqComponent {
 
 			this.http.post(API_URL+'/faqs/update?where={"id":"'+ delId.id +'"}&access_token='+ localStorage.getItem('currentUserToken'), {"active":0} ,options)    
 			.subscribe(response => {
-				this.toasterService.pop('success', 'Success ', "FAQ Record deleted successfully.");
+				this.toasterService.clear();	this.toasterService.pop('success', 'Success ', "FAQ Record deleted successfully.");
 				const index: number = this.faqs.indexOf(delId);
 				if (index !== -1) {
 					this.faqs.splice(index, 1);

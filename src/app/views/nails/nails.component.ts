@@ -76,7 +76,7 @@ export class NailsComponent {
 
 			this.http.delete(API_URL+'/Nails/'+delId.id+'?access_token='+ localStorage.getItem('currentUserToken'), options)
 			.subscribe(response => {				
-				this.toasterService.pop('success', 'Success ', "Nails Record deleted successfully.");
+				this.toasterService.clear();	this.toasterService.pop('success', 'Success ', "Nails Record deleted successfully.");
 				$('.preloader').hide();
 				const index: number = this.data.indexOf(delId);
 				if (index !== -1) {

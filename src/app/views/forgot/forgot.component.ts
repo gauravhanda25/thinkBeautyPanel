@@ -43,14 +43,14 @@ export class ForgotComponent {
 	    this.http.post(API_URL+'/Members/reset', this.data)
 	        .subscribe(response => {
 	        	console.log(response.json());
-			     this.toasterService.pop('success', 'Success', "Mail Sent Successfully");
+			     this.toasterService.clear();	this.toasterService.pop('success', 'Success', "Mail Sent Successfully");
 
 	        }, error => {
 	        	console.log(JSON.stringify(error.json()));
 				if(error.json().isTrusted){
-					this.toasterService.pop('error', 'Error ', "API not working.");
+					this.toasterService.clear();	this.toasterService.pop('error', 'Error ', "API not working.");
 				} else {	
-			   		this.toasterService.pop('error', 'Error ', error.json().error.message);
+			   		this.toasterService.clear();	this.toasterService.pop('error', 'Error ', error.json().error.message);
 			   	}
 	        });
 	  }

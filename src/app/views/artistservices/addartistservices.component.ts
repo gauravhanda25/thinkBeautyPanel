@@ -624,7 +624,7 @@ export class AddartistservicesComponent {
         subserviceId: '',
         servicetype: ''
       }
-			this.toasterService.pop('success', 'Success', "Service saved successfully");
+			this.toasterService.clear();	this.toasterService.pop('success', 'Success', "Service saved successfully");
     		
     		this.getAllArtistData();
 
@@ -664,7 +664,7 @@ export class AddartistservicesComponent {
         servicetype: ''
       }
 
-			this.toasterService.pop('success', 'Success', "Service updated successfully");
+			this.toasterService.clear();	this.toasterService.pop('success', 'Success', "Service updated successfully");
     		
     		this.getAllArtistData();
 
@@ -688,7 +688,7 @@ export class AddartistservicesComponent {
           this.http.delete(API_URL+'/Artistservices/'+recordId['home'].id+'?access_token='+ localStorage.getItem('currentUserToken'), options)
           .subscribe(response => {
 
-          this.toasterService.pop('success', 'Success', "Service removed successfully");
+          this.toasterService.clear();	this.toasterService.pop('success', 'Success', "Service removed successfully");
 
             this.getAllArtistData();
 
@@ -702,7 +702,7 @@ export class AddartistservicesComponent {
           this.http.delete(API_URL+'/Artistservices/'+recordId['salon'].id+'?access_token='+ localStorage.getItem('currentUserToken'), options)
           .subscribe(response => {
 
-          this.toasterService.pop('success', 'Success', "Service removed successfully");
+          this.toasterService.clear();	this.toasterService.pop('success', 'Success', "Service removed successfully");
 
             this.getAllArtistData();
 
@@ -716,7 +716,7 @@ export class AddartistservicesComponent {
           this.http.delete(API_URL+'/Artistservices/'+recordId['gcc'].id+'?access_token='+ localStorage.getItem('currentUserToken'), options)
           .subscribe(response => {
 
-          this.toasterService.pop('success', 'Success', "Service removed successfully");
+          this.toasterService.clear();	this.toasterService.pop('success', 'Success', "Service removed successfully");
 
             this.getAllArtistData();
 
@@ -729,7 +729,7 @@ export class AddartistservicesComponent {
       	/*this.http.delete(API_URL+'/Artistservices/'+recordId+'?access_token='+ localStorage.getItem('currentUserToken'), options)
           .subscribe(response => {
 
-  			this.toasterService.pop('success', 'Success', "Service removed successfully");
+  			this.toasterService.clear();	this.toasterService.pop('success', 'Success', "Service removed successfully");
 
       		this.getAllArtistData();
 
@@ -751,14 +751,14 @@ export class AddartistservicesComponent {
       
       if(new Date(this.am_pm_to_hours(this.course.timeslotFrom)) > new Date(this.am_pm_to_hours(this.course.timeslotTo)) && this.course.timeslotFrom != '' && this.course.timeslotTo != '') {
           $('.preloader').hide(); 
-          this.toasterService.pop('error', 'Time invalid', "Course end time should always be greater than start time"); 
+          this.toasterService.clear();	this.toasterService.pop('error', 'Time invalid', "Course end time should always be greater than start time"); 
           return;        
       }
 
 
      
        if(moment(this.course.startfrom).isAfter(moment(this.course.endon))) {
-        this.toasterService.pop('error', 'Date invalid ',  'End date cannot be less than start date.');
+        this.toasterService.clear();	this.toasterService.pop('error', 'Date invalid ',  'End date cannot be less than start date.');
         $('.preloader').hide();
         return false;
       }
@@ -773,7 +773,7 @@ export class AddartistservicesComponent {
 
         } else {
           $('.preloader').hide(); 
-          this.toasterService.pop('error', 'Error', "Course already added for same date and time."); 
+          this.toasterService.clear();	this.toasterService.pop('error', 'Error', "Course already added for same date and time."); 
           return;        
         }
       }
@@ -783,13 +783,13 @@ export class AddartistservicesComponent {
       let locationVal:any = '';
       if(this.locationSelected == '') {
           $('.preloader').hide(); 
-          this.toasterService.pop('error', 'Error', "Please select the location"); 
+          this.toasterService.clear();	this.toasterService.pop('error', 'Error', "Please select the location"); 
         return;        
       } 
 
        if(this.uploader.queue.length == 0){
         $('.preloader').hide(); 
-          this.toasterService.pop('error', 'Error', "Please select the Course Image"); 
+          this.toasterService.clear();	this.toasterService.pop('error', 'Error', "Please select the Course Image"); 
          return;    
       }  
 
@@ -844,7 +844,7 @@ export class AddartistservicesComponent {
                   });
 
                 } else {
-                  this.toasterService.pop('error', 'Error ',  "File: "+item.file.name+" not uploaded successfully");
+                  this.toasterService.clear();	this.toasterService.pop('error', 'Error ',  "File: "+item.file.name+" not uploaded successfully");
                 }
             };
 
@@ -868,7 +868,7 @@ export class AddartistservicesComponent {
           memberType: (localStorage.getItem('currentUserRole') == 'SALON' ? 'salon' : 'artist')
 	    	}
 
-			this.toasterService.pop('success', 'Success', "Course saved successfully");
+			this.toasterService.clear();	this.toasterService.pop('success', 'Success', "Course saved successfully");
     		
           $(".closeModalButton").click();
 
@@ -889,13 +889,13 @@ export class AddartistservicesComponent {
            
       if(new Date(this.am_pm_to_hours(course.timeslotFrom)) > new Date(this.am_pm_to_hours(course.timeslotTo)) && course.timeslotFrom != '' && course.timeslotTo != '') {
           $('.preloader').hide(); 
-          this.toasterService.pop('error', 'Time invalid', "Course end time should always be greater than start time"); 
+          this.toasterService.clear();	this.toasterService.pop('error', 'Time invalid', "Course end time should always be greater than start time"); 
           return;        
       }
 
       
       if(moment(course.startfrom).isAfter(moment(course.endon)))  {
-        this.toasterService.pop('error', 'Date invalid ',  'End date cannot be less than start date.');
+        this.toasterService.clear();	this.toasterService.pop('error', 'Date invalid ',  'End date cannot be less than start date.');
         $('.preloader').hide();
         return false;
       }
@@ -908,7 +908,7 @@ export class AddartistservicesComponent {
 
         } else {
           $('.preloader').hide(); 
-          this.toasterService.pop('error', 'Error', "Course already added for same date and time."); 
+          this.toasterService.clear();	this.toasterService.pop('error', 'Error', "Course already added for same date and time."); 
           return;        
         }
 
@@ -923,7 +923,7 @@ export class AddartistservicesComponent {
 
       if(this.locationSelected == '' && this.userSettings.inputString == '') {
           $('.preloader').hide(); 
-          this.toasterService.pop('error', 'Error', "Please select the location"); 
+          this.toasterService.clear();	this.toasterService.pop('error', 'Error', "Please select the location"); 
         return;        
       } else if(this.locationSelected != '') {
         locationVal = this.locationSelected;
@@ -940,7 +940,7 @@ export class AddartistservicesComponent {
 
        if(this.uploader.queue.length == 0  && course.images.length == 0){
         $('.preloader').hide(); 
-          this.toasterService.pop('error', 'Error', "Please select the Course Image"); 
+          this.toasterService.clear();	this.toasterService.pop('error', 'Error', "Please select the Course Image"); 
          return;    
       }  
 
@@ -1006,7 +1006,7 @@ export class AddartistservicesComponent {
               });
 
             } else {
-              this.toasterService.pop('error', 'Error ',  "File: "+item.file.name+" not uploaded successfully");
+              this.toasterService.clear();	this.toasterService.pop('error', 'Error ',  "File: "+item.file.name+" not uploaded successfully");
             }
          };
 
@@ -1035,7 +1035,7 @@ export class AddartistservicesComponent {
           memberType: (localStorage.getItem('currentUserRole') == 'SALON' ? 'salon' : 'artist'),
 	    	}
 
-			this.toasterService.pop('success', 'Success', "Course updated successfully");
+			this.toasterService.clear();	this.toasterService.pop('success', 'Success', "Course updated successfully");
     		
 
 	    }, error => {
@@ -1055,7 +1055,7 @@ export class AddartistservicesComponent {
       	this.http.delete(API_URL+'/Artistcourses/'+courseId+'?access_token='+ localStorage.getItem('currentUserToken'), options)
           .subscribe(response => {
 
-  			this.toasterService.pop('success', 'Success', "Course removed successfully");
+  			this.toasterService.clear();	this.toasterService.pop('success', 'Success', "Course removed successfully");
 
       		this.getAllArtistCourseData();
 
@@ -1102,9 +1102,9 @@ export class AddartistservicesComponent {
     this.http.get(API_URL+'/Containers/'+file.memberId+'/download/'+file.fileName+ '?access_token='+localStorage.getItem('currentUserToken'), options)
     .subscribe(response => {    
       window.open(API_URL+'/Containers/'+file.memberId+'/download/'+file.fileName);
-      this.toasterService.pop('success', 'Success ', "Gallery downloaded file "+file.fileName+" successfully.");
+      this.toasterService.clear();	this.toasterService.pop('success', 'Success ', "Gallery downloaded file "+file.fileName+" successfully.");
     }, error => {
-          this.toasterService.pop('error', 'Error ',  "Gallery downloaded file "+file.fileName+"  failed.");
+          this.toasterService.clear();	this.toasterService.pop('error', 'Error ',  "Gallery downloaded file "+file.fileName+"  failed.");
         console.log(JSON.stringify(error.json()));
     });
 
@@ -1124,7 +1124,7 @@ export class AddartistservicesComponent {
           this.http.post(API_URL+'/FileStorages/update?where={"id":"'+file.id+'"}&access_token='+ localStorage.getItem('currentUserToken'), {"status":"inactive"}, options)
           .subscribe(findres => {
 
-              this.toasterService.pop('success', 'Success ', "Gallery Uploaded file "+file.fileName+" deleted successfully.");
+              this.toasterService.clear();	this.toasterService.pop('success', 'Success ', "Gallery Uploaded file "+file.fileName+" deleted successfully.");
 
              this.photoexist = 0;
 
@@ -1134,7 +1134,7 @@ export class AddartistservicesComponent {
               console.log(JSON.stringify(error.json()));
           });
       }, error => {
-            this.toasterService.pop('error', 'Error ',  "Gallery Uploaded file "+file.fileName+" deletion failed.");
+            this.toasterService.clear();	this.toasterService.pop('error', 'Error ',  "Gallery Uploaded file "+file.fileName+" deletion failed.");
           console.log(JSON.stringify(error.json()));
       });
   }

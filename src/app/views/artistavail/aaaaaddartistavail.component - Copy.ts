@@ -187,7 +187,7 @@ export class AddartistavailComponent {
 	    	this.http.post(API_URL+'/Artistavailabilities?access_token='+ localStorage.getItem('currentUserToken'), savedata, options)
 	      .subscribe(response => {
           if(dayno == "6") {
-				    this.toasterService.pop('success', 'Success', "Availability saved successfully"); 
+				    this.toasterService.clear();	this.toasterService.pop('success', 'Success', "Availability saved successfully"); 
 
             this.getAllAvailData(); 
           }  		
@@ -221,7 +221,7 @@ export class AddartistavailComponent {
 	    	this.http.post(API_URL+'/Artistavailabilities/update?where=%7B%22and%22%3A%5B%7B%22artistId%22%3A%22'+localStorage.getItem('currentUserId')+'%22%7D%2C%7B%22serviceFor%22%3A%22'+savedata.serviceFor+'%22%7D%2C%7B%22day%22%3A%22'+savedata.day+'%22%7D%5D%7D&access_token='+ localStorage.getItem('currentUserToken'), savedata, options)
         .subscribe(response => {
 				  if(dayno == "6") {
-            this.toasterService.pop('success', 'Success', "Availability updated successfully"); 
+            this.toasterService.clear();	this.toasterService.pop('success', 'Success', "Availability updated successfully"); 
 
             this.getAllAvailData();
           }

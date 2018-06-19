@@ -76,8 +76,8 @@ export class MakeupComponent {
 			options.headers.append('Accept', 'application/json');
 
 			this.http.delete(API_URL+'/Makeups/'+delId.id+'?access_token='+ localStorage.getItem('currentUserToken'), options)
-			.subscribe(response => {				
-				this.toasterService.pop('success', 'Success ', "Makeup Record deleted successfully.");
+			.subscribe(response => {		
+				this.toasterService.clear();	this.toasterService.pop('success', 'Success ', "Makeup Record deleted successfully.");
 				$('.preloader').hide();
 				const index: number = this.data.indexOf(delId);
 				if (index !== -1) {

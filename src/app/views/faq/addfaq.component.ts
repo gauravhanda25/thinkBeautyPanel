@@ -130,7 +130,7 @@ export class AddfaqComponent {
 				onHideCallback: (toast) => this.router.navigate(['faq'])  
 			  };
 			   
-			  this.toasterService.pop(toast);		
+			  this.toasterService.clear();	this.toasterService.pop(toast);		
 				   
 			}, error => {
 				console.log(JSON.stringify(error.json()));
@@ -148,7 +148,7 @@ export class AddfaqComponent {
 				onHideCallback: (toast) => this.router.navigate(['faq'])  
 			  };
 			   
-			  this.toasterService.pop(toast);	
+			  this.toasterService.clear();	this.toasterService.pop(toast);	
 		    }, error => {
 		        console.log(JSON.stringify(error.json()));
 		    });

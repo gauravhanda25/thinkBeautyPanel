@@ -28,6 +28,7 @@ export class TermsComponent {
 	private nocr: any;
     private use_url: any;
     private pagetype:any;
+    private pageHeading: any;
 
 	private toasterService: ToasterService;
     public toasterconfig : ToasterConfig =
@@ -62,12 +63,16 @@ export class TermsComponent {
 		console.log(this.router.url);
         if(reqUrl === '/terms/cancellation')  {
              this.pagetype = "cancellation";
+             this.pageHeading = "Cancellation";
         } else if(reqUrl === '/terms/booking') {
-             this.pagetype = "booking";            
+             this.pagetype = "booking";    
+             this.pageHeading = "Booking";         
         } else if(reqUrl === '/terms/userreg') {
-             this.pagetype = "userreg";            
+             this.pagetype = "userreg";   
+             this.pageHeading = "User Registration";         
         } else if(reqUrl === '/terms/artistreg') {
-             this.pagetype = "artistreg";            
+             this.pagetype = "artistreg";  
+             this.pageHeading = "Artist Registration";          
         } 
 
 
@@ -104,7 +109,7 @@ export class TermsComponent {
 
 			this.http.post(API_URL+'/StaticPages/update?where={"id":"'+ delId.id +'"}&access_token='+ localStorage.getItem('currentUserToken'), {"active":0} ,options)    
 			.subscribe(response => {
-				this.toasterService.pop('success', 'Success ', "Terms and Conditions Record deleted successfully.");
+				this.toasterService.clear();	this.toasterService.pop('success', 'Success ', "Terms and Conditions Record deleted successfully.");
 				$('.preloader').hide();
 				const index: number = this.terms.indexOf(delId);
 				if (index !== -1) {

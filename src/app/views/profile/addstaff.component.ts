@@ -277,7 +277,7 @@ export class AddstaffComponent {
 				
 
                     } else {
-                      this.toasterService.pop('error', 'Error ',  "File: "+item.file.name+" not uploaded successfully");
+                      this.toasterService.clear();	this.toasterService.pop('error', 'Error ',  "File: "+item.file.name+" not uploaded successfully");
                     }
                 };
 
@@ -287,14 +287,14 @@ export class AddstaffComponent {
              }
 
 
-				this.toasterService.pop('success', 'Success ', "Profile updated successfully.");	
+				this.toasterService.clear();	this.toasterService.pop('success', 'Success ', "Profile updated successfully.");	
            	
 	    }, error => {
 	    	if(error.json().error.statusCode == "422") {
-            	this.toasterService.pop('error', 'Error ',  "Email Address already exists. Please use different email");
+            	this.toasterService.clear();	this.toasterService.pop('error', 'Error ',  "Email Address already exists. Please use different email");
             	this.error = 1;
 	    	} else {
-            	this.toasterService.pop('error', 'Error ',  error.json().error.message);
+            	this.toasterService.clear();	this.toasterService.pop('error', 'Error ',  error.json().error.message);
 	    	}
 	        console.log(JSON.stringify(error.json()));
 	    });
@@ -313,7 +313,7 @@ export class AddstaffComponent {
 		.subscribe(response => {
 		  console.log(response.json());
 		  this.checkVal = 0;
-		  this.toasterService.pop('success', 'Success ', "Profile image file "+file.fileName+" deleted successfully.");
+		  this.toasterService.clear();	this.toasterService.pop('success', 'Success ', "Profile image file "+file.fileName+" deleted successfully.");
 
 		  
 		  this.http.delete(API_URL+'/FileStorages/'+  file.id + '?access_token='+localStorage.getItem('currentUserToken'), options)
@@ -321,11 +321,11 @@ export class AddstaffComponent {
 	        console.log(response.json());
 	        this.checkVal = 0;
 	      }, error => {
-	          this.toasterService.pop('error', 'Error ',  "Profile image file "+file.fileName+" deletion failed.");
+	          this.toasterService.clear();	this.toasterService.pop('error', 'Error ',  "Profile image file "+file.fileName+" deletion failed.");
 	        console.log(JSON.stringify(error.json()));
 	      });
 		}, error => {
-			  this.toasterService.pop('error', 'Error ',  "Profile image file "+file.fileName+" deletion failed.");
+			  this.toasterService.clear();	this.toasterService.pop('error', 'Error ',  "Profile image file "+file.fileName+" deletion failed.");
 			console.log(JSON.stringify(error.json()));
 		});
 
