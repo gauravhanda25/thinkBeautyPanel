@@ -11,7 +11,7 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { NgModule } from '@angular/core';
 import * as $ from 'jquery';
-
+import * as moment from 'moment';
 
 // Datepicker
 import { BsDatepickerModule,BsDatepickerConfig } from 'ngx-bootstrap';
