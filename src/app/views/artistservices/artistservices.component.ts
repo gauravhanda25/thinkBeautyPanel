@@ -809,6 +809,11 @@ export class ArtistservicesComponent {
       this.countrySelected = '';
 
 
+      this.course.startfrom = moment(this.course.startfrom).utcOffset(0).set({hour:0,minute:0,second:0,millisecond:0}).toISOString();
+      this.course.endon = moment(this.course.endon).utcOffset(0).set({hour:0,minute:0,second:0,millisecond:0}).toISOString();
+
+
+
     	this.http.post(API_URL+'/Artistcourses?access_token='+ localStorage.getItem('currentUserToken'), this.course, options)
         .subscribe(res => {
           console.log(res.json());
@@ -951,6 +956,11 @@ export class ArtistservicesComponent {
 
 
       //alert(this.locationSelected);
+
+      
+      course.startfrom = moment(course.startfrom).utcOffset(0).set({hour:0,minute:0,second:0,millisecond:0}).toISOString();
+      course.endon = moment(course.endon).utcOffset(0).set({hour:0,minute:0,second:0,millisecond:0}).toISOString();
+
       
       this.coursedetaildata = { 
     		name: course.name,   		

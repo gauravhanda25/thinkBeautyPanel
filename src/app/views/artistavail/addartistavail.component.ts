@@ -20,28 +20,28 @@ import { BsDatepickerModule,BsDatepickerConfig } from 'ngx-bootstrap';
 import { ToasterModule, ToasterService, ToasterConfig, Toast }  from 'angular2-toaster/angular2-toaster';
 
 @Component({
-	templateUrl: 'addartistavail.component.html',
-	styleUrls: ['../../../scss/vendors/toastr/toastr.scss',   '../../../scss/vendors/bs-datepicker/bs-datepicker.scss'],
-	encapsulation: ViewEncapsulation.None
+  templateUrl: 'addartistavail.component.html',
+  styleUrls: ['../../../scss/vendors/toastr/toastr.scss',   '../../../scss/vendors/bs-datepicker/bs-datepicker.scss'],
+  encapsulation: ViewEncapsulation.None
 })
 
 @Injectable()
 export class AddartistavailComponent {
-	
-	  private data: any;
-  	private editparam: any; 
+  
+    private data: any;
+    private editparam: any; 
     public bsStartValue = new Date();
     private today = new Date();
     private break: any = 0;
     private currency:any = localStorage.getItem('currentUserCurrency');
 
-	 private toasterService: ToasterService;
-	 public toasterconfig : ToasterConfig =
-	  new ToasterConfig({
-		tapToDismiss: true,
-		timeout: 5000
-	  });
-	  
+   private toasterService: ToasterService;
+   public toasterconfig : ToasterConfig =
+    new ToasterConfig({
+    tapToDismiss: true,
+    timeout: 5000
+    });
+    
 
     // Timepicker
 
@@ -76,12 +76,12 @@ export class AddartistavailComponent {
   };
     private datePickerConfig: Partial<BsDatepickerConfig>;
 
-	  
+    
     constructor(private NgxRolesService: NgxRolesService, private NgxPermissionsService: NgxPermissionsService, @Inject(Http) private http: Http, @Inject(Router)private router:Router, private activatedRoute: ActivatedRoute,toasterService: ToasterService) {
-		//console.log(localStorage.getItem('currentUserRoleId'));
- 			
+    //console.log(localStorage.getItem('currentUserRoleId'));
+      
         $('.preloader').show(); 
-	  if(localStorage.getItem('currentUserRoleId') == "1"){
+    if(localStorage.getItem('currentUserRoleId') == "1"){
         localStorage.setItem('currentUserRole', "ADMIN");
       } else if(localStorage.getItem('currentUserRoleId') == "2"){
         localStorage.setItem('currentUserRole', "ARTIST");
@@ -89,26 +89,26 @@ export class AddartistavailComponent {
         localStorage.setItem('currentUserRole', "SALON");
       } 
 
-	   this.NgxRolesService.flushRoles();
+     this.NgxRolesService.flushRoles();
 
-	   if(localStorage.getItem('currentUserRole') != null) { 
-	   	this.NgxRolesService.addRole(localStorage.getItem('currentUserRole'), ['A'] );
-	   } else {
-	   	this.NgxRolesService.addRole("GUEST", ['A'] );	   
-	   } 
+     if(localStorage.getItem('currentUserRole') != null) { 
+      this.NgxRolesService.addRole(localStorage.getItem('currentUserRole'), ['A'] );
+     } else {
+      this.NgxRolesService.addRole("GUEST", ['A'] );     
+     } 
 
-	   let roles = NgxRolesService.getRoles();
-	    NgxRolesService.roles$.subscribe((data) => {
-	        console.log(data);
-	    })
+     let roles = NgxRolesService.getRoles();
+      NgxRolesService.roles$.subscribe((data) => {
+          console.log(data);
+      })
     
     this.datePickerConfig = Object.assign({},
     {
       showWeekNumbers: false
     });
     
-		this.toasterService = toasterService;
-		
+    this.toasterService = toasterService;
+    
       this.data = { 
         days: '',      
         hoursfrom: '',
@@ -141,10 +141,10 @@ export class AddartistavailComponent {
 
 
 
-    	this.editparam = {
-    		id: '',
-    		action: 'add'
-    	}
+      this.editparam = {
+        id: '',
+        action: 'add'
+      }
 
       this.activatedRoute.params.subscribe((params) => {
           let id = params['id'];
@@ -178,7 +178,7 @@ export class AddartistavailComponent {
         $('.preloader').hide(); 
 
 
-  	}
+    }
 
     showBreakSlots() {
       this.break = 1;
@@ -190,14 +190,16 @@ export class AddartistavailComponent {
       this.data.breakto = '';
     }
 
-  	onSave() {
-        $('.preloader').show(); 
-  		let options = new RequestOptions();
-	    options.headers = new Headers();
+    onSave() {
+      $('.preloader').show(); 
+      let options = new RequestOptions();
+      options.headers = new Headers();
       options.headers.append('Content-Type', 'application/json');
       options.headers.append('Accept', 'application/json');
 
-      //this.data.date = moment(this.data.date).format('DD/MM/YYYY');
+      this.data.date = moment(this.data.date).utcOffset(0).set({hour:0,minute:0,second:0,millisecond:0}).toISOString()
+      //console.log(this.data.date);
+
 
       this.http.get(API_URL+'/Artistavailabilities?filter={"where":{"and":[{"memberId":"'+localStorage.getItem('currentUserId')+'"},{"date":"'+this.data.date+'"}]}}&access_token='+ localStorage.getItem('currentUserToken'), options)
       .subscribe(response => {
@@ -262,8 +264,8 @@ export class AddartistavailComponent {
             console.log(JSON.stringify(error.json()));
         });
       }  */
-    	
-	  }
+      
+    }
 
     onUpdate() {
         $('.preloader').show(); 
@@ -273,7 +275,8 @@ export class AddartistavailComponent {
       options.headers.append('Accept', 'application/json');
 
 
-     // this.data.date = moment(this.data.date).format('DD/MM/YYYY');
+      this.data.date = moment(this.data.date).utcOffset(0).set({hour:0,minute:0,second:0,millisecond:0}).toISOString();
+      
       
       this.http.get(API_URL+'/Artistavailabilities?filter={"where":{"and":[{"memberId":"'+localStorage.getItem('currentUserId')+'"},{"date":"'+this.data.date+'"},{"id":{"neq":"'+this.editparam.id+'"}}]}}&access_token='+ localStorage.getItem('currentUserToken'), options)
       .subscribe(response => {

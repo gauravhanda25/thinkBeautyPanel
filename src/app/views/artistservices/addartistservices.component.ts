@@ -798,6 +798,9 @@ export class AddartistservicesComponent {
       this.course.longitude = this.lngSelected;
       this.course.loc_country = this.countrySelected;
 
+      this.course.startfrom = moment(this.course.startfrom).utcOffset(0).set({hour:0,minute:0,second:0,millisecond:0}).toISOString();
+
+      this.course.endon = moment(this.course.endon).utcOffset(0).set({hour:0,minute:0,second:0,millisecond:0}).toISOString();
 
       this.locationSelected = '';
       this.latSelected = '';
@@ -940,6 +943,10 @@ export class AddartistservicesComponent {
           this.toasterService.pop('error', 'Error', "Please select the Course Image"); 
          return;    
       }  
+
+      course.startfrom = moment(course.startfrom).utcOffset(0).set({hour:0,minute:0,second:0,millisecond:0}).toISOString();
+      course.endon = moment(course.endon).utcOffset(0).set({hour:0,minute:0,second:0,millisecond:0}).toISOString();
+
 
         this.coursedetaildata = { 
       		name: course.name,   		

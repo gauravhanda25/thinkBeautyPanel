@@ -143,10 +143,11 @@ export class AddartistvacationComponent {
       options.headers.append('Content-Type', 'application/json');
       options.headers.append('Accept', 'application/json');
 
-    //  this.data.starton = moment(this.data.starton).format('DD/MM/YYYY');
-    //  this.data.endon = moment(this.data.endon).format('DD/MM/YYYY');
+      this.data.starton = moment(this.data.starton).utcOffset(0).set({hour:0,minute:0,second:0,millisecond:0}).toISOString()
+      this.data.endon = moment(this.data.endon).utcOffset(0).set({hour:0,minute:0,second:0,millisecond:0}).toISOString()
+      
 
-      this.http.get(API_URL+'/Artistavailabilities?filter={"where":{"and":[{"memberId":"'+localStorage.getItem('currentUserId')+'"},{"date":{"between":["'+ new Date(this.data.starton)+'","'+ new Date(this.data.endon)+'"]}}]}}&access_token='+ localStorage.getItem('currentUserToken'), options)
+      this.http.get(API_URL+'/Artistavailabilities?filter={"where":{"and":[{"memberId":"'+localStorage.getItem('currentUserId')+'"},{"date":{"between":["'+ this.data.starton+'","'+ this.data.endon+'"]}}]}}&access_token='+ localStorage.getItem('currentUserToken'), options)
       .subscribe(response => {
         console.log(response.json());
         if(response.json().length != 0) {
@@ -160,6 +161,8 @@ export class AddartistvacationComponent {
             }, error => {
                 console.log(JSON.stringify(error.json()));
             });
+          }  else {
+              $('.preloader').hide(); 
           } 
         } else {
           this.http.post(API_URL+'/Artistvacations?access_token='+ localStorage.getItem('currentUserToken'), this.data, options)
@@ -186,10 +189,11 @@ export class AddartistvacationComponent {
       options.headers.append('Content-Type', 'application/json');
       options.headers.append('Accept', 'application/json');
 
-     // this.data.starton = moment(this.data.starton).format('DD/MM/YYYY');
-     // this.data.endon = moment(this.data.endon).format('DD/MM/YYYY');
+      this.data.starton = moment(this.data.starton).utcOffset(0).set({hour:0,minute:0,second:0,millisecond:0}).toISOString()
+      this.data.endon = moment(this.data.endon).utcOffset(0).set({hour:0,minute:0,second:0,millisecond:0}).toISOString()
+      
 
-      this.http.get(API_URL+'/Artistavailabilities?filter={"where":{"and":[{"memberId":"'+localStorage.getItem('currentUserId')+'"},{"date":{"between":["'+ new Date(this.data.starton)+'","'+ new Date(this.data.endon)+'"]}}]}}&access_token='+ localStorage.getItem('currentUserToken'), options)
+      this.http.get(API_URL+'/Artistavailabilities?filter={"where":{"and":[{"memberId":"'+localStorage.getItem('currentUserId')+'"},{"date":{"between":["'+ this.data.starton+'","'+ this.data.endon+'"]}}]}}&access_token='+ localStorage.getItem('currentUserToken'), options)
       .subscribe(response => {
         console.log(response.json());
         if(response.json().length != 0) {
@@ -203,7 +207,9 @@ export class AddartistvacationComponent {
             }, error => {
                 console.log(JSON.stringify(error.json()));
             });
-          } 
+          }  else {
+              $('.preloader').hide(); 
+          }
         } else {
           this.http.post(API_URL+'/Artistvacations/update?where={"id":"'+this.editparam.id+'"}&access_token='+ localStorage.getItem('currentUserToken'), this.data, options)
           .subscribe(response => {

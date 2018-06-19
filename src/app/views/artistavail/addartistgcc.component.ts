@@ -141,9 +141,11 @@ export class AddartistgccComponent {
   	}
 
 
-  	onSave() {
-    
-        $('.preloader').show(); 
+  	onSave() {      
+      $('.preloader').show(); 
+      this.data.starton = moment(this.data.starton).utcOffset(0).set({hour:0,minute:0,second:0,millisecond:0}).toISOString()
+      this.data.endon = moment(this.data.endon).utcOffset(0).set({hour:0,minute:0,second:0,millisecond:0}).toISOString()
+      
   		let options = new RequestOptions();
 	    options.headers = new Headers();
         options.headers.append('Content-Type', 'application/json');
@@ -162,6 +164,9 @@ export class AddartistgccComponent {
     onUpdate() {
     
         $('.preloader').show(); 
+      this.data.starton = moment(this.data.starton).utcOffset(0).set({hour:0,minute:0,second:0,millisecond:0}).toISOString()
+      this.data.endon = moment(this.data.endon).utcOffset(0).set({hour:0,minute:0,second:0,millisecond:0}).toISOString()
+      
       let options = new RequestOptions();
       options.headers = new Headers();
         options.headers.append('Content-Type', 'application/json');
