@@ -39,7 +39,7 @@
               </tr>
             </thead>
             <tbody> 
-              <tr *ngIf = "nobookings == 0">
+              <tr *ngIf = "mf.data.length == 0">
                 <td colspan="12">No Booking Records</td>
               </tr>
               <tr *ngFor="let booking of mf.data" >

@@ -140,7 +140,7 @@ export class BookingComponent {
         let countryInWhere:any;
 
         if(this.countryFilter != ''){
-          //  countryInWhere = ',{"country":"'+this.countryFilter+'"}';
+            countryInWhere = '"where":{"country":"'+this.countryFilter+'"},';
         } else {
             countryInWhere = '';
         }
@@ -150,25 +150,29 @@ export class BookingComponent {
         if(localStorage.getItem('currentUserRoleId') != "1") {
             if(reqUrl === '/bookings/upcoming')  {
                  
-                 this.use_url = API_URL+'/Bookings?filter={"where":{"and":[{"bookingDate":{"gte":"'+new Date()+'"}},{"artistId":"'+localStorage.getItem('currentUserId')+'"}]},"include":[{"relation":"members", "scope":{"include":{"relation":"countries"}}},{"relation":"artists", "scope":{"include":{"relation":"countries"}}}],"order":"bookingDate DESC"}&access_token='+localStorage.getItem('currentUserToken');
+                 this.use_url = API_URL+'/Bookings?filter={"where":{"and":[{"bookingDate":{"gte":"'+new Date()+'"}},{"artistId":"'+localStorage.getItem('currentUserId')+'"}]},"include":[{"relation":"members", "scope":{'+countryInWhere+'include":{"relation":"countries"}}},{"relation":"artists", "scope":{'+countryInWhere+'"include":{"relation":"countries"}}}],"order":"bookingDate DESC"}&access_token='+localStorage.getItem('currentUserToken');
+
             } else if(reqUrl === '/bookings/previous') {
                  
-                 this.use_url = API_URL+'/Bookings?filter={"where":{"and":[{"bookingDate":{"lte":"'+new Date()+'"}},{"artistId":"'+localStorage.getItem('currentUserId')+'"}]},"include":[{"relation":"members", "scope":{"include":{"relation":"countries"}}},{"relation":"artists", "scope":{"include":{"relation":"countries"}}}],"order":"bookingDate DESC"}&access_token='+localStorage.getItem('currentUserToken');
+                 this.use_url = API_URL+'/Bookings?filter={"where":{"and":[{"bookingDate":{"lte":"'+new Date()+'"}},{"artistId":"'+localStorage.getItem('currentUserId')+'"}]},"include":[{"relation":"members", "scope":{'+countryInWhere+'"include":{"relation":"countries"}}},{"relation":"artists", "scope":{'+countryInWhere+'"include":{"relation":"countries"}}}],"order":"bookingDate DESC"}&access_token='+localStorage.getItem('currentUserToken');
+
             } else {
                
-                 this.use_url = API_URL+'/Bookings?filter={"where":{"and":[{"bookingStatus":"cancelled"},{"artistId":"'+localStorage.getItem('currentUserId')+'"}]},"include":[{"relation":"members","scope":{"include":{"relation":"countries"}}},{"relation":"artists", "scope":{"include":{"relation":"countries"}}}],"order":"bookingDate DESC"}&access_token=' +localStorage.getItem('currentUserToken');
+                 this.use_url = API_URL+'/Bookings?filter={"where":{"and":[{"bookingStatus":"cancelled"},{"artistId":"'+localStorage.getItem('currentUserId')+'"}]},"include":[{"relation":"members","scope":{'+countryInWhere+'"include":{"relation":"countries"}}},{"relation":"artists", "scope":{'+countryInWhere+'"include":{"relation":"countries"}}}],"order":"bookingDate DESC"}&access_token=' +localStorage.getItem('currentUserToken');
             }
         } else {
 
             if(reqUrl === '/bookings/upcoming')  {
                  
-                 this.use_url = API_URL+'/Bookings?filter={"where":{"and":[{"bookingDate":{"gte":"'+new Date()+'"}}]},"include":[{"relation":"members", "scope":{"include":{"relation":"countries"}}},{"relation":"artists", "scope":{"include":{"relation":"countries"}}}],"order":"bookingDate DESC"}&access_token='+localStorage.getItem('currentUserToken');
+                 this.use_url = API_URL+'/Bookings?filter={"where":{"and":[{"bookingDate":{"gte":"'+new Date()+'"}}]},"include":[{"relation":"members", "scope":{'+countryInWhere+'"include":{"relation":"countries"}}},{"relation":"artists", "scope":{'+countryInWhere+'"include":{"relation":"countries"}}}],"order":"bookingDate DESC"}&access_token='+ localStorage.getItem('currentUserToken');
+
             } else if(reqUrl === '/bookings/previous') {
                  
-                 this.use_url = API_URL+'/Bookings?filter={"where":{"and":[{"bookingDate":{"lte":"'+new Date()+'"}}]},"include":[{"relation":"members", "scope":{"include":{"relation":"countries"}}},{"relation":"artists", "scope":{"include":{"relation":"countries"}}}],"order":"bookingDate DESC"}&access_token='+localStorage.getItem('currentUserToken');
+                 this.use_url = API_URL+'/Bookings?filter={"where":{"and":[{"bookingDate":{"lte":"'+new Date()+'"}}]},"include":[{"relation":"members", "scope":{'+countryInWhere+'"include":{"relation":"countries"}}},{"relation":"artists", "scope":{'+countryInWhere+'"include":{"relation":"countries"}}}],"order":"bookingDate DESC"}&access_token='+localStorage.getItem('currentUserToken');
+
             } else {
                
-                 this.use_url = API_URL+'/Bookings?filter={"where":{"and":[{"bookingStatus":"cancelled"}]},"include":[{"relation":"members", "scope":{"include":{"relation":"countries"}}},{"relation":"artists", "scope":{"include":{"relation":"countries"}}}],"order":"bookingDate DESC"}&access_token=' + localStorage.getItem('currentUserToken');
+                 this.use_url = API_URL+'/Bookings?filter={"where":{"and":[{"bookingStatus":"cancelled"}]},"include":[{"relation":"members", "scope":{'+countryInWhere+'"include":{"relation":"countries"}}},{"relation":"artists", "scope":{'+countryInWhere+'"include":{"relation":"countries"}}}],"order":"bookingDate DESC"}&access_token=' + localStorage.getItem('currentUserToken');
             }
         }
 
@@ -180,11 +184,21 @@ export class BookingComponent {
             console.log(response.json());       
             this.bookings = response.json();    
 
+            let removeVal:any = 0;
+            let filterBookings:any = [];
             if(this.bookings.length !=0) {
                 for(let i=0; i< this.bookings.length; i++ ) {
-                   this.bookings[i].created = moment(this.bookings[i].created).format('DD MMMM YYYY');
-                   this.bookings[i].bookingDate = moment(this.bookings[i].bookingDate).format('DD MMMM YYYY');
+                    if(this.bookings[i-removeVal].members == undefined && this.bookings[i-removeVal].artists == undefined) {
+                        // delete this.bookings[i-removeVal];
+                        removeVal = removeVal + 1;
+                        continue;
+                    } else {
+                       this.bookings[i].created = moment(this.bookings[i].created).format('DD MMMM YYYY');
+                       this.bookings[i].bookingDate = moment(this.bookings[i].bookingDate).format('DD MMMM YYYY');
+                       filterBookings.push(this.bookings[i]);
+                    }
                 }
+                this.bookings = filterBookings;
             } else {
                 this.nobookings = 0;
             }
