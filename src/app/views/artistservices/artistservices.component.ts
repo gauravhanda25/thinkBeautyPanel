@@ -517,6 +517,8 @@ export class ArtistservicesComponent {
           }, error => {
               console.log(JSON.stringify(error.json()));
           });
+
+          $('.preloader').hide();
         }
       }, error => {
           console.log(JSON.stringify(error.json()));
@@ -1117,7 +1119,8 @@ export class ArtistservicesComponent {
     this.http.get(API_URL+'/Containers/'+file.memberId+'/download/'+file.fileName+ '?access_token='+localStorage.getItem('currentUserToken'), options)
     .subscribe(response => {    
       window.open(API_URL+'/Containers/'+file.memberId+'/download/'+file.fileName);
-      this.toasterService.clear();	this.toasterService.pop('success', 'Success ', "Gallery downloaded file "+file.fileName+" successfully.");
+      this.toasterService.clear();	
+     //this.toasterService.pop('success', 'Success ', "Gallery downloaded file "+file.fileName+" successfully.");
     }, error => {
           this.toasterService.clear();	this.toasterService.pop('error', 'Error ',  "Gallery downloaded file "+file.fileName+"  failed.");
         console.log(JSON.stringify(error.json()));

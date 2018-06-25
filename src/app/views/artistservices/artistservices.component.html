@@ -1,8 +1,5 @@
 <div class="animated fadeIn">
   <div class="row">
-    <div class="col-lg-12">
-      <a class="btn btn-large btn-primary pull-right" href="#" routerLink='{{addeditserviceUrl}}'style="margin-bottom:5px" *ngIf="courseActive == 0"><i class="fa fa-user-plus"></i> Add/Edit Service</a>
-    </div>
     <div class="clearfix"></div>
     <div class="col-lg-12">
         <div class="card">         
@@ -13,6 +10,11 @@
               <!-- Nav tabs -->
               <tabset >
                 <tab heading="Makeup" *ngIf="loginUserRole == 'artist' && makeupAsProfesion == 1"  (select)="tabSelected('makeup')" [active]="serviceActive == 'makeup'"> 
+                    <div  class="form-group row" >
+                      <div class="col-lg-12">
+                        <a class="btn btn-sm btn-primary pull-right" href="#" routerLink='{{addeditserviceUrl}}'style="margin-bottom:5px" *ngIf="courseActive == 0"><i class="fa fa-user-plus"></i> Add/Edit Service</a>
+                      </div>
+                    </div>
                     <div class="col-md-12" *ngIf = "nomakeup == 0"> No makeup services added by you.</div>
 
                     <div  class="form-group row"  *ngFor = "let subservice of makeup">
@@ -380,6 +382,11 @@
                     </div>
                   </tab>
                  <tab heading="Nails" *ngIf="loginUserRole == 'salon'" (select)="tabSelected('nails')" [active]="serviceActive == 'nails'"> 
+                    <div  class="form-group row" >
+                      <div class="col-lg-12">
+                        <a class="btn btn-sm btn-primary pull-right" href="#" routerLink='{{addeditserviceUrl}}'style="margin-bottom:5px" *ngIf="courseActive == 0"><i class="fa fa-user-plus"></i> Add/Edit Service</a>
+                      </div>
+                    </div>
                     <div class="col-md-12" *ngIf = "nonails == 0"> No nails services added by you.</div>
 
                     <div  class="form-group row"  *ngFor = "let subservice of nails">
@@ -521,6 +528,11 @@
                     </div>
                   </tab>
                   <tab heading="Hair" *ngIf="loginUserRole == 'artist' && hairAsProfesion == 1"  (select)="tabSelected('hair')" [active]="serviceActive == 'hair'"> 
+                    <div  class="form-group row" >
+                      <div class="col-lg-12">
+                        <a class="btn btn-sm btn-primary pull-right" href="#" routerLink='{{addeditserviceUrl}}'style="margin-bottom:5px" *ngIf="courseActive == 0"><i class="fa fa-user-plus"></i> Add/Edit Service</a>
+                      </div>
+                    </div>
                     <div class="col-md-12" *ngIf = "nohair == 0"> No Hair services added by you.</div>
 
                     <div class="form-group row" *ngFor = "let subservice of hair">
@@ -834,6 +846,11 @@
                     </div>
                   </tab>
                   <tab heading="Microblading" *ngIf="loginUserRole == 'artist' && microbladingAsProfesion == 1"  (select)="tabSelected('microblading')" [active]="serviceActive == 'microblading'"> 
+                    <div  class="form-group row" >
+                      <div class="col-lg-12">
+                        <a class="btn btn-sm btn-primary pull-right" href="#" routerLink='{{addeditserviceUrl}}'style="margin-bottom:5px" *ngIf="courseActive == 0"><i class="fa fa-user-plus"></i> Add/Edit Service</a>
+                      </div>
+                    </div>
                     <div class="col-md-12" *ngIf = "nomicroblading == 0"> No microblading services added by you.</div>
 
                     <div  class="form-group row"  *ngFor = "let subservice of microblading">
@@ -845,7 +862,7 @@
                          <span class="pull-right">
                             <button class="btn btn-sm btn-outline-primary" type="button" data-toggle="modal" (click)="microbladingModal.show()" *ngIf="microbladingservicesData[subservice.id] == ''"><span class="fa fa-plus"></span></button>
                             <button class="btn btn-sm btn-outline-primary" type="button"  *ngIf="microbladingservicesData[subservice.id] != ''" data-toggle="modal" (click)="microbladingModal.show()"  ><span class="fa fa-pencil"></span></button>
-                            <button class="btn btn-sm btn-outline-primary" type="button"  *ngIf="microbladingservicesData[subservice.id] != ''" (click)="delsubservicedata(microbladingservicesData[subservice.id].id)" ><span class="fa fa-trash"></span></button>
+                            <button class="btn btn-sm btn-outline-primary" type="button"  *ngIf="microbladingservicesData[subservice.id] != ''" (click)="delsubservicedata(microbladingservicesData[subservice.id])" ><span class="fa fa-trash"></span></button>
                          </span>
                          <div class="clearfix"></div>
 
@@ -1522,6 +1539,7 @@
                                           <option value=''>Course Type</option>
                                           <option value='makeup' *ngIf="loginUserRole == 'artist'  && makeupAsProfesion == 1">Makeup</option>
                                           <option value='hair' *ngIf="loginUserRole == 'artist'  && hairAsProfesion == 1">Hair</option>
+                                          <option value='microblading' *ngIf="loginUserRole == 'artist'  && microbladingAsProfesion == 1">Microblading</option>
                                           <option value='nails' *ngIf="loginUserRole == 'salon'">Nails</option>
                                         </select>
                                   </div>
@@ -1918,6 +1936,7 @@
                                   <option value=''>Course Type</option>
                                   <option value='makeup' *ngIf="loginUserRole == 'artist'  && makeupAsProfesion == 1">Makeup</option>
                                   <option value='hair' *ngIf="loginUserRole == 'artist'  && hairAsProfesion == 1">Hair</option>
+                                  <option value='microblading' *ngIf="loginUserRole == 'artist'  && microbladingAsProfesion == 1">Microblading</option>
                                   <option value='nails' *ngIf="loginUserRole == 'salon'">Nails</option>
                                 </select>
                           </div>

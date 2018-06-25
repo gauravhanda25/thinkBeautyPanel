@@ -16,11 +16,14 @@
                   <option *ngFor="let country of countries" value="{{country.id}}">{{country.name}}</option>
                 </select> 
             </div>
-            <div class="col-md-4 ">
+            <div class="col-md-3 ">
               <div class="input-group">
                 <div class="input-group-prepend"><span class="input-group-text"><i class="fa fa-search"></i></span></div>
                 <input type="text" class="form-control" [(ngModel)]="filterQuery" placeholder="Search by name or phone no."/>
               </div>
+            </div>
+             <div class="col-md-1">
+              <input class="btn btn-primary" type="button" value="Reset" (click) = "resetFilter()">
             </div>
           </div>
           <table class="table table-striped" [mfData]="users | dataFilter : filterQuery" #mf="mfDataTable" [mfRowsOnPage]="10">

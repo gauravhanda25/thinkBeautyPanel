@@ -154,6 +154,13 @@ export class UsersComponent {
 
  	}
 
+    resetFilter() {
+        this.professionFilter = '';
+        this.countryFilter = '';
+        this.filterQuery = '';
+        this.onChangeFilter();
+    }
+
      onChangeFilter() {
         $('.preloader').show();
         let options = new RequestOptions();

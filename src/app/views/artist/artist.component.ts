@@ -186,6 +186,13 @@ export class ArtistComponent {
 
  	}
 
+    resetFilter() {
+        this.professionFilter = '';
+        this.countryFilter = '';
+        this.filterQuery = '';
+        this.onChangeFilter();
+    }
+
     onChangeFilter() {
         $('.preloader').show();
         let options = new RequestOptions();
@@ -199,19 +206,19 @@ export class ArtistComponent {
 
         if(this.countryFilter != ''){
             includeCondition = '"include":[{"relation": "countries","scope":{"where":{"id": "'+this.countryFilter+'"}}},"provinces"]';
-            countryInWhere = ',"country":"'+this.countryFilter+'"';
+            countryInWhere = ',{"country":"'+this.countryFilter+'"}';
         } else {
             includeCondition = '"include":["countries","provinces"]';
             countryInWhere = '';
         }
 
          if(this.professionFilter != ''){
-            professionInWhere = ',"artist_profession":{"inq":"'+this.professionFilter+'"}';
+            professionInWhere = ',{"artist_profession":{"inq":"'+this.professionFilter+'"}}';
         } else {
             professionInWhere = '';
         }
 
-        // console.log(includeCondition);
+       // console.log(includeCondition);
 
         const reqUrl = this.router.url;
         if(reqUrl === '/manageartist/newrequests'){
