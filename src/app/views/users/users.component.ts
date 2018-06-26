@@ -155,7 +155,6 @@ export class UsersComponent {
  	}
 
     resetFilter() {
-        this.professionFilter = '';
         this.countryFilter = '';
         this.filterQuery = '';
         this.onChangeFilter();
