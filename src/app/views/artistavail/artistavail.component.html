@@ -7,7 +7,7 @@
         </div>
         <div class="card-body">
           <tabset>
-            <tab heading="Week days" > 
+            <tab heading="Week days" [active] = "tabActive == ''"> 
               <div class="col-sm-12 text-right" *ngIf="workingAvail == 0">
                 <button class="btn btn-large btn-primary"  data-toggle="modal" (click)="workingSaveModal.show()"  style="margin-bottom:5px"><i class="fa fa-plus"></i> Add Availability</button>
               </div> 
@@ -1896,8 +1896,8 @@
               </div><!-- /.modal -->
             </tab>
 
-            <tab heading="Specific Date">
-              <div class="col-sm-12 text-right"> <a class="btn btn-large btn-primary" href="#" routerLink='addartistspecificdate' style="margin-bottom:5px"><i class="fa fa-plus"></i> Add Availability</a></div>
+            <tab heading="Specific Date"  [active] = "tabActive == 'specific'">
+              <div class="col-sm-12 text-right"> <a class="btn btn-large btn-primary" href="#" routerLink='/schedule/work/addartistspecificdate' style="margin-bottom:5px"><i class="fa fa-plus"></i> Add Availability</a></div>
               
               <div class="col-md-8"> 
                 <span *ngIf="dateAvail == 0">No Availability for any date</span>
@@ -1914,7 +1914,7 @@
                     <td  *ngIf="dateAvail == 1">{{rec.hoursfrom}} - {{rec.hoursto}}</td> 
                     <td  *ngIf="dateAvail == 1">{{rec.breakfrom}} - {{rec.breakto}}</td> 
                     <td *ngIf="dateAvail == 1">
-                      <a class="btn btn-sm btn-outline-primary" href="#" routerLink="editartistspecificdate/{{rec.id}}" style="margin-bottom:5px"><span class="fa fa-pencil"></span></a>
+                      <a class="btn btn-sm btn-outline-primary" href="#" routerLink="/schedule/work/editartistspecificdate/{{rec.id}}" style="margin-bottom:5px"><span class="fa fa-pencil"></span></a>
                       <button class="btn btn-sm btn-outline-primary" (click)="resetAvail(rec.id)" style="margin-bottom:5px"><span class="fa fa-trash"></span></button>
                       <!-- <a class="btn btn-sm btn-primary" href="#"  (click)="specificDateBreakModal.show()"  style="margin-bottom:5px"><i class="fa fa-plus"></i> Schedule Break</a> -->
                     </td>      

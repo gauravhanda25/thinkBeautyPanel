@@ -26,6 +26,14 @@ const routes: Routes = [
 			}
 		},
 		{
+		  
+			path: 'work/specific',
+			component: ArtistavailComponent,
+			data: {
+			  title: "Manage Work Availability"
+			}
+		},
+		{
 			path: 'work/addartistworking',
 			component: AddartistavailComponent,
 			data: {

@@ -54,7 +54,7 @@ export class ArtistavailComponent {
    private today = new Date();
    private break: any = 0;
    private breakweekend: any = 0;
-
+   private tabActive = '';
 
 	private toasterService: ToasterService;
 	public toasterconfig : ToasterConfig =
@@ -122,6 +122,11 @@ export class ArtistavailComponent {
       }
 
 
+      if(this.router.url == "/schedule/work/specific") {
+        this.tabActive = "specific"
+      } else {
+        this.tabActive = ""
+      }
 
       this.getAllAvailData();
 

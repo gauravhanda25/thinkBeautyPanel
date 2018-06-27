@@ -238,7 +238,7 @@ export class AddartistavailComponent {
         this.http.post(API_URL+'/Artistavailabilities?access_token='+ localStorage.getItem('currentUserToken'), this.data, options)
         .subscribe(response => {
             this.toasterService.clear();	this.toasterService.pop('success', 'Success', "Availability saved successfully"); 
-            this.router.navigate(['schedule/work']);
+            this.router.navigate(['schedule/work/specific']);
         }, error => {
             console.log(JSON.stringify(error.json()));
         });
@@ -259,7 +259,7 @@ export class AddartistavailComponent {
         this.http.post(API_URL+'/Artistavailabilities/update?where={"and":[{"memberId":"'+localStorage.getItem('currentUserId')+'"},{"days":"'+this.data.days+'"}]}&access_token='+ localStorage.getItem('currentUserToken'), this.data, options)
         .subscribe(response => {
             this.toasterService.clear();	this.toasterService.pop('success', 'Success', "Break saved successfully"); 
-            this.router.navigate(['schedule/work']);
+            this.router.navigate(['schedule/work/specific']);
         }, error => {
             console.log(JSON.stringify(error.json()));
         });
@@ -316,7 +316,7 @@ export class AddartistavailComponent {
         this.http.post(API_URL+'/Artistavailabilities/update?where={"id":"'+this.editparam.id+'"}&access_token='+ localStorage.getItem('currentUserToken'), this.data, options)
         .subscribe(response => {
             this.toasterService.clear();	this.toasterService.pop('success', 'Success', "Availability updated successfully"); 
-            this.router.navigate(['schedule/work']);
+            this.router.navigate(['schedule/work/specific']);
         }, error => {
             console.log(JSON.stringify(error.json()));
         });
