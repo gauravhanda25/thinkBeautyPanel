@@ -26,7 +26,7 @@
                          <span class="pull-right">
                             <button class="btn btn-sm btn-outline-primary" type="button" data-toggle="modal" (click)="makeupModal.show()" *ngIf="makeupservicesData[subservice.id] == ''"><span class="fa fa-plus"></span></button>
                             <button class="btn btn-sm btn-outline-primary" type="button"  *ngIf="makeupservicesData[subservice.id] != ''" data-toggle="modal" (click)="makeupModal.show()"  ><span class="fa fa-pencil"></span></button>
-                            <button class="btn btn-sm btn-outline-primary" type="button"  *ngIf="makeupservicesData[subservice.id] != ''" (click)="delsubservicedata(makeupservicesData[subservice.id].id)" ><span class="fa fa-trash"></span></button>
+                            <button class="btn btn-sm btn-outline-primary" type="button"  *ngIf="makeupservicesData[subservice.id] != ''" (click)="delsubservicedata(makeupservicesData[subservice.id])" ><span class="fa fa-trash"></span></button>
                          </span>
                          <div class="clearfix"></div>
 
