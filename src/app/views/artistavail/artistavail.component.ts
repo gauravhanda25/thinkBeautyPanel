@@ -105,7 +105,7 @@ export class ArtistavailComponent {
         breakto: '',
         memberId: localStorage.getItem('currentUserId'),
         memberType: (localStorage.getItem('currentUserRole') == 'SALON' ? 'salon' : 'artist'),
-        date: '',
+     
         createdon: new Date()
       }
       
@@ -117,7 +117,7 @@ export class ArtistavailComponent {
         breakto: '',
         memberId: localStorage.getItem('currentUserId'),
         memberType: (localStorage.getItem('currentUserRole') == 'SALON' ? 'salon' : 'artist'),
-        date: '',
+
         createdon: new Date()
       }
 
@@ -175,7 +175,7 @@ export class ArtistavailComponent {
             breakto: '',
             memberId: localStorage.getItem('currentUserId'),
             memberType: (localStorage.getItem('currentUserRole') == 'SALON' ? 'salon' : 'artist'),
-            date: '',
+           
             createdon: new Date()
           }
 
@@ -187,7 +187,7 @@ export class ArtistavailComponent {
             breakto: '',
             memberId: localStorage.getItem('currentUserId'),
             memberType: (localStorage.getItem('currentUserRole') == 'SALON' ? 'salon' : 'artist'),
-            date: '',
+       
             createdon: new Date()
           }
 
@@ -318,6 +318,7 @@ export class ArtistavailComponent {
 
       this.http.post(API_URL+'/Artistavailabilities?access_token='+ localStorage.getItem('currentUserToken'), data, options)
       .subscribe(response => {
+          console.log(data);
           this.toasterService.clear();	this.toasterService.pop('success', 'Success', "Availability saved successfully"); 
           
           $(".closeModalButton").click();
