@@ -51,7 +51,7 @@ export class ArtistComponent {
     constructor(private router:Router, private http: Http, private activatedRoute: ActivatedRoute, toasterService: ToasterService ) { 
 
         $('.preloader').show();
-        this.profession_vals = ['Make Up', 'Hair','Microblading'];
+        this.profession_vals = ['Makeup', 'Hair','Microblading'];
         this.toasterService = toasterService;
 
         this.nousers = 1;
@@ -222,7 +222,7 @@ export class ArtistComponent {
 
         const reqUrl = this.router.url;
         if(reqUrl === '/manageartist/newrequests'){
-             this.use_url = API_URL+'/Members?filter={"where":{"role_id":2, "status" : "inactive" '+countryInWhere+professionInWhere+'},'+includeCondition+',"order":"created DESC"}&access_token='+localStorage.getItem('currentUserToken');
+             this.use_url = API_URL+'/Members?filter={"where":{"and":[{"role_id":2},{ "status" : "inactive"} '+countryInWhere+professionInWhere+']},'+includeCondition+',"order":"created DESC"}&access_token='+localStorage.getItem('currentUserToken');
              
              this.check_account = {
                 id: '',
@@ -246,7 +246,7 @@ export class ArtistComponent {
                 action: 'verify',
                 actionName : 'Verify'
             }
-             this.use_url = API_URL+'/Members?filter={"where":{"role_id":2, "status" : "verify"'+countryInWhere+professionInWhere+'},'+includeCondition+',"order":"modified DESC"}&access_token='+localStorage.getItem('currentUserToken');
+             this.use_url = API_URL+'/Members?filter={"where":{"and":[{"role_id":2},{ "status" : "verify"}'+countryInWhere+professionInWhere+']},'+includeCondition+',"order":"modified DESC"}&access_token='+localStorage.getItem('currentUserToken');
         } 
         else {
             this.check_account = {
@@ -254,7 +254,7 @@ export class ArtistComponent {
                 action: 'reject',
                 actionName : 'Block'
             }
-             this.use_url = API_URL+'/Members?filter={"where":{"role_id":2, "status" : "reject"'+countryInWhere+professionInWhere+'},'+includeCondition+',"order":"modified DESC"}&access_token=' + localStorage.getItem('currentUserToken');
+             this.use_url = API_URL+'/Members?filter={"where":{"and":[{"role_id":2}, {"status" : "reject"}'+countryInWhere+professionInWhere+']},'+includeCondition+',"order":"modified DESC"}&access_token=' + localStorage.getItem('currentUserToken');
         }
 
         this.users = [];
