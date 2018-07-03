@@ -99,7 +99,7 @@ private memberType:any;
          console.log(this.mainImagesCount = storageRes.json().length);
 
          this.uploader = new FileUploader({url: API_URL+'/Containers/'+this.loggedInUserId+'/upload?access_token='+localStorage.getItem('currentUserToken'),
-          allowedMimeType: ['image/gif','image/jpeg','image/png'] , queueLimit: (4- parseInt(this.mainImagesCount))});   
+          allowedMimeType: ['image/gif','image/jpeg','image/png','video/mp4','video/x-msvideo'] , queueLimit: (4- parseInt(this.mainImagesCount))});   
         
 
           this.uploader.onAfterAddingFile = function(item) {

@@ -108,7 +108,7 @@ export class AddgalleryComponent {
       });
 
       this.uploader = new FileUploader({url: API_URL+'/Containers/'+this.loggedInUserId+'/upload?access_token='+localStorage.getItem('currentUserToken'),
-      allowedMimeType: ['image/gif','image/jpeg','image/png'] });
+      allowedMimeType: ['image/gif','image/jpeg','image/png','video/mp4','video/x-msvideo'] });
       
       this.uploader.onAfterAddingFile = function(item) {
         var fileExtension = '.' + item.file.name.split('.').pop();
