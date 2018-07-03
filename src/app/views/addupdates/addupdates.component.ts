@@ -81,6 +81,8 @@ export class AddupdatesComponent {
     		title: '',
     		description: '',
     		status: 'active',
+	        memberId: localStorage.getItem('currentUserId'),
+	        memberType: (localStorage.getItem('currentUserRole') == 'SALON' ? 'salon' : 'artist'),
     		created_on: new Date(),
     		updated_on: new Date()    		
     	}
