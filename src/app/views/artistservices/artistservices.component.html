@@ -1122,45 +1122,21 @@
                                       </div>
                                   </form>
                               </tab>
-                              <tab heading="GCC"> 
+                              <!-- <tab heading="GCC"> 
                                       <form autocomplete="off" class="form-horizontal ng-untouched ng-pristine ng-valid" novalidate="" #gccServiceForm="ngForm">
-                                      <!-- <div class="form-group row" *ngIf="microbladingservicesData[subservice.id] == ''">
-                                        <div class="col-md-6">
-                                    <label>Service type<span class="text-danger">*</span></label> 
-                                    <ng-select class="bootstrap"  name="servicetype"  placeholder="Select Service Type"
-                                     [options]="servicetypes" [multiple]="true" 
-                                     [(ngModel)]="data.servicetype" required></ng-select>
-                                  </div>
-                                    </div> -->
                                     <div *ngIf="microbladingservicesData[subservice.id]['gcc'] == ''"><div class="form-group row">
 
                                         <div class="col-md-6" >
                                           <label>DURATION</label>
                                           <select class="form-control" name="duration" [(ngModel)]="data.duration" required>
                                             <option value="">Duration</option>
-                                            <!-- <option value="15 mins">15 mins</option>
-                                            <option value="30 mins">30 mins</option>
-                                            <option value="45 mins">45 mins</option> -->
                                             <option value="1 hr">1 hr</option>
-                                            <!-- <option value="1 hr 15 mins">1 hr 15 mins</option>
-                                            <option value="1 hr 30 mins">1 hr 30 mins</option>
-                                            <option value="1 hr 45 mins">1 hr 45 mins</option> -->
                                             <option value="2 hrs">2 hrs</option>
-                                            <!-- <option value="2 hrs 15 mins">2 hrs 15 mins</option>
-                                            <option value="2 hrs 30 mins">2 hrs 30 mins</option>
-                                            <option value="2 hrs 45 mins">2 hrs 45 mins</option> -->
                                             <option value="3 hrs">3 hrs</option>
-                                            <!-- <option value="3 hrs 15 mins">3 hrs 15 mins</option>
-                                            <option value="3 hrs 30 mins">3 hrs 30 mins</option>
-                                            <option value="3 hrs 45 mins">3 hrs 45 mins</option> -->
                                             <option value="4 hrs">4 hrs</option>
                                             <option value="5 hrs">5 hrs</option>
-                                            <!-- <option value="6 hrs">6 hrs</option>
-                                            <option value="7 hrs">7 hrs</option>
-                                            <option value="8 hrs">8 hrs</option> -->
 
                                           </select>
-                                          <!-- <input class="form-control" name="duration" type="text"  [(ngModel)]="data.duration" placeholder="e.g. 12 mins OR 1 hrs"  > -->
                                         </div>
                                         <div class="col-md-6" >
                                             <label>PRICE</label>
@@ -1174,41 +1150,19 @@
                               </div> 
 
                               </div>
-                                       <!-- <div class="form-group row" *ngIf="microbladingservicesData[subservice.id] != ''">
-                                        <div class="col-md-6">
-                                    <label>Service type<span class="text-danger">*</span></label> 
-                                    <ng-select class="bootstrap"  name="servicetype"  placeholder="Select Service Type"  [options]="servicetypes" [multiple]="true" 
-                                     [(ngModel)]="microbladingservicesData[subservice.id].servicetype"  required></ng-select>
-                                  </div>
-                                    </div> -->
+                                      
                                    <div *ngIf="microbladingservicesData[subservice.id]['gcc'] != ''"> <div class="form-group row" >
                                         <div class="col-md-6">
                                           <label>DURATION </label>
                                           <select class="form-control" name="duration"  [(ngModel)]="microbladingservicesData[subservice.id]['gcc'].duration" required>
                                             <option value="">Duration</option>
-                                            <!-- <option value="15 mins">15 mins</option>
-                                            <option value="30 mins">30 mins</option>
-                                            <option value="45 mins">45 mins</option> -->
                                             <option value="1 hr">1 hr</option>
-                                            <!-- <option value="1 hr 15 mins">1 hr 15 mins</option>
-                                            <option value="1 hr 30 mins">1 hr 30 mins</option>
-                                            <option value="1 hr 45 mins">1 hr 45 mins</option> -->
                                             <option value="2 hrs">2 hrs</option>
-                                            <!-- <option value="2 hrs 15 mins">2 hrs 15 mins</option>
-                                            <option value="2 hrs 30 mins">2 hrs 30 mins</option>
-                                            <option value="2 hrs 45 mins">2 hrs 45 mins</option> -->
                                             <option value="3 hrs">3 hrs</option>
-                                            <!-- <option value="3 hrs 15 mins">3 hrs 15 mins</option>
-                                            <option value="3 hrs 30 mins">3 hrs 30 mins</option>
-                                            <option value="3 hrs 45 mins">3 hrs 45 mins</option> -->
                                             <option value="4 hrs">4 hrs</option>
                                             <option value="5 hrs">5 hrs</option>
-                                            <!-- <option value="6 hrs">6 hrs</option>
-                                            <option value="7 hrs">7 hrs</option>
-                                            <option value="8 hrs">8 hrs</option> -->
 
                                           </select>
-                                         <!--  <input class="form-control" name="duration" type="text"  [(ngModel)]="microbladingservicesData[subservice.id].duration" placeholder="e.g. 12 mins OR 1 hrs" value="{{microbladingservicesData[subservice.id].duration}}" > -->
                                         </div>
                                         <div class="col-md-6">
                                           <label>PRICE </label>
@@ -1229,7 +1183,7 @@
                                         </div>
                                       </div>
                                   </form>
-                              </tab>
+                              </tab> -->
                           </tabset>
                                 </div>
                               </div><!-- /.modal-content -->
@@ -1390,51 +1344,51 @@
                                   <option  value="8:45am">8:45am</option> -->
                                   <option  value="9:00am">9:00am</option>
                                   <!-- <option  value="9:15am">9:15am</option> -->
-                                  <option  value="9:30am">9:30am</option>
+                                 <!--  <option  value="9:30am">9:30am</option> -->
                                   <!-- <option  value="9:45am">9:45am</option> -->
                                   <option  value="10:00am">10:00am</option>
                                   <!-- <option  value="10:15am">10:15am</option> -->
-                                  <option  value="10:30am">10:30am</option>
+                                  <!-- <option  value="10:30am">10:30am</option> -->
                               <!--     <option value="10:45am">10:45am</option> -->
                                   <option  value="11:00am">11:00am</option>
                                  <!--  <option  value="11:15am">11:15am</option> -->
-                                  <option  value="11:30am">11:30am</option>
+                                  <!-- <option  value="11:30am">11:30am</option> -->
                                  <!--  <option  value="11:45am">11:45am</option> -->
                                   <option value="12:00pm">12:00pm</option>
                         <!--           <option value="12:15pm">12:15pm</option> -->
-                                  <option  value="12:30pm">12:30pm</option>
+                                  <!-- <option  value="12:30pm">12:30pm</option> -->
                                  <!--  <option  value="12:45pm">12:45pm</option> -->
                                   <option  value="1:00pm">1:00pm</option>
                          <!--          <option  value="1:15pm">1:15pm</option> -->
-                                  <option  value="1:30pm">1:30pm</option><!-- 
+                                  <!-- <option  value="1:30pm">1:30pm</option> --><!-- 
                                   <option  value="1:45pm">1:45pm</option> -->
                                   <option  value="2:00pm">2:00pm</option>
                               <!--     <option value="2:15pm">2:15pm</option> -->
-                                  <option  value="2:30pm">2:30pm</option>
+                                  <!-- <option  value="2:30pm">2:30pm</option> -->
                                  <!--  <option  value="2:45pm">2:45pm</option> -->
                                   <option  value="3:00pm">3:00pm</option>
                              <!--      <option  value="3:15pm">3:15pm</option> -->
-                                  <option  value="3:30pm">3:30pm</option>
+                                  <!-- <option  value="3:30pm">3:30pm</option> -->
                                  <!--  <option  value="3:45pm">3:45pm</option> -->
                                   <option  value="4:00pm">4:00pm</option>
                            <!--        <option  value="4:15pm">4:15pm</option> -->
-                                  <option  value="4:30pm">4:30pm</option>
+                                  <!-- <option  value="4:30pm">4:30pm</option> -->
                                 <!--   <option  value="4:45pm">4:45pm</option> -->
                                   <option  value="5:00pm">5:00pm</option>
                               <!--     <option  value="5:15pm">5:15pm</option> -->
-                                  <option  value="5:30pm">5:30pm</option>
+                               <!--    <option  value="5:30pm">5:30pm</option> -->
                                  <!--  <option  value="5:45pm">5:45pm</option> -->
                                   <option  value="6:00pm">6:00pm</option>
                                 <!--   <option  value="6:15pm">6:15pm</option> -->
-                                  <option  value="6:30pm">6:30pm</option>
+                                 <!--  <option  value="6:30pm">6:30pm</option> -->
                                <!--    <option  value="6:45pm">6:45pm</option> -->
                                   <option  value="7:00pm">7:00pm</option>
                                   <!-- <option  value="7:15pm">7:15pm</option> -->
-                                  <option  value="7:30pm">7:30pm</option>
+                                  <!-- <option  value="7:30pm">7:30pm</option> -->
                       <!--             <option  value="7:45pm">7:45pm</option> -->
                                   <option  value="8:00pm">8:00pm</option>
                                   <!-- <option  value="8:15pm">8:15pm</option> -->
-                                  <option  value="8:30pm">8:30pm</option>
+                                  <!-- <option  value="8:30pm">8:30pm</option> -->
                           <!--         <option  value="8:45pm">8:45pm</option> -->
                                   <option  value="9:00pm">9:00pm</option>
                                   <!-- <option  value="9:15pm">9:15pm</option>
@@ -1455,7 +1409,7 @@
                                             <!-- <timepicker [(ngModel)]="coursedetail.timeslotTo" (change)="changed()" [hourStep]="hstep" [minuteStep]="mstep" [showMeridian]="ismeridian" required [readonlyInput]="!isEnabled"></timepicker> -->
                                             <select class="form-control" name="oursetimeslotTo" [(ngModel)]="coursedetail.timeslotTo" required >
                                   <option value=''>To</option>
-                                 <!-- <option value="12:00am">12:00am</option>
+                                  <!-- <option value="12:00am">12:00am</option>
                                   <option value="12:15am">12:15am</option>
                                   <option  value="12:30am">12:30am</option>
                                   <option  value="12:45am">12:45am</option>
@@ -1493,51 +1447,51 @@
                                   <option  value="8:45am">8:45am</option> -->
                                   <option  value="9:00am">9:00am</option>
                                   <!-- <option  value="9:15am">9:15am</option> -->
-                                  <option  value="9:30am">9:30am</option>
+                                 <!--  <option  value="9:30am">9:30am</option> -->
                                   <!-- <option  value="9:45am">9:45am</option> -->
                                   <option  value="10:00am">10:00am</option>
                                   <!-- <option  value="10:15am">10:15am</option> -->
-                                  <option  value="10:30am">10:30am</option>
+                                  <!-- <option  value="10:30am">10:30am</option> -->
                               <!--     <option value="10:45am">10:45am</option> -->
                                   <option  value="11:00am">11:00am</option>
                                  <!--  <option  value="11:15am">11:15am</option> -->
-                                  <option  value="11:30am">11:30am</option>
+                                  <!-- <option  value="11:30am">11:30am</option> -->
                                  <!--  <option  value="11:45am">11:45am</option> -->
                                   <option value="12:00pm">12:00pm</option>
                         <!--           <option value="12:15pm">12:15pm</option> -->
-                                  <option  value="12:30pm">12:30pm</option>
+                                  <!-- <option  value="12:30pm">12:30pm</option> -->
                                  <!--  <option  value="12:45pm">12:45pm</option> -->
                                   <option  value="1:00pm">1:00pm</option>
                          <!--          <option  value="1:15pm">1:15pm</option> -->
-                                  <option  value="1:30pm">1:30pm</option><!-- 
+                                  <!-- <option  value="1:30pm">1:30pm</option> --><!-- 
                                   <option  value="1:45pm">1:45pm</option> -->
                                   <option  value="2:00pm">2:00pm</option>
                               <!--     <option value="2:15pm">2:15pm</option> -->
-                                  <option  value="2:30pm">2:30pm</option>
+                                  <!-- <option  value="2:30pm">2:30pm</option> -->
                                  <!--  <option  value="2:45pm">2:45pm</option> -->
                                   <option  value="3:00pm">3:00pm</option>
                              <!--      <option  value="3:15pm">3:15pm</option> -->
-                                  <option  value="3:30pm">3:30pm</option>
+                                  <!-- <option  value="3:30pm">3:30pm</option> -->
                                  <!--  <option  value="3:45pm">3:45pm</option> -->
                                   <option  value="4:00pm">4:00pm</option>
                            <!--        <option  value="4:15pm">4:15pm</option> -->
-                                  <option  value="4:30pm">4:30pm</option>
+                                  <!-- <option  value="4:30pm">4:30pm</option> -->
                                 <!--   <option  value="4:45pm">4:45pm</option> -->
                                   <option  value="5:00pm">5:00pm</option>
                               <!--     <option  value="5:15pm">5:15pm</option> -->
-                                  <option  value="5:30pm">5:30pm</option>
+                               <!--    <option  value="5:30pm">5:30pm</option> -->
                                  <!--  <option  value="5:45pm">5:45pm</option> -->
                                   <option  value="6:00pm">6:00pm</option>
                                 <!--   <option  value="6:15pm">6:15pm</option> -->
-                                  <option  value="6:30pm">6:30pm</option>
+                                 <!--  <option  value="6:30pm">6:30pm</option> -->
                                <!--    <option  value="6:45pm">6:45pm</option> -->
                                   <option  value="7:00pm">7:00pm</option>
                                   <!-- <option  value="7:15pm">7:15pm</option> -->
-                                  <option  value="7:30pm">7:30pm</option>
+                                  <!-- <option  value="7:30pm">7:30pm</option> -->
                       <!--             <option  value="7:45pm">7:45pm</option> -->
                                   <option  value="8:00pm">8:00pm</option>
                                   <!-- <option  value="8:15pm">8:15pm</option> -->
-                                  <option  value="8:30pm">8:30pm</option>
+                                  <!-- <option  value="8:30pm">8:30pm</option> -->
                           <!--         <option  value="8:45pm">8:45pm</option> -->
                                   <option  value="9:00pm">9:00pm</option>
                                   <!-- <option  value="9:15pm">9:15pm</option>
@@ -1746,7 +1700,7 @@
 
                                     <select class="form-control" name="timeslotFrom" [(ngModel)]="course.timeslotFrom" required >
                           <option value=''>From</option>
-                         <!-- <option value="12:00am">12:00am</option>
+                          <!-- <option value="12:00am">12:00am</option>
                                   <option value="12:15am">12:15am</option>
                                   <option  value="12:30am">12:30am</option>
                                   <option  value="12:45am">12:45am</option>
@@ -1784,51 +1738,51 @@
                                   <option  value="8:45am">8:45am</option> -->
                                   <option  value="9:00am">9:00am</option>
                                   <!-- <option  value="9:15am">9:15am</option> -->
-                                  <option  value="9:30am">9:30am</option>
+                                 <!--  <option  value="9:30am">9:30am</option> -->
                                   <!-- <option  value="9:45am">9:45am</option> -->
                                   <option  value="10:00am">10:00am</option>
                                   <!-- <option  value="10:15am">10:15am</option> -->
-                                  <option  value="10:30am">10:30am</option>
+                                  <!-- <option  value="10:30am">10:30am</option> -->
                               <!--     <option value="10:45am">10:45am</option> -->
                                   <option  value="11:00am">11:00am</option>
                                  <!--  <option  value="11:15am">11:15am</option> -->
-                                  <option  value="11:30am">11:30am</option>
+                                  <!-- <option  value="11:30am">11:30am</option> -->
                                  <!--  <option  value="11:45am">11:45am</option> -->
                                   <option value="12:00pm">12:00pm</option>
                         <!--           <option value="12:15pm">12:15pm</option> -->
-                                  <option  value="12:30pm">12:30pm</option>
+                                  <!-- <option  value="12:30pm">12:30pm</option> -->
                                  <!--  <option  value="12:45pm">12:45pm</option> -->
                                   <option  value="1:00pm">1:00pm</option>
                          <!--          <option  value="1:15pm">1:15pm</option> -->
-                                  <option  value="1:30pm">1:30pm</option><!-- 
+                                  <!-- <option  value="1:30pm">1:30pm</option> --><!-- 
                                   <option  value="1:45pm">1:45pm</option> -->
                                   <option  value="2:00pm">2:00pm</option>
                               <!--     <option value="2:15pm">2:15pm</option> -->
-                                  <option  value="2:30pm">2:30pm</option>
+                                  <!-- <option  value="2:30pm">2:30pm</option> -->
                                  <!--  <option  value="2:45pm">2:45pm</option> -->
                                   <option  value="3:00pm">3:00pm</option>
                              <!--      <option  value="3:15pm">3:15pm</option> -->
-                                  <option  value="3:30pm">3:30pm</option>
+                                  <!-- <option  value="3:30pm">3:30pm</option> -->
                                  <!--  <option  value="3:45pm">3:45pm</option> -->
                                   <option  value="4:00pm">4:00pm</option>
                            <!--        <option  value="4:15pm">4:15pm</option> -->
-                                  <option  value="4:30pm">4:30pm</option>
+                                  <!-- <option  value="4:30pm">4:30pm</option> -->
                                 <!--   <option  value="4:45pm">4:45pm</option> -->
                                   <option  value="5:00pm">5:00pm</option>
                               <!--     <option  value="5:15pm">5:15pm</option> -->
-                                  <option  value="5:30pm">5:30pm</option>
+                               <!--    <option  value="5:30pm">5:30pm</option> -->
                                  <!--  <option  value="5:45pm">5:45pm</option> -->
                                   <option  value="6:00pm">6:00pm</option>
                                 <!--   <option  value="6:15pm">6:15pm</option> -->
-                                  <option  value="6:30pm">6:30pm</option>
+                                 <!--  <option  value="6:30pm">6:30pm</option> -->
                                <!--    <option  value="6:45pm">6:45pm</option> -->
                                   <option  value="7:00pm">7:00pm</option>
                                   <!-- <option  value="7:15pm">7:15pm</option> -->
-                                  <option  value="7:30pm">7:30pm</option>
+                                  <!-- <option  value="7:30pm">7:30pm</option> -->
                       <!--             <option  value="7:45pm">7:45pm</option> -->
                                   <option  value="8:00pm">8:00pm</option>
                                   <!-- <option  value="8:15pm">8:15pm</option> -->
-                                  <option  value="8:30pm">8:30pm</option>
+                                  <!-- <option  value="8:30pm">8:30pm</option> -->
                           <!--         <option  value="8:45pm">8:45pm</option> -->
                                   <option  value="9:00pm">9:00pm</option>
                                   <!-- <option  value="9:15pm">9:15pm</option>
@@ -1890,51 +1844,51 @@
                                   <option  value="8:45am">8:45am</option> -->
                                   <option  value="9:00am">9:00am</option>
                                   <!-- <option  value="9:15am">9:15am</option> -->
-                                  <option  value="9:30am">9:30am</option>
+                                 <!--  <option  value="9:30am">9:30am</option> -->
                                   <!-- <option  value="9:45am">9:45am</option> -->
                                   <option  value="10:00am">10:00am</option>
                                   <!-- <option  value="10:15am">10:15am</option> -->
-                                  <option  value="10:30am">10:30am</option>
+                                  <!-- <option  value="10:30am">10:30am</option> -->
                               <!--     <option value="10:45am">10:45am</option> -->
                                   <option  value="11:00am">11:00am</option>
                                  <!--  <option  value="11:15am">11:15am</option> -->
-                                  <option  value="11:30am">11:30am</option>
+                                  <!-- <option  value="11:30am">11:30am</option> -->
                                  <!--  <option  value="11:45am">11:45am</option> -->
                                   <option value="12:00pm">12:00pm</option>
                         <!--           <option value="12:15pm">12:15pm</option> -->
-                                  <option  value="12:30pm">12:30pm</option>
+                                  <!-- <option  value="12:30pm">12:30pm</option> -->
                                  <!--  <option  value="12:45pm">12:45pm</option> -->
                                   <option  value="1:00pm">1:00pm</option>
                          <!--          <option  value="1:15pm">1:15pm</option> -->
-                                  <option  value="1:30pm">1:30pm</option><!-- 
+                                  <!-- <option  value="1:30pm">1:30pm</option> --><!-- 
                                   <option  value="1:45pm">1:45pm</option> -->
                                   <option  value="2:00pm">2:00pm</option>
                               <!--     <option value="2:15pm">2:15pm</option> -->
-                                  <option  value="2:30pm">2:30pm</option>
+                                  <!-- <option  value="2:30pm">2:30pm</option> -->
                                  <!--  <option  value="2:45pm">2:45pm</option> -->
                                   <option  value="3:00pm">3:00pm</option>
                              <!--      <option  value="3:15pm">3:15pm</option> -->
-                                  <option  value="3:30pm">3:30pm</option>
+                                  <!-- <option  value="3:30pm">3:30pm</option> -->
                                  <!--  <option  value="3:45pm">3:45pm</option> -->
                                   <option  value="4:00pm">4:00pm</option>
                            <!--        <option  value="4:15pm">4:15pm</option> -->
-                                  <option  value="4:30pm">4:30pm</option>
+                                  <!-- <option  value="4:30pm">4:30pm</option> -->
                                 <!--   <option  value="4:45pm">4:45pm</option> -->
                                   <option  value="5:00pm">5:00pm</option>
                               <!--     <option  value="5:15pm">5:15pm</option> -->
-                                  <option  value="5:30pm">5:30pm</option>
+                               <!--    <option  value="5:30pm">5:30pm</option> -->
                                  <!--  <option  value="5:45pm">5:45pm</option> -->
                                   <option  value="6:00pm">6:00pm</option>
                                 <!--   <option  value="6:15pm">6:15pm</option> -->
-                                  <option  value="6:30pm">6:30pm</option>
+                                 <!--  <option  value="6:30pm">6:30pm</option> -->
                                <!--    <option  value="6:45pm">6:45pm</option> -->
                                   <option  value="7:00pm">7:00pm</option>
                                   <!-- <option  value="7:15pm">7:15pm</option> -->
-                                  <option  value="7:30pm">7:30pm</option>
+                                  <!-- <option  value="7:30pm">7:30pm</option> -->
                       <!--             <option  value="7:45pm">7:45pm</option> -->
                                   <option  value="8:00pm">8:00pm</option>
                                   <!-- <option  value="8:15pm">8:15pm</option> -->
-                                  <option  value="8:30pm">8:30pm</option>
+                                  <!-- <option  value="8:30pm">8:30pm</option> -->
                           <!--         <option  value="8:45pm">8:45pm</option> -->
                                   <option  value="9:00pm">9:00pm</option>
                                   <!-- <option  value="9:15pm">9:15pm</option>

@@ -20,7 +20,7 @@
           <table class="table table-striped" [mfData]="updates | dataFilter : filterQuery" #mf="mfDataTable" [mfRowsOnPage]="10">
             <thead >
               <tr>
-                <th><mfDefaultSorter by="title">Title</mfDefaultSorter></th>
+                <!-- <th><mfDefaultSorter by="title">Title</mfDefaultSorter></th> -->
                 <th><mfDefaultSorter by="description">Description</mfDefaultSorter></th>
                 <th><mfDefaultSorter by="created_on">Updated Date</mfDefaultSorter></th>
                 <th>Action</th>
@@ -31,7 +31,7 @@
                 <td colspan="10">No Updates</td>
               </tr>
               <tr *ngFor="let update of mf.data" >
-                <td>{{update.title}}</td>
+                <!-- <td>{{update.title}}</td> -->
                 <td>{{update.description}}</td>
                 <td>{{update.updated_on}}</td>
                 <td>

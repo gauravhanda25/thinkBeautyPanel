@@ -180,8 +180,7 @@ export class AddstaffComponent {
 		
 		  this.http.get(API_URL+'/FileStorages?filter={"where":{"filePath":"/Containers/'+localStorage.getItem('currentUserId')+'","uploadType":"profile","status":"active"}}&access_token='+ localStorage.getItem('currentUserToken'), options)
         .subscribe(response => {
-			console.log(response.json());  
-			
+			console.log(response.json()); 
 			
 				if(response.json().length == 0){
 					this.checkVal = 0;
