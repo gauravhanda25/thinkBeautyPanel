@@ -16,6 +16,9 @@
                 <button class="btn btn-sm btn-primary" (click)="removeAttachment(images)"><span class="fa fa-trash"></span></button>
               </div>
             </div>
+            <div *ngIf = "mainImages.length == 0">
+              No Images Uploaded.
+            </div>
           </div>
         </div>
       </div>

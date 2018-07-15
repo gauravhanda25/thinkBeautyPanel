@@ -5,6 +5,7 @@
           <form autocomplete="off" class="form-horizontal ng-untouched ng-pristine ng-valid" novalidate="" (ngSubmit)="onSubmit()" #adminForm="ngForm" *ngIf="userrole == 'admin'">
                 <div class="card-header">                                    
                     <span >Edit Admin </span>
+                    <a href="#" routerLink="/dashboard" class="btn btn-sm btn-primary pull-right">Cancel</a>
                 </div>
                 <div class="card-body">  
                     <div class="form-group row">
@@ -163,6 +164,7 @@
             <form autocomplete="off" class="form-horizontal ng-untouched ng-pristine ng-valid" novalidate="" (ngSubmit)="onSubmit()" #artistForm="ngForm" *ngIf="userrole == 'artist'">
                 <div class="card-header">                                    
                     <span >Edit Artist </span>
+                    <a href="#" routerLink="/dashboard" class="btn btn-sm btn-primary pull-right">Cancel</a>
                 </div>
                 <div class="card-body">  
                     <div class="form-group row">
@@ -342,6 +344,7 @@
               <form autocomplete="off" class="form-horizontal ng-untouched ng-pristine ng-valid" novalidate="" (ngSubmit)="onSubmit()" #salonForm="ngForm" *ngIf = "userrole == 'salon'">
                 <div class="card-header">                                    
                     <span>Edit Salon</span>
+                    <a href="#" routerLink="/dashboard" class="btn btn-sm btn-primary pull-right">Cancel</a>
                 </div>
                 <div class="card-body">  
                     <div class="form-group row">
