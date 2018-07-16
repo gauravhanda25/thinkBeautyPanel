@@ -119,14 +119,14 @@
                   <td><span style="text-transform: capitalize;">{{serviceDetails.name}}</span></td> 
                   <td>{{bookingDetails.currency}} {{serviceDetails.price}}</td>
                   <td>{{serviceDetails.persons}}</td>
-                  <td>{{serviceDetails.price + bookingDetails.commission}} </td>
+                  <td>{{bookingDetails.currency}} {{serviceDetails.price + ((serviceDetails.price * bookingDetails.commission)/100)}} </td>
                 </tr>
               </table>
             </td>
           </tr>
           <tr>
             <td>Commission</td>
-            <td>{{bookingDetails.commission}}</td>            
+            <td>{{bookingDetails.commission}}%</td>            
           </tr>
           <tr>
             <td>Total Price</td>
@@ -146,11 +146,11 @@
           </tr>
           <tr *ngIf="bookingDetails?.amountPaid">
             <td>Amount Paid</td>            
-            <td>{{bookingDetails?.amountPaid}}</td>
+            <td>{{bookingDetails.currency}} {{bookingDetails?.amountPaid}}</td>
           </tr>
           <tr *ngIf="bookingDetails?.amountRemaining">
             <td>Amount Remaining</td>            
-            <td>{{bookingDetails?.amountRemaining}}</td>
+            <td>{{bookingDetails.currency}} {{bookingDetails?.amountRemaining}}</td>
           </tr>
           <tr>
             <td>Customer Name</td>
