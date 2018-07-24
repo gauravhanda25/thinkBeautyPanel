@@ -47,6 +47,10 @@ export const routes: Routes = [
         loadChildren: './views/forgot/forgot.module#ForgotModule'
       },
       {
+        path: 'resetpassword/:id/:token/:source',
+        loadChildren: './views/resetpwd/resetpwd.module#ResetpwdModule'
+      },
+      {
         path: 'resetpassword/:id/:token',
         loadChildren: './views/resetpwd/resetpwd.module#ResetpwdModule'
       },

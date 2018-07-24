@@ -23,7 +23,7 @@ export class ResetpwdComponent {
   	private data: any;
   	private id: any;
   	private token: any;
-
+  	private source: any;
 
     private toasterService: ToasterService;
 
@@ -46,6 +46,8 @@ export class ResetpwdComponent {
 	    this.activatedRoute.params.subscribe((params) => {
 	        this.id = params.id;
 	        this.token = params.token;
+	        this.source = params.source;
+	        console.log(this.source);
 	    });
 
 	  }
@@ -59,7 +61,11 @@ export class ResetpwdComponent {
 		  	this.http.post(API_URL+'/Members/reset-password' +'?access_token='+ this.token, this.data)
 	        .subscribe(response => {   
 	            this.toasterService.clear();	this.toasterService.pop('success', 'Success', "Password Reset Successfully.");
-	     		this.router.navigate(['/']);
+	            if(this.source == undefined) {
+	     			this.router.navigate(['/']);
+	            } else {
+
+	            }
           	}, error => {
           		console.log(JSON.stringify(error.json()));
 				if(error.json().isTrusted){
