@@ -124,7 +124,8 @@ export class AddgalleryComponent {
             memberType: (localStorage.getItem('currentUserRoleId') == "2" ? "artist" : "salon"),
             filePath: '/Containers/'+this.loggedInUserId,
             fileName: item.file.name,
-            uploadType: 'gallery' ,       
+            uploadType: 'gallery' ,    
+            fileType: (item.file.type == 'video/mp4' || item.file.type == 'video/x-msvideo') ? 'video' : 'image',      
             status: 'active',  
             created_by: this.loggedInUserId
           }

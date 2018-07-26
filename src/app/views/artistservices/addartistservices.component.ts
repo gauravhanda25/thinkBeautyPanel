@@ -748,6 +748,8 @@ export class AddartistservicesComponent {
         options.headers.append('Accept', 'application/json');
 
 
+        this.course.name = this.course.name.charAt(0).toUpperCase() + this.course.name.slice(1);
+        this.course.description =  this.course.description.charAt(0).toUpperCase() + this.course.description.slice(1);
       
       if(new Date(this.am_pm_to_hours(this.course.timeslotFrom)) > new Date(this.am_pm_to_hours(this.course.timeslotTo)) && this.course.timeslotFrom != '' && this.course.timeslotTo != '') {
           $('.preloader').hide(); 
@@ -886,6 +888,8 @@ export class AddartistservicesComponent {
         options.headers.append('Content-Type', 'application/json');
         options.headers.append('Accept', 'application/json');
 
+        course.name = course.name.charAt(0).toUpperCase() + course.name.slice(1);
+        course.description =  course.description.charAt(0).toUpperCase() + course.description.slice(1);
            
       if(new Date(this.am_pm_to_hours(course.timeslotFrom)) > new Date(this.am_pm_to_hours(course.timeslotTo)) && course.timeslotFrom != '' && course.timeslotTo != '') {
           $('.preloader').hide(); 

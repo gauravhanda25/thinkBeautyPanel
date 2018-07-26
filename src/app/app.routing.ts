@@ -534,6 +534,18 @@ export const routes: Routes = [
         loadChildren: './views/profile/profile.module#ProfileModule'
       },
       {
+        path: 'setting',
+        component: FullLayoutComponent,        
+        canActivate: [NgxPermissionsGuard],
+        data: {
+          permissions: {
+            only: ['ADMIN','ARTIST','SALON'],
+            except: 'GUEST'
+          }
+        },
+        loadChildren: './views/setting/setting.module#SettingModule'
+      },
+      {
         path: 'lifetimeRevenue',
         component: FullLayoutComponent,        
         canActivate: [NgxPermissionsGuard],

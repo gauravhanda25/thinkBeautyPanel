@@ -74,7 +74,7 @@ private memberType:any;
       	options.headers.append('Content-Type', 'application/json');
       	options.headers.append('Accept', 'application/json'); 
 
-       	this.http.get(API_URL+'/FileStorages?filter={"where":{"and":[{"memberType":"'+this.memberType+'"},{"or":[{"uploadType":"gallery"}]},{"memberId":"'+this.loggedInUserId+'"},{"status":"active"}]}}&access_token='+ localStorage.getItem('currentUserToken'), options)
+       	this.http.get(API_URL+'/FileStorages?filter={"where":{"and":[{"memberType":"'+this.memberType+'"},{"uploadType":"gallery"},{"memberId":"'+this.loggedInUserId+'"},{"status":"active"}]}}&access_token='+ localStorage.getItem('currentUserToken'), options)
         .subscribe(storageRes => {
 	       console.log(this.galleryImages = storageRes.json());
 	     }, error => {

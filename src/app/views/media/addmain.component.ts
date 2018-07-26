@@ -116,7 +116,8 @@ private memberType:any;
                 memberType: (localStorage.getItem('currentUserRoleId') == "2" ? "artist" : "salon"),
                 filePath: '/Containers/'+this.loggedInUserId,
                 fileName: item.file.name,
-                uploadType: 'main' ,       
+                uploadType: 'main' ,  
+                fileType: 'image',     
                 status: 'active',  
                 created_by: this.loggedInUserId
               }

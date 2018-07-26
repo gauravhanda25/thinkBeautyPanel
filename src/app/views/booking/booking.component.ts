@@ -31,6 +31,7 @@ export class BookingComponent {
     private bookingDetails:any = [];
     private countries:any;
     private countryFilter:any = '';
+    private userRole:any;
 
     private toasterService: ToasterService;
 
@@ -73,6 +74,7 @@ export class BookingComponent {
 
         const reqUrl = this.router.url;
         if(localStorage.getItem('currentUserRoleId') != "1") {
+            this.userRole = 'artist';
             if(reqUrl === '/bookings/upcoming')  {
                  
                  this.use_url = API_URL+'/Bookings?filter={"where":{"and":[{"bookingDate":{"gte":"'+new Date()+'"}},{"artistId":"'+localStorage.getItem('currentUserId')+'"}]},"include":[{"relation":"members", "scope":{"include":{"relation":"countries"}}},{"relation":"artists", "scope":{"include":{"relation":"countries"}}}],"order":"created DESC"}&access_token='+localStorage.getItem('currentUserToken');
@@ -84,6 +86,7 @@ export class BookingComponent {
                  this.use_url = API_URL+'/Bookings?filter={"where":{"and":[{"bookingStatus":"cancelled"},{"artistId":"'+localStorage.getItem('currentUserId')+'"}]},"include":[{"relation":"members","scope":{"include":{"relation":"countries"}}},{"relation":"artists", "scope":{"include":{"relation":"countries"}}}],"order":"created DESC"}&access_token=' +localStorage.getItem('currentUserToken');
             }
         } else {
+            this.userRole = 'admin';
 
             if(reqUrl === '/bookings/upcoming')  {
                  
@@ -221,6 +224,7 @@ export class BookingComponent {
             console.log(response.json());       
             this.bookingDetails = response.json();  
             this.bookingDetails.bookingDate = moment(this.bookingDetails.bookingDate).format('DD MMMM YYYY');
+            this.bookingDetails.created = moment(this.bookingDetails.created).format('DD MMMM YYYY');
 
             this.http.get(API_URL+'/Commissions?filter={"where":{"price":"all"}}&access_token='+ localStorage.getItem('currentUserToken'), options)
             .subscribe(commissionRes => { 0;

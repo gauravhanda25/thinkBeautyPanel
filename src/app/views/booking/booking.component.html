@@ -108,7 +108,7 @@
           <tr>
             <td>Service Details</td>
             <td>
-              <table class="table">
+              <table class="table" *ngIf="userRole == 'admin'">
                 <tr>
                   <th>Service Name</th>          
                   <th>Service Price with Currency</th> 
@@ -122,15 +122,23 @@
                   <td>{{bookingDetails.currency}} {{serviceDetails.price + ((serviceDetails.price * bookingDetails.commission)/100)}} </td>
                 </tr>
               </table>
+              <table class="table" *ngIf="userRole == 'artist'">
+                <tr>
+                  <th>Service Name</th>          
+                  <th>Service Price</th> 
+                  <th>Number of persons</th> 
+                </tr>
+                <tr *ngFor="let serviceDetails of bookingDetails.artistSubServiceDetails">                 
+                  <td><span style="text-transform: capitalize;">{{serviceDetails.name}}</span></td> 
+                  <td>{{bookingDetails.currency}} {{serviceDetails.price}}</td>
+                  <td>{{serviceDetails.persons}}</td>
+                </tr>
+              </table>
             </td>
           </tr>
-          <tr>
+          <tr *ngIf="userRole == 'admin'">
             <td>Commission</td>
             <td>{{bookingDetails.commission}}%</td>            
-          </tr>
-          <tr>
-            <td>Total Price</td>
-            <td></td>            
           </tr>
           <tr>
             <td>Flight Charges</td>            
@@ -142,7 +150,8 @@
           </tr>
           <tr>
             <td>Discounted Price</td>            
-            <td></td>
+            <td *ngIf="!bookingDetails?.voucherId">0</td>
+            <td *ngIf="bookingDetails?.voucherId">{{bookingDetails.currency}} {{bookingDetails?.amountPaid}}</td>
           </tr>
           <tr *ngIf="bookingDetails?.amountPaid">
             <td>Amount Paid</td>            
@@ -164,7 +173,7 @@
             <td>Customer Phone</td>
             <td>{{bookingDetails?.members?.mobile}}</td>
           </tr>
-          <tr>
+          <tr *ngIf="userRole == 'admin'">
             <td>Booking Address</td>
             <td>{{bookingDetails?.address}}</td>
           </tr>
