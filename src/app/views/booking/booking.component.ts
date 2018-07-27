@@ -153,7 +153,7 @@ export class BookingComponent {
         if(localStorage.getItem('currentUserRoleId') != "1") {
             if(reqUrl === '/bookings/upcoming')  {
                  
-                 this.use_url = API_URL+'/Bookings?filter={"where":{"and":[{"bookingDate":{"gte":"'+new Date()+'"}},{"artistId":"'+localStorage.getItem('currentUserId')+'"}]},"include":[{"relation":"members", "scope":{'+countryInWhere+'include":{"relation":"countries"}}},{"relation":"artists", "scope":{'+countryInWhere+'"include":{"relation":"countries"}}}],"order":"created DESC"}&access_token='+localStorage.getItem('currentUserToken');
+                 this.use_url = API_URL+'/Bookings?filter={"where":{"and":[{"bookingDate":{"gte":"'+new Date()+'"}},{"artistId":"'+localStorage.getItem('currentUserId')+'"}]},"include":[{"relation":"members", "scope":{'+countryInWhere+'"include":{"relation":"countries"}}},{"relation":"artists", "scope":{'+countryInWhere+'"include":{"relation":"countries"}}}],"order":"created DESC"}&access_token='+localStorage.getItem('currentUserToken');
 
             } else if(reqUrl === '/bookings/previous') {
                  

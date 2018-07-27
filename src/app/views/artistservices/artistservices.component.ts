@@ -145,6 +145,8 @@ export class ArtistservicesComponent {
     private microbladingAsProfesion:any = 0;
 
     private serviceActive:any;
+
+    public imageDeleted:any = 0;
 	  
     private datePickerConfig: Partial<BsDatepickerConfig>;
     
@@ -434,8 +436,9 @@ export class ArtistservicesComponent {
       );
       console.log(typeof location[0].location, location[0].location, location)
       this.userSettings.inputString = location[0].location;
-      this.userSettings = Object.assign({},this.userSettings)
-      modal.show()
+      this.userSettings = Object.assign({},this.userSettings);
+      this.imageDeleted = 0;
+      modal.show();
     }
 
   	getAllArtistData(){
@@ -779,7 +782,7 @@ export class ArtistservicesComponent {
 
       for(let i=0; i<this.coursesData.length; i++) {
 
-        if((moment(this.course.startfrom).isBefore(moment(this.coursesData[i].startfrom)) && moment(this.course.endon).isBefore(moment(this.coursesData[i].startfrom))) || (moment(this.course.endon).isAfter(moment(this.coursesData[i].endon)) && moment(this.course.startfrom).isAfter( moment(this.coursesData[i].endon)))) {
+        if(((moment(this.course.startfrom).isBefore(moment(this.coursesData[i].startfrom)) && moment(this.course.endon).isBefore(moment(this.coursesData[i].startfrom))) || (moment(this.course.endon).isAfter(moment(this.coursesData[i].endon)) && moment(this.course.startfrom).isAfter( moment(this.coursesData[i].endon)))) && ((new Date(this.am_pm_to_hours(this.course.timeslotFrom)) <= new Date(this.am_pm_to_hours(this.coursesData[i].timeslotFrom)) && new Date(this.am_pm_to_hours(this.course.timeslotTo)) <= new Date(this.am_pm_to_hours(this.coursesData[i].timeslotFrom))) || (new Date(this.am_pm_to_hours(this.course.timeslotFrom)) >= new Date(this.am_pm_to_hours(this.coursesData[i].timeslotTo)) && new Date(this.am_pm_to_hours(this.course.timeslotTo)) >= new Date(this.am_pm_to_hours(this.coursesData[i].timeslotTo))))) {
 
         } else {
           $('.preloader').hide(); 
@@ -905,6 +908,13 @@ export class ArtistservicesComponent {
         course.name = course.name.charAt(0).toUpperCase() + course.name.slice(1);
         course.description =  course.description.charAt(0).toUpperCase() + course.description.slice(1);
 
+        if(this.imageDeleted == 1) {
+          this.removeAttachment(course.images[0]);
+          $('.preloader').hide(); 
+          this.toasterService.clear();  this.toasterService.pop('error', 'Error', "Please select the Course Image"); 
+          return;  
+        }
+
       if(new Date(this.am_pm_to_hours(course.timeslotFrom)) > new Date(this.am_pm_to_hours(course.timeslotTo)) && course.timeslotFrom != '' && course.timeslotTo != '') {
         $('.preloader').hide(); 
         this.toasterService.clear();	this.toasterService.pop('error', 'Time invalid', "Course end time should always be greater than start time"); 
@@ -921,7 +931,7 @@ export class ArtistservicesComponent {
 
       for(let i=0; i<this.coursesData.length; i++) {
       
-        if(((moment(course.startfrom).isBefore(moment(this.coursesData[i].startfrom)) && moment(course.endon).isBefore(moment(this.coursesData[i].startfrom))) || (moment(course.endon).isAfter(moment(this.coursesData[i].endon)) && moment(course.startfrom).isAfter( moment(this.coursesData[i].endon))) && course.id != this.coursesData[i].id) || course.id == this.coursesData[i].id) {
+        if(((moment(course.startfrom).isBefore(moment(this.coursesData[i].startfrom)) && moment(course.endon).isBefore(moment(this.coursesData[i].startfrom))) || (moment(course.endon).isAfter(moment(this.coursesData[i].endon)) && moment(course.startfrom).isAfter( moment(this.coursesData[i].endon))) && ((new Date(this.am_pm_to_hours(course.timeslotFrom)) <= new Date(this.am_pm_to_hours(this.coursesData[i].timeslotFrom)) && new Date(this.am_pm_to_hours(course.timeslotTo)) <= new Date(this.am_pm_to_hours(this.coursesData[i].timeslotFrom))) || (new Date(this.am_pm_to_hours(course.timeslotFrom)) >= new Date(this.am_pm_to_hours(this.coursesData[i].timeslotTo)) && new Date(this.am_pm_to_hours(course.timeslotTo)) >= new Date(this.am_pm_to_hours(this.coursesData[i].timeslotTo)))) && course.id != this.coursesData[i].id) || course.id == this.coursesData[i].id) {
 
         } else {
           $('.preloader').hide(); 
@@ -1134,6 +1144,11 @@ export class ArtistservicesComponent {
 
   }
 
+  deleteImageOnUpdate(file){
+    this.imageDeleted = 1;
+  }
+
+
   removeAttachment(file) {
     console.log(file);
      let options = new RequestOptions();
@@ -1151,8 +1166,9 @@ export class ArtistservicesComponent {
               this.toasterService.clear();	this.toasterService.pop('success', 'Success ', "Gallery Uploaded file "+file.fileName+" deleted successfully.");
 
              this.photoexist = 0;
+             this.imageDeleted = 0;
 
-              this.getAllArtistCourseData();
+              // this.getAllArtistCourseData();
 
           }, error => {
               console.log(JSON.stringify(error.json()));

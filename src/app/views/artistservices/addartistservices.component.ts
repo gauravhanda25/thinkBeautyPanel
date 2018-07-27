@@ -133,6 +133,8 @@ export class AddartistservicesComponent {
     private serviceActive:any = 0;
     private cancelServiceUrl:any = '/myservices';
 
+    public imageDeleted:any = 0;
+
 
     constructor(private NgxRolesService: NgxRolesService, private NgxPermissionsService: NgxPermissionsService, @Inject(Http) private http: Http, @Inject(Router)private router:Router, private activatedRoute: ActivatedRoute,toasterService: ToasterService) {
 		//console.log(localStorage.getItem('currentUserRoleId'));
@@ -769,7 +771,7 @@ export class AddartistservicesComponent {
 
       for(let i=0; i<this.coursesData.length; i++) {
       
-       if((moment(this.course.startfrom).isBefore(moment(this.coursesData[i].startfrom)) && moment(this.course.endon).isBefore(moment(this.coursesData[i].startfrom))) || (moment(this.course.endon).isAfter(moment(this.coursesData[i].endon)) && moment(this.course.startfrom).isAfter( moment(this.coursesData[i].endon)))) {
+       if(((moment(this.course.startfrom).isBefore(moment(this.coursesData[i].startfrom)) && moment(this.course.endon).isBefore(moment(this.coursesData[i].startfrom))) || (moment(this.course.endon).isAfter(moment(this.coursesData[i].endon)) && moment(this.course.startfrom).isAfter( moment(this.coursesData[i].endon)))) && ((new Date(this.am_pm_to_hours(this.course.timeslotFrom)) <= new Date(this.am_pm_to_hours(this.coursesData[i].timeslotFrom)) && new Date(this.am_pm_to_hours(this.course.timeslotTo)) <= new Date(this.am_pm_to_hours(this.coursesData[i].timeslotFrom))) || (new Date(this.am_pm_to_hours(this.course.timeslotFrom)) >= new Date(this.am_pm_to_hours(this.coursesData[i].timeslotTo)) && new Date(this.am_pm_to_hours(this.course.timeslotTo)) >= new Date(this.am_pm_to_hours(this.coursesData[i].timeslotTo))))) {
 
 
 
@@ -891,6 +893,16 @@ export class AddartistservicesComponent {
         course.name = course.name.charAt(0).toUpperCase() + course.name.slice(1);
         course.description =  course.description.charAt(0).toUpperCase() + course.description.slice(1);
            
+
+        if(this.imageDeleted == 1) {
+          this.removeAttachment(course.images[0]);
+          $('.preloader').hide(); 
+          this.toasterService.clear();  this.toasterService.pop('error', 'Error', "Please select the Course Image"); 
+          return;  
+        }
+
+
+
       if(new Date(this.am_pm_to_hours(course.timeslotFrom)) > new Date(this.am_pm_to_hours(course.timeslotTo)) && course.timeslotFrom != '' && course.timeslotTo != '') {
           $('.preloader').hide(); 
           this.toasterService.clear();	this.toasterService.pop('error', 'Time invalid', "Course end time should always be greater than start time"); 
@@ -908,7 +920,7 @@ export class AddartistservicesComponent {
 
       for(let i=0; i<this.coursesData.length; i++) {
       
-        if(((moment(course.startfrom).isBefore(moment(this.coursesData[i].startfrom)) && moment(course.endon).isBefore(moment(this.coursesData[i].startfrom))) || (moment(course.endon).isAfter(moment(this.coursesData[i].endon)) && moment(course.startfrom).isAfter( moment(this.coursesData[i].endon))) && course.id != this.coursesData[i].id) || course.id == this.coursesData[i].id) {
+       if(((moment(course.startfrom).isBefore(moment(this.coursesData[i].startfrom)) && moment(course.endon).isBefore(moment(this.coursesData[i].startfrom))) || (moment(course.endon).isAfter(moment(this.coursesData[i].endon)) && moment(course.startfrom).isAfter( moment(this.coursesData[i].endon))) && ((new Date(this.am_pm_to_hours(course.timeslotFrom)) <= new Date(this.am_pm_to_hours(this.coursesData[i].timeslotFrom)) && new Date(this.am_pm_to_hours(course.timeslotTo)) <= new Date(this.am_pm_to_hours(this.coursesData[i].timeslotFrom))) || (new Date(this.am_pm_to_hours(course.timeslotFrom)) >= new Date(this.am_pm_to_hours(this.coursesData[i].timeslotTo)) && new Date(this.am_pm_to_hours(course.timeslotTo)) >= new Date(this.am_pm_to_hours(this.coursesData[i].timeslotTo)))) && course.id != this.coursesData[i].id) || course.id == this.coursesData[i].id) {
 
         } else {
           $('.preloader').hide(); 
@@ -1115,7 +1127,12 @@ export class AddartistservicesComponent {
 
   }
 
-  removeAttachment(file){
+  deleteImageOnUpdate(file){
+    this.imageDeleted = 1;
+  }
+
+
+  removeAttachment(file) {
     console.log(file);
      let options = new RequestOptions();
       options.headers = new Headers();
@@ -1129,20 +1146,22 @@ export class AddartistservicesComponent {
           this.http.post(API_URL+'/FileStorages/update?where={"id":"'+file.id+'"}&access_token='+ localStorage.getItem('currentUserToken'), {"status":"inactive"}, options)
           .subscribe(findres => {
 
-              this.toasterService.clear();	this.toasterService.pop('success', 'Success ', "Gallery Uploaded file "+file.fileName+" deleted successfully.");
+              this.toasterService.clear();  this.toasterService.pop('success', 'Success ', "Gallery Uploaded file "+file.fileName+" deleted successfully.");
 
              this.photoexist = 0;
+             this.imageDeleted = 0;
 
-              this.getAllArtistCourseData();
+              // this.getAllArtistCourseData();
 
           }, error => {
               console.log(JSON.stringify(error.json()));
           });
       }, error => {
-            this.toasterService.clear();	this.toasterService.pop('error', 'Error ',  "Gallery Uploaded file "+file.fileName+" deletion failed.");
+            this.toasterService.clear();  this.toasterService.pop('error', 'Error ',  "Gallery Uploaded file "+file.fileName+" deletion failed.");
           console.log(JSON.stringify(error.json()));
       });
   }
+  
 
 
 }

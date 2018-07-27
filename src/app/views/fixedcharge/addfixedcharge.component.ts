@@ -30,6 +30,7 @@ export class AddfixedchargeComponent {
   	private countries:any;
  	private currency:any = localStorage.getItem('currentUserCurrency');
 	private toasterService: ToasterService;
+	public oldcountry:any = '';
 
     public toasterconfig : ToasterConfig =
       new ToasterConfig({
@@ -113,6 +114,7 @@ export class AddfixedchargeComponent {
 	    	this.http.get(API_URL+'/Fixedcharges/'+ this.editparam.id +'?access_token='+ localStorage.getItem('currentUserToken'), options)
 	        .subscribe(response => {
 	        	this.data = response.json();
+	        	this.oldcountry = response.json().country;
 	        	this.editparam.action = "edit";
 		    }, error => {
 		        console.log(JSON.stringify(error.json()));
@@ -129,36 +131,63 @@ export class AddfixedchargeComponent {
         options.headers.append('Accept', 'application/json');
 
 		if(this.editparam.id  == undefined){
-			console.log(this.data);
-			this.http.post(API_URL+'/Fixedcharges?access_token='+localStorage.getItem('currentUserToken'), this.data,  options)
-			.subscribe(response => {
-				
-				var toast: Toast = {
-				type: 'success',
-				title: 'Success',
-				body: "Fixed charge added successfully.",
-				onHideCallback: (toast) => this.router.navigate(['fixedcharge'])  
-			  };
-			   
-			  this.toasterService.clear();	this.toasterService.pop(toast);		
-				   
-			}, error => {
-				console.log(JSON.stringify(error.json()));
-			});
-			
-		} else {
-		
-			this.http.post(API_URL+'/Fixedcharges/update?where=%7B%22id%22%3A%22'+  this.editparam.id +'%22%7D&access_token='+ localStorage.getItem('currentUserToken'), this.data,  options)
+			this.http.get(API_URL+'/Fixedcharges?filter={"where":{"country":"'+this.data.country+'","memberId":"'+this.data.memberId+'","active":{"neq":0}}}&access_token='+ localStorage.getItem('currentUserToken'), options)
 	        .subscribe(response => {
-	        
-				var toast: Toast = {
-				type: 'success',
-				title: 'Success',
-				body: "Fixed charge updated successfully.",
-				onHideCallback: (toast) => this.router.navigate(['fixedcharge'])  
-			  };
-			   
-			  this.toasterService.clear();	this.toasterService.pop(toast);	
+	        	if(response.json().length == 0) {    
+					this.http.post(API_URL+'/Fixedcharges?access_token='+localStorage.getItem('currentUserToken'), this.data,  options)
+					.subscribe(response => {
+						
+						var toast: Toast = {
+						type: 'success',
+						title: 'Success',
+						body: "Fixed charge added successfully.",
+						onHideCallback: (toast) => this.router.navigate(['fixedcharge'])  
+					  };
+					   
+					  this.toasterService.clear();	this.toasterService.pop(toast);		
+						   
+					}, error => {
+						console.log(JSON.stringify(error.json()));
+					});
+			
+	        	} else {
+	        		this.toasterService.clear();	this.toasterService.pop('error', 'Error ',  "Fixed charge is already added for the selected country.");
+	          	}
+		    }, error => {
+		        console.log(JSON.stringify(error.json()));
+		    });
+
+		} else {
+			let filter:any;
+			console.log(this.data.country ,this.oldcountry);
+			if(this.data.country == this.oldcountry) {
+				filter = '';
+			} else {
+				filter= 'filter={"where":{"country":"'+this.data.country+'","memberId":"'+this.data.memberId+'","active":{"neq":0}}}&';
+			}
+
+
+			this.http.get(API_URL+'/Fixedcharges?'+filter+'access_token='+ localStorage.getItem('currentUserToken'), options)
+	        .subscribe(response => {
+	        	console.log(response.json());
+	        	if(response.json().length == 0 ||  this.data.country == this.oldcountry) { 
+					this.http.post(API_URL+'/Fixedcharges/update?where=%7B%22id%22%3A%22'+  this.editparam.id +'%22%7D&access_token='+ localStorage.getItem('currentUserToken'), this.data,  options)
+			        .subscribe(response => {
+			        
+						var toast: Toast = {
+						type: 'success',
+						title: 'Success',
+						body: "Fixed charge updated successfully.",
+						onHideCallback: (toast) => this.router.navigate(['fixedcharge'])  
+					  };
+					   
+					  this.toasterService.clear();	this.toasterService.pop(toast);	
+				    }, error => {
+				        console.log(JSON.stringify(error.json()));
+				    });
+				} else {
+	        		this.toasterService.clear();	this.toasterService.pop('error', 'Error ',  "Fixed charge is already added for the selected country.");
+	          	}
 		    }, error => {
 		        console.log(JSON.stringify(error.json()));
 		    });

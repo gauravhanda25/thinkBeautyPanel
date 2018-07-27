@@ -47,6 +47,8 @@ export class AddstaffComponent {
 	private proilefiles: any;
 	public uploader:FileUploader;
 
+	public imageDeleted:any = 0;
+
   	private toasterService: ToasterService;
 
     public toasterconfig : ToasterConfig =
@@ -230,6 +232,10 @@ export class AddstaffComponent {
         options.headers.append('Accept', 'application/json');
 		
 
+        if(this.imageDeleted == 1) {
+          this.removeEventAttachment(this.proilefiles);
+        }
+
 		this.data.role_id = parseInt(this.data.role_id);
 		
 		if(this.data.password == '') {
@@ -286,7 +292,7 @@ export class AddstaffComponent {
              }
 
 
-				this.toasterService.clear();	this.toasterService.pop('success', 'Success ', "Profile updated successfully.");	
+				this.toasterService.pop('success', 'Success ', "Profile updated successfully.");	
            	
 	    }, error => {
 	    	if(error.json().error.statusCode == "422") {
@@ -300,6 +306,11 @@ export class AddstaffComponent {
 
 	}
 
+	 deleteImageOnUpdate(file){
+	    this.imageDeleted = 1;
+	  }
+
+
 	removeEventAttachment(file){
 		console.log(file);
 		 let options = new RequestOptions();
@@ -312,13 +323,15 @@ export class AddstaffComponent {
 		.subscribe(response => {
 		  console.log(response.json());
 		  this.checkVal = 0;
-		  this.toasterService.clear();	this.toasterService.pop('success', 'Success ', "Profile image file "+file.fileName+" deleted successfully.");
+          this.imageDeleted = 0;
+		  this.toasterService.pop('success', 'Success ', "Profile image file "+file.fileName+" deleted successfully.");
 
 		  
 		  this.http.delete(API_URL+'/FileStorages/'+  file.id + '?access_token='+localStorage.getItem('currentUserToken'), options)
 	      .subscribe(response => {
 	        console.log(response.json());
 	        this.checkVal = 0;
+             this.imageDeleted = 0;
 	      }, error => {
 	          this.toasterService.clear();	this.toasterService.pop('error', 'Error ',  "Profile image file "+file.fileName+" deletion failed.");
 	        console.log(JSON.stringify(error.json()));
