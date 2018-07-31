@@ -59,7 +59,7 @@ export class UpdatesComponent {
         options.headers.append('Accept', 'application/json');
        
 
-        this.http.get(API_URL+'/Updates?filter={"where":{"memberId":"'+localStorage.getItem('currentUserId')+'"},"order":"updated_on DESC"}&access_token=' + localStorage.getItem('currentUserToken'), options)
+        this.http.get(API_URL+'/Updates?filter={"where":{"artistId":"'+localStorage.getItem('currentUserId')+'"},"order":"updated_on DESC"}&access_token=' + localStorage.getItem('currentUserToken'), options)
         .subscribe(response => {
             console.log(response.json());       
 
