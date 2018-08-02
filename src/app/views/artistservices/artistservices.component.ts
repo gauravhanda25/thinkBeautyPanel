@@ -302,6 +302,13 @@ export class ArtistservicesComponent {
     	this.getAllArtistCourseData();
   	}
 
+    subtabSelected(){
+      this.data = {
+        price:'',
+        duration:''
+      }
+    }
+
     emptyCourseForm(){
       this.course = { 
         name: '',       
@@ -398,8 +405,8 @@ export class ArtistservicesComponent {
 
           for(let index in this.coursesData) {
             this.coursedetaildata[this.coursesData[index].id] = [];
-            this.coursedetaildata[this.coursesData[index].id].startfrom = moment(this.coursesData[index].startfrom ).format('DD MMMM YYYY');
-            this.coursedetaildata[this.coursesData[index].id].endon = moment(this.coursesData[index].endon ).format('DD MMMM YYYY');
+            this.coursedetaildata[this.coursesData[index].id].startfrom = moment(this.coursesData[index].startfrom ).format('DD MMM YYYY');
+            this.coursedetaildata[this.coursesData[index].id].endon = moment(this.coursesData[index].endon ).format('DD MMM YYYY');
 
            /*this.userSettings.inputString = this.coursesData[index].location;
            console.log(this.userSettings.inputString);
@@ -799,11 +806,11 @@ export class ArtistservicesComponent {
         return;        
       } 
 
-      if(this.uploader.queue.length == 0){
+     /* if(this.uploader.queue.length == 0){
         $('.preloader').hide(); 
           this.toasterService.clear();	this.toasterService.pop('error', 'Error', "Please select the Course Image"); 
          return;    
-      }
+      }*/
 
       this.course.location =  this.locationSelected;
       this.course.latitude = this.latSelected;
@@ -910,9 +917,9 @@ export class ArtistservicesComponent {
 
         if(this.imageDeleted == 1) {
           this.removeAttachment(course.images[0]);
-          $('.preloader').hide(); 
+          /*$('.preloader').hide(); 
           this.toasterService.clear();  this.toasterService.pop('error', 'Error', "Please select the Course Image"); 
-          return;  
+          return;*/  
         }
 
       if(new Date(this.am_pm_to_hours(course.timeslotFrom)) > new Date(this.am_pm_to_hours(course.timeslotTo)) && course.timeslotFrom != '' && course.timeslotTo != '') {
@@ -966,11 +973,11 @@ export class ArtistservicesComponent {
         loc_countryVal = course.countrySelected;
       }
 
-       if(this.uploader.queue.length == 0 && course.images.length == 0){
+      /* if(this.uploader.queue.length == 0 && course.images.length == 0){
         $('.preloader').hide(); 
           this.toasterService.clear();	this.toasterService.pop('error', 'Error', "Please select the Course Image"); 
          return;    
-      }  
+      }  */
 
 
       //alert(this.locationSelected);

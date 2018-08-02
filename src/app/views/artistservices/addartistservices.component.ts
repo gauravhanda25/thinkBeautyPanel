@@ -301,6 +301,13 @@ export class AddartistservicesComponent {
         this.servicetypes = [...this.servicetypes];
   	}
 
+    subtabSelected(){
+      this.data = {
+        price:'',
+        duration:''
+      }
+    }
+
     emptyCourseForm(){
       this.course = { 
         name: '',       
@@ -395,8 +402,8 @@ export class AddartistservicesComponent {
         		this.coursesData = r.json();
             for(let index in this.coursesData) {
               this.coursedetaildata[this.coursesData[index].id] = [];
-              this.coursedetaildata[this.coursesData[index].id].startfrom = moment(this.coursesData[index].startfrom ).format('DD MMMM YYYY');
-              this.coursedetaildata[this.coursesData[index].id].endon = moment(this.coursesData[index].endon ).format('DD MMMM YYYY');
+              this.coursedetaildata[this.coursesData[index].id].startfrom = moment(this.coursesData[index].startfrom ).format('DD MMM YYYY');
+              this.coursedetaildata[this.coursesData[index].id].endon = moment(this.coursesData[index].endon ).format('DD MMM YYYY');
 
             /*   this.userSettings.inputString = this.coursesData[index].location;
             console.log(this.userSettings.inputString);
@@ -791,12 +798,12 @@ export class AddartistservicesComponent {
         return;        
       } 
 
-       if(this.uploader.queue.length == 0){
+      /* if(this.uploader.queue.length == 0){
         $('.preloader').hide(); 
           this.toasterService.clear();	this.toasterService.pop('error', 'Error', "Please select the Course Image"); 
          return;    
       }  
-
+*/
       this.course.location =  this.locationSelected;
       this.course.latitude = this.latSelected;
       this.course.longitude = this.lngSelected;
@@ -896,9 +903,9 @@ export class AddartistservicesComponent {
 
         if(this.imageDeleted == 1) {
           this.removeAttachment(course.images[0]);
-          $('.preloader').hide(); 
+          /*$('.preloader').hide(); 
           this.toasterService.clear();  this.toasterService.pop('error', 'Error', "Please select the Course Image"); 
-          return;  
+          return; */ 
         }
 
 
@@ -954,11 +961,11 @@ export class AddartistservicesComponent {
         loc_countryVal = course.countrySelected;
       }
 
-       if(this.uploader.queue.length == 0  && course.images.length == 0){
+    /*   if(this.uploader.queue.length == 0  && course.images.length == 0){
         $('.preloader').hide(); 
           this.toasterService.clear();	this.toasterService.pop('error', 'Error', "Please select the Course Image"); 
          return;    
-      }  
+      }  */
 
       course.startfrom = moment(course.startfrom).utcOffset(0).set({hour:0,minute:0,second:0,millisecond:0}).toISOString();
       course.endon = moment(course.endon).utcOffset(0).set({hour:0,minute:0,second:0,millisecond:0}).toISOString();

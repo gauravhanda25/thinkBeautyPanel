@@ -49,7 +49,7 @@
                 <td>{{booking?.members?.fullName}}</td>
                 <td>{{booking?.members?.countries?.name}}</td>
                 <td>{{booking?.members?.mobile}}</td>
-                <td>{{booking?.bookingDate}}</td>
+                <td>{{booking?.bookingDate}}  {{booking?.bookingStartTime}}</td>
                 <td>{{booking?.created}}</td>
                 <td>       
                   <button class="btn btn-sm btn-outline-primary " data-toggle="modal" (click)="getBookingData(booking.id); bookingModal.show(); " ><i class="fa fa-eye"></i> </button>

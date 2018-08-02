@@ -56,7 +56,7 @@
 	                              </div>
 	                              <div class="card-body" style="border-top:1px solid #c2cfd6;"> 
 	                              	<tabset>
-                						<tab heading="Home"> 
+                						<tab heading="Home" (select)="subtabSelected()"> 
 			                              	<form autocomplete="off" class="form-horizontal ng-untouched ng-pristine ng-valid" novalidate="" #homeServiceForm="ngForm">
 			                              	<!-- <div class="form-group row" *ngIf="makeupservicesData[subservice.id] == ''">
 				                                <div class="col-md-6">
@@ -159,7 +159,7 @@
 			                                </div>
 			                            </form>
 			                        </tab>
-			                        <tab heading="Salon"> 
+			                        <tab heading="Salon" (select)="subtabSelected()"> 
 			                              	<form autocomplete="off" class="form-horizontal ng-untouched ng-pristine ng-valid" novalidate="" #salonServiceForm="ngForm">
 			                              	<!-- <div class="form-group row" *ngIf="makeupservicesData[subservice.id] == ''">
 				                                <div class="col-md-6">
@@ -264,7 +264,7 @@
 			                                </div>
 			                            </form>
 			                        </tab>
-			                        <tab heading="GCC"> 
+			                        <tab heading="GCC" (select)="subtabSelected()"> 
 			                              	<form autocomplete="off" class="form-horizontal ng-untouched ng-pristine ng-valid" novalidate="" #gccServiceForm="ngForm">
 			                              	<!-- <div class="form-group row" *ngIf="makeupservicesData[subservice.id] == ''">
 				                                <div class="col-md-6">
@@ -567,7 +567,7 @@
 	                              </div>
 	                              <div class="card-body" style="border-top:1px solid #c2cfd6;"> 
 	                              	<tabset>
-                						<tab heading="Home"> 
+                						<tab heading="Home" (select)="subtabSelected()"> 
 			                              	<form autocomplete="off" class="form-horizontal ng-untouched ng-pristine ng-valid" novalidate="" #homeServiceForm="ngForm">
 				                            <div *ngIf="hairservicesData[subservice.id]['home'] == ''"><div class="form-group row" >
 
@@ -654,7 +654,7 @@
 			                                </div>
 			                            </form>
 			                        </tab>
-			                        <tab heading="Salon"> 
+			                        <tab heading="Salon" (select)="subtabSelected()"> 
 			                              	<form autocomplete="off" class="form-horizontal ng-untouched ng-pristine ng-valid" novalidate="" #salonServiceForm="ngForm">
 				                            <div *ngIf="hairservicesData[subservice.id]['salon'] == ''"><div class="form-group row">
 
@@ -742,7 +742,7 @@
 			                                </div>
 			                            </form>
 			                        </tab>
-			                        <tab heading="GCC"> 
+			                        <tab heading="GCC" (select)="subtabSelected()"> 
 			                              	<form autocomplete="off" class="form-horizontal ng-untouched ng-pristine ng-valid" novalidate="" #gccServiceForm="ngForm">
 				                            <div *ngIf="hairservicesData[subservice.id]['gcc'] == ''"><div class="form-group row">
 
@@ -889,7 +889,7 @@
 	                              </div>
 	                              <div class="card-body" style="border-top:1px solid #c2cfd6;"> 
 	                              	<tabset>
-                						<tab heading="Home"> 
+                						<tab heading="Home" (select)="subtabSelected()"> 
 			                              	<form autocomplete="off" class="form-horizontal ng-untouched ng-pristine ng-valid" novalidate="" #homeServiceForm="ngForm">
 			                              	<!-- <div class="form-group row" *ngIf="microbladingservicesData[subservice.id] == ''">
 				                                <div class="col-md-6">
@@ -993,7 +993,7 @@
 			                                </div>
 			                            </form>
 			                        </tab>
-			                        <tab heading="Salon"> 
+			                        <tab heading="Salon" (select)="subtabSelected()"> 
 			                              	<form autocomplete="off" class="form-horizontal ng-untouched ng-pristine ng-valid" novalidate="" #salonServiceForm="ngForm">
 			                              	<!-- <div class="form-group row" *ngIf="microbladingservicesData[subservice.id] == ''">
 				                                <div class="col-md-6">
@@ -1166,21 +1166,23 @@
               		</tab>
               		<tab heading = "Courses" *ngIf = "loginUserRole == 'artist' || loginUserRole == 'salon'" (select)="tabSelected('course')">
                     <div class="form-group row"><div class="col-md-12"><button type="button" class="btn btn-sm btn-primary pull-right" data-toggle="modal" (click)="emptyCourseForm();courseModal.show()"><span class="fa fa-plus"></span> Add New Course</button></div></div>
+					
+					<div *ngIf="nousers == 0">No Courses Records</div>
 
-                    <table class="table table-striped" [mfData]="coursesData | dataFilter : filterQuery" #mf="mfDataTable" [mfRowsOnPage]="10" style="    margin: 0 -1.7rem;">
+                    <table *ngIf="nousers != 0" class="table table-striped" [mfData]="coursesData | dataFilter : filterQuery" #mf="mfDataTable" [mfRowsOnPage]="10" style="    margin: 0 -1.7rem;">
                       <thead >
                         <tr>
                           <th style="width:10%;"><mfDefaultSorter by="name">Course Image</mfDefaultSorter></th>
                           <th><mfDefaultSorter by="name">Course Name</mfDefaultSorter></th>
-                          <th style="width:15%;"><mfDefaultSorter by="price">Price</mfDefaultSorter></th>
+                          <th><mfDefaultSorter by="price">Price</mfDefaultSorter></th>
                           <th><mfDefaultSorter by="description">Description</mfDefaultSorter></th>
                           <th><mfDefaultSorter by="startfrom">Start From</mfDefaultSorter></th>
                           <th><mfDefaultSorter by="endon">End On</mfDefaultSorter></th>
                           <th><mfDefaultSorter by="location">Location</mfDefaultSorter></th>
-                          <th style="width:25%;"><mfDefaultSorter by="timeslotFrom">Time</mfDefaultSorter></th>
+                          <th><mfDefaultSorter by="timeslotFrom">Time</mfDefaultSorter></th>
                           <th ><mfDefaultSorter by="guestno">No. of Guests</mfDefaultSorter></th>
                           <th ><mfDefaultSorter by="courseType">Course Type</mfDefaultSorter></th>
-                          <th  style="width:15%;">Action</th>
+                          <th>Action</th>
                         </tr>
                       </thead>
                       <tbody> 
@@ -1197,7 +1199,7 @@
                           <td>{{coursedetail.location}}</td>
                           <td>{{coursedetail.timeslotFrom}} - {{coursedetail.timeslotTo}}</td>
                           <td>{{coursedetail.guestno}}</td>
-                          <td>{{coursedetail.courseType}}</td>
+                          <td style="text-transform: capitalize;">{{coursedetail.courseType}}</td>
                           <td>
                             <button class="btn btn-sm btn-outline-primary" type="button"  data-toggle="modal" (click)="prefillLocation(coursedetail.id, updateCourseModal)"  ><span class="fa fa-pencil"></span></button>
                                 <button class="btn btn-sm btn-outline-primary" type="button" (click)="delcoursedata(coursedetail.id)" ><span class="fa fa-trash"></span></button>
