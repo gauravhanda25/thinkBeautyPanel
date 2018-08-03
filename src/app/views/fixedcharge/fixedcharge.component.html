@@ -32,7 +32,7 @@
                 <td colspan="7">No fixed charge records</td>
               </tr>
               <tr *ngFor="let fixedcharge of mf.data">
-                <td>{{fixedcharge.fixedcharge}}</td>
+                <td>{{currency}} {{fixedcharge.fixedcharge}}</td>
                 <td>{{fixedcharge.countries.name}}</td>
                 <td>{{fixedcharge.created_on}}</td>
               

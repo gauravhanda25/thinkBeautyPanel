@@ -42,7 +42,7 @@
           </div>
           <div class="row mb-3">
             <div class="col-md-12 pull-right">
-              <h4 class="pull-right">Total Revenue: {{total_revenue}}</h4>
+              <h4 class="pull-right">Total Revenue: {{currency}} {{total_revenue}}</h4>
             </div>
           </div>
           <div class="table-responsive">
@@ -51,16 +51,11 @@
               <tr>
                 <th><mfDefaultSorter by="">Customer Name</mfDefaultSorter></th>   
                 <th><mfDefaultSorter by="">Customer Country</mfDefaultSorter></th>
-                <th><mfDefaultSorter by="">Artist Name</mfDefaultSorter></th>
                 <th><mfDefaultSorter by="">Service Name</mfDefaultSorter></th>
                 <th><mfDefaultSorter by="">Service Type</mfDefaultSorter></th>
                 <th><mfDefaultSorter by="">Service Price</mfDefaultSorter></th>
-                <th><mfDefaultSorter by="">Admin Commission</mfDefaultSorter></th>
                 <th><mfDefaultSorter by="">Booking Date</mfDefaultSorter></th>   
                 <th><mfDefaultSorter by="">Total amount paid by user</mfDefaultSorter></th>
-                <th><mfDefaultSorter by="">Payment Gateway Charges</mfDefaultSorter></th>
-                <th><mfDefaultSorter by="">Total amount received by admin</mfDefaultSorter></th>
-                <th><mfDefaultSorter by="">Net Profit</mfDefaultSorter></th>    
                 <th><mfDefaultSorter by="">Created On</mfDefaultSorter></th>
                 <!-- <th>Action</th> -->
               </tr>
@@ -72,16 +67,11 @@
               <tr *ngFor="let revenue of mf.data" >
                 <td>{{revenue?.members?.fullName}}</td>
                 <td>{{revenue?.members?.countries?.name}}</td> 
-                <td>{{revenue?.artists?.name}}</td>
                 <td>{{revenue.service}}</td>
                 <td>{{revenue.serviceType}}</td> 
                 <td>{{revenue.currency}} {{revenue?.totalServicePrice}} </td>
-                <td>{{revenue.currency}}  {{revenue.commission}}</td>
                 <td>{{revenue.bookingDate}}</td>
-                <td>{{revenue.currency}} {{revenue?.totalServicePrice + revenue.commission}} </td>
-                <td> N/A </td>
-                <td>{{revenue.currency}} {{revenue?.totalServicePrice + revenue.commission}} </td>
-                <td>{{revenue.currency}}  {{revenue.commission}}</td>                
+                <td>{{revenue.currency}} {{revenue?.totalServicePrice }} </td>             
                 <td>{{revenue.created}}</td>
                 <!-- <td>       
                   <button class="btn btn-sm btn-outline-primary " data-toggle="modal" (click)="getRevenueData(revenue.id); revenueModal.show(); " ><i class="fa fa-eye"></i> </button>

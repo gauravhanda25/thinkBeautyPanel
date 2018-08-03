@@ -25,6 +25,7 @@ export class FixedchargeComponent {
   	private fixedcharges: any;
     private delparam: any;
 	private nocr: any;
+ 	private currency:any = localStorage.getItem('currentUserCurrency');
 
 	private toasterService: ToasterService;
     public toasterconfig : ToasterConfig =

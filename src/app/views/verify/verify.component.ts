@@ -46,7 +46,7 @@ export class VerifyComponent {
 		        console.log(response.json());
 	     		this.error = 0;
 	     		this.success = 1;
-				this.router.navigate(['artist']);
+				// this.router.navigate(['artist']);
 					
           	}, error => {
           		this.error = 1;

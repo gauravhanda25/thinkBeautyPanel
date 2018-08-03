@@ -32,7 +32,8 @@
                 <th><mfDefaultSorter by="service">Service</mfDefaultSorter></th>                
                 <th><mfDefaultSorter by="members.fullName">Customer Name</mfDefaultSorter></th>
                 <th><mfDefaultSorter by="members.countries.name">Customer Country</mfDefaultSorter></th>
-                <th><mfDefaultSorter by="members.mobile">Customer Phone</mfDefaultSorter></th>
+                <th><mfDefaultSorter by="bookingStartTime">Customer Phone</mfDefaultSorter></th>
+                <th><mfDefaultSorter by="bookingDate">Booking Time</mfDefaultSorter></th>
                 <th><mfDefaultSorter by="bookingDate">Date of Appointment</mfDefaultSorter></th>
                 <th><mfDefaultSorter by="created">Date of Booking</mfDefaultSorter></th>
                 <th>Action</th>
@@ -49,7 +50,8 @@
                 <td>{{booking?.members?.fullName}}</td>
                 <td>{{booking?.members?.countries?.name}}</td>
                 <td>{{booking?.members?.mobile}}</td>
-                <td>{{booking?.bookingDate}}  {{booking?.bookingStartTime}}</td>
+                <td>{{booking?.bookingStartTime}}</td>
+                <td>{{booking?.bookingDate}}</td>
                 <td>{{booking?.created}}</td>
                 <td>       
                   <button class="btn btn-sm btn-outline-primary " data-toggle="modal" (click)="getBookingData(booking.id); bookingModal.show(); " ><i class="fa fa-eye"></i> </button>
@@ -176,6 +178,10 @@
           <tr *ngIf="userRole == 'admin'">
             <td>Booking Address</td>
             <td>{{bookingDetails?.address}}</td>
+          </tr>
+          <tr>
+            <td>Booking Time</td>
+            <td>{{bookingDetails?.bookingStartTime}}</td>
           </tr>
           <tr>
             <td>Date of Appointment</td>

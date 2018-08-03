@@ -771,8 +771,8 @@ export class ArtistservicesComponent {
         options.headers.append('Content-Type', 'application/json');
         options.headers.append('Accept', 'application/json');
 
-        this.course.name = this.course.name.charAt(0).toUpperCase() + this.course.name.slice(1);
-        this.course.description =  this.course.description.charAt(0).toUpperCase() + this.course.description.slice(1);
+        this.course.name = this.course.name.charAt(0).toUpperCase() + this.course.name.slice(1).toLowerCase();
+        this.course.description =  this.course.description.charAt(0).toUpperCase() + this.course.description.slice(1).toLowerCase();
    
       if(new Date(this.am_pm_to_hours(this.course.timeslotFrom)) > new Date(this.am_pm_to_hours(this.course.timeslotTo)) && this.course.timeslotFrom != '' && this.course.timeslotTo != '') {
           $('.preloader').hide(); 
@@ -912,8 +912,8 @@ export class ArtistservicesComponent {
       options.headers.append('Content-Type', 'application/json');
       options.headers.append('Accept', 'application/json');
    
-        course.name = course.name.charAt(0).toUpperCase() + course.name.slice(1);
-        course.description =  course.description.charAt(0).toUpperCase() + course.description.slice(1);
+        course.name = course.name.charAt(0).toUpperCase() + course.name.slice(1).toLowerCase();
+        course.description =  course.description.charAt(0).toUpperCase() + course.description.slice(1).toLowerCase();
 
         if(this.imageDeleted == 1) {
           this.removeAttachment(course.images[0]);

@@ -38,6 +38,8 @@ export class LifetimerevenueComponent {
     private years:any = [];
     private months:any = [];
     private total_revenue:any = 0;
+    
+    private currency:any = localStorage.getItem('currentUserCurrency');
 
 
     public bsStartValue = new Date();
