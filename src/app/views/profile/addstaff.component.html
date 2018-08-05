@@ -99,9 +99,9 @@
               </div>
             </div>
             <div class="form-group row">
-                      <div class="col-md-4" *ngIf="checkVal == 0">
+                      <div class="col-md-4" *ngIf="checkVal == 0 || imageDeleted == 1">
                         <label>Upload Profile Picture</label>
-                        <input type="file" ng2FileSelect [uploader]="uploader" accept=".png,.jpg,.jpeg"/><br/>
+                        <input type="file" ng2FileSelect [uploader]="uploader" accept=".png,.jpg,.jpeg" multiple/><br/>
                       </div>
                       <div class="col-md-8 pull-right" >                         
                         <table class="table col-6">
@@ -113,7 +113,7 @@
                           </thead>
                           <tbody>
                
-                           <tr *ngIf="checkVal == 1">
+                           <tr *ngIf="checkVal == 1 && imageDeleted == 0">
                               <td><img src="{{api_url}}{{proilefiles.filePath}}/download/{{proilefiles.fileName}}" style="width:30%"/></td>
                               <td nowrap>
                                 <!--<button type="button" class="btn btn-success btn-sm" (click)="downloadEventAttachment(file,eventdata.id[index-1])">
@@ -279,9 +279,9 @@
               </div>
             </div>
             <div class="form-group row">
-                      <div class="col-md-4" *ngIf="checkVal == 0">
+                      <div class="col-md-4" *ngIf="checkVal == 0 || imageDeleted == 1">
                         <label>Upload Profile Picture</label>
-                        <input type="file" ng2FileSelect [uploader]="uploader" accept=".png,.jpg,.jpeg"/><br/>
+                        <input type="file" ng2FileSelect [uploader]="uploader" accept=".png,.jpg,.jpeg" multiple/><br/>
                       </div>
                       <div class="col-md-8 pull-right" >                         
                         <table class="table col-6">
@@ -293,7 +293,7 @@
                           </thead>
                           <tbody>
                
-                           <tr *ngIf="checkVal == 1">
+                           <tr *ngIf="checkVal == 1 && imageDeleted == 0">
                               <td><img src="{{api_url}}{{proilefiles.filePath}}/download/{{proilefiles.fileName}}" style="width:30%"/></td>
                               <td nowrap>
                                 <!--<button type="button" class="btn btn-success btn-sm" (click)="downloadEventAttachment(file,eventdata.id[index-1])">
@@ -449,9 +449,9 @@
               </div>
             </div>
             <div class="form-group row">
-                      <div class="col-md-4" *ngIf="checkVal == 0">
+                      <div class="col-md-4" *ngIf="checkVal == 0 || imageDeleted == 1">
                         <label>Upload Profile Picture</label>
-                        <input type="file" ng2FileSelect [uploader]="uploader" accept=".png,.jpg,.jpeg"/><br/>
+                        <input type="file" ng2FileSelect [uploader]="uploader" accept=".png,.jpg,.jpeg" multiple/><br/>
                       </div>
                       <div class="col-md-8 pull-right" >                         
                         <table class="table col-6">
@@ -463,7 +463,7 @@
                           </thead>
                           <tbody>
                
-                           <tr *ngIf="checkVal == 1">
+                           <tr *ngIf="checkVal == 1 && imageDeleted == 0">
                               <td><img src="{{api_url}}{{proilefiles.filePath}}/download/{{proilefiles.fileName}}" style="width:30%"/></td>
                               <td nowrap>
                                 <!--<button type="button" class="btn btn-success btn-sm" (click)="downloadEventAttachment(file,eventdata.id[index-1])">

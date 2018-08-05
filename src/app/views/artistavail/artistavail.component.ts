@@ -295,13 +295,13 @@ export class ArtistavailComponent {
       options.headers.append('Accept', 'application/json');
 
     
-      if(new Date(this.am_pm_to_hours(data.hoursfrom)) > new Date(this.am_pm_to_hours(data.hoursto)) && data.hoursfrom != '' && data.hoursto != '') {
+      if(new Date(this.am_pm_to_hours(data.hoursfrom)) >= new Date(this.am_pm_to_hours(data.hoursto)) && data.hoursfrom != '' && data.hoursto != '') {
           $('.preloader').hide(); 
           this.toasterService.clear();	this.toasterService.pop('error', 'Time invalid', "For Work, End Time should always be greater than the Start Time"); 
           return;        
       }
 
-      if(new Date(this.am_pm_to_hours(data.breakfrom)) > new Date(this.am_pm_to_hours(data.breakto)) && data.breakfrom!= '' && data.breakto != '') {
+      if(new Date(this.am_pm_to_hours(data.breakfrom)) >= new Date(this.am_pm_to_hours(data.breakto)) && data.breakfrom!= '' && data.breakto != '') {
           $('.preloader').hide(); 
           this.toasterService.clear();	this.toasterService.pop('error', 'Time invalid', "For Break, End Time should always be greater than the Start Time"); 
           return;        

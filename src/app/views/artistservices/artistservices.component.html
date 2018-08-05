@@ -1537,7 +1537,7 @@
                                 <div class="form-group row" *ngIf="coursedetail.images.length == 0 || photoexist == 0 ">
                     <div class="col-md-4">
                       <label>Course Image</label>
-                      <input type="file" ng2FileSelect [uploader]="uploader" required /><br/>
+                      <input type="file" ng2FileSelect [uploader]="uploader" required multiple/><br/>
                     </div>
                     <div class="col-md-8 pull-right" >                         
                         <table class="table col-6">
@@ -1923,7 +1923,7 @@
                                 <div class="form-group row">
                     <div class="col-md-4">
                       <label>Course Image</label>
-                      <input type="file" ng2FileSelect [uploader]="uploader" required /><br/>
+                      <input type="file" ng2FileSelect [uploader]="uploader" required multiple /><br/>
                     </div>
                     <div class="col-md-8 pull-right" >                         
                         <table class="table col-6">

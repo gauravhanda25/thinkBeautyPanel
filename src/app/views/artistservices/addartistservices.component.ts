@@ -217,7 +217,7 @@ export class AddartistservicesComponent {
       });
 
       this.uploader = new FileUploader({url: '',
-      allowedMimeType: ['image/gif','image/jpeg','image/png'] });
+      allowedMimeType: ['image/gif','image/jpeg','image/png'], queueLimit: 1 });
       
       this.uploader.onAfterAddingFile = function(item) {
         var fileExtension = '.' + item.file.name.split('.').pop();

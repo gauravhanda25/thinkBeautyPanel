@@ -55,7 +55,7 @@
                 <td>{{booking?.created}}</td>
                 <td>       
                   <button class="btn btn-sm btn-outline-primary " data-toggle="modal" (click)="getBookingData(booking.id); bookingModal.show(); " ><i class="fa fa-eye"></i> </button>
-                  <button class="btn btn-sm btn-outline-primary "  (click) ="cancelBooking(booking)" *ngIf="booking.bookingStatus != 'cancelled'">Cancel</button>
+                  <button class="btn btn-sm btn-outline-primary "  (click) ="cancelBooking(booking)" *ngIf="booking.bookingStatus != 'cancelled' && previousOrNot != 1">Cancel</button>
                 </td>
               </tr>
             </tbody>            

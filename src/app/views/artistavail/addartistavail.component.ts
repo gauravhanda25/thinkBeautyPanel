@@ -210,15 +210,15 @@ export class AddartistavailComponent {
           return; 
         } 
 
-        if(new Date(this.am_pm_to_hours(this.data.hoursfrom)) > new Date(this.am_pm_to_hours(this.data.hoursto)) && this.data.hoursfrom != '' && this.data.hoursto != '') {
+        if(new Date(this.am_pm_to_hours(this.data.hoursfrom)) >= new Date(this.am_pm_to_hours(this.data.hoursto)) && this.data.hoursfrom != '' && this.data.hoursto != '') {
           $('.preloader').hide(); 
-          this.toasterService.clear();	this.toasterService.pop('error', 'Time invalid', "Work End Time is less than the Work Start Time"); 
+          this.toasterService.clear();	this.toasterService.pop('error', 'Time invalid', "Work End Time must be greater than the Work Start Time"); 
             return;        
         }
 
-        if(new Date(this.am_pm_to_hours(this.data.breakfrom)) > new Date(this.am_pm_to_hours(this.data.breakto)) && this.data.breakfrom!= '' && this.data.breakto != '') {
+        if(new Date(this.am_pm_to_hours(this.data.breakfrom)) >= new Date(this.am_pm_to_hours(this.data.breakto)) && this.data.breakfrom!= '' && this.data.breakto != '') {
           $('.preloader').hide(); 
-            this.toasterService.clear();	this.toasterService.pop('error', 'Time invalid', "Break End Time is less than the Break Start Time"); 
+            this.toasterService.clear();	this.toasterService.pop('error', 'Time invalid', "Break End Time must be greater than the Break Start Time"); 
             return;        
         }
 

@@ -32,6 +32,7 @@ export class BookingComponent {
     private countries:any;
     private countryFilter:any = '';
     private userRole:any;
+    private previousOrNot:any = 0;
 
     private toasterService: ToasterService;
 
@@ -80,6 +81,8 @@ export class BookingComponent {
                  this.use_url = API_URL+'/Bookings?filter={"where":{"and":[{"bookingDate":{"gte":"'+new Date()+'"}},{"artistId":"'+localStorage.getItem('currentUserId')+'"}]},"include":[{"relation":"members", "scope":{"include":{"relation":"countries"}}},{"relation":"artists", "scope":{"include":{"relation":"countries"}}}],"order":"created DESC"}&access_token='+localStorage.getItem('currentUserToken');
             } else if(reqUrl === '/bookings/previous') {
                  
+                 this.previousOrNot = 1;
+
                  this.use_url = API_URL+'/Bookings?filter={"where":{"and":[{"bookingDate":{"lte":"'+new Date()+'"}},{"artistId":"'+localStorage.getItem('currentUserId')+'"}]},"include":[{"relation":"members", "scope":{"include":{"relation":"countries"}}},{"relation":"artists", "scope":{"include":{"relation":"countries"}}}],"order":"created DESC"}&access_token='+localStorage.getItem('currentUserToken');
             } else {
                
@@ -156,6 +159,8 @@ export class BookingComponent {
                  this.use_url = API_URL+'/Bookings?filter={"where":{"and":[{"bookingDate":{"gte":"'+new Date()+'"}},{"artistId":"'+localStorage.getItem('currentUserId')+'"}]},"include":[{"relation":"members", "scope":{'+countryInWhere+'"include":{"relation":"countries"}}},{"relation":"artists", "scope":{'+countryInWhere+'"include":{"relation":"countries"}}}],"order":"created DESC"}&access_token='+localStorage.getItem('currentUserToken');
 
             } else if(reqUrl === '/bookings/previous') {
+            
+                 this.previousOrNot = 1;
                  
                  this.use_url = API_URL+'/Bookings?filter={"where":{"and":[{"bookingDate":{"lte":"'+new Date()+'"}},{"artistId":"'+localStorage.getItem('currentUserId')+'"}]},"include":[{"relation":"members", "scope":{'+countryInWhere+'"include":{"relation":"countries"}}},{"relation":"artists", "scope":{'+countryInWhere+'"include":{"relation":"countries"}}}],"order":"created DESC"}&access_token='+localStorage.getItem('currentUserToken');
 
