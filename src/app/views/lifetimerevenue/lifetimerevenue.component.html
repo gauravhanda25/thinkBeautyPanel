@@ -71,7 +71,8 @@
                 <td>{{revenue.serviceType}}</td> 
                 <td>{{revenue.currency}} {{revenue?.totalServicePrice}} </td>
                 <td>{{revenue.bookingDate}}</td>
-                <td>{{revenue.currency}} {{revenue?.totalServicePrice }} </td>             
+                <td *ngIf="revenue.serviceType != 'gcc'">{{revenue.currency}} {{revenue?.totalServicePrice }} </td>
+                <td  *ngIf="revenue.serviceType == 'gcc'"> {{revenue.currency}} {{ ((revenue?.totalServicePrice +  revenue?.commission)/2) -  revenue?.commission}} </td>                 
                 <td>{{revenue.created}}</td>
                 <!-- <td>       
                   <button class="btn btn-sm btn-outline-primary " data-toggle="modal" (click)="getRevenueData(revenue.id); revenueModal.show(); " ><i class="fa fa-eye"></i> </button>
