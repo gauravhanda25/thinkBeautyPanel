@@ -80,7 +80,7 @@ export class AddcommissionComponent {
         options.headers.append('Accept', 'application/json');
 
     	this.data = {    		
-    		price:'',
+    		price:'all',
     		commission:'',
     		created_by:localStorage.getItem('currentUserId'),
     		created_on:today,

@@ -43,7 +43,7 @@
                 <tr>
                   <th><mfDefaultSorter by="name">Name</mfDefaultSorter></th>
                   <th><mfDefaultSorter by="cpr">National ID</mfDefaultSorter></th>
-                  <th><mfDefaultSorter by="role">Role</mfDefaultSorter></th>
+             <!--      <th><mfDefaultSorter by="role">Role</mfDefaultSorter></th> -->
                   <th><mfDefaultSorter by="professions">Profession</mfDefaultSorter></th>
                   <th><mfDefaultSorter by="province">City</mfDefaultSorter></th>
                   <th><mfDefaultSorter by="country">Country</mfDefaultSorter></th>
@@ -62,7 +62,7 @@
                 <tr *ngFor="let user of mf.data" >
                   <td>{{user.name}}</td>
                   <td>{{user.cpr}}</td>
-                  <td>{{user.role}}</td>
+                  <!-- <td>{{user.role}}</td> -->
                   <td>{{user.professions}}</td>
                   <td>{{user?.provinces?.name}}</td>
                   <td>{{user?.countries?.name}}</td>

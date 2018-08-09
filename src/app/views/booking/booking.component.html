@@ -28,7 +28,7 @@
             <thead >
               <tr>
                 <th><mfDefaultSorter by="artists.name">Artist Name</mfDefaultSorter></th>
-                <th><mfDefaultSorter by="artists.countries.name">Artist Country</mfDefaultSorter></th>
+                <!-- <th><mfDefaultSorter by="artists.countries.name">Artist Country</mfDefaultSorter></th> -->
                 <th><mfDefaultSorter by="service">Service</mfDefaultSorter></th>                
                 <th><mfDefaultSorter by="members.fullName">Customer Name</mfDefaultSorter></th>
                 <th><mfDefaultSorter by="members.countries.name">Customer Country</mfDefaultSorter></th>
@@ -45,7 +45,7 @@
               </tr>
               <tr *ngFor="let booking of mf.data" >
                 <td>{{booking?.artists?.name}}</td>
-                <td>{{booking?.artists?.countries?.name}}</td>
+               <!--  <td>{{booking?.artists?.countries?.name}}</td> -->
                 <td><span style="text-transform: capitalize;">{{booking?.service}}</span></td>
                 <td>{{booking?.members?.fullName}}</td>
                 <td>{{booking?.members?.countries?.name}}</td>
@@ -113,13 +113,15 @@
               <table class="table" *ngIf="userRole == 'admin'">
                 <tr>
                   <th>Service Name</th>          
-                  <th>Service Price with Currency</th> 
+                  <th>Service Price</th>
+                  <th>Commission</th> 
                   <th>Number of persons</th> 
                   <th>Total Price</th>  
                 </tr>
                 <tr *ngFor="let serviceDetails of bookingDetails.artistSubServiceDetails">                 
                   <td><span style="text-transform: capitalize;">{{serviceDetails.name}}</span></td> 
                   <td>{{bookingDetails.currency}} {{serviceDetails.price}}</td>
+                  <td>{{bookingDetails.currency}} {{(serviceDetails.price * bookingDetails.commission)/100}}</td> 
                   <td>{{serviceDetails.persons}}</td>
                   <td>{{bookingDetails.currency}} {{serviceDetails.price + ((serviceDetails.price * bookingDetails.commission)/100)}} </td>
                 </tr>
@@ -138,10 +140,10 @@
               </table>
             </td>
           </tr>
-          <tr *ngIf="userRole == 'admin'">
+         <!--  <tr *ngIf="userRole == 'admin'">
             <td>Commission</td>
             <td>{{bookingDetails.commission}}%</td>            
-          </tr>
+          </tr> -->
           <tr>
             <td>Flight Charges</td>            
             <td>{{bookingDetails?.fixedcharge}}</td>

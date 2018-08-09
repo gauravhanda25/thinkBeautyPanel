@@ -110,8 +110,8 @@ export class BookingComponent {
 
             if(this.bookings.length !=0) {
                 for(let i=0; i< this.bookings.length; i++ ) {
-                   this.bookings[i].created = moment(this.bookings[i].created).format('DD MMMM YYYY');
-                   this.bookings[i].bookingDate = moment(this.bookings[i].bookingDate).format('DD MMMM YYYY');                   
+                   this.bookings[i].created = moment(this.bookings[i].created).format('DD MMM YYYY');
+                   this.bookings[i].bookingDate = moment(this.bookings[i].bookingDate).format('DD MMM YYYY');                   
                 }
             } else {
                 this.nobookings = 0;
@@ -201,8 +201,8 @@ export class BookingComponent {
                         removeVal = removeVal + 1;
                         continue;
                     } else {
-                       this.bookings[i].created = moment(this.bookings[i].created).format('DD MMMM YYYY');
-                       this.bookings[i].bookingDate = moment(this.bookings[i].bookingDate).format('DD MMMM YYYY');
+                       this.bookings[i].created = moment(this.bookings[i].created).format('DD MMM YYYY');
+                       this.bookings[i].bookingDate = moment(this.bookings[i].bookingDate).format('DD MMM YYYY');
                        filterBookings.push(this.bookings[i]);
                     }
                 }
@@ -227,9 +227,9 @@ export class BookingComponent {
         this.http.get(API_URL+'/Bookings/'+bookingId+'?filter={"include":[{"relation":"members", "scope":{"include":{"relation":"countries"}}},{"relation":"artists", "scope":{"include":{"relation":"countries"}}}]}&access_token='+ localStorage.getItem('currentUserToken'), options)
         .subscribe(response => {
             console.log(response.json());       
-            this.bookingDetails = response.json();  
-            this.bookingDetails.bookingDate = moment(this.bookingDetails.bookingDate).format('DD MMMM YYYY');
-            this.bookingDetails.created = moment(this.bookingDetails.created).format('DD MMMM YYYY');
+            this.bookingDetails = response.json(); 
+            this.bookingDetails.bookingDate = moment(this.bookingDetails.bookingDate).format('DD MMM YYYY');
+            this.bookingDetails.created = moment(this.bookingDetails.created).format('DD MMM YYYY');
 
             this.http.get(API_URL+'/Commissions?filter={"where":{"price":"all"}}&access_token='+ localStorage.getItem('currentUserToken'), options)
             .subscribe(commissionRes => { 0;
@@ -281,13 +281,12 @@ export class BookingComponent {
 
     cancelBooking(booking) {
         if(confirm("Are you sure you want to cancel the selected Booking?")){
-            let cancellationPostData:any = {
-                bookingId: booking.id,
-                userId: booking.userId,
-            }
+           let options = new RequestOptions();
+            options.headers = new Headers();
+            options.headers.append('Content-Type', 'application/json');
+            options.headers.append('Accept', 'application/json');
 
-
-            this.http.get(API_URL+'/Bookings/cancelBooking?access_token='+ localStorage.getItem('currentUserToken'), cancellationPostData)
+            this.http.get(API_URL+'/Bookings/cancelBookingByArtist?bookingId='+booking.id+'&access_token='+ localStorage.getItem('currentUserToken'), options)
             .subscribe(response => {
                 console.log(response.json()); 
                 this.toasterService.clear();	this.toasterService.pop('success', 'Success ', "Booking Record cancelled successfully.");
