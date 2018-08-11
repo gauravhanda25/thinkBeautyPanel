@@ -49,9 +49,6 @@
                   <th><mfDefaultSorter by="country">Country</mfDefaultSorter></th>
                   <th><mfDefaultSorter by="phone">Phone</mfDefaultSorter></th>
                   <th><mfDefaultSorter by="email">Email</mfDefaultSorter></th>
-                  <th><mfDefaultSorter by="created">Request Date</mfDefaultSorter></th>
-                  <th *ngIf="check_account.action == 'reject'"><mfDefaultSorter by="action_on">Rejection Date</mfDefaultSorter></th>
-                  <th *ngIf="check_account.action == 'active'||check_account.action == 'verify' "><mfDefaultSorter by="modified" >Verification Date</mfDefaultSorter></th>
                   <th>Action</th>
                 </tr>
               </thead>
@@ -68,9 +65,6 @@
                   <td>{{user?.countries?.name}}</td>
                   <td>{{user.phone}}</td>
                   <td>{{user.email}}</td>
-                  <td>{{user.created}}</td>
-                  <td *ngIf="check_account.action == 'active'||check_account.action == 'verify'">{{user.modified}}</td>
-                  <td *ngIf="check_account.action == 'reject'">{{user.modified}}</td>
                   <td>
                     <a class="btn btn-sm btn-outline-primary " href="#" routerLink='/manageartist/editartist/{{user.id}}' *ngIf="check_account.action == 'active'"><i class="fa fa-edit"></i> </a>                 
                     <button class="btn btn-sm btn-outline-primary "  (click) ="delartist(user)" *ngIf="check_account.action == 'active'"><i class="fa fa-trash"></i></button>
@@ -148,6 +142,18 @@
               City: {{artistDetails?.provinces?.name}}<br/>
               Country: {{artistDetails?.countries?.name}}
             </td>
+          </tr>
+          <tr>            
+            <td>Request Date</td>
+            <td>{{artistDetails.created}}</td>
+          </tr>
+          <tr *ngIf="check_account.action == 'reject'">
+            <td >Rejection Date</td>                  
+            <td >{{user.modified}}</td>
+          </tr>
+          <tr *ngIf="check_account.action == 'active'||check_account.action == 'verify'">            
+            <td >Verification Date</td>
+            <td >{{user.modified}}</td>
           </tr>
         </table>     
       </div>
