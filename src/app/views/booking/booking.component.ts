@@ -204,7 +204,7 @@ export class BookingComponent {
                     } else {
                        this.bookings[i].created = moment(this.bookings[i].created).format('DD MMM YYYY');
                        this.bookings[i].bookingDate = moment(this.bookings[i].bookingDate).format('DD MMM YYYY');
-                        this.bookings[i].bookingStartTime = am_pm_to_hours(this.bookings[i].bookingStartTime);
+                        this.bookings[i].bookingStartTime = this.am_pm_to_hours(this.bookings[i].bookingStartTime);
                        filterBookings.push(this.bookings[i]);
                     }
                 }
@@ -232,7 +232,7 @@ export class BookingComponent {
             this.bookingDetails = response.json(); 
             this.bookingDetails.bookingDate = moment(this.bookingDetails.bookingDate).format('DD MMM YYYY');
             this.bookingDetails.created = moment(this.bookingDetails.created).format('DD MMM YYYY');
-            this.bookingDetails.bookingStartTime = am_pm_to_hours(this.bookingDetails.bookingStartTime);
+            this.bookingDetails.bookingStartTime = this.am_pm_to_hours(this.bookingDetails.bookingStartTime);
 
             this.http.get(API_URL+'/Commissions?filter={"where":{"price":"all"}}&access_token='+ localStorage.getItem('currentUserToken'), options)
             .subscribe(commissionRes => { 0;
@@ -328,7 +328,7 @@ export class BookingComponent {
             hours = hours - 12;
             AMPM = 'pm';
         } else if (hours == 24) {
-            hours = '00';
+            hours = 0;
             AMPM = 'am';
         } 
         let sHours = hours.toString();
