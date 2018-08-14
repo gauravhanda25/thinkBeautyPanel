@@ -191,6 +191,11 @@ export class FullLayoutComponent {
               icon: 'icon-list',
             }
           ]
+        },
+        {
+          name: 'Enquiries',
+          url: '/enquiries',
+          icon: 'icon-list',
         }
         ];
       	    } else if(localStorage.getItem('currentUserRoleId') == "2"){

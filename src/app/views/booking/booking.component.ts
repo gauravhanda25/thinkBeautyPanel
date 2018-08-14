@@ -233,9 +233,18 @@ export class BookingComponent {
             this.bookingDetails.bookingDate = moment(this.bookingDetails.bookingDate).format('DD MMM YYYY');
             this.bookingDetails.created = moment(this.bookingDetails.created).format('DD MMM YYYY');
             this.bookingDetails.bookingStartTime = this.am_pm_to_hours(this.bookingDetails.bookingStartTime);
+            this.bookingDetails.cancelledByName = '';
+
+             this.http.get(API_URL+'/Members?filter={"where":{"id":"'+this.bookingDetails.cancelledBy+'"}}&access_token='+ localStorage.getItem('currentUserToken'), options)
+            .subscribe(cancelByDataRes => { 
+                 this.bookingDetails.cancelledByName = cancelByDataRes.json()[0].name;
+             }, error => {
+                console.log(JSON.stringify(error.json()));
+            }); 
+
 
             this.http.get(API_URL+'/Commissions?filter={"where":{"price":"all"}}&access_token='+ localStorage.getItem('currentUserToken'), options)
-            .subscribe(commissionRes => { 0;
+            .subscribe(commissionRes => { 
                  this.bookingDetails.commission = 0;
                  this.bookingDetails.commission = parseInt(commissionRes.json()[0].commission);
              }, error => {

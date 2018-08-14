@@ -193,7 +193,14 @@
             <td>Date of Booking</td>
             <td>{{bookingDetails?.created}}</td>
           </tr>
-
+          <tr *ngIf="bookingDetails.bookingStatus != 'cancelled'">
+            <td>User Type</td>
+            <td>{{bookingDetails?.bookingFrom}}</td>
+          </tr>
+          <tr *ngIf="bookingDetails.bookingStatus == 'cancelled'">
+            <td>Cancelled By</td>
+            <td>{{bookingDetails?.cancelledByName}}</td>
+          </tr>
         </table>     
       </div>
       <div class="modal-footer">

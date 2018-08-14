@@ -582,6 +582,18 @@ export const routes: Routes = [
         loadChildren: './views/commission/commission.module#CommissionModule'
       },
       {
+        path: 'enquiries',
+        component: FullLayoutComponent,        
+        canActivate: [NgxPermissionsGuard],
+        data: {
+          permissions: {
+            only: ['ADMIN'],
+            except: 'GUEST'
+          }
+        },
+        loadChildren: './views/enquiries/enquiries.module#EnquiriesModule'
+      },
+      {
         path: 'fixedcharge',
         component: FullLayoutComponent,        
         canActivate: [NgxPermissionsGuard],

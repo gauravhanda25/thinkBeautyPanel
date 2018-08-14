@@ -1,0 +1,51 @@
+<div class="animated fadeIn">
+  <div class="row">
+    <div class="clearfix"></div>
+    <div class="col-lg-12">
+      <div class="card">
+        <div class="card-header">
+          <i class="fa fa-align-justify"></i> Enquiries
+        </div>
+        <div class="card-body">
+		<!-- <div class="row mb-3">
+			<div class="col-md-4 offset-md-8">
+			  <div class="input-group">
+				<span class="input-group-addon"><i class="fa fa-search"></i></span>
+				<input type="text" class="form-control" [(ngModel)]="filterQuery" placeholder="Search by name"/>
+			  </div>
+			</div>
+		</div> -->
+          <table class="table table-striped"  [mfData]="enquiries | dataFilter : filterQuery" #mf="mfDataTable" [mfRowsOnPage]="10">
+            <thead>
+              <tr>
+				        <th><mfDefaultSorter by="price">Price Range</mfDefaultSorter></th>
+                <th><mfDefaultSorter by="commission">Commission (%)</mfDefaultSorter></th>
+                <th><mfDefaultSorter by="created">Created On</mfDefaultSorter></th>
+              </tr>
+            </thead>
+            <tbody> 
+			         <tr *ngIf = "nocr == 0">
+                <td colspan="7">No enquiry records</td>
+              </tr>
+              <tr *ngFor="let commission of mf.data">
+                <td>{{commission.price}}</td>
+                <td>{{commission.commission}}</td>
+                <td>{{commission.created}}</td>
+              </tr>
+            </tbody>
+			<tfoot>
+              <tr>
+                <td colspan="7">
+                  <mfBootstrapPaginator [rowsOnPageSet]="[5,10,15]"></mfBootstrapPaginator>
+                </td>
+              </tr>
+            </tfoot>
+          </table>
+        </div>
+      </div>
+    </div>
+    <!--/.col-->
+  </div>
+  <!--/.row-->
+</div>
+<toaster-container [toasterconfig]="toasterconfig"></toaster-container>

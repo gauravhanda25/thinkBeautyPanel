@@ -12,7 +12,11 @@
           <div class= "row">
             <div class="col-sm-3 galleryimages" *ngFor="let images of galleryImages">
              <!--  <ngx-image-viewer  src="{{apiUrl}}{{images.filePath}}/download/{{images.fileName}}" ></ngx-image-viewer> -->
-              <img src="{{apiUrl}}{{images.filePath}}/download/{{images.fileName}}" data-toggle="modal" (click)="getImage(images);imageModal.show()"/>  
+              <img  *ngIf="images.fileType == 'image'" src="{{apiUrl}}{{images.filePath}}/download/{{images.fileName}}" data-toggle="modal" (click)="getImage(images);imageModal.show()"/>  
+
+              <img  *ngIf="images.fileType == 'video'" src="{{apiUrl}}{{images.filePath}}/download/{{images.thumbNail}}" data-toggle="modal" (click)="getImage(images);videoModal.show()"/>  
+
+
               <div class="galleryimages-btn">
                 <button class="btn btn-sm btn-primary" (click)="downloadAttachment(images)"><span class="fa fa-download"></span></button>
                 <button class="btn btn-sm btn-primary" (click)="removeAttachment(images)"><span class="fa fa-trash"></span></button>
@@ -38,6 +42,22 @@
       </div>
       <div class="card-body" style="border-top:1px solid #c2cfd6;">                               
         <img style="width: 100%;" src="{{imageSrc}}">
+      </div>
+    </div><!-- /.modal-content -->
+  </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+
+<div bsModal #videoModal="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" >
+  <div class="modal-dialog modal-primary" role="document" style="max-width: 700px;">
+    <div class="modal-content" >
+      <div class="modal-body">
+        <button class="btn btn-sm btn-primary pull-right" (click)="videoModal.hide()"><span class="fa fa-times"></span></button>
+      </div>
+      <div class="card-body" style="border-top:1px solid #c2cfd6;">                               
+        <video controls id="video1" style="width: 100%; height: auto; margin:0 auto; frameborder:0;">
+          <source src="{{imageSrc}}" type="video/mp4">
+          Your browser doesn't support HTML5 video tag.
+        </video>
       </div>
     </div><!-- /.modal-content -->
   </div><!-- /.modal-dialog -->
