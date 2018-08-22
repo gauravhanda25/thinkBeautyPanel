@@ -156,7 +156,6 @@ export class AddartistvacationComponent {
       this.data.endon = moment(this.data.endon).format('YYYY-MM-DD')+'T00:00:00.000Z';
 
       console.log(this.data);
-
      
       this.http.get(API_URL+'/Artistvacations?filter={"where":{"and":[{"memberId":"'+localStorage.getItem('currentUserId')+'"}]}}&access_token='+ localStorage.getItem('currentUserToken'), options)
       .subscribe(response => {
@@ -172,9 +171,6 @@ export class AddartistvacationComponent {
       }, error => {
           console.log(JSON.stringify(error.json()));
       });
-
-
-
 
       this.http.get(API_URL+'/Artistavailabilities?filter={"where":{"and":[{"memberId":"'+localStorage.getItem('currentUserId')+'"},{"date":{"between":["'+ this.data.starton+'","'+ this.data.endon+'"]}}]}}&access_token='+ localStorage.getItem('currentUserToken'), options)
       .subscribe(response => {
@@ -225,8 +221,6 @@ export class AddartistvacationComponent {
       this.data.starton = moment(this.data.starton).format('YYYY-MM-DD')+'T00:00:00.000Z';
       this.data.endon = moment(this.data.endon).format('YYYY-MM-DD')+'T00:00:00.000Z';
 
-
-
       this.http.get(API_URL+'/Artistvacations?filter={"where":{"and":[{"memberId":"'+localStorage.getItem('currentUserId')+'"}]}}&access_token='+ localStorage.getItem('currentUserToken'), options)
       .subscribe(response => {
         let vacdata = response.json();
@@ -243,7 +237,6 @@ export class AddartistvacationComponent {
       });
 
 
-      
       this.http.get(API_URL+'/Artistavailabilities?filter={"where":{"and":[{"memberId":"'+localStorage.getItem('currentUserId')+'"},{"date":{"between":["'+ this.data.starton+'","'+ this.data.endon+'"]}}]}}&access_token='+ localStorage.getItem('currentUserToken'), options)
       .subscribe(response => {
         console.log(response.json());
