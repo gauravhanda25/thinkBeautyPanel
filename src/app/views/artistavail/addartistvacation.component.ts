@@ -161,7 +161,6 @@ export class AddartistvacationComponent {
       .subscribe(response => {
         let vacdata = response.json();
         for(let i=0; i<vacdata.length; i++) {
-
            if(moment(this.data.starton).isSame(moment(vacdata[i].starton)) && moment(this.data.endon).isSame(moment(vacdata[i].endon))) {
               $('.preloader').hide(); 
               this.toasterService.clear();  this.toasterService.pop('error', 'Error', "Vacation already added for same dates."); 
@@ -176,8 +175,7 @@ export class AddartistvacationComponent {
       .subscribe(response => {
         console.log(response.json());
         if(response.json().length != 0) {
-          if(confirm("Specific date already added. Do you still want to add a vacation?")){           
-
+          if(confirm("Specific date already added. Do you still want to add a vacation?")) {   
             this.http.post(API_URL+'/Artistvacations?access_token='+ localStorage.getItem('currentUserToken'), this.data, options)
             .subscribe(response => {
                 this.toasterService.clear();	this.toasterService.pop('success', 'Success', "Vacation Time saved successfully"); 

@@ -1167,7 +1167,9 @@
               		<tab heading = "Courses" *ngIf = "loginUserRole == 'artist' || loginUserRole == 'salon'" (select)="tabSelected('course')">
                     <div class="form-group row"><div class="col-md-12"><button type="button" class="btn btn-sm btn-primary pull-right" data-toggle="modal" (click)="emptyCourseForm();courseModal.show()"><span class="fa fa-plus"></span> Add New Course</button></div></div>
 					
-					<div *ngIf="nousers == 0">No Courses Records</div>
+					
+                    <div *ngIf="coursesData.length == 0">No Courses Records</div>
+                    <div *ngIf="coursesData.length != 0" >
 
                     <table *ngIf="nousers != 0" class="table table-striped" [mfData]="coursesData | dataFilter : filterQuery" #mf="mfDataTable" [mfRowsOnPage]="10" style="    margin: 0 -1.7rem;">
                       <thead >
@@ -1190,9 +1192,9 @@
                           <td colspan="10">No Courses Records</td>
                         </tr>
                         <tr *ngFor="let coursedetail of mf.data" >
-                          <td><img src="{{apiUrl}}{{coursedetail.images[0].filePath}}/download/{{coursedetail.images[0].fileName}}" style="width:100px; height:100px; max-height:100%; max-width:100%;" *ngIf="coursedetail.images.length > 0  "/> 
+                          <td><img src="{{apiUrl}}{{coursedetail.images[0].filePath}}/download/{{coursedetail.images[0].fileName}}" style="width:50px; height:50px; max-height:100%; max-width:100%;" *ngIf="coursedetail.images.length > 0  "/> 
 
-                          	<img src="/assets/img/no_image.jpg" style="width:100px; height:100px; max-height:100%; max-width:100%;" *ngIf="coursedetail.images.length == 0  "/>  
+                          	<img src="/assets/img/no_image.jpg" style="width:50px; height:50px; max-height:100%; max-width:100%;" *ngIf="coursedetail.images.length == 0  "/>  
 
 
                            </td>
@@ -1224,7 +1226,7 @@
                                         <div class="form-group row" >
                                           <div class="col-md-6">
                                             <label>Name </label>    
-                                            <input class="form-control capitalizeText" name="coursename" type="text"  [(ngModel)]="coursedetail.name" required value="{{coursedetail.name}}" placeholder="Course Name">
+                                            <input class="form-control " name="coursename" type="text"  [(ngModel)]="coursedetail.name" required value="{{coursedetail.name}}" placeholder="Course Name">
                                           </div>
                                           <div class="col-md-6">
                                             <label>Price </label>
@@ -1239,7 +1241,7 @@
                                 <div class="form-group row" >
                                           <div class="col-md-12">                                   
                                             <label>Description </label>
-                                            <input class="form-control capitalizeText" name="coursedescription" type="text"  [(ngModel)]="coursedetail.description"  value="{{coursedetail.description}}" required placeholder="Course Description" >
+                                            <input class="form-control " name="coursedescription" type="text"  [(ngModel)]="coursedetail.description"  value="{{coursedetail.description}}" required placeholder="Course Description" >
                                     </div>
                                 </div>  
                                       <div class="form-group row" >
@@ -1589,7 +1591,7 @@
                           </td>
                         </tr>
                       </tfoot>
-                    </table>          
+                    </table>      </div>    
 
 
 
@@ -1616,7 +1618,7 @@
                                 <div class="form-group row" >
                                   <div class="col-md-6">
                                     <label>Name </label>    
-                                    <input class="form-control capitalizeText" name="name" type="text"  [(ngModel)]="course.name" required placeholder="Course Name">
+                                    <input class="form-control " name="name" type="text"  [(ngModel)]="course.name" required placeholder="Course Name">
                                   </div>
                                   <div class="col-md-6">
                                     <label>Price </label>
@@ -1631,7 +1633,7 @@
                               <div class="form-group row" >
                                   <div class="col-md-12">                                   
                                     <label>Description </label>
-                                    <input class="form-control capitalizeText" name="description" type="text"  [(ngModel)]="course.description"  required placeholder="Course Description" >
+                                    <input class="form-control " name="description" type="text"  [(ngModel)]="course.description"  required placeholder="Course Description" >
                             </div>
                         </div>  
                               <div class="form-group row" >

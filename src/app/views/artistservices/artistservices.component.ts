@@ -824,9 +824,12 @@ export class ArtistservicesComponent {
       this.countrySelected = '';
 
 
-      this.course.startfrom = moment(this.course.startfrom).utcOffset(0).set({hour:0,minute:0,second:0,millisecond:0}).toISOString();
-      this.course.endon = moment(this.course.endon).utcOffset(0).set({hour:0,minute:0,second:0,millisecond:0}).toISOString();
+      // this.course.startfrom = moment(this.course.startfrom).utcOffset(0).set({hour:0,minute:0,second:0,millisecond:0}).toISOString();
+      // this.course.endon = moment(this.course.endon).utcOffset(0).set({hour:0,minute:0,second:0,millisecond:0}).toISOString();
 
+
+      this.course.startfrom = moment(this.course.startfrom).format('YYYY-MM-DD')+'T00:00:00.000Z';
+      this.course.endon = moment(this.course.endon).format('YYYY-MM-DD')+'T00:00:00.000Z';
 
 
     	this.http.post(API_URL+'/Artistcourses?access_token='+ localStorage.getItem('currentUserToken'), this.course, options)
@@ -983,8 +986,12 @@ export class ArtistservicesComponent {
       //alert(this.locationSelected);
 
       
-      course.startfrom = moment(course.startfrom).utcOffset(0).set({hour:0,minute:0,second:0,millisecond:0}).toISOString();
-      course.endon = moment(course.endon).utcOffset(0).set({hour:0,minute:0,second:0,millisecond:0}).toISOString();
+      // course.startfrom = moment(course.startfrom).utcOffset(0).set({hour:0,minute:0,second:0,millisecond:0}).toISOString();
+      // course.endon = moment(course.endon).utcOffset(0).set({hour:0,minute:0,second:0,millisecond:0}).toISOString();
+
+
+      course.startfrom = moment(course.startfrom).format('YYYY-MM-DD')+'T00:00:00.000Z';
+      course.endon = moment(course.endon).format('YYYY-MM-DD')+'T00:00:00.000Z';
 
       
       this.coursedetaildata = { 
@@ -1118,8 +1125,8 @@ export class ArtistservicesComponent {
       //  alert(minutes);
         let AMPM = time.slice(-2);
       //  alert(AMPM);
-        if (AMPM == " PM" && hours < 12) hours = hours + 12;
-        if (AMPM == " AM" && hours == 12) hours = hours - 12;
+        if (AMPM == "pm" && hours < 12) hours = hours + 12;
+        if (AMPM == "am" && hours == 12) hours = hours - 12;
         let sHours = hours.toString();
         let sMinutes = minutes.toString();
         if (hours < 10) sHours = "0" + sHours;
