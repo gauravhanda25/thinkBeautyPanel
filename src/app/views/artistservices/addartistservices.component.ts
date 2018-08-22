@@ -301,7 +301,7 @@ export class AddartistservicesComponent {
         this.servicetypes = [...this.servicetypes];
   	}
 
-    subtabSelected(){
+    subtabSelected() {
       // this.data = {
       //   price:'',
       //   duration:''
