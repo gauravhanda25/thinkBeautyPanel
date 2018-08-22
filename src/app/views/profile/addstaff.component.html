@@ -64,7 +64,7 @@
                         </div>                   
                        <div class="col-md-6">
                           <label>Country<span class="text-danger">*</span></label> 
-                          <select class="form-control" name="country"  [(ngModel)]="data.country" (change) = "onChangeCountry()" required>
+                          <select class="form-control" name="country"  [(ngModel)]="data.country" (change) = "onChangeCountry()" required [disabled] = 1>
                             <option value="" >Select Country</option>
                             <option *ngFor="let country of countries" value="{{country.id}}">{{country.name}}</option>
                           </select>
@@ -223,7 +223,7 @@
                         </div>                   
                        <div class="col-md-6">
                           <label>Country<span class="text-danger">*</span></label> 
-                          <select class="form-control" name="country"  [(ngModel)]="data.country" (change) = "onChangeCountry()" required>
+                          <select class="form-control" name="country"  [(ngModel)]="data.country" (change) = "onChangeCountry()" required [disabled] = 1>
                             <option value="" >Select Country</option>
                             <option *ngFor="let country of countries" value="{{country.id}}">{{country.name}}</option>
                           </select>

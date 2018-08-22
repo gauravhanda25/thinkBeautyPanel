@@ -1234,7 +1234,10 @@
                           <td colspan="10">No Courses Records</td>
                         </tr>
                         <tr *ngFor="let coursedetail of mf.data" >
-                          <td><img src="{{apiUrl}}{{coursedetail.images[0].filePath}}/download/{{coursedetail.images[0].fileName}}" style="width:100px; height:100px; max-height:100%; max-width:100%;" *ngIf="coursedetail.images.length > 0  "/>  </td>
+                          <td><img src="{{apiUrl}}{{coursedetail.images[0].filePath}}/download/{{coursedetail.images[0].fileName}}" style="width:100px; height:100px; max-height:100%; max-width:100%;" *ngIf="coursedetail.images.length > 0  "/>  
+
+                          <img src="/assets/img/no_image.jpg" style="width:100px; height:100px; max-height:100%; max-width:100%;" *ngIf="coursedetail.images.length == 0  "/>  
+                          </td>
                           <td>{{coursedetail.name}}</td>
                           <td>{{currency}} {{coursedetail.price}}</td>
                           <td>{{coursedetail.description}}</td>
@@ -1522,7 +1525,7 @@
                                         </select>
                                   </div>
                                         </div>
-                                      <div class="form-group" *ngIf="coursedetail.images.length > 0  && photoexist != 0 ">
+                                      <div class="form-group" *ngIf="coursedetail.images.length > 0  && photoexist != 0   && imageDeleted == 0 ">
                                         <div class= "row">
                                               <div class="col-sm-6">
                                                <img class="courseImage" src="{{apiUrl}}{{coursedetail.images[0].filePath}}/download/{{coursedetail.images[0].fileName}}"/>  <!--  {{apiUrl}}/server/storage{{coursedetail.images[0].filePath}}/{{coursedetail.images[0].fileName}} -->
@@ -1534,7 +1537,7 @@
                                             </div>
                                       </div>
 
-                                <div class="form-group row" *ngIf="coursedetail.images.length == 0 || photoexist == 0 ">
+                                <div class="form-group row" *ngIf="coursedetail.images.length == 0 || photoexist == 0 ||  imageDeleted == 1">
                     <div class="col-md-4">
                       <label>Course Image</label>
                       <input type="file" ng2FileSelect [uploader]="uploader" required multiple/><br/>

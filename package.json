@@ -41,6 +41,7 @@
     "flag-icon-css": "2.9.0",
     "font-awesome": "^4.7.0",
     "generate-password": "^1.4.0",
+    "ionic-angular": "^3.9.2",
     "jquery": "^3.3.1",
     "masonry-layout": "^4.2.1",
     "moment": "2.20.1",

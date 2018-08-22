@@ -1118,8 +1118,8 @@ export class ArtistservicesComponent {
       //  alert(minutes);
         let AMPM = time.slice(-2);
       //  alert(AMPM);
-        if (AMPM == "pm" && hours < 12) hours = hours + 12;
-        if (AMPM == "am" && hours == 12) hours = hours - 12;
+        if (AMPM == " PM" && hours < 12) hours = hours + 12;
+        if (AMPM == " AM" && hours == 12) hours = hours - 12;
         let sHours = hours.toString();
         let sMinutes = minutes.toString();
         if (hours < 10) sHours = "0" + sHours;

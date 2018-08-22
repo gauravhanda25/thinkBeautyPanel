@@ -11,7 +11,7 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { NgModule } from '@angular/core';
 import {IOption} from 'ng-select';
-import * as $ from 'jQuery';
+import * as $ from 'jquery';
 
 import { TextMaskModule } from 'angular2-text-mask';
 import emailMask from 'text-mask-addons/dist/emailMask';
