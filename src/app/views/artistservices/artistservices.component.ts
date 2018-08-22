@@ -303,10 +303,10 @@ export class ArtistservicesComponent {
   	}
 
     subtabSelected(){
-      this.data = {
-        price:'',
-        duration:''
-      }
+      // this.data = {
+      //   price:'',
+      //   duration:''
+      // }
     }
 
     emptyCourseForm(){
@@ -404,6 +404,12 @@ export class ArtistservicesComponent {
       		this.coursesData = r.json();
 
           for(let index in this.coursesData) {
+
+            this.coursesData[index].startfrom = new Date(this.coursesData[index].startfrom);
+            this.coursesData[index].endon = new Date(this.coursesData[index].endon);
+
+
+
             this.coursedetaildata[this.coursesData[index].id] = [];
             this.coursedetaildata[this.coursesData[index].id].startfrom = moment(this.coursesData[index].startfrom ).format('DD MMM YYYY');
             this.coursedetaildata[this.coursesData[index].id].endon = moment(this.coursesData[index].endon ).format('DD MMM YYYY');
