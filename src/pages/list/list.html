@@ -1,0 +1,23 @@
+<ion-header>
+  <ion-navbar  color="primary">
+    <button ion-button menuToggle>
+      <ion-icon name="menu"></ion-icon>
+    </button>
+    <ion-title>Manage Events</ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content>
+  <ion-refresher >  <!-- (ionRefresh)="doRefresh($event)" -->
+    <ion-refresher-content></ion-refresher-content>
+  </ion-refresher>
+  <ion-list>
+    <button ion-item *ngFor="let e of events" (click)="itemTapped($event, e)">
+      {{e.title}}
+      <div class="item-note" item-right>
+        {{e.date}}
+      </div>
+      <ion-icon name="arrow-dropright" item-right></ion-icon>
+    </button>
+  </ion-list>
+</ion-content>

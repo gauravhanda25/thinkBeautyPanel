@@ -37,6 +37,7 @@ export class ArtistComponent {
     private countries:any;
     private countryFilter:any = '';
     private professionFilter:any = '';
+    private manageType:any;
 
     private toasterService: ToasterService;
 
@@ -90,6 +91,8 @@ export class ArtistComponent {
                 action: 'inactive',
                 actionName : 'Verify'
             }
+
+            this.manageType = "New Artist Requests";
         }
         else if(reqUrl === '/manageartist/registered')
         {
@@ -98,7 +101,11 @@ export class ArtistComponent {
                 action: 'active',
                 actionName : 'Block'
             }
+
              this.use_url = API_URL+'/Members?filter={"where":{"and":[{"role_id":2},{"or":[{"status" : "active"},{"status":"block"}]}]},"include":["countries","provinces"],"order":"modified DESC"}&access_token='+localStorage.getItem('currentUserToken');
+
+            this.manageType = "Registered Artists";
+
         } 
         else if(reqUrl === '/manageartist/verified')
         {
@@ -108,6 +115,9 @@ export class ArtistComponent {
                 actionName : 'Verify'
             }
              this.use_url = API_URL+'/Members?filter={"where":{"role_id":2, "status" : "verify"},"include":["countries","provinces"],"order":"modified DESC"}&access_token='+localStorage.getItem('currentUserToken');
+
+            this.manageType = "Verified Artists";
+
         } 
         else {
             this.check_account = {
@@ -115,8 +125,13 @@ export class ArtistComponent {
                 action: 'reject',
                 actionName : 'Block'
             }
+
              this.use_url = API_URL+'/Members?filter={"where":{"role_id":2, "status" : "reject"},"include":["countries","provinces"],"order":"modified DESC"}&access_token=' + localStorage.getItem('currentUserToken');
+
+            this.manageType = "Rejected Artists";
         }
+
+        console.log(this.manageType);
 
         this.http.get(this.use_url, options)
         .subscribe(response => {
@@ -127,17 +142,7 @@ export class ArtistComponent {
 
             if(this.users.length !=0) {
                 for(let i=0; i< this.users.length; i++ ) {
-                    if(this.users[i].created != '' && this.users[i].created != undefined) {
-                        this.users[i].created = moment(this.users[i].created).format('DD MMMM YYYY');
-                    } else {
-                       this.users[i].created = ''; 
-                    }
-                    if(this.users[i].modified != ''  && this.users[i].modified != undefined) {
-                        this.users[i].modified = moment(this.users[i].modified).format('DD MMMM YYYY');
-                    } else {
-                       this.users[i].modified = ''; 
-                    }
-
+                   
                     this.users[i].professions = []
                     for(let p=0; p< this.users[i].artist_profession.length; p++){
                         this.users[i].professions.push(this.profession_vals[(this.users[i].artist_profession[p])-1]);
@@ -267,17 +272,7 @@ export class ArtistComponent {
 
             if(this.users.length !=0) {
                 for(let i=0; i< this.users.length; i++ ) {
-                    if(this.users[i].created != '' && this.users[i].created != undefined) {
-                        this.users[i].created = moment(this.users[i].created).format('DD MMMM YYYY');
-                    } else {
-                       this.users[i].created = ''; 
-                    }
-                    if(this.users[i].modified != ''  && this.users[i].modified != undefined) {
-                        this.users[i].modified = moment(this.users[i].modified).format('DD MMMM YYYY');
-                    } else {
-                       this.users[i].modified = ''; 
-                    }
-
+                    
                     this.users[i].professions = []
                     for(let p=0; p< this.users[i].artist_profession.length; p++){
                         this.users[i].professions.push(this.profession_vals[(this.users[i].artist_profession[p])-1]);
@@ -320,6 +315,23 @@ export class ArtistComponent {
         .subscribe(response => {
            // console.log(response.json());       
             this.artistDetails = response.json();
+
+            if(this.artistDetails.created != '' && this.artistDetails.created != undefined) {
+                this.artistDetails.created = moment(this.artistDetails.created).format('DD MMMM YYYY');
+            } else {
+               this.artistDetails.created = ''; 
+            }
+            if(this.artistDetails.modified != ''  && this.artistDetails.modified != undefined) {
+                this.artistDetails.modified = moment(this.artistDetails.modified).format('DD MMMM YYYY');
+            } else {
+               this.artistDetails.modified = ''; 
+            }
+             if(this.artistDetails.accept_on != ''  && this.artistDetails.accept_on != undefined) {
+                this.artistDetails.accept_on = moment(this.artistDetails.accept_on).format('DD MMMM YYYY');
+            } else {
+               this.artistDetails.accept_on = ''; 
+            }
+
             
             this.artistDetails.professions = [];
             for(let p=0; p< this.artistDetails.artist_profession.length; p++) {
@@ -364,6 +376,12 @@ export class ArtistComponent {
             artist.action_on = today;
 
             artist.status = status;
+
+            if(status == 'verify') {
+                artist.accept_on = today;
+            }
+
+
             let where = '{"id": artist.id}';
             console.log(where);
 

@@ -110,8 +110,9 @@ export class BookingComponent {
 
             if(this.bookings.length !=0) {
                 for(let i=0; i< this.bookings.length; i++ ) {
-                   this.bookings[i].created = moment(this.bookings[i].created).format('DD MMMM YYYY');
-                   this.bookings[i].bookingDate = moment(this.bookings[i].bookingDate).format('DD MMMM YYYY');                   
+                   this.bookings[i].created = moment(this.bookings[i].created).format('DD MMM YYYY');
+                   this.bookings[i].bookingDate = moment(this.bookings[i].bookingDate).format('DD MMM YYYY');                   
+                   this.bookings[i].bookingStartTime = this.am_pm_to_hours(this.bookings[i].bookingStartTime);
                 }
             } else {
                 this.nobookings = 0;
@@ -201,8 +202,9 @@ export class BookingComponent {
                         removeVal = removeVal + 1;
                         continue;
                     } else {
-                       this.bookings[i].created = moment(this.bookings[i].created).format('DD MMMM YYYY');
-                       this.bookings[i].bookingDate = moment(this.bookings[i].bookingDate).format('DD MMMM YYYY');
+                       this.bookings[i].created = moment(this.bookings[i].created).format('DD MMM YYYY');
+                       this.bookings[i].bookingDate = moment(this.bookings[i].bookingDate).format('DD MMM YYYY');
+                        this.bookings[i].bookingStartTime = this.am_pm_to_hours(this.bookings[i].bookingStartTime);
                        filterBookings.push(this.bookings[i]);
                     }
                 }
@@ -227,12 +229,22 @@ export class BookingComponent {
         this.http.get(API_URL+'/Bookings/'+bookingId+'?filter={"include":[{"relation":"members", "scope":{"include":{"relation":"countries"}}},{"relation":"artists", "scope":{"include":{"relation":"countries"}}}]}&access_token='+ localStorage.getItem('currentUserToken'), options)
         .subscribe(response => {
             console.log(response.json());       
-            this.bookingDetails = response.json();  
-            this.bookingDetails.bookingDate = moment(this.bookingDetails.bookingDate).format('DD MMMM YYYY');
-            this.bookingDetails.created = moment(this.bookingDetails.created).format('DD MMMM YYYY');
+            this.bookingDetails = response.json(); 
+            this.bookingDetails.bookingDate = moment(this.bookingDetails.bookingDate).format('DD MMM YYYY');
+            this.bookingDetails.created = moment(this.bookingDetails.created).format('DD MMM YYYY');
+            this.bookingDetails.bookingStartTime = this.am_pm_to_hours(this.bookingDetails.bookingStartTime);
+            this.bookingDetails.cancelledByName = '';
+
+             this.http.get(API_URL+'/Members?filter={"where":{"id":"'+this.bookingDetails.cancelledBy+'"}}&access_token='+ localStorage.getItem('currentUserToken'), options)
+            .subscribe(cancelByDataRes => { 
+                 this.bookingDetails.cancelledByName = cancelByDataRes.json()[0].name;
+             }, error => {
+                console.log(JSON.stringify(error.json()));
+            }); 
+
 
             this.http.get(API_URL+'/Commissions?filter={"where":{"price":"all"}}&access_token='+ localStorage.getItem('currentUserToken'), options)
-            .subscribe(commissionRes => { 0;
+            .subscribe(commissionRes => { 
                  this.bookingDetails.commission = 0;
                  this.bookingDetails.commission = parseInt(commissionRes.json()[0].commission);
              }, error => {
@@ -281,13 +293,12 @@ export class BookingComponent {
 
     cancelBooking(booking) {
         if(confirm("Are you sure you want to cancel the selected Booking?")){
-            let cancellationPostData:any = {
-                bookingId: booking.id,
-                userId: booking.userId,
-            }
+           let options = new RequestOptions();
+            options.headers = new Headers();
+            options.headers.append('Content-Type', 'application/json');
+            options.headers.append('Accept', 'application/json');
 
-
-            this.http.get(API_URL+'/Bookings/cancelBooking?access_token='+ localStorage.getItem('currentUserToken'), cancellationPostData)
+            this.http.get(API_URL+'/Bookings/cancelBookingByArtist?bookingId='+booking.id+'&access_token='+ localStorage.getItem('currentUserToken'), options)
             .subscribe(response => {
                 console.log(response.json()); 
                 this.toasterService.clear();	this.toasterService.pop('success', 'Success ', "Booking Record cancelled successfully.");
@@ -305,6 +316,37 @@ export class BookingComponent {
         }     
     }
 
+     am_pm_to_hours(time) {
+        console.log(time);
+        if(time == ''){
+          return time;
+        }
+        let hours = Number(time.match(/^(\d+)/)[1]);
+      //  alert(hours);
+        let minutes = Number(time.match(/:(\d+)/)[1]);
+      //  alert(minutes);
+
+        let AMPM:any;
+        if (hours < 12) {
+            hours = hours;
+            AMPM = 'am';
+        } else if (hours == 12) {
+            hours = hours;
+            AMPM = 'pm';
+        } else if (hours > 12) {
+            hours = hours - 12;
+            AMPM = 'pm';
+        } else if (hours == 24) {
+            hours = 0;
+            AMPM = 'am';
+        } 
+        let sHours = hours.toString();
+        let sMinutes = minutes.toString();
+        if (hours < 10) sHours = "0" + sHours;
+        if (minutes < 10) sMinutes = "0" + sMinutes;
+
+        return sHours + ':' + sMinutes + ' ' + AMPM;
+    }
 
     public toInt(num:string) {
         return +num;

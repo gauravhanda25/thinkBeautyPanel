@@ -1,0 +1,38 @@
+<ion-header>
+  <ion-navbar  color="primary">
+    <button ion-button menuToggle>
+      <ion-icon name="menu"></ion-icon>
+    </button>
+    <ion-title>Add New Event</ion-title>
+  </ion-navbar>
+</ion-header>
+
+
+<ion-content padding>
+  <ion-refresher > <!-- (ionRefresh)="doRefresh($event)" -->
+    <ion-refresher-content></ion-refresher-content>
+  </ion-refresher>
+  <ion-list>
+    <ion-item>
+      <ion-label floating>Customer Name</ion-label>
+      <ion-input type="text"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label floating>Phone Number</ion-label>
+      <ion-input type="text"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label floating>Date</ion-label>
+      <ion-input type="text"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label floating>Items </ion-label>
+      <ion-input type="text"></ion-input>
+    </ion-item>
+  </ion-list>
+  <button ion-button>Add</button>
+  <!-- <p>
+    <button ion-button color="primary" menuToggle>Toggle Menu</button>
+  </p> -->
+
+</ion-content>

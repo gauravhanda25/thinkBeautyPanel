@@ -11,6 +11,7 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { NgModule } from '@angular/core';
 import {IOption} from 'ng-select';
+import * as $ from 'jQuery';
 
 import { TextMaskModule } from 'angular2-text-mask';
 import emailMask from 'text-mask-addons/dist/emailMask';
@@ -226,6 +227,7 @@ export class AddstaffComponent {
 	}
 
 	onSubmit() {
+		$('.preloader').show();
 		let options = new RequestOptions();
         options.headers = new Headers();
         options.headers.append('Content-Type', 'application/json');
@@ -292,9 +294,11 @@ export class AddstaffComponent {
              }
 
 
+		$('.preloader').hide();
 				this.toasterService.pop('success', 'Success ', "Profile updated successfully.");	
            	
 	    }, error => {
+		$('.preloader').hide();
 	    	if(error.json().error.statusCode == "422") {
             	this.toasterService.clear();	this.toasterService.pop('error', 'Error ',  "Email Address already exists. Please use different email");
             	this.error = 1;

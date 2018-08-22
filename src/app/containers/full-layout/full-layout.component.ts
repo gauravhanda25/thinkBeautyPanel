@@ -191,11 +191,13 @@ export class FullLayoutComponent {
               icon: 'icon-list',
             }
           ]
-        },{
-          name: 'FAQs',
-          url: '/faq',
+        },
+        {
+          name: 'Enquiries',
+          url: '/enquiries',
           icon: 'icon-list',
-        }];
+        }
+        ];
       	    } else if(localStorage.getItem('currentUserRoleId') == "2"){
       	      localStorage.setItem('currentUserRole', "ARTIST");
       	      this.navigation = [{

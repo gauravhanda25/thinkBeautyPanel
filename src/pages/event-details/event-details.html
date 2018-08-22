@@ -1,0 +1,20 @@
+<ion-header>
+  <ion-navbar  color="primary">
+    <button menuToggle *ngIf="!selectedItem">
+      <ion-icon name="menu"></ion-icon>
+    </button>
+    <ion-title>Event Details</ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content>
+  <ion-refresher >  <!-- (ionRefresh)="doRefresh($event)" -->
+    <ion-refresher-content></ion-refresher-content>
+  </ion-refresher>
+  <h3 text-center *ngIf="selectedItem">
+    {{selectedItem.title}}
+  </h3>
+  <h4 text-center *ngIf="selectedItem">
+    This Event is booked for <b>{{selectedItem.date}}</b>
+  </h4>
+</ion-content>
