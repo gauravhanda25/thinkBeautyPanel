@@ -29,8 +29,6 @@ export class VerifyComponent {
 	    this.activatedRoute.params.subscribe((params) => {
 	        this.id = params.id;
 	        this.token = params.token;
-	        this.source = params.source;
-	        console.log(this.source);
 	    });
 
 	    this.onSubmit();
