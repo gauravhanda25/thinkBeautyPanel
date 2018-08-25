@@ -55,6 +55,10 @@ export const routes: Routes = [
         loadChildren: './views/resetpwd/resetpwd.module#ResetpwdModule'
       },
       {
+        path: 'verify-email/:id/:token/:source',
+        loadChildren: './views/verify/verify.module#VerifyModule'
+      },
+      {
         path: 'verify-email/:id/:token',
         loadChildren: './views/verify/verify.module#VerifyModule'
       }
