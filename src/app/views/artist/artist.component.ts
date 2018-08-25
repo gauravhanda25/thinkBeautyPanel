@@ -381,9 +381,13 @@ export class ArtistComponent {
                 artist.accept_on = today;
             }
 
+            console.log(artist);
+            
 
             let where = '{"id": artist.id}';
             console.log(where);
+
+            delete artist.professions;
 
             this.http.post(API_URL+'/Members/update?where={"id":"'+  artist.id +'"}&access_token='+ localStorage.getItem('currentUserToken'), artist,  options)
             .subscribe(response => {
