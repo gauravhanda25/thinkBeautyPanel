@@ -381,15 +381,17 @@ export class ArtistComponent {
                 artist.accept_on = today;
             }
 
-            console.log(artist);
-            
+            let data:any = {
+                action_on: artist.action_on,
+                status: artist.status
+            }
 
-            let where = '{"id": artist.id}';
-            console.log(where);
+            if(status == 'verify') {
+                data.accept_on = today;
+            }
 
-            delete artist.professions;
 
-            this.http.post(API_URL+'/Members/update?where={"id":"'+  artist.id +'"}&access_token='+ localStorage.getItem('currentUserToken'), artist,  options)
+            this.http.post(API_URL+'/Members/update?where={"id":"'+  artist.id +'"}&access_token='+ localStorage.getItem('currentUserToken'), data,  options)
             .subscribe(response => {
                 if(status == "verify"){
                     this.toasterService.clear();	this.toasterService.pop('success', 'Success ', artist.name+" has been successfully verified.");
