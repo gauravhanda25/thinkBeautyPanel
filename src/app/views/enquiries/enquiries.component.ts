@@ -56,18 +56,18 @@ export class EnquiriesComponent {
 		options.headers.append('Content-Type', 'application/json');
 		options.headers.append('Accept', 'application/json');
 
-		this.http.get(API_URL+'/Commissions?filter={"where":{"active":{"neq":0}}}&access_token='+localStorage.getItem('currentUserToken'), options)
+		this.http.get(API_URL+'/Enquiries?filter={"where":{"active":{"neq":0}}}&access_token='+localStorage.getItem('currentUserToken'), options)
 		.subscribe(response => {   
 			console.log(response.json());   
 			 if(response.json().length !=0) {
 				this.enquiries = response.json();
-                for(let i=0; i< this.enquiries.length; i++ ) {
+              /*  for(let i=0; i< this.enquiries.length; i++ ) {
 					if(this.enquiries[i].created != '' && this.enquiries[i].created != undefined) {
 		                this.enquiries[i].created = moment(this.enquiries[i].created).format('DD MMMM YYYY');
 		            } else {
 		               this.enquiries[i].created = ''; 
 		            }
-		        }
+		        }  */
 		    } else {
 			 	this.nocr = 0;
 		    }

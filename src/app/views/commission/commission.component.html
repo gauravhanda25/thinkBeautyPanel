@@ -1,7 +1,7 @@
 <div class="animated fadeIn">
   <div class="row">
     <div class="col-lg-12">
-      <a class="btn btn-large btn-primary pull-right" href="#" routerLink='addcommission' style="margin-bottom:5px"><i class="fa fa-user-plus"></i> Add New</a>
+      <a class="btn btn-large btn-primary pull-right" *ngIf="commissions.length == 0"  href="#" routerLink='addcommission' style="margin-bottom:5px"><i class="fa fa-user-plus"></i> Add New</a>
     </div>
     <div class="clearfix"></div>
     <div class="col-lg-12">

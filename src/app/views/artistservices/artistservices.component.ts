@@ -26,7 +26,7 @@ import { ModalDirective } from 'ngx-bootstrap/modal';
 // Toastr
 import { ToasterModule, ToasterService, ToasterConfig, Toast }  from 'angular2-toaster/angular2-toaster';
 
-// Ng2-file-upload
+// ng2-file-upload
 import { FileSelectDirective, FileDropDirective, FileUploadModule, FileUploader } from 'ng2-file-upload';
 
 import { Ng4GeoautocompleteModule } from 'ng4-geoautocomplete';

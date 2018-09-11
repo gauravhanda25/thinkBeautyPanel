@@ -52,7 +52,7 @@ export class FullLayoutComponent {
             },
           ]
         }, 
-         /* {
+          {
           name: 'Manage Salons',
           url: '/managesalon',
           icon: 'icon-list',
@@ -83,7 +83,7 @@ export class FullLayoutComponent {
           icon: 'icon-list',
         },
             ]
-        }, */
+        }, 
         {
           name: 'Manage Users',
           url: '/manageusers',
