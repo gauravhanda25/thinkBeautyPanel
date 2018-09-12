@@ -114,7 +114,7 @@ export class LifetimerevenueComponent {
             this.use_url = API_URL+'/Bookings?filter={"where":{"and":[{"bookingStatus":{"neq":"cancelled"}}]},"include":[{"relation":"members", "scope":{"include":{"relation":"countries"}}},{"relation":"artists", "scope":{"include":{"relation":"countries"}}}],"order":"bookingDate DESC"}&access_token=' + localStorage.getItem('currentUserToken');
         }
 
-        this.http.get(this.use_url, options)
+      /*  this.http.get(this.use_url, options)
         .subscribe(response => {
             console.log(response.json());       
             this.revenues = response.json();    
@@ -197,6 +197,7 @@ export class LifetimerevenueComponent {
             console.log(JSON.stringify(error.json()));
         });    	        
 
+        */
  	}
 
     onChangeFilter(){
