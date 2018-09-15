@@ -57,7 +57,7 @@ export class FullLayoutComponent {
           url: '/managesalon',
           icon: 'icon-list',
                 children: [
-            {
+         /*   {
           name: 'New Salon Requests',
           url: '/managesalon/newrequests',
           icon: 'icon-list',
@@ -66,7 +66,7 @@ export class FullLayoutComponent {
           name: 'Verified Salons',
           url: '/managesalon/verified',
           icon: 'icon-list',
-        },
+        },   */
           {
           name: 'Registered Salons',
           url: '/managesalon/registered',

@@ -95,7 +95,7 @@ export class AddsalonComponent {
     		road:'',
     		city:'',
     		cpr:'',
-    		// password:'',
+    		password:'',
     		emailVerified: false,
     		status: 'active',
     		created_on: today
@@ -182,9 +182,9 @@ export class AddsalonComponent {
 		this.data.role_id = parseInt(this.data.role_id);
 		
 		if(this.editparam.id  == undefined){
-			// if(this.data.password == '') {
-				// this.data.password = this.randomPassword(8);
-			// }
+			if(this.data.password == '') {
+				this.data.password = this.randomPassword(8);
+			}
 
 			this.http.post(API_URL+'/Members?access_token='+localStorage.getItem('currentUserToken'), this.data,  options)
 	        .subscribe(response => {
@@ -204,9 +204,9 @@ export class AddsalonComponent {
 			
 		} else {
 
-			// if(this.data.password == '') {
-				// delete(this.data.password);
-			// }
+			if(this.data.password == '') {
+				delete(this.data.password);
+			}
 			console.log(this.data);
 			let where = '{"id": this.editparam.id}';
 			console.log(where);

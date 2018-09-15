@@ -39,7 +39,7 @@ export class LifetimerevenueComponent {
     private months:any = [];
     private total_revenue:any = 0;
     
-    private currency:any = localStorage.getItem('currentUserCurrency');
+    private currency:any = ''; // localStorage.getItem('currentUserCurrency');
 
 
     public bsStartValue = new Date();
@@ -206,6 +206,14 @@ export class LifetimerevenueComponent {
         options.headers.append('Content-Type', 'application/json');
         options.headers.append('Accept', 'application/json');
 
+        if(this.data.country != '') {
+            if(this.data.country == "5a817d00d5fffe5190131210") {
+              this.currency = "BHD";
+            } else {
+              this.currency = "KWD";
+            }
+        }
+
         this.total_revenue = 0;
         this.norevenues = 1;
         let dateFilter:any;
@@ -233,6 +241,7 @@ export class LifetimerevenueComponent {
 
             if(this.revenues.length !=0) {
                 for(let i=0; i< response.json().length; i++ ) {
+                    if(this.revenues[i-removeNo].members != undefined) {
 
                     if((this.data.country != '' && this.revenues[i-removeNo].members.country != this.data.country) || (this.data.year != '' && moment(this.revenues[i-removeNo].bookingDate).year() != this.data.year) || (this.data.month != '' && moment(this.revenues[i-removeNo].bookingDate).month() != this.data.month) ){
 
@@ -294,7 +303,11 @@ export class LifetimerevenueComponent {
                     } else {
                       this.revenues[i-removeNo].currency = "KWD";
                     }
-
+                } else {
+                     this.revenues.splice(i-removeNo,1);
+                        removeNo = removeNo + 1;
+                        continue;
+                }
                 }
             } else {
                 this.norevenues = 0;
