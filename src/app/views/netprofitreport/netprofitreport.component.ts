@@ -40,6 +40,7 @@ export class NetprofitreportComponent {
     private total_revenue:any = 0;
 
 
+    private currency:any = ''; // localStorage.getItem('currentUserCurrency');
     public bsStartValue = new Date();
 
     private toasterService: ToasterService;
