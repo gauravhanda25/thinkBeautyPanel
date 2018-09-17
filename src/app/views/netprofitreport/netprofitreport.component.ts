@@ -100,7 +100,7 @@ export class NetprofitreportComponent {
             console.log(JSON.stringify(error.json()));
         });
 
-        for(let i = 1970; i<= (new Date()).getFullYear(); i++){
+        for(let i = 2018; i<= (new Date()).getFullYear(); i++){
             this.years.push(i);
         }
 
@@ -113,7 +113,7 @@ export class NetprofitreportComponent {
             this.use_url = API_URL+'/Bookings?filter={"where":{"and":[{"bookingStatus":{"neq":"cancelled"}}]},"include":[{"relation":"members", "scope":{"include":{"relation":"countries"}}},{"relation":"artists", "scope":{"include":{"relation":"countries"}}}],"order":"bookingDate DESC"}&access_token=' + localStorage.getItem('currentUserToken');
         }
 
-        this.http.get(this.use_url, options)
+       /* this.http.get(this.use_url, options)
         .subscribe(response => {
             console.log(response.json());       
             this.revenues = response.json();    
@@ -193,7 +193,9 @@ export class NetprofitreportComponent {
             }
         }, error => {
             console.log(JSON.stringify(error.json()));
-        });   	        
+        });   	    
+
+        */
 
  	}
     onChangeFilter(){

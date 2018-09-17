@@ -101,7 +101,7 @@ export class LifetimerevenueComponent {
             console.log(JSON.stringify(error.json()));
         });
 
-        for(let i = 1970; i<= (new Date()).getFullYear(); i++){
+        for(let i = 2018; i<= (new Date()).getFullYear(); i++){
             this.years.push(i);
         }
 
